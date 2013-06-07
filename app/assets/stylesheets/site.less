@@ -12,42 +12,46 @@ body {
 .ident2 { color: @blue; }
 
 #site-main {
-  width: 1024px; padding: 32px 16px 32px 16px;
+  width: 1024px; margin: 0 auto;
   border-top: 12px solid @blue; background: white;
   border-bottom: none;
   .drop-shadow(0, 0, 5px, 0.25);
-  .navbar-inner {
-    border: none; border-top: 1px solid @soft-grey; background: none; box-shadow: none;
-    padding: 0; .rounded(0);
-    ul {
-      margin: 0;
-      a { padding: 16px 8px; margin: -1px 32px 0 0; background: none; box-shadow: none; font-size: 16px; }
-      li.active {
+  .navbar {
+    .navbar-inner {
+      border: none; border-top: 1px solid @soft-grey; background: none; box-shadow: none; padding: 0; .rounded(0);
+      ul {
+        margin: 0;
         a {
-          color: #555; border-top: 3px solid @orange; padding-top: 14px;
-          &:hover { border-top: 3px solid @orange; }
+          padding: 12px 8px; margin: -1px 32px 0 0; background: none; box-shadow: none; font-size: 15px;
         }
-      }
-      li {
-        a { color: #aaa; border-top: 1px solid transparent;
-          &:hover { color: #555; border-top: 1px solid black; }
+        li.active {
+          a {
+            color: #222; border-top: 4px solid @orange; padding-top: 9px;
+            &:hover { border-top: 4px solid @orange; }
+          }
+        }
+        li {
+          a { color: #aaa; border-top: 1px solid transparent;
+            &:hover { color: #222; border-top: 1px solid black; }
+          }
         }
       }
     }
   }
   .site-body { min-height: 500px; }
-  .footer {
-    * { margin: 0; padding: 0; }
-    h2 { color: white; font-size: 20px; }
-    p { font-size: 12px; padding: 8px 0; font-family: 'Arial'; }
-    i { color: @orange; font-size: 13px; }
-    address { padding: 0 0 4px 0; }
-    border-top: 5px solid #555;
-    color: #eee;
-    background: #222;
-    padding: 12px 32px 0 32px;
-    margin: 16px -16px -32px;
-    .bottom { background: #000; margin: 0 -32px; padding: 16px 32px; }
-    border-bottom: 12px solid @blue;
-  }
+}
+
+#footer {
+  width: 1024px - 64px; margin: 0 auto;
+  * { margin: 0; padding: 0; }
+  h2 { color: white; font-size: 20px; }
+  p { font-size: 12px; padding: 8px 0; font-family: 'Arial'; }
+  i { color: @orange; font-size: 13px; }
+  address { padding: 0 0 4px 0; }
+  border-top: 5px solid #555;
+  color: #eee;
+  background: #222;
+  padding: 12px 32px 0 32px;
+  .bottom { background: #000; margin: 0 -32px; padding: 16px 32px; }
+  border-bottom: 12px solid @blue;
 }

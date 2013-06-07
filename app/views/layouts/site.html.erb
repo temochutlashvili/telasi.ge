@@ -7,16 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="site-main" class="container">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <ul class="nav">
-        <%= site_menu %>
-      </ul>
+  <div id="site-main">
+    <div class="container">
+      <%= render partial: 'layouts/site/top' %>
+      <div class="site-body"><%= yield %></div>
     </div>
   </div>
-  <div class="site-body"><%= yield %></div>
   <%= render partial: 'layouts/site/footer' %>
-</div>
 </body>
 </html>
