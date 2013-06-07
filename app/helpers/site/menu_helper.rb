@@ -48,7 +48,7 @@ module Site::MenuHelper
         ])
       else
         
-        el('li', attrs: { class: class_name }, children: [
+        el('li', attrs: { class: [class_name, 'top'] }, children: [
           el('a', attrs: { href: @url }, text: label)
         ])
       end
