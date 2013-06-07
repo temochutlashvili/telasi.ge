@@ -5,13 +5,12 @@ gem 'rails', '4.0.0.rc1'
 gem 'turbolinks'
 
 # resources
+gem 'therubyracer', platforms: :ruby
 gem 'less', '~> 2'
 # gem 'sass-rails', '~> 4.0.0.rc1'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 # db
 gem 'sqlite3'
