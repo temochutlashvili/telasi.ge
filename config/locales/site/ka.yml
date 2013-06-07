@@ -1,4 +1,15 @@
 ka:
   site:
-    index:
-      title: საწყისი
+    pages:
+      home:
+        title: საწყისი
+      about:
+        title: კომპანიაზე
+      investors:
+        title: ინვესტორებს
+      customers:
+        title: მომხმარებლებს
+      tenders:
+        title: ტენდერები
+      contact:
+        title: კონტაქტი

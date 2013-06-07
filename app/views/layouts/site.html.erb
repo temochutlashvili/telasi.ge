@@ -7,38 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="site-main" class="container">
-    <div class="navbar">
-      <div class="navbar-inner">
-        <ul class="nav">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="/">About</a></li>
-          <li><a href="/">Investors</a></li>
-          <li><a href="/">Customers</a></li>
-          <li><a href="/">Tenders</a></li>
-          <li><a href="/">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="site-body">
-      <%= yield %>
-    </div>
-    <div class="footer">
-      <div class="row">
-        <div class="span4">
-          <h2>სს თელასი</h2>
-          <address>საქართველო<br>0154, თბილისი<br>ვანის ქ. №3</address>
-          <p>
-            <i class="icon-phone"></i> &nbsp; ტ: +(99532) 2779812<br>
-            <i class="icon-phone"></i> &nbsp; ტ: +(99532) 2274581<br>
-            <i class="icon-phone"></i> &nbsp; ფ: +(99532) 2779981
-          </p>
-        </div>
-      </div>
-      <div class="bottom">
-        &copy; 2013 სს თელასი
-      </div>
+<div id="site-main" class="container">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <ul class="nav">
+        <%= site_menu %>
+      </ul>
     </div>
   </div>
+  <div class="site-body"><%= yield %></div>
+  <%= render partial: 'layouts/site/footer' %>
+</div>
 </body>
 </html>
