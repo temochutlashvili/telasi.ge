@@ -7,7 +7,7 @@ module Site::MenuHelper
     el('ul', attrs: { class: 'nav' }, children: [
       m('home', selected: controller_name == 'home'),
       m('about', selected: controller_name == 'about', children: [
-        m('mission'), m('history'), m('law'), m('structure'), m('internals'), m('management')
+        m('mission'), m('history'), sep, m('management'), m('law'), m('structure'), m('internals')
       ]),
       m('investors', selected: controller_name == 'investors'),
       m('customers', selected: controller_name == 'customers'),
@@ -17,6 +17,7 @@ module Site::MenuHelper
   end
 
   def m(name, h = {}); Menu.new(h.merge(name: name)) end
+  def sep; Menu.new(separator: true) end
 
   class Menu
     include Forma::Html
@@ -25,31 +26,36 @@ module Site::MenuHelper
       @name = h[:name]
       @children = h[:children] || []
       @selected = h[:selected] || false
+      @separator = h[:separator] || false
     end
 
     def to_e(h = {})
-      class_name = @selected ? 'active' : 'common'
-      label = I18n.t("site.pages.#{[h[:prefix], @name].flatten.join('.')}.title")
-      url = File.join('/site', h[:prefix] || '', @name)
-      if @children.any?
-        el('li', attrs: { class: ['dropdown', class_name] }, children: [
-          el('a',
-            attrs: { href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' },
-            children: [
-              el('span', text: label),
-              el('b', attrs: { class: 'caret' })
-            ]
-          ),
-          el(
-            'ul',
-            attrs: { class: 'dropdown-menu' },
-            children: @children.map { |x| x.to_e(prefix: @name) }
-          )
-        ])
+      if @separator
+        el('li', attrs: { class: 'divider' })
       else
-        el('li', attrs: { class: [class_name] }, children: [
-          el('a', attrs: { href: url }, text: label)
-        ])
+        class_name = @selected ? 'active' : 'common'
+        label = I18n.t("site.pages.#{[h[:prefix], @name].flatten.join('.')}.title")
+        url = File.join('/site', h[:prefix] || '', @name)
+        if @children.any?
+          el('li', attrs: { class: ['dropdown', class_name] }, children: [
+            el('a',
+              attrs: { href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' },
+              children: [
+                el('span', text: label),
+                el('b', attrs: { class: 'caret' })
+              ]
+            ),
+            el(
+              'ul',
+              attrs: { class: 'dropdown-menu' },
+              children: @children.map { |x| x.to_e(prefix: @name) }
+            )
+          ])
+        else
+          el('li', attrs: { class: [class_name] }, children: [
+            el('a', attrs: { href: url }, text: label)
+          ])
+        end
       end
     end
   end
