@@ -1,0 +1,91 @@
+<div class="page-header">
+  <h1>სააქციო კაპიტალის სტრუქტურა</h1>
+</div>
+<div class="well-read">
+  <h2>საერთო მაჩვენებლები</h2>
+  <table class="table">
+    <tr>
+      <td>სს &quot;თელასის&quot; კაპიტალი</td>
+      <td><code>112,429,418.00</code> ლარი</td>
+    </tr>
+    <tr>
+      <td>გამოშვებული ჩვეულებრივი აქციები</td>
+      <td><code>112,429,418</code> ცალი</td>
+    </tr>
+    <tr>
+      <td>განთავსებული აქციები</td>
+      <td><code>112,429,418</code> ცალი</td>
+    </tr>
+    <tr>
+      <td>აქციის ნომინალი</td>
+      <td><code>1.00</code> ლარი</td>
+    </tr>
+  </table>
+  <h2>აქციების მფლობელები</h2>
+  <p>
+    2012 წლის 31 დეკემბრის მდგომარეობით, სააქციო კაპიტალის საერთო სტრუქტურა შემდეგნაირია:
+  </p>
+  <div id="chart_div" style="height: 500px; width: 100%;">
+    <i class="icon-refresh icon-spin" style="font-size: 32px; color: orange;"></i> გრაფიკი იტვირთება
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ფასიანი ქაღალდი</th>
+        <th>მესაკუთრე</th>
+        <th>ღირებულება</th>
+        <th>მაჩვენებელი</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ჩვეულებრივი აქცია</td>
+        <td>&quot;Silk Road Holdings B.V.&quot; &mdash; ნიდერლანდები</td>
+        <td>
+          <code>84,443,957.00</code> ლარის ღირებულების აქციები
+        </td>
+        <td>
+          <code>75.108</code>%
+        </td>
+      </tr>
+      <tr>
+        <td>ჩვეულებრივი აქცია</td>
+        <td>სს &quot;საპარტნიორო ფონდი&quot; &mdash; ქ. თბილისი</td>
+        <td>
+          <code>27,577,837.00</code> ლარის ღირებულების აქციები
+        </td>
+        <td>
+          <code>24.529</code>%
+        </td>
+      </tr>
+      <tr>
+        <td>ჩვეულებრივი აქცია</td>
+        <td>დანარჩენი აქციონერები</td>
+        <td>
+          <code>407,624.00</code> ლარის ღირებულების აქციები
+        </td>
+        <td>
+          <code>0.363</code>%
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows([
+        ['Silk Road Holdings', 84443957.00],
+        ['სს "საპარტნიორო ფონდი"', 27577837.00],
+        ['სხვა', 407624.0],
+      ]);
+      var options = { };
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+</div>

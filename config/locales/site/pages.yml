@@ -24,9 +24,11 @@ ka:
         internals:
           title: "შიდა დოკუმენტები"
         management:
-          title: "კორპორატიული მართვა"
+          title: "კორპორაციული მართვა"
       investors:
         title: ინვესტორებს
+        capital:
+          title: "კაპიტალის სტრუქტურა"
       customers:
         title: მომხმარებლებს
       tenders:

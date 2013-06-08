@@ -9,7 +9,9 @@ module Site::MenuHelper
       m('about', selected: controller_name == 'about', children: [
         m('mission'), m('history'), sep, m('management'), m('law'), m('structure'), m('internals')
       ]),
-      m('investors', selected: controller_name == 'investors'),
+      m('investors', selected: controller_name == 'investors', children: [
+        m('capital')
+      ]),
       m('customers', selected: controller_name == 'customers'),
       m('tenders', selected: controller_name == 'tenders'),
       m('contact', selected: controller_name == 'contact')

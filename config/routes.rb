@@ -15,7 +15,8 @@ TelasiGe::Application.routes.draw do
       get '/management', action: 'management', as: 'about_management'
     end
     scope '/investors', controller: 'investors' do
-      get '/', action: 'index',  as: 'investors'
+      get '/', to: redirect('/investors/capital')
+      get '/capital', action: 'capital', as: 'capital'
     end
     scope '/customers', controller: 'customers' do
       get '/', action: 'index',  as: 'customers'
