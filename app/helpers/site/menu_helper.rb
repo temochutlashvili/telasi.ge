@@ -10,7 +10,7 @@ module Site::MenuHelper
         m('mission'), m('history'), sep, m('management'), m('law'), m('structure'), m('internals')
       ]),
       m('investors', selected: controller_name == 'investors', children: [
-        m('capital', turbo: false), m('essentials'), m('registry'), sep, m('accounting'), m('auditor'), m('notifications')
+        m('capital', turbo: false), m('essentials'), m('registration'), sep, m('reports'), m('auditoring'), m('notifications')
       ]),
       m('customers', selected: controller_name == 'customers'),
       m('tenders', selected: controller_name == 'tenders'),

@@ -1,33 +1,26 @@
 # -*- encoding : utf-8 -*-
 TelasiGe::Application.routes.draw do
+  def site_routes(parent, names = [])
+    scope "/#{parent}", controller: parent do
+      if names.any?
+        get '/', to: redirect("/site/#{parent}/#{names.first}")
+        names.each do |name|
+          get "/#{name}", action: name, as: "#{parent}_#{name}"
+        end
+      else
+        get '/', action: 'index', as: parent
+      end
+    end
+  end
+
   namespace 'site' do
     get '/', to: redirect('/site/home')
-    scope '/home', controller: 'home' do
-      get '/', action: 'index',  as: 'home'
-    end
-    scope '/about', controller: 'about' do
-      get '/', to: redirect('/site/about/mission')
-      get '/mission', action: 'mission',  as: 'about_mission'
-      get '/history', action: 'history',  as: 'about_history'
-      get '/law', action: 'law',  as: 'about_law'
-      get '/structure', action: 'structure',  as: 'about_structure'
-      get '/internals', action: 'internals', as: 'about_internals'
-      get '/management', action: 'management', as: 'about_management'
-    end
-    scope '/investors', controller: 'investors' do
-      get '/', to: redirect('/investors/capital')
-      get '/capital', action: 'capital', as: 'investors_capital'
-      get '/essentials', action: 'essentials', as: 'investors_ssentials'
-    end
-    scope '/customers', controller: 'customers' do
-      get '/', action: 'index',  as: 'customers'
-    end
-    scope '/tenders', controller: 'tenders' do
-      get '/', action: 'index',  as: 'tenders'
-    end
-    scope '/contact', controller: 'contact' do
-      get '/', action: 'index',  as: 'contact'
-    end
+    site_routes('home')
+    site_routes('about', [ 'mission', 'history', 'law', 'structure', 'internals', 'management' ])
+    site_routes('investors', [ 'capital', 'essentials', 'registration', 'reports', 'auditoring', 'notifications' ])
+    site_routes('customers')
+    site_routes('tenders')
+    site_routes('contact')
   end
 
   root to: redirect('/site/home')

@@ -33,11 +33,11 @@ ka:
           title: "კაპიტალის სტრუქტურა"
         essentials:
           title: "არსებითი ფაქტები"
-        accounting:
+        reports:
           title: "საანგარიშგებო ინფორმაცია"
-        registry:
+        registration:
           title: "რეგისტრაციის ინფორმაცია"
-        auditor:
+        auditoring:
           title: "კომპანიის აუდიტორი"
         notifications:
           title: "შეტყობინებები აქციონერებისთვის"
