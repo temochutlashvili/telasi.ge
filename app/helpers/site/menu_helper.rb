@@ -10,7 +10,7 @@ module Site::MenuHelper
         m('mission'), m('history'), sep, m('management'), m('law'), m('structure'), m('internals')
       ]),
       m('investors', selected: controller_name == 'investors', children: [
-        m('capital')
+        m('capital', turbo: false), m('essentials'), m('registry'), sep, m('accounting'), m('auditor'), m('notifications')
       ]),
       m('customers', selected: controller_name == 'customers'),
       m('tenders', selected: controller_name == 'tenders'),
@@ -29,6 +29,7 @@ module Site::MenuHelper
       @children = h[:children] || []
       @selected = h[:selected] || false
       @separator = h[:separator] || false
+      @turbo = h[:turbo] == false ? false : true
     end
 
     def to_e(h = {})
@@ -54,7 +55,7 @@ module Site::MenuHelper
             )
           ])
         else
-          el('li', attrs: { class: [class_name] }, children: [
+          el('li', attrs: { class: [class_name], 'data-no-turbolink' => (! @turbo) }, children: [
             el('a', attrs: { href: url }, text: label)
           ])
         end

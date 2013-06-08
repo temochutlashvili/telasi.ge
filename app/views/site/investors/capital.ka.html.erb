@@ -1,6 +1,9 @@
 <div class="page-header">
   <h1>სააქციო კაპიტალის სტრუქტურა</h1>
 </div>
+<div id="chart_div" style="height: 400px; width: 100%; text-align: center; line-height: 400px;">
+  <i class="icon-refresh icon-spin" style="font-size: 32px; color: green;"></i> გრაფიკი იტვირთება...
+</div>
 <div class="well-read">
   <h2>საერთო მაჩვენებლები</h2>
   <table class="table">
@@ -25,9 +28,6 @@
   <p>
     2012 წლის 31 დეკემბრის მდგომარეობით, სააქციო კაპიტალის საერთო სტრუქტურა შემდეგნაირია:
   </p>
-  <div id="chart_div" style="height: 500px; width: 100%;">
-    <i class="icon-refresh icon-spin" style="font-size: 32px; color: orange;"></i> გრაფიკი იტვირთება
-  </div>
   <table class="table">
     <thead>
       <tr>
@@ -70,22 +70,24 @@
       </tr>
     </tbody>
   </table>
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    google.load('visualization', '1.0', {'packages':['corechart']});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['Silk Road Holdings', 84443957.00],
-        ['სს "საპარტნიორო ფონდი"', 27577837.00],
-        ['სხვა', 407624.0],
-      ]);
-      var options = { };
+</div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('visualization', '1.0', {'packages':['corechart']});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Topping');
+    data.addColumn('number', 'Slices');
+    data.addRows([
+      ['Silk Road Holdings', 84443957.00],
+      ['სს "საპარტნიორო ფონდი"', 27577837.00],
+      ['სხვა', 407624.0],
+    ]);
+    var options = { };
+    try {
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       chart.draw(data, options);
-    }
-  </script>
-</div>
+    } catch (exception) {}
+  }
+</script>

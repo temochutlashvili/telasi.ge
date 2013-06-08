@@ -29,6 +29,16 @@ ka:
         title: ინვესტორებს
         capital:
           title: "კაპიტალის სტრუქტურა"
+        essentials:
+          title: "არსებითი ფაქტები"
+        accounting:
+          title: "საანგარიშგებო ინფორმაცია"
+        registry:
+          title: "რეგისტრაციის ინფორმაცია"
+        auditor:
+          title: "კომპანიის აუდიტორი"
+        notifications:
+          title: "შეტყობინებები აქციონერებისთვის"
       customers:
         title: მომხმარებლებს
       tenders:
