@@ -7,7 +7,7 @@ module Site::MenuHelper
     el('ul', attrs: { class: 'nav' }, children: [
       m('home', selected: controller_name == 'home'),
       m('about', selected: controller_name == 'about', children: [
-        m('mission'), m('history'), m('law'), m('structure')
+        m('mission'), m('history'), m('law'), m('structure'), m('internals'), m('management')
       ]),
       m('investors', selected: controller_name == 'investors'),
       m('customers', selected: controller_name == 'customers'),

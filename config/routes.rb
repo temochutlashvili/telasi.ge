@@ -11,6 +11,8 @@ TelasiGe::Application.routes.draw do
       get '/history', action: 'history',  as: 'about_history'
       get '/law', action: 'law',  as: 'about_law'
       get '/structure', action: 'structure',  as: 'about_structure'
+      get '/internals', action: 'internals', as: 'about_internals'
+      get '/management', action: 'management', as: 'about_management'
     end
     scope '/investors', controller: 'investors' do
       get '/', action: 'index',  as: 'investors'

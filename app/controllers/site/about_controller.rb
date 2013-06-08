@@ -19,4 +19,12 @@ class Site::AboutController < Site::SiteController
   def structure
     @title = I18n.t('site.pages.about.structure.title')
   end
+
+  def internals
+    @title = I18n.t('site.pages.about.internals.title')
+  end
+
+  def management
+    @title = I18n.t('site.pages.about.management.title')
+  end
 end

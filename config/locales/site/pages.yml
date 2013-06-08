@@ -20,7 +20,11 @@ ka:
         law:
           title: "ნორმატიული ბაზა"
         structure:
-          title: "სტრუქტურა"
+          title: "ორგანიზაციული სტრუქტურა"
+        internals:
+          title: "შიდა დოკუმენტები"
+        management:
+          title: "კორპორატიული მართვა"
       investors:
         title: ინვესტორებს
       customers:
