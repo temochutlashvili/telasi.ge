@@ -85,6 +85,8 @@
       ['სს "საპარტნიორო ფონდი"', 27577837.00],
       ['სხვა', 407624.0],
     ]);
+    var formatter = new google.visualization.NumberFormat({ fractionDigits: 2, prefix: 'GEL' });
+    formatter.format(data, 1);
     var options = { };
     try {
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
