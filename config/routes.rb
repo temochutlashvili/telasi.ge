@@ -6,7 +6,10 @@ TelasiGe::Application.routes.draw do
       get '/', action: 'index',  as: 'home'
     end
     scope '/about', controller: 'about' do
-      get '/', action: 'index',  as: 'about'
+      get '/mission', action: 'mission',  as: 'about_mission'
+      get '/history', action: 'history',  as: 'about_history'
+      get '/law', action: 'law',  as: 'about_law'
+      get '/structure', action: 'structure',  as: 'about_structure'
     end
     scope '/investors', controller: 'investors' do
       get '/', action: 'index',  as: 'investors'
