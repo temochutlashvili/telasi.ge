@@ -23,14 +23,14 @@ module Site::MenuHelper
 
     def initialize(h)
       @name = h[:name]
-      @url = File.join('/site', @name)
       @children = h[:children] || []
       @selected = h[:selected] || false
     end
 
-    def to_e
+    def to_e(h = {})
       class_name = @selected ? 'active' : 'common'
-      label = I18n.t("site.pages.#{@name}.title")
+      label = I18n.t("site.pages.#{[h[:prefix], @name].flatten.join('.')}.title")
+      url = File.join('/site', h[:prefix] || '', @name)
       if @children.any?
         el('li', attrs: { class: ['dropdown', class_name] }, children: [
           el('a',
@@ -43,13 +43,12 @@ module Site::MenuHelper
           el(
             'ul',
             attrs: { class: 'dropdown-menu' },
-            children: @children.map { |x| x.to_e }
+            children: @children.map { |x| x.to_e(prefix: @name) }
           )
         ])
       else
-        
-        el('li', attrs: { class: [class_name, 'top'] }, children: [
-          el('a', attrs: { href: @url }, text: label)
+        el('li', attrs: { class: [class_name] }, children: [
+          el('a', attrs: { href: url }, text: label)
         ])
       end
     end

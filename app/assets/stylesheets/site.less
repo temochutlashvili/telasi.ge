@@ -17,26 +17,26 @@ body {
   border-bottom: none;
   .drop-shadow(0, 0, 5px, 0.25);
   .navbar {
-    .navbar-inner {
+    div.navbar-inner {
       border: none; border-top: 1px solid @soft-grey; background: none; box-shadow: none; padding: 0; .rounded(0);
-      ul {
-        margin: 0;
-        a {
-          padding: 12px 8px; margin: -1px 32px 0 0; background: none; box-shadow: none; font-size: 15px;
-        }
-        li.top.active {
-          a {
-            color: #222; border-top: 4px solid @orange; padding-top: 9px;
-            &:hover { border-top: 4px solid @orange; }
-          }
-        }
-        li.top {
-          a { color: #aaa; border-top: 1px solid transparent;
-            &:hover { color: #222; border-top: 1px solid black; }
-          }
-        }
-      }
     }
+    .nav {
+          margin: 0;
+          &>li {
+            &>a { color: #aaa; border-top: 1px solid transparent;
+              &:hover { color: #222; border-top: 1px solid black; }
+            }
+            &>a {
+              padding: 12px 8px; margin: -1px 32px 0 0; background: none; box-shadow: none; font-size: 15px;
+            }
+          }
+          &>li.active {
+            &>a {
+              color: #222; border-top: 4px solid @orange; padding-top: 9px;
+              &:hover { border-top: 4px solid @orange; }
+            }
+          }
+        }
   }
   .site-body { min-height: 500px; }
 }

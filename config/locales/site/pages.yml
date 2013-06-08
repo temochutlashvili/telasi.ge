@@ -13,6 +13,14 @@ ka:
         title: საწყისი
       about:
         title: კომპანიაზე
+        mission:
+          title: "მისია"
+        history:
+          title: "ისტორია"
+        law:
+          title: "ნორმატიული ბაზა"
+        structure:
+          title: "სტრუქტურა"
       investors:
         title: ინვესტორებს
       customers:
