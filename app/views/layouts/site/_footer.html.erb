@@ -1,16 +1,21 @@
-<div id="footer">
+<div id="footer2">
   <div class="row">
     <div class="span4">
-      <h2><%= t('site.info.company') %></h2>
-      <address class="dropped">
-        <%= t('site.info.address.line1') %><br>
-        <%= t('site.info.address.line2') %>
-      </address>
-      <p class="dropped">
-        <i class="icon-phone"></i> &nbsp; <%= t('site.info.phone1') %><br>
-        <i class="icon-phone"></i> &nbsp; <%= t('site.info.phone2') %><br>
-        <i class="icon-print"></i> &nbsp; <%= t('site.info.fax') %>
-      </p>
+      <div class="rep">
+        <div class="title"><%= t('site.info.company') %></div>
+        <address>
+          <%= t('site.info.address.line1') %><br>
+          <%= t('site.info.address.line2') %>
+        </address>
+        <address>
+          <%= t('site.info.phone1') %><br>
+          <%= t('site.info.phone2') %><br>
+          <%= t('site.info.fax') %>
+        </address>
+      </div>
+    </div>
+    <div class="span6">
+      other...
     </div>
   </div>
   <div class="bottom">
