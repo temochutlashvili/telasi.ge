@@ -6,6 +6,7 @@ TelasiGe::Application.routes.draw do
       get '/', action: 'index',  as: 'home'
     end
     scope '/about', controller: 'about' do
+      get '/', to: redirect('/site/about/mission')
       get '/mission', action: 'mission',  as: 'about_mission'
       get '/history', action: 'history',  as: 'about_history'
       get '/law', action: 'law',  as: 'about_law'
