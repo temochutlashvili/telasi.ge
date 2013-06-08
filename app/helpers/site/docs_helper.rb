@@ -8,7 +8,7 @@ module Site::DocsHelper
         ext = doc[:url][-3..-1]
         el('tr', children: [
           el('td', text: doc[:label].html_safe),
-          el('td', children: [
+          el('td', attrs: { width: 200 }, children: [
             el('a', attrs: { href: doc[:url], class: 'download' }, children: [
               el('i', attrs: { class: 'icon-download' }),
               el('span', text: "#{ext.upcase} #{t('site.general.format')}")
