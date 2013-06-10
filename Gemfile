@@ -13,6 +13,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # db
+gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'sqlite3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
