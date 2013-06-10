@@ -8,6 +8,8 @@
     <%= link_to t('models.general.actions.logout'), signout_url, confirm: t('models.general.actions.logout_confirm') %>
   </div>
 <% else %>
-  <%= link_to 'signin', '/auth/facebook' %>
+  <div class="empty-user">
+    <%= link_to %Q{<i class="icon-user icon-white"></i> #{t('models.general.actions.login')}}.html_safe, '/auth/facebook', class: 'btn btn-small btn-warning' %>
+  </div>
 <% end %>
 </div>

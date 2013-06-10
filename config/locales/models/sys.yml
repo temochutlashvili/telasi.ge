@@ -2,17 +2,20 @@ ka:
   models:
     general:
       actions:
+        login: "შესვლა"
         logout: "გასვლა"
         logout_confirm: "ნამდვილად გინდათ გასვლა?"
 ru:
   models:
     general:
       actions:
+        login: "Вход"
         logout: "Выход"
         logout_confirm: "Вы действительно ходите выйти?"
 en:
   models:
     general:
       actions:
+        login: "login"
         logout: "Logout"
         logout_confirm: "Do you really want to logout?"
