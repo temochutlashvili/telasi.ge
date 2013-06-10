@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 TelasiGe::Application.routes.draw do
   # facebook API
-  match 'auth/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']
-  match 'auth/failure', to: redirect('/'), via: ['get', 'post', 'put']
-  match 'signout', to: 'sessions#destroy', as: 'signout', via: ['get', 'post', 'put']
+  match '/auth/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']
+  match '/auth/failure', to: redirect('/'), via: ['get', 'post', 'put']
+  match '/signout', to: 'sessions#destroy', as: 'signout', via: ['get', 'post', 'put']
 
   # Site namespace
   namespace 'site' do
@@ -27,6 +27,13 @@ TelasiGe::Application.routes.draw do
     site_routes('customers')
     site_routes('tenders')
     site_routes('contact')
+  end
+
+  # User dashboard.
+  namespace 'user' do
+    scope '/dashboard', controller: 'dashboard' do
+      get '/', action: 'index'
+    end
   end
 
   root to: redirect('/site/home')
