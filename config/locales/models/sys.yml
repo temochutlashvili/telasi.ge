@@ -2,20 +2,20 @@ ka:
   models:
     general:
       actions:
-        login: "შესვლა"
+        login: "შესვლა Facebook-ის მეშვეობით"
         logout: "გასვლა"
         logout_confirm: "ნამდვილად გინდათ გასვლა?"
 ru:
   models:
     general:
       actions:
-        login: "Вход"
+        login: "Вход через Facebook"
         logout: "Выход"
         logout_confirm: "Вы действительно ходите выйти?"
 en:
   models:
     general:
       actions:
-        login: "login"
+        login: "Login using Facebook"
         logout: "Logout"
         logout_confirm: "Do you really want to logout?"
