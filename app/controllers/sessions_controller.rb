@@ -4,13 +4,12 @@ class SessionsController < ApplicationController
     if params[:provider] == 'facebook'
       user = Sys::FacebookAuth.from_omniauth(env["omniauth.auth"])
       session[:user_id] = user.id
-      redirect_to root_url
+      redirect_to '/'
     end
-    # user = User.from_omniauth(env["omniauth.auth"])
-    # session[:user_id] = user.id
-    # redirect_to root_url
-    # auth = env["omniauth.auth"]
-    # render text: auth.uid
-    # render text: params[:provider]
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_url
   end
 end

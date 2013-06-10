@@ -1,7 +1,18 @@
 ka:
   models:
-    guest:
-    sys_user:
-      errors:
-        email_required: "ელ.ფოსტა აუცილებელია"
-        password_required: "ჩაწერეთ პაროლი"
+    general:
+      actions:
+        logout: "გასვლა"
+        logout_confirm: "ნამდვილად გინდათ გასვლა?"
+ru:
+  models:
+    general:
+      actions:
+        logout: "Выход"
+        logout_confirm: "Вы действительно ходите выйти?"
+en:
+  models:
+    general:
+      actions:
+        logout: "Logout"
+        logout_confirm: "Do you really want to logout?"

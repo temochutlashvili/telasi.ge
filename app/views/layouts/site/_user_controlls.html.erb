@@ -1,6 +1,13 @@
 <div class="userbox">
 <% if current_user %>
-<img src="<%= current_user.image %>">
-<%= current_user.full_name %>
+  <div class="image">
+    <img src="<%= current_user.image %>">
+  </div>
+  <div class="user-info">
+    <%= current_user.full_name %><br>
+    <%= link_to t('models.general.actions.logout'), signout_url, confirm: t('models.general.actions.logout_confirm') %>
+  </div>
+<% else %>
+  <%= link_to 'signin', '/auth/facebook' %>
 <% end %>
 </div>
