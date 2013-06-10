@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :locale_config
 
+  def current_user
+    nil
+  end
+
+ helper_method :current_user
+
   private
 
   def locale_config
