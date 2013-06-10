@@ -6,9 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :locale_config
 
   def current_user
-    nil
+    @current_user ||= Sys::User.find(session[:user_id]) if session[:user_id]
   end
-
  helper_method :current_user
 
   private
