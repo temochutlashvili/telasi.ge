@@ -1,0 +1,49 @@
+ru:
+  site:
+    info:
+      company: "АО Теласи"
+      address:
+        line1: "Грузия, Тбилиси 0154"
+        line2: "ул. Ванская №3"
+      phone1: "т: +(99532) 2779812"
+      phone2: "т: +(99532) 2274581"
+      fax: "ф: +(99532) 2779981"
+    general:
+      format: " формат"
+    pages:
+      home:
+        title: Начальная
+      about:
+        title: О Компании
+        mission:
+          title: "Миссия"
+        history:
+          title: "История Компании"
+        law:
+          title: "Нормативная База"
+        structure:
+          title: "Организационная Структура"
+        internals:
+          title: "Внутренние Документы"
+        management:
+          title: "Корпоративное Управление"
+      investors:
+        title: Акционерам
+        capital:
+          title: "Структура Капитала"
+        essentials:
+          title: "Существенные Факты"
+        reports:
+          title: "Отчетная Информация"
+        registration:
+          title: "Информация о Реестродержателе"
+        auditoring:
+          title: "Аудитор Компании"
+        notifications:
+          title: "Сообщения для Акционеров"
+      customers:
+        title: Потребителям
+      tenders:
+        title: Закупки
+      contact:
+        title: Контакт
