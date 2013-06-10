@@ -1,0 +1,49 @@
+en:
+  site:
+    info:
+      company: "JSC Telasi"
+      address:
+        line1: "3 Vani Str."
+        line2: "Tbilisi 0154 GEORGIA"
+      phone1: "t: +(99532) 2779812"
+      phone2: "t: +(99532) 2274581"
+      fax: "f: +(99532) 2779981"
+    general:
+      format: " Format"
+    pages:
+      home:
+        title: Home
+      about:
+        title: About
+        mission:
+          title: "Mission"
+        history:
+          title: "Company History"
+        law:
+          title: "Governing Law"
+        structure:
+          title: "Organizational Structure"
+        internals:
+          title: "Internal Documents"
+        management:
+          title: "Corporate Management"
+      investors:
+        title: Shareholders
+        capital:
+          title: "Structure of the Capital"
+        essentials:
+          title: "Essential Facts"
+        reports:
+          title: "Accounting Information"
+        registration:
+          title: "Accounting Information"
+        auditoring:
+          title: "Registrar of the Company"
+        notifications:
+          title: "Reports for Stockholders"
+      customers:
+        title: Customers
+      tenders:
+        title: Tenders
+      contact:
+        title: Contact
