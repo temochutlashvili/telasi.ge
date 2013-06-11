@@ -3,6 +3,21 @@
     <div class="page-header">
       <h1><%= @title %></h1>
     </div>
+    <% applications.each do |group, apps| %>
+      <h2 class="app-group"><%= t("applications.groups.#{group}") %></h2>
+      <div class="applications">
+        <% apps.each do |app| %>
+          <div class="application">
+            <div class="title">
+              <a href="/<%= app.name %>"><%= app.title %></a>
+            </div>
+            <div class="description muted">
+              <%= app.description %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <div class="span4">
     <%= render partial: 'layouts/application/user_controlls' %>

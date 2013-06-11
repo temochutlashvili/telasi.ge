@@ -12,5 +12,15 @@ body.dashboard {
       border-top: 1px solid @grey;
       h1 { font-size: 1.7em; padding: 0; margin: 0; }
     }
+    h2.app-group { font-size: 1.3em; padding: 8px 4px 0 4px; margin: 0; color: @orange; line-height: 1.5em; }
+    .applications { padding: 8px 0;
+      .application {
+        padding: 4px 8px; border-bottom: 1px dotted #aaa;
+        border-left: 3px solid #d0d0d0;
+        &:first-child { border-top: 1px dotted #aaa; }
+      }
+      .title { font-weight: bold; font-size: 1.15em; }
+      .description { font-size: 0.8em; }
+    }
   }
 }
