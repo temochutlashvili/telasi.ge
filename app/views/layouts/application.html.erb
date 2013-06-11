@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="Author" content="Dimitri Kurashvili <dimakura@gmail.com>" />
-  <title><% if @title.present? %><%%= @itlte %> &mdash; telasi.ge<% else %>telasi.ge<% end %></title>
+  <title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
