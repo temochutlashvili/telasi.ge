@@ -22,18 +22,11 @@ body {
   .userbox {
     height: 50px;
     position: relative;
-    .image {
-      float: left; height: 50px; width: 50px;
-      .drop-shadow(0, 0, 5px, 0.25);
-    }
-    .user-info {
-      margin-left: 55px;
-      padding: 5px;
-    }
-    .empty-user {
-      text-align: right;
-      padding: 16px 0 0 0;
-    }
+    .image { float: left; height: 50px; width: 50px; .drop-shadow(0, 0, 5px, 0.25); }
+    .user-info { margin-left: 55px; padding: 5px; }
+    .empty-user { text-align: right; padding: 16px 0 0 0; }
+    .actions { font-size: 12px; padding-top: 2px; a { padding: 0 4px; border-right: 1px solid @soft-grey; &:last-child { border: none;} } }
+    .name { font-size: 1.1em; font-weight: bold; padding: 0 4px 4px 0; border-bottom: 1px dotted @soft-grey; }
   }
   .navbar {
     div.navbar-inner {

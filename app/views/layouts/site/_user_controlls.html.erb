@@ -4,8 +4,13 @@
     <img src="<%= current_user.image %>">
   </div>
   <div class="user-info">
-    <%= current_user.full_name %><br>
-    <%= link_to t('models.general.actions.logout'), signout_url, confirm: t('models.general.actions.logout_confirm') %>
+    <div class="name">
+      <%= current_user.full_name %>
+    </div>
+    <div class="actions">
+      <%= link_to t('models.general.actions.dashboard'), user_dashboard_url %>
+      <%= link_to t('models.general.actions.logout'), signout_url, confirm: t('models.general.actions.logout_confirm') %>
+    </div>
   </div>
 <% else %>
   <div class="empty-user">

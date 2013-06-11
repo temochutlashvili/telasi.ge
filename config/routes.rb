@@ -32,7 +32,7 @@ TelasiGe::Application.routes.draw do
   # User dashboard.
   namespace 'user' do
     scope '/dashboard', controller: 'dashboard' do
-      get '/', action: 'index'
+      get '/', action: 'index', as: 'dashboard'
     end
   end
 
