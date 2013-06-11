@@ -4,91 +4,89 @@
 @orange: #FF9600;
 @grey: #c0c0c0;
 @soft-grey: #dfdfdf;
-
-body {
-  background: url('/assets/bg.png');
-}
-
 .ident1 { color: @orange; }
 .ident2 { color: @blue; }
 
-#site-main {
-  width: 1024px; margin: 0 auto;
-  border-top: 12px solid @blue; background: white;
-  border-bottom: none;
-  .drop-shadow(0, 0, 5px, 1);
-  .locale { text-align: right; padding: 2px 0; }
-  .top { padding: 0 0 16px 0; }
-  .userbox {
-    height: 50px;
-    position: relative;
-    .image { float: left; height: 50px; width: 50px; .drop-shadow(0, 0, 5px, 0.25); }
-    .user-info { margin-left: 55px; padding: 5px; }
-    .empty-user { text-align: right; padding: 16px 0 0 0; }
-    .actions { font-size: 12px; padding-top: 2px; a { padding: 0 4px; border-right: 1px solid @soft-grey; &:last-child { border: none;} } }
-    .name { font-size: 1.1em; font-weight: bold; padding: 0 4px 4px 0; border-bottom: 1px dotted @soft-grey; }
-  }
-  .navbar {
-    div.navbar-inner {
-      border: none; border-top: 1px solid @soft-grey; background: none; box-shadow: none; padding: 0; .rounded(0);
+body.site {
+  background: url('/assets/bg.png');
+  #site-main {
+    width: 1024px; margin: 0 auto;
+    border-top: 12px solid @blue; background: white;
+    border-bottom: none;
+    .drop-shadow(0, 0, 5px, 1);
+    .locale { text-align: right; padding: 2px 0; }
+    .top { padding: 0 0 16px 0; }
+    .userbox {
+      height: 50px;
+      position: relative;
+      .image { float: left; height: 50px; width: 50px; .drop-shadow(0, 0, 5px, 0.25); }
+      .user-info { margin-left: 55px; padding: 5px; }
+      .empty-user { text-align: right; padding: 16px 0 0 0; }
+      .actions { font-size: 12px; padding-top: 2px; a { padding: 0 4px; border-right: 1px solid @soft-grey; &:last-child { border: none;} } }
+      .name { font-size: 1.1em; font-weight: bold; padding: 0 4px 4px 4px; border-bottom: 1px dotted @soft-grey; }
     }
-    .nav {
-      margin: 0;
-      &>li {
-        &>a { color: #aaa; border-top: 1px solid transparent;
-          &:hover { color: #222; border-top: 1px solid black; }
+    .navbar {
+      div.navbar-inner {
+        border: none; border-top: 1px solid @soft-grey; background: none; box-shadow: none; padding: 0; .rounded(0);
+      }
+      .nav {
+        margin: 0;
+        &>li {
+          &>a { color: #aaa; border-top: 1px solid transparent;
+            &:hover { color: #222; border-top: 1px solid black; }
+          }
+          &>a {
+            padding: 12px 8px; margin: -1px 32px 0 0; background: none; box-shadow: none; font-size: 15px;
+          }
         }
-        &>a {
-          padding: 12px 8px; margin: -1px 32px 0 0; background: none; box-shadow: none; font-size: 15px;
+        &>li.active {
+          &>a {
+            color: #222; border-top: 4px solid @orange; padding-top: 9px;
+            &:hover { border-top: 4px solid @orange; }
+          }
         }
       }
-      &>li.active {
-        &>a {
-          color: #222; border-top: 4px solid @orange; padding-top: 9px;
-          &:hover { border-top: 4px solid @orange; }
-        }
+    }
+    .dropdown-menu {
+      a { padding: 6px 16px; font-size: 1.1em; }
+    }
+    .site-body { min-height: 500px; padding-bottom: 64px; }
+    .page-header {
+      background: #f0f0f0; padding: 25px 42px 32px 42px; margin: 0 -42px 16px;
+      h1 { margin: 0; padding: 0; font-size: 2.3em; }
+      border-top: 1px solid #aaa; border-bottom: 1px solid #aaa;
+    }
+    .well-read {
+      p , ul { font-size: 1.15em; line-height: 1.8; padding-bottom: 12px; }
+      li { padding-bottom: 12px; }
+      h2 { font-size: 1.5em; border-bottom: 1px dotted @grey; color: @blue; }
+      h3 { font-size: 1.4em; color: @orange; }
+    }
+    .table {
+      font-size: 1.1em;
+      td {
+        padding: 16px; border-top: 1px solid @grey; border-bottom: 1px solid @grey;
+        &:first-child { border-left: 5px solid lighten(@grey, 10%); }
       }
     }
-  }
-  .dropdown-menu {
-    a { padding: 6px 16px; font-size: 1.1em; }
-  }
-  .site-body { min-height: 500px; padding-bottom: 64px; }
-  .page-header {
-    background: #f0f0f0; padding: 25px 42px 32px 42px; margin: 0 -42px 16px;
-    h1 { margin: 0; padding: 0; font-size: 2.3em; }
-    border-top: 1px solid #aaa; border-bottom: 1px solid #aaa;
-  }
-  .well-read {
-    p , ul { font-size: 1.15em; line-height: 1.8; padding-bottom: 12px; }
-    li { padding-bottom: 12px; }
-    h2 { font-size: 1.5em; border-bottom: 1px dotted @grey; color: @blue; }
-    h3 { font-size: 1.4em; color: @orange; }
-  }
-  .table {
-    font-size: 1.1em;
-    td {
-      padding: 16px; border-top: 1px solid @grey; border-bottom: 1px solid @grey;
-      &:first-child { border-left: 5px solid lighten(@grey, 10%); }
+    a.download {
+      text-decoration: none;
+      line-height: 22px;
+      &:hover { text-decoration: none; }
+      i { color: @orange; font-size: 22px; line-height: 22px; }
+      span { padding-left: 8px; }
     }
   }
-  a.download {
-    text-decoration: none;
-    line-height: 22px;
-    &:hover { text-decoration: none; }
-    i { color: @orange; font-size: 22px; line-height: 22px; }
-    span { padding-left: 8px; }
-  }
-}
-#footer {
-  width: 942px; padding: 42px 42px 0; margin: 0 auto;
-  border-top: 2px solid #555;
-  color: #999;
-  background: #222;
-  .title { font-size: 1.3em; color: #eee; line-height: 1.9em; border-bottom: 1px solid #444; margin: 0 0 8px 0; padding-bottom: 8px; }
-  address { line-height: 1.9em; }
-  .bottom {
-    background: #000; margin: 0 -42px; padding: 8px 42px;
-    font-size: 12px; color: #777;
+  #footer {
+    width: 942px; padding: 42px 42px 0; margin: 0 auto;
+    border-top: 2px solid #555;
+    color: #999;
+    background: #222;
+    .title { font-size: 1.3em; color: #eee; line-height: 1.9em; border-bottom: 1px solid #444; margin: 0 0 8px 0; padding-bottom: 8px; }
+    address { line-height: 1.9em; }
+    .bottom {
+      background: #000; margin: 0 -42px; padding: 8px 42px;
+      font-size: 12px; color: #777;
+    }
   }
 }
