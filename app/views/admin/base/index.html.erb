@@ -1,0 +1,4 @@
+<%= table_for @users, title: @title, icon: '/fugue/user.png', collapsible: true do |t|
+  t.text_field :full_name
+  t.paginate
+end %>
