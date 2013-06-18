@@ -1,11 +1,12 @@
 ka:
   dashboard:
     title: "მართვის პანელი"
+    title_short: "პანელი"
     site: "საიტზე დაბრუნება"
   applications:
     groups:
-      service: "აბონენტთა მომსახურეობა"
-      admin: "ადიმინისტრირება"
+      service: მომსახურეობა
+      admin: ადმინისტრირება
     admin:
       title: ადმინისტრირება
       description: მომხმარებელთა და მათი უფლებების მართვა

@@ -19,7 +19,6 @@ TelasiGe::Application.routes.draw do
         end
       end
     end
-
     get '/', to: redirect('/site/home')
     site_routes('home')
     site_routes('about', [ 'mission', 'history', 'law', 'structure', 'internals', 'management' ])
@@ -34,6 +33,11 @@ TelasiGe::Application.routes.draw do
     scope '/dashboard', controller: 'dashboard' do
       get '/', action: 'index', as: 'dashboard'
     end
+  end
+
+  # Admin.
+  namespace 'admin' do
+    get '/', controller: 'base', action: 'index', as: 'home'
   end
 
   root to: redirect('/site/home')
