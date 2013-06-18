@@ -1,6 +1,7 @@
 <%= table_for @users, title: @title, icon: '/fugue/users.png', collapsible: true do |t|
-  t.text_field :full_name
+  t.text_field :full_name, url: lambda { |x| admin_user_url(id: x.id) }
   t.text_field :mobile
   t.email_field :email
+  t.boolean_field :sys_admin
   t.paginate
 end %>

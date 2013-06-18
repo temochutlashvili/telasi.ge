@@ -1,6 +1,12 @@
 ka:
   models:
     general:
+      general_info: ზოგადი
+      system_info: სისტემური
+      created_at: შეიქმნა
+      created_at_hint: როდის შეიქმნა ეს ობიექტი
+      updated_at: ბოლო ცვლილება
+      updated_at_hint: ბოლო ცვლილების თარიღი
       actions:
         login: "შესვლა Facebook-ის მეშვეობით"
         logout: "გასვლა"
@@ -14,6 +20,14 @@ ka:
       full_name_hint: "მომხმარებლის სახელი და გვარი"
       mobile: "მობილური"
       mobile_hint: "მომხმარებლის მობილური"
+      user_properties: მომხმარებლის თვისებები
+      sys_admin: ადმინისტრ?
+      sys_admin_hint: არის თუ არა ეს მომხმარებელი სისტემური ადმინისტრატორი?
+      facebook_auth:
+        title: ფეისბუკი
+        uid: "მომხმარებლის ID"
+        email: "ელ.ფოსტა"
+        image: "გამოსახულება"
 ru:
   models:
     general:

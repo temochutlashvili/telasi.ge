@@ -40,6 +40,7 @@ TelasiGe::Application.routes.draw do
     get '/', controller: 'base', action: 'index', as: 'home'
     scope '/users', controller: 'users' do
       get '/', action: 'index', as: 'users'
+      get '/show/:id', action: 'show', as: 'user'
     end
   end
 
