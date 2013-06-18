@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 1.0.1'
 
 # forms
 gem 'forma', path: '../carbon.ge/forma'
+gem 'will_paginate'
+gem 'will_paginate_mongoid'
 
 # social media
 gem 'omniauth-facebook'
