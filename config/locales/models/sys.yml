@@ -7,6 +7,8 @@ ka:
       created_at_hint: როდის შეიქმნა ეს ობიექტი
       updated_at: ბოლო ცვლილება
       updated_at_hint: ბოლო ცვლილების თარიღი
+      search: ძებნა
+      search_clear: ძებნის გასუფთავება
       actions:
         login: "შესვლა Facebook-ის მეშვეობით"
         logout: "გასვლა"
@@ -23,6 +25,8 @@ ka:
       user_properties: მომხმარებლის თვისებები
       sys_admin: ადმინისტრ?
       sys_admin_hint: არის თუ არა ეს მომხმარებელი სისტემური ადმინისტრატორი?
+      first_name: სახელი
+      last_name: გვარი
       facebook_auth:
         title: ფეისბუკი
         uid: "მომხმარებლის ID"
