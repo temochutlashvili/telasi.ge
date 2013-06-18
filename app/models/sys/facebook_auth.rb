@@ -17,7 +17,7 @@ class Sys::FacebookAuth
     fb_user.expires_at = Time.at(auth.credentials.expires_at)
     fb_user.image = auth.info.image
     if (fb_user.new_record?)
-      user = Sys::User.new(first_name: auth.info.first_name, last_name: auth.info.last_name, sys_admin: Sys::User.empty?)
+      user = Sys::User.new(email: auth.info.email, first_name: auth.info.first_name, last_name: auth.info.last_name, sys_admin: Sys::User.empty?)
       user.save!
       fb_user.user = user
     # else

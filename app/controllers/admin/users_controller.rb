@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::AdminController
   def conditions(search)
     data = Sys::User
     if search
-      # data = data.where(email: search[:email]) if search[:email].present?
+      data = data.where(email: search[:email].mongonize) if search[:email].present?
       data = data.where(first_name: search[:first_name].mongonize) if search[:first_name].present?
       data = data.where(last_name: search[:last_name].mongonize) if search[:last_name].present?
       data = data.where(mobile: search[:mobile].mongonize) if search[:mobile].present?

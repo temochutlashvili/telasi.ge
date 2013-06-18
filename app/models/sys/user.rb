@@ -2,6 +2,7 @@
 class Sys::User
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :email,      type: String
   field :first_name, type: String
   field :last_name,  type: String
   field :mobile,     type: String
@@ -11,5 +12,4 @@ class Sys::User
   def full_name; "#{self.first_name} #{self.last_name}" end
   def to_s; self.full_name end
   def image; self.facebook_auth.image end
-  def email; self.facebook_auth.email end
 end
