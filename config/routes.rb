@@ -38,6 +38,9 @@ TelasiGe::Application.routes.draw do
   # Admin.
   namespace 'admin' do
     get '/', controller: 'base', action: 'index', as: 'home'
+    scope '/users', controller: 'users' do
+      get '/', action: 'index', as: 'users'
+    end
   end
 
   root to: redirect('/site/home')

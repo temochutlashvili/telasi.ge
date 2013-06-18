@@ -1,4 +1,14 @@
-<%= table_for @users, title: @title, icon: '/fugue/user.png', collapsible: true do |t|
-  t.text_field :full_name
-  t.paginate
-end %>
+<div class="page-header">
+  <h1><%= @title %></h1>
+</div>
+<div class="applications">
+  <div class="application">
+    <div class="title">
+      <img src="/fugue/users.png" />
+      <%= link_to t('models.sys_user.users'), admin_users_url %>
+    </div>
+    <div class="description muted">
+      <%= t('models.sys_user.users_description') %>
+    </div>
+  </div>
+</div>

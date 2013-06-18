@@ -5,6 +5,15 @@ ka:
         login: "შესვლა Facebook-ის მეშვეობით"
         logout: "გასვლა"
         logout_confirm: "ნამდვილად გინდათ გასვლა?"
+    sys_user:
+      users: "მომხმარებლები"
+      users_description: "მომხმარებლების სია და მათი ადმინისტრირება"
+      email: "ელ.ფოსტა"
+      email_hint: "მომხმარებლის ელექტრონული ფოსტა"
+      full_name: "სახელი, გვარი"
+      full_name_hint: "მომხმარებლის სახელი და გვარი"
+      mobile: "მობილური"
+      mobile_hint: "მომხმარებლის მობილური"
 ru:
   models:
     general:
