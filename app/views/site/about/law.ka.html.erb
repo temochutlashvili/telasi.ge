@@ -1,29 +1,27 @@
-<div class="page-header">
-  <h1>ნორმატიული ბაზა</h1>
+<%= content_for :top do %>
+<div class="row-fluid breadcrumbs margin-bottom-20">
+  <div class="container">
+    <h1>ნორმატიული ბაზა</h1>
+  </div>
 </div>
+<% end %>
 <div class="well-read">
   <p>
     სს &quot;თელასის&quot; კორპორაციული პოლიტიკა ხორციელდება &quot;მეწარმეთა შესახებ&quot; 
     საქართველოს კანონის და საზოგადოების წესდების შესაბამისად. სს &quot;თელასის&quot;
     საქმიანობის სამართლებრივი რეჟიმის კონტურები აღნიშნულია შემდეგ საკანონმდებლო-სამართლებრივ აქტებში:
   </p>
-  <%
-    laws = {
-      'საქართველოს კანონი <em>ელექტროენერგეტიკისა და ბუნებრივი გაზის შესახებ</em>' => '/docs/laws/law_of_georgia_on_energy_and_natural_gas_25.03.13_geo.pdf',
-      'საქართველოს კანონი <em>მეწარმეთა შესახებ</em>' => '/docs/laws/law_of_georgia_on_energy_and_natural_gas_25.03.13_geo.pdf',
-      'საქართველოს კანონი <em>ფასიანი ქაღალდების ბაზრის შესახებ</em>' => '/docs/laws/law_on_securities_10.04.12_geo.pdf',
-      'საქართველოს ენერგეტიკის მინისტრის ბრძანება №77 30/08/2006წ. <em>ელექტროენერგიის (სიმძლავრის) ბაზრის წესების</em> დამტკიცების შესახებ' => '/docs/laws/order_ministry_77_22.03.2013_geo.pdf',
-      'საქართველოს ენერგეტიკისა და წყალმომარაგების მარეგულირებელი ეროვნული კომისიის (სეწმეკ) დადგენილებები' => '/docs/laws/resolutions_gnewcrc_03.04.2013_geo.pdf'
-    }
-  %>
-  <table class="table">
-    <% laws.each do |name, url| %>
-      <tr>
-        <td><%= name.html_safe %></td>
-        <td width="200">
-          <a href="<%= url %>" class="download"><i class="icon-download"></i> PDF ფორმატში</a>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <%= downloads_table [
+    { label: 'საქართველოს კანონი <em>ელექტროენერგეტიკისა და ბუნებრივი გაზის შესახებ</em>',
+      url: '/docs/laws/law_of_georgia_on_energy_and_natural_gas_25.03.13_geo.pdf' },
+    { label: 'საქართველოს კანონი <em>მეწარმეთა შესახებ</em>',
+      url: '/docs/laws/law_of_georgia_on_energy_and_natural_gas_25.03.13_geo.pdf' },
+    { label: 'საქართველოს კანონი <em>ფასიანი ქაღალდების ბაზრის შესახებ</em>',
+      url: '/docs/laws/law_on_securities_10.04.12_geo.pdf' },
+    { label: 'საქართველოს ენერგეტიკის მინისტრის ბრძანება №77 30/08/2006წ. <em>ელექტროენერგიის (სიმძლავრის) ბაზრის წესების</em> დამტკიცების შესახებ',
+      url: '/docs/laws/order_ministry_77_22.03.2013_geo.pdf' },
+    { label: 'საქართველოს ენერგეტიკისა და წყალმომარაგების მარეგულირებელი ეროვნული კომისიის (სეწმეკ) დადგენილებები',
+      url: '/docs/laws/resolutions_gnewcrc_03.04.2013_geo.pdf' }
+  ] %>
+
 </div>
