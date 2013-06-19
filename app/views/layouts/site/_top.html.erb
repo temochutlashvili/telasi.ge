@@ -1,18 +1,12 @@
-<%= render partial: 'layouts/site/language' %>
-<div class="row top">
-  <div class="span8">
-    <div style="padding: 16px; border: 1px solid transparent;">
-      LOGO...
-    </div>
-  </div>
-  <div class="span4">
-    <%= render partial: 'layouts/site/user_controlls' %>
-  </div>
-</div>
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
-      <%= site_menu %>
+<!-- TOP -->
+<div class="top">
+  <div class="container">         
+    <ul class="loginbar pull-right">
+      <%= render partial: 'layouts/site/language' %>
+      <li class="devider">&nbsp;</li>
+      <li><a href="page_faq.html" class="login-btn">Help</a></li>  
+      <li class="devider">&nbsp;</li>
+      <li><a href="page_login.html" class="login-btn">Login</a></li>   
     </ul>
   </div>
 </div>

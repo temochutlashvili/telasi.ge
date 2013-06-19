@@ -26,20 +26,8 @@
   <link rel="stylesheet" href="/assets/css/themes/headers/default.css" id="style_color-header-1">    
 </head>
 <body>
-  <div class="top">
-    <div class="container">         
-      <ul class="loginbar pull-right">
-        <%= render partial: 'layouts/site/language' %>
-        <li class="devider">&nbsp;</li>
-        <li><a href="page_faq.html" class="login-btn">Help</a></li>  
-        <li class="devider">&nbsp;</li>
-        <li><a href="page_login.html" class="login-btn">Login</a></li>   
-      </ul>
-    </div>
-  </div>
-
+  <%= render partial: 'layouts/site/top' %>
   <%= yield %>
-
 </body>
 </html>
 
