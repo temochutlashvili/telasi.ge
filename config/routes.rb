@@ -26,6 +26,7 @@ TelasiGe::Application.routes.draw do
   # Auth
   scope '/auth', controller: 'sessions' do
     match '/login', action: 'login', as: 'login', via: ['get', 'post']
+    match '/register', action: 'register', as: 'register', via: ['get', 'post']
     match '/signout', to: 'sessions#destroy', as: 'signout', via: ['get', 'post', 'put']
     # facebook API
     match '/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']

@@ -10,13 +10,14 @@ ka:
       search: ძებნა
       search_clear: ძებნის გასუფთავება
       actions:
-        login: "შესვლა Facebook-ის მეშვეობით"
+        login: "შესვლა"
         logout: "გასვლა"
         logout_confirm: "ნამდვილად გინდათ გასვლა?"
     sys_user:
       users: "მომხმარებლები"
       users_description: "მომხმარებლების სია და მათი ადმინისტრირება"
       email: "ელ.ფოსტა"
+      password: "პაროლი"
       email_hint: "მომხმარებლის ელექტრონული ფოსტა"
       full_name: "სახელი, გვარი"
       full_name_hint: "მომხმარებლის სახელი და გვარი"
@@ -32,17 +33,25 @@ ka:
         uid: "მომხმარებლის ID"
         email: "ელ.ფოსტა"
         image: "გამოსახულება"
+      actions:
+        register: რეგისტრაცია
 ru:
   models:
     general:
       actions:
-        login: "Вход через Facebook"
+        login: "Вход"
         logout: "Выход"
         logout_confirm: "Вы действительно ходите выйти?"
+    sys_user:
+      actions:
+        register: Регистрация
 en:
   models:
     general:
       actions:
-        login: "Login using Facebook"
+        login: "Login"
         logout: "Logout"
         logout_confirm: "Do you really want to logout?"
+    sys_user:
+      actions:
+        register: Register
