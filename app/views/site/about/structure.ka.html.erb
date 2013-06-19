@@ -1,16 +1,16 @@
-<div class="page-header">
-  <h1>ორგანიზაციული სტრუქტურა</h1>
+<%= content_for :top do %>
+<div class="row-fluid breadcrumbs margin-bottom-20">
+  <div class="container">
+    <h1>ორგანიზაციული სტრუქტურა</h1>
+  </div>
 </div>
+<% end %>
 <div class="well-read">
   <p>
     სს &quot;თელასის&quot; ორგანიზაციულ სტრუქტურას შეგიძლიათ გაეცნოთ შემდეგი დოკუმენტის მეშვეობით:
   </p>
-  <table class="table">
-    <tr>
-      <td>სს &quot;თელასის&quot; <em>ორგანიზაციული სტრუქტურა</em></td>
-      <td width="200">
-        <a href="/docs/telasi/organizational_structure2012_geo.pdf" class="download"><i class="icon-download"></i> PDF ფორმატში</a>
-      </td>
-    </tr>
-  </table>
+  <%= downloads_table [
+    { label: 'სს &quot;თელასის&quot; <em>ორგანიზაციული სტრუქტურა</em>',
+      url: '/docs/telasi/organizational_structure2012_geo.pdf' },
+  ] %>
 </div>
