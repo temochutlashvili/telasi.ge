@@ -4,13 +4,13 @@ module Site::MenuHelper
 
   def site_menu
     controller
-    el('ul', attrs: { class: 'nav' }, children: [
+    el('ul', attrs: { class: ['nav', 'top-2'] }, children: [
       m('home', selected: controller_name == 'home'),
       m('about', selected: controller_name == 'about', children: [
-        m('mission'), m('history'), sep, m('management'), m('law'), m('structure'), m('internals')
+        m('mission'), m('history'), m('management'), m('law'), m('structure'), m('internals')
       ]),
       m('investors', selected: controller_name == 'investors', children: [
-        m('capital', turbo: false), m('essentials'), m('registration'), sep, m('reports'), m('auditoring'), m('notifications')
+        m('capital', turbo: false), m('essentials'), m('registration'), m('reports'), m('auditoring'), m('notifications')
       ]),
       m('customers', selected: controller_name == 'customers'),
       m('tenders', selected: controller_name == 'tenders'),
@@ -19,7 +19,7 @@ module Site::MenuHelper
   end
 
   def m(name, h = {}); Menu.new(h.merge(name: name)) end
-  def sep; Menu.new(separator: true) end
+  # def sep; Menu.new(separator: true) end
 
   class Menu
     include Forma::Html
