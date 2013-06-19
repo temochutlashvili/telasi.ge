@@ -1,12 +1,12 @@
 <!-- TOP -->
 <div class="top">
-  <div class="container">         
-    <ul class="loginbar pull-right">
-      <%= render partial: 'layouts/site/language' %>
-      <li class="devider">&nbsp;</li>
-      <li><a href="page_faq.html" class="login-btn">Help</a></li>  
-      <li class="devider">&nbsp;</li>
-      <li><a href="page_login.html" class="login-btn">Login</a></li>   
-    </ul>
-  </div>
+<div class="container">
+<ul class="loginbar pull-right">
+<li><%= render partial: 'layouts/site/language' %></li>
+<!-- li class="devider">&nbsp;</li>
+<li><a href="page_faq.html" class="login-btn">Help</a></li-->
+<li class="devider">&nbsp;</li>
+<li><%= render partial: 'layouts/site/auth' %></li>
+</ul>
+</div>
 </div>

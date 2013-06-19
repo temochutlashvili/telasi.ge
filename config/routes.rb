@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 TelasiGe::Application.routes.draw do
-  # facebook API
-  match '/auth/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']
-  match '/auth/failure', to: redirect('/'), via: ['get', 'post', 'put']
-  match '/signout', to: 'sessions#destroy', as: 'signout', via: ['get', 'post', 'put']
-
   # Site namespace
   namespace 'site' do
     def site_routes(parent, names = [])
@@ -26,6 +21,15 @@ TelasiGe::Application.routes.draw do
     site_routes('customers')
     site_routes('tenders')
     site_routes('contact')
+  end
+
+  # Auth
+  scope '/auth', controller: 'sessions' do
+    match '/login', action: 'login', as: 'login', via: ['get', 'post']
+    match '/signout', to: 'sessions#destroy', as: 'signout', via: ['get', 'post', 'put']
+    # facebook API
+    match '/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']
+    match '/failure', to: redirect('/'), via: ['get', 'post', 'put']
   end
 
   # User dashboard.

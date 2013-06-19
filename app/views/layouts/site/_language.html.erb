@@ -1,5 +1,3 @@
-<span>
-  <% { 'ka' => 'ქართული', 'en' => 'English', 'ru' => 'Русский' }.each do |loc, name| %>
-    <a href="<%= locale_url(loc) %>"><img src="/icons/<%= loc %>.png" /></a>
-  <% end %>
-</span>
+<% { 'ka' => 'ქართული', 'en' => 'English', 'ru' => 'Русский' }.each do |loc, name| %>
+  <a href="<%= locale_url(loc) %>"><img src="/icons/<%= loc %>.png" /></a>
+<% end %>
