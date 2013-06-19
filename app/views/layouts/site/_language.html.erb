@@ -1,5 +1,13 @@
-<div class="locale">
-  <a href="<%= locale_url('ka') %>"><img src="/assets/ge.png" /></a>
-  <a href="<%= locale_url('en') %>"><img src="/assets/us.png" /></a>
-  <a href="<%= locale_url('ru') %>"><img src="/assets/ru.png" /></a>
-</div>
+<li>
+  <% if ['ka', 'en', 'ru'].include?(locale.to_s) %><img src="/icons/<%= locale %>.png"><% else %><i class="icon-globe"></i><% end %>
+  <a><i class="icon-sort-up"></i></a>
+  <ul class="nav-list">
+    <% { 'ka' => 'ქართული', 'en' => 'English', 'ru' => 'Русский' }.each do |loc, name| %>
+      <% if locale.to_s == loc %>
+        <li class="active"><a href="<%= locale_url(loc) %>"><%= name%></a> <i class="icon-ok"></i></li>
+      <% else %>
+        <li><a href="<%= locale_url(loc) %>"><%= name%></a></li>
+      <% end %>
+    <% end %>
+  </ul>
+</li>
