@@ -29,8 +29,8 @@ TelasiGe::Application.routes.draw do
     match '/register', action: 'register', as: 'register', via: ['get', 'post']
     match '/signout', to: 'sessions#destroy', as: 'signout', via: ['get', 'post', 'put']
     # facebook API
-    match '/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']
-    match '/failure', to: redirect('/'), via: ['get', 'post', 'put']
+    # match '/:provider/callback', to: 'sessions#create', via: ['get', 'post', 'put']
+    # match '/failure', to: redirect('/'), via: ['get', 'post', 'put']
   end
 
   # User dashboard.

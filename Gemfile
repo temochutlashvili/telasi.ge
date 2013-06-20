@@ -20,12 +20,16 @@ gem 'sqlite3'
 gem 'jbuilder', '~> 1.0.1'
 
 # forms
-gem 'forma', path: '../carbon.ge/forma'
+gem 'forma', git: 'https://github.com/dimakura/forma'
 gem 'will_paginate'
 gem 'will_paginate_mongoid'
 
+# utils
+gem 'rs.ge', git: 'https://github.com/dimakura/rs.ge'
+gem 'ka'
+
 # social media
-gem 'omniauth-facebook'
+# gem 'omniauth-facebook'
 
 # group :doc do
 #   # bundle exec rake doc:rails generates the API under doc/api.
