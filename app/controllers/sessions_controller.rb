@@ -17,6 +17,15 @@ class SessionsController < ApplicationController
 
   def login
     @title = I18n.t('models.sys_user.actions.login')
+    if request.post?
+      user = Sys::User.authenticate(params[:email], params[:password])
+      if user and user.active
+        Sys::User.current_user = user
+        redirect_to root_url
+      else
+        @error = I18n.t('models.sys_user.errors.illegal_username_or_password')
+      end
+    end
   end
 
   def register
@@ -29,6 +38,7 @@ class SessionsController < ApplicationController
           # redirect_to site_registration_complete_url(email: @user.email)
         else
           # redirect_to site_login_url, notice: I18n.t('models.sys_user.actions.register_complete')
+          redirect_to root_url
         end
       end
     else

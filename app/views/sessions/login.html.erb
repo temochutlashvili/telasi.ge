@@ -1,5 +1,8 @@
 <%= form_tag '/auth/login', { class: 'log-page', style: 'margin-top: 64px;' } do %>
   <h3><%= @title %></h3>
+  <% if @error.present? %>
+  <div class="alert alert-block alert-error"><%= @error %></div>
+  <% end %>
   <div class="input-prepend">
     <span class="add-on"><i class="icon-envelope"></i></span>
     <%= text_field_tag :email, params[:email], class: 'input-xlarge', placeholder: t('models.sys_user.email') %>

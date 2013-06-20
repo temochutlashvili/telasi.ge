@@ -39,6 +39,7 @@ ka:
         illegal_mobile: არასწორი მობილური
         illegal_email: არასწორი ელ.ფოსტა
         empty_password: ჩაწერეთ პაროლი
+        illegal_username_or_password: არასწორი მომხარებელი ან პაროლი
 ru:
   models:
     general:
