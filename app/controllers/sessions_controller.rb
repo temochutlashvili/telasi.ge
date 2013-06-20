@@ -21,7 +21,9 @@ class SessionsController < ApplicationController
       user = Sys::User.authenticate(params[:email], params[:password])
       if user and user.active
         session[:user_id] = user.id
-        redirect_to root_url
+        url = session[:return_url] || root_url
+        session[:return_url] = nil
+        redirect_to url
       else
         @error = I18n.t('models.sys_user.errors.illegal_username_or_password')
       end

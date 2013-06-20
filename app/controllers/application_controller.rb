@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_login
-    redirect_to root_url unless current_user
+    session[:return_url] = request.url
+    redirect_to login_url unless current_user
   end
 end
