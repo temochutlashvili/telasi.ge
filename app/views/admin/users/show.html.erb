@@ -1,16 +1,1 @@
-<%= view_for @user, title: @title, icon: '/fugue/user.png', collapsible: true do |view|
-  view.tab title: t('models.general.general_info'), icon: '/fugue/user.png' do |tab|
-    tab.email_field :email, required: true
-    tab.text_field :full_name, required: true
-    tab.text_field :mobile
-    tab.boolean_field :sys_admin
-  end
-  view.tab title: t('models.sys_user.facebook_auth.title'), icon: '/icons/facebook.png' do |tab|
-    tab.text_field 'facebook_auth.uid', tag: 'code'
-    tab.email_field 'facebook_auth.email'
-    tab.image_field 'facebook_auth.image', url: '/aaa'
-  end
-  view.tab title: t('models.general.system_info'), icon: '/fugue/traffic-cone.png' do |tab|
-    tab.timestamps
-  end
-end %>
+<%= user_view(@user, title: @title) %>

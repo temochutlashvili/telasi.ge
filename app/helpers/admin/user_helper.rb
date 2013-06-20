@@ -8,4 +8,23 @@ module Admin::UserHelper
       f.text_field 'mobile', label: t('models.sys_user.mobile')
     end
   end
+
+  def user_view(user, opts = {})
+    view_for user, title: opts[:title], icon: '/icons/fugue/user.png', collapsible: true do |view|
+      view.tab title: t('models.general.general_info'), icon: '/icons/fugue/user.png' do |tab|
+        tab.col1 do |c|
+          c.email_field :email, required: true
+          c.text_field :full_name, required: true
+          c.text_field :mobile, required: true
+        end
+        tab.col2 do |c|
+          c.boolean_field :admin
+          c.boolean_field :active
+        end
+      end
+      view.tab title: t('models.general.system_info'), icon: '/icons/fugue/traffic-cone.png' do |tab|
+        tab.timestamps
+      end
+    end
+  end
 end
