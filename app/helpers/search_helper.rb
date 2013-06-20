@@ -4,11 +4,11 @@ require 'uri'
 module SearchHelper
   def search_form(search, opts = {})
     has_search = search.present? && search.values.any? { |x| x.present? and x != 'nil' }
-    forma_for search, title: t('models.general.search'), icon: '/fugue/magnifier.png', collapsible: true, collapsed: !has_search, method: 'get', model_name: 'search' do |f|
+    forma_for search, title: t('models.general.search'), icon: '/icons/fugue/magnifier.png', collapsible: true, collapsed: !has_search, method: 'get', model_name: 'search' do |f|
       yield f if block_given?
       # f.title_action url_for(action: 'table_config'), label: t('models.table_config.title'), icon: '/fugue/gear.png' if opts[:table_config]
       f.submit t('models.general.search')
-      f.bottom_action("#{URI(request.url).path}?search=clear", label: t('models.general.search_clear'), icon: '/fugue/magnifier--minus.png') if has_search
+      f.bottom_action("#{URI(request.url).path}?search=clear", label: t('models.general.search_clear'), icon: '/icons/fugue/magnifier--minus.png') if has_search
     end
   end
 

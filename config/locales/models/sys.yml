@@ -31,6 +31,7 @@ ka:
         logout_confirm: "ნამდვილად გინდათ გასვლა?"
         register: რეგისტრაცია
         register_full: ახალი მომხმარებლის რეგისტრაცია
+        return_to_site: "&larr; საიტზე დაბრუნება"
       errors:
         email_is_taken: "ელ.ფოსტა დაკავებულია"
         password_not_match: პაროლი არ ემთხვევა
@@ -49,6 +50,7 @@ ru:
         logout: "Выход"
         logout_confirm: "Вы действительно ходите выйти?"
         register: Регистрация
+        return_to_site: "&larr; Возвращение на Сайт"
 en:
   models:
     general:

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="Author" content="Dimitri Kurashvili <dimakura@gmail.com>" />
-  <title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+<meta name="Author" content="Dimitri Kurashvili <dimakura@gmail.com>" />
+<title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
+<%= stylesheet_link_tag '/assets/plugins/bootstrap/css/bootstrap.min.css' %>
+<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<%= csrf_meta_tags %>
 </head>
 <body class="dashboard">
-  <div class="container">
-    <div id="dashboard-main">
-      <%= render partial: 'layouts/application/top' %>
-      <%= yield %>
-    </div>
-  </div>
+<div class="container">
+<div id="dashboard-main">
+<%= render partial: 'layouts/application/top' %>
+<%= yield %>
+</div>
+</div>
 </body>
 </html>

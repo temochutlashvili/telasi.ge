@@ -1,2 +1,11 @@
-<%= render partial: 'layouts/site/language' %>
+<div class="top">
+<%= link_to t('models.sys_user.actions.return_to_site').html_safe, root_url %>
+<div class="pull-right">
+  <%= render partial: 'layouts/site/language' %>
+  <span class="divider">&nbsp;</span>
+  <%= current_user.full_name %>
+  <span class="divider">&nbsp;</span>
+  <%= link_to t('models.sys_user.actions.logout'), signout_url, data: { confirm: t('models.sys_user.actions.logout_confirm') } %>
+</div>
+</div>
 <%= render partial: 'layouts/application/menu' %>
