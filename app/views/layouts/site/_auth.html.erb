@@ -1,5 +1,7 @@
 <% if current_user %>
-<li><%= current_user.full_name %></li>
+<li><%= link_to current_user.full_name, user_dashboard_url %></li>
+<li class="devider">&nbsp;</li>
+<li><%= link_to t('models.sys_user.actions.logout'), signout_url, data: { confirm: t('models.sys_user.actions.logout_confirm') } %></li>
 <% else %>
 <li><%= link_to t('models.sys_user.actions.login'), login_url, class: 'login-btn' %></li>
 <% end %>

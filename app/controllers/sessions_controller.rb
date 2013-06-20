@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     if request.post?
       user = Sys::User.authenticate(params[:email], params[:password])
       if user and user.active
-        Sys::User.current_user = user
+        session[:user_id] = user.id
         redirect_to root_url
       else
         @error = I18n.t('models.sys_user.errors.illegal_username_or_password')
@@ -38,6 +38,7 @@ class SessionsController < ApplicationController
           # redirect_to site_registration_complete_url(email: @user.email)
         else
           # redirect_to site_login_url, notice: I18n.t('models.sys_user.actions.register_complete')
+          session[:user_id] = @user.id
           redirect_to root_url
         end
       end
