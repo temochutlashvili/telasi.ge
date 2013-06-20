@@ -1,14 +1,8 @@
 <% if @nav and @nav.size > 1 %>
 <ul class="breadcrumb">
-  <% @nav.each_with_index do |nav, i| %>
-    <% if i == @nav.size - 1 %>
-      <li class="active"><%= nav[0] %></li>
-    <% else %>
-      <li>
-        <a href="<%= nav[1] %>"><%= nav[0] %></a>
-        <span class="divider">&raquo;</span>
-      </li>
-    <% end %>
-  <% end %>
+<% @nav.each_with_index do |nav, i| %>
+  <% if i == @nav.size - 1 %><li class="active"><%= nav[0] %></li>
+  <% else %><li><a href="<%= nav[1] %>"><%= nav[0] %></a><span class="divider">&raquo;</span></li><% end %>
+<% end %>
 </ul>
 <% end %>
