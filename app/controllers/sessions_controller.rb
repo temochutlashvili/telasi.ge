@@ -16,6 +16,23 @@ class SessionsController < ApplicationController
   end
 
   def login
-    @title = I18n.t('models.general.actions.login')
+    @title = I18n.t('models.sys_user.actions.login')
+  end
+
+  def register
+    @title = I18n.t('models.sys_user.actions.register_full')
+    if request.post?
+      @user = Sys::User.new(params.require(:sys_user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile))
+      if @user.save
+        if Telasi::CONFIRM_ON_REGISTER
+          # UserMailer.email_confirm(@user).deliver unless @user.email_confirmed
+          # redirect_to site_registration_complete_url(email: @user.email)
+        else
+          # redirect_to site_login_url, notice: I18n.t('models.sys_user.actions.register_complete')
+        end
+      end
+    else
+      @user = Sys::User.new
+    end
   end
 end

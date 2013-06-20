@@ -9,15 +9,12 @@ ka:
       updated_at_hint: ბოლო ცვლილების თარიღი
       search: ძებნა
       search_clear: ძებნის გასუფთავება
-      actions:
-        login: "შესვლა"
-        logout: "გასვლა"
-        logout_confirm: "ნამდვილად გინდათ გასვლა?"
     sys_user:
       users: "მომხმარებლები"
       users_description: "მომხმარებლების სია და მათი ადმინისტრირება"
       email: "ელ.ფოსტა"
       password: "პაროლი"
+      password_confirmation: "დაადასტურეთ"
       email_hint: "მომხმარებლის ელექტრონული ფოსტა"
       full_name: "სახელი, გვარი"
       full_name_hint: "მომხმარებლის სახელი და გვარი"
@@ -28,30 +25,35 @@ ka:
       sys_admin_hint: არის თუ არა ეს მომხმარებელი სისტემური ადმინისტრატორი?
       first_name: სახელი
       last_name: გვარი
-      facebook_auth:
-        title: ფეისბუკი
-        uid: "მომხმარებლის ID"
-        email: "ელ.ფოსტა"
-        image: "გამოსახულება"
       actions:
+        login: "შესვლა"
+        logout: "გასვლა"
+        logout_confirm: "ნამდვილად გინდათ გასვლა?"
         register: რეგისტრაცია
+        register_full: ახალი მომხმარებლის რეგისტრაცია
+      errors:
+        email_is_taken: "ელ.ფოსტა დაკავებულია"
+        password_not_match: პაროლი არ ემთხვევა
+        empty_first_name: ჩაწერეთ სახელი
+        empty_last_name: ჩაწერეთ გვარი
+        illegal_mobile: არასწორი მობილური
+        illegal_email: არასწორი ელ.ფოსტა
+        empty_password: ჩაწერეთ პაროლი
 ru:
   models:
     general:
+    sys_user:
       actions:
         login: "Вход"
         logout: "Выход"
         logout_confirm: "Вы действительно ходите выйти?"
-    sys_user:
-      actions:
         register: Регистрация
 en:
   models:
     general:
-      actions:
-        login: "Login"
-        logout: "Logout"
-        logout_confirm: "Do you really want to logout?"
     sys_user:
       actions:
         register: Register
+        login: "Login"
+        logout: "Logout"
+        logout_confirm: "Do you really want to logout?"
