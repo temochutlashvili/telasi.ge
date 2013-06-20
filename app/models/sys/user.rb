@@ -1,128 +1,150 @@
 # -*- encoding : utf-8 -*-
-class Sys::User
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  # include Telasi::StandardPhoto
-  # include Telasi::Queryable
+module Sys
+  class User
+    include KA
+    include Mongoid::Document
+    include Mongoid::Timestamps
+    # store_in collection: 'users'
+    # mount_uploader :avatar, AvatarUploader
 
-  attr_accessor :password_confirmation
-  field :email, type: String
-  field :salt, type: String
-  field :hashed_password, type: String
-  field :mobile, type: String
-  field :first_name, type: String
-  field :last_name, type: String
-  field :sys_admin, type: Boolean
+    field :email,                 type: String
+    field :email_confirmed,       type: Boolean
+    field :email_confirm_hash,    type: String
+    field :hashed_password,       type: String
+    field :salt,                  type: String
+    field :password_restore_hash, type: String
+    field :admin,                 type: Mongoid::Boolean
+    field :active,                type: Mongoid::Boolean
 
-  validates :salt, presence: { message: 'empty password' }
-  validates :hashed_password, presence: { message: 'empty password' }
-  validates :email,  presence: { message: I18n.t('models.sys_user.errors.empty_email') }
-  validates :mobile, presence: { message: I18n.t('models.sys_user.errors.empty_mobile') }
-  validates :first_name, :message => 'ჩაწერეთ სახელი'
-  validates :last_name, :message => 'ჩაწერეთ გვარი'
-  validates :password, confirmation: { :message => 'პაროლი არ ემთხვევა' }
-  validates :email, uniqueness: { :message => 'ეს მისამართი უკვე რეგისტრირებულია' }
-  validate :mobile_format, :email_format, :password_presence
+    field :first_name, type: String
+    field :last_name,  type: String
+    field :mobile,     type: String
 
-  before_create :before_user_create
-  before_update :before_user_update
+    field :searchable,     type: Mongoid::Boolean
+    field :email_visible,  type: Mongoid::Boolean
+    field :mobile_visible, type: Mongoid::Boolean
 
-  # index :email
-  # index :bs_login
-  # index [[:email, Mongo::ASCENDING], [:mobile, Mongo::ASCENDING], [:first_name, Mongo::ASCENDING], [:last_name, Mongo::ASCENDING]]
+    # თანამშრომლის ობიექტი ამ მომხმარებლისთვის.
+    # has_many :employees
+    # has_many :stories, :as => :author
 
-  # მომხმარებლის ავტორიზაცია.
-  def self.authenticate(email, pwd)
-    user = User.where(:email => email).first
-    user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
-  end
+    index({ email: 1 }, { unique: true })
+    # index(first_name: 1, last_name: 1)
 
-  # # მომხმარებლის ავტორიზაცია: ბილინგის მომხმარებლით.
-  # def self.authenticate_bs(username, pwd)
-  #   user = User.where(:bs_login => username).first
-  #   user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
-  # end
+    validates :email, uniqueness: { message: I18n.t('models.sys_user.errors.email_is_taken') }
+    validates :email, email: { message: I18n.t('models.sys_user.errors.illegal_email') }
+    validates :password, confirmation: { message: I18n.t('models.sys_user.errors.password_not_match') }
+    validates :first_name, presence: { message: I18n.t('models.sys_user.errors.empty_first_name') }
+    validates :last_name, presence: { message: I18n.t('models.sys_user.errors.empty_last_name') }
+    validates :mobile, mobile: { message: I18n.t('models.sys_user.errors.illegal_mobile') }
+    validate :password_definition
 
-  # # მობილურის "კომპაქტიზაცია": ტოვებს მხოლოდ ციფრებს.
-  # def self.compact_mobile(mob)
-  #   mob.scan(/[0-9]/).join('') if mob
-  # end
+    before_create :user_before_create
+    before_save :user_before_save
 
-  # # ამოწმებს მობილურის ნომრის კორექტულობას.
-  # # კორექტული მობილურის ნომერი უნდა შეიცავდეს 9 ციფრს.
-  # def self.correct_mobile?(mob)
-  #   not not (compact_mobile(mob) =~ /^[0-9]{9}$/)
-  # end
+    def self.current_user; Thread.current[:current_user] end
+    def self.current_user=(usr); Thread.current[:current_user] = usr end
+    def full_name; "#{first_name} #{last_name}" end
+    def self.encrypt_password(password, salt); Digest::SHA1.hexdigest("#{password}dimitri#{salt}") end
+    def self.generate_hash(user); Digest::MD5.hexdigest("#{Time.now}#{rand(20111111)/11.0}#{user.email}") end
+    def to_s; full_name end
+    attr_accessor :password_confirmation
+    attr_reader :password
 
-  # # ელ.ფოსტის შემოწმება.
-  # def self.correct_email?(email)
-  #   not not (email =~ /^\S+@\S+$/)
-  # end
+    def password=(pwd)
+      @password = pwd
+      return if pwd.blank?
+      self.salt = "#{self.object_id}#{rand 1000}"
+      self.hashed_password = User.encrypt_password(self.password, self.salt)
+      self.password_restore_hash = nil
+    end
 
-  # def self.by_q(q)
-  #   self.search_by_q(q, :email, :mobile, :first_name, :last_name)
-  # end
+    # Authenticate user (even inactive)
+    # using given email and password.
+    def self.authenticate(email, password)
+      user = User.where(:email => email).first
+      user = nil if user and user.hashed_password != User.encrypt_password(password, user.salt)
+      user
+    end
 
-  def password=(pwd)
-    @password = pwd
-    unless pwd.nil? or pwd.strip.empty?
-      self.salt = "salt#{rand 100}#{Time.now}"
-      self.hashed_password = Digest::SHA1.hexdigest("#{pwd}dimitri#{salt}")
+    # This method is used for confirming user email.
+    # `confirm_hash` parameter is used 
+    def confirm_email!(confirm_hash)
+      if self.email_confirmed
+        true
+      elsif self.email_confirm_hash == confirm_hash
+        self.email_confirmed = true
+        self.email_confirm_hash = nil
+        self.save
+      else
+        false
+      end
+    end
+
+    # When user requires password restore this hash is generated for
+    # identifing the user.
+    def generate_restore_hash!
+      self.password_restore_hash = User.generate_hash(self)
+      self.save!
+    end
+
+    # # არის თუ არა ეს მომხმარებელი ამ ორგანიზაციის წევრი?
+    # def employee?(org)
+    #   self.employees.map{|e| e.organization}.include?(org)
+    # end
+
+    # # მომხმარებლის პარამეტრის დაყენება.
+    # def set(key, val)
+    #   pref = UserPreference.where(:user_id => self._id, :key => key).first
+    #   pref = UserPreference.new(:user => self, :key => key) unless pref
+    #   pref.value = val
+    #   pref.save
+    # end
+
+    # # მომხმარებლის პარამეტრის მიღება.
+    # def get(key)
+    #   pref = UserPreference.where(:user_id => self._id, :key => key).first
+    #   pref.value if pref
+    # end
+
+    # # ეძებს მომხმარებელს სახელის და გვარის მიხედვით.
+    # def self.by_name(q)
+    #   self.search_by_q(q, :first_name, :last_name)
+    # end
+
+    # # ეძებს მოცემული ტექსტის მიხედვით.
+    # def self.by_query(q)
+    #   self.search_by_q(q, :first_name, :last_name, :email, :mobile)
+    # end
+
+    private
+
+    def password_definition
+      if hashed_password.blank?
+        errors.add(:password, I18n.t('models.sys_user.errors.empty_password'))
+      end
+    end
+
+    def user_before_create
+      first = User.count == 0
+      if first
+        self.admin = true
+        self.email_confirmed = true
+        self.email_confirm_hash = nil
+      else
+        confirmed = (not Telasi::CONFIRM_ON_REGISTER)
+        self.admin = false
+        self.email_confirmed = confirmed
+        self.email_confirm_hash = confirmed ? nil : User.generate_hash(self)
+      end
+      self.searchable = true
+      self.email_visible = true
+      self.mobile_visible = false
+      self.active = true
+    end
+
+    def user_before_save
+      self.mobile = compact_mobile(self.mobile)
     end
   end
-
-  def password; @password end
-  def full_name; "#{self.first_name} #{self.last_name}" end
-
-  # აგენერირებს აღდგენის კოდს ამ მომხამრებლისთვის.
-  def prepeare_restore!
-    self.new_password_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 1000}dimitri#{Time.now}")
-    self.save
-  end
-
-  # def has_role?(role)
-  #   if role.is_a? Array
-  #     role.each { |r| return true if self.has_role?(r) }
-  #     false
-  #   elsif role.to_sym == :all
-  #     true
-  #   else
-  #     self.send(role.to_sym) if self.respond_to?(role.to_sym)
-  #   end
-  # end
-
-  private
-
-  def mobile_format
-    if self.mobile and not User.correct_mobile?(self.mobile)
-      errors.add(:mobile, 'არასწორი მობილური') 
-    end
-  end
-
-  def email_format
-    if self.email and not User.correct_email?(self.email)
-      errors.add(:email, 'არასწორი ელ. ფოსტა')
-    end
-  end
-
-  def password_presence
-    if self.hashed_password.nil? and self.password.nil?
-      errors.add(:password, 'ჩაწერეთ პაროლი')
-    end
-  end
-
-  def before_user_create
-    is_first = User.count == 0
-    self.sys_admin = is_first if self.sys_admin.nil?
-    self.email_confirmed = is_first if self.email_confirmed.nil?
-    self.mobile_confirmed = false if self.mobile_confirmed.nil?
-    self.mobile = User.compact_mobile(self.mobile)
-    self.email_confirm_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 100}#{Time.now}") unless self.email_confirmed
-    true
-  end
-
-  def before_user_update
-    self.mobile = User.compact_mobile(self.mobile)
-  end
-
 end
