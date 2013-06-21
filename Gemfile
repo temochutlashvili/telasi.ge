@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # core
-gem 'rails', '4.0.0.rc1'
+gem 'rails', '4.0.0.rc2'
 gem 'turbolinks'
 
 # resources
@@ -14,6 +14,7 @@ gem 'jquery-rails'
 
 # db
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.2'
 gem 'sqlite3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
