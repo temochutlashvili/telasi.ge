@@ -31,6 +31,7 @@ ka:
       actions:
         login: "შესვლა"
         logout: "გასვლა"
+        login_required: "აუცილებელია სისტემაში ავტორიზაცია!"
         logout_confirm: "ნამდვილად გინდათ გასვლა?"
         register: რეგისტრაცია
         register_full: ახალი მომხმარებლის რეგისტრაცია
