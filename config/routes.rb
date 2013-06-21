@@ -33,10 +33,14 @@ TelasiGe::Application.routes.draw do
     # match '/failure', to: redirect('/'), via: ['get', 'post', 'put']
   end
 
-  # User dashboard.
+  # Dashboard.
   namespace 'user' do
+    get '/', to: redirect('/user/dashboard')
     scope '/dashboard', controller: 'dashboard' do
       get '/', action: 'index', as: 'dashboard'
+    end
+    scope '/customer', controller: 'customer' do
+      get '/', action: 'index', as: 'customer'
     end
   end
 
