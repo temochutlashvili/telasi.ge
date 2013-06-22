@@ -1,0 +1,6 @@
+ka:
+  models:
+    billing_customer:
+      registered_customers: რეგისტრირებული აბონენტები
+      actions:
+        add_customer: აბონენტის რეგისტრაცია

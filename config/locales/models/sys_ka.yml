@@ -45,22 +45,3 @@ ka:
         illegal_email: არასწორი ელ.ფოსტა
         empty_password: ჩაწერეთ პაროლი
         illegal_username_or_password: არასწორი მომხარებელი ან პაროლი
-ru:
-  models:
-    general:
-    sys_user:
-      actions:
-        login: "Вход"
-        logout: "Выход"
-        logout_confirm: "Вы действительно ходите выйти?"
-        register: Регистрация
-        return_to_site: "&larr; Возвращение на Сайт"
-en:
-  models:
-    general:
-    sys_user:
-      actions:
-        register: Register
-        login: "Login"
-        logout: "Logout"
-        logout_confirm: "Do you really want to logout?"

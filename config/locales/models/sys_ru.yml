@@ -1,0 +1,10 @@
+ru:
+  models:
+    general:
+    sys_user:
+      actions:
+        login: "Вход"
+        logout: "Выход"
+        logout_confirm: "Вы действительно ходите выйти?"
+        register: Регистрация
+        return_to_site: "&larr; Возвращение на Сайт"
