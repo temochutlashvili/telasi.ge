@@ -13,16 +13,67 @@ module SystemFields
   end
 end
 
+module CommonActions
+  def save_button
+    submit I18n.t('models.general.actions.save')
+  end
+
+  def cancel_button(url, h={})
+    h[:confirm] = I18n.t('models.general.actions.cancel_confirm') if h[:confirm] == true
+    bottom_action(
+      url,
+      label: I18n.t('models.general.actions.cancel'),
+      icon: '/icons/fugue/cross.png',
+      confirm: h[:confirm]
+    )
+  end
+
+  def edit_action(url)
+    if respond_to?(:title_action)
+      title_action url, icon: '/icons/fugue/pencil.png', label: I18n.t('models.general.actions.edit')
+    else
+      action url, icon: '/icons/fugue/pencil.png', label: I18n.t('models.general.actions.edit')
+    end
+  end
+
+  def delete_action(url)
+    if respond_to?(:title_action)
+      title_action url, method: 'delete', icon: '/icons/fugue/bin.png', label: I18n.t('models.general.actions.delete'), confirm: I18n.t('models.general.actions.confirm')
+    else
+      action url, method: 'delete', icon: '/icons/fugue/bin.png', label: I18n.t('models.general.actions.delete'), confirm: I18n.t('models.general.actions.confirm')
+    end
+  end
+
+  def copy_action(url)
+    if respond_to?(:title_action)
+      title_action url, icon: '/icons/fugue/documents-text.png', label: I18n.t('models.general.actions.copy')
+    else
+      action url, icon: '/icons/fugue/documents-text.png', label: I18n.t('models.general.actions.copy')
+    end
+  end
+
+  def plus_action(url)
+    if respond_to?(:title_action)
+      title_action url, icon: '/icons/fugue/plus.png', label: I18n.t('models.general.actions.plus')
+    else
+      action url, icon: '/icons/fugue/plus.png', label: I18n.t('models.general.actions.plus')
+    end
+  end
+end
+
 class Forma::Form
   include SystemFields
+  include CommonActions
 end
 
 class Forma::Tab
   include SystemFields
+  include CommonActions
 end
 
 class Forma::Column
   include SystemFields
+  include CommonActions
 end
 
 ## GEO -> KA automatic conversion

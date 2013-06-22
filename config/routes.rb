@@ -57,6 +57,7 @@ TelasiGe::Application.routes.draw do
       get '/', action: 'index', as: 'regions'
       post '/sync', action: 'sync', as: 'sync_regions'
       get '/show/:id', action: 'show', as: 'region'
+      match '/edit/:id', action: 'edit', as: 'edit_region', via: ['get', 'post']
     end
   end
 

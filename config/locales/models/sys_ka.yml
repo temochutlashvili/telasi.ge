@@ -11,6 +11,8 @@ ka:
       search: ძებნა
       search_clear: ძებნის გასუფთავება
       records: ჩანაწერი
+      actions:
+        edit: შეცვლა
     sys_user:
       users: "მომხმარებლები"
       users_description: "მომხმარებლების სია და მათი ადმინისტრირება"

@@ -1,4 +1,5 @@
 <%= view_for @region, title: @title, icon: '/icons/fugue/building.png', collapsible: true do |v|
+  v.edit_action admin_edit_region_url(id: @region.id)
   v.tab title: t('models.general.general_info'), icon: '/icons/fugue/building.png' do |v|
     v.text_field :name, required: true
     v.text_field :address
