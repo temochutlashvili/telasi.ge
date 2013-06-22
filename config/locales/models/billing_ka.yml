@@ -19,9 +19,14 @@ ka:
     billing_region_config:
       regions: 'რეგიონების მართვა'
       regions_description: "რეგიონების სინქრონიზაცია ბილინგთან, მათი რუკაზე დასმა."
+      properties: რეგიონის თვისებები
       name: დასახელება
       address: მისამართი
       phone: ტელეფონი
+      phone_exp: ექსპლუატაცია
+      trash_office: დასუფთავების?
+      location: მდებარეობა
+      show_on_map: ვაჩვენო საერთო რუკაზე?
       actions:
         sync: 'რეგიონების სინქრონიზაცია'
         sync_confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'

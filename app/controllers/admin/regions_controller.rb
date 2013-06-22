@@ -10,11 +10,21 @@ class Admin::RegionsController < Admin::AdminController
     redirect_to admin_regions_url, notice: I18n.t('models.billing_region_config.actions.sync_complete')
   end
 
+  def show
+    @region = Billing::RegionConfig.find(params[:id])
+    @title = I18n.t('models.billing_region_config.properties')
+  end
+
   protected
 
   def nav
     super
-    @nav[@title] = nil
+    @nav[I18n.t('models.billing_region_config.regions')] = admin_regions_url
+    if @region
+      @nav[@region.name] = admin_region_url(id: @region.id)
+    else
+      @nav[@title] = nil
+    end
     @nav
   end
 end
