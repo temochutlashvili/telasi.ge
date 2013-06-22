@@ -13,6 +13,7 @@ ka:
       records: ჩანაწერი
       actions:
         edit: შეცვლა
+        save: შენახვა
     sys_user:
       users: "მომხმარებლები"
       users_description: "მომხმარებლების სია და მათი ადმინისტრირება"

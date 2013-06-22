@@ -11,8 +11,16 @@ class Admin::RegionsController < Admin::AdminController
   end
 
   def show
+    @title = I18n.t('models.billing_region_config.actions.show')
     @region = Billing::RegionConfig.find(params[:id])
-    @title = I18n.t('models.billing_region_config.properties')
+  end
+
+  def edit
+    @title = I18n.t('models.billing_region_config.actions.edit')
+    @region = Billing::RegionConfig.find(params[:id])
+    if request.post?
+      # TODO:
+    end
   end
 
   protected
@@ -20,11 +28,8 @@ class Admin::RegionsController < Admin::AdminController
   def nav
     super
     @nav[I18n.t('models.billing_region_config.regions')] = admin_regions_url
-    if @region
-      @nav[@region.name] = admin_region_url(id: @region.id)
-    else
-      @nav[@title] = nil
-    end
+    @nav[@region.name] = admin_region_url(id: @region.id) if @region
+    @nav[@title] = nil unless action_name == 'show'
     @nav
   end
 end
