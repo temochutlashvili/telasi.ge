@@ -5,5 +5,8 @@ end %>
 <%= view_for @customer, title: @customer.custname.to_ka, icon: '/icons/fugue/light-bulb.png' do |v|
   v.text_field :accnumb, tag: 'code', required: true
   v.text_field :custname, required: true
+  v.text_field :region, required: true
   v.number_field :balance, after: 'GEL', required: true
+  v.number_field 'trash_customer.curr_balance', after: 'GEL'
+  v.number_field 'current_water_balance', after: 'GEL'
 end if @customer %>

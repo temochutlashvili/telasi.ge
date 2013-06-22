@@ -5,7 +5,11 @@ ka:
         accnumb: აბ.ნომერი
         custname: "დასახელება"
         registered_customers: რეგისტრირებული აბონენტები
+        region: ბიზნეს-ცენტრი
         balance: 'ელქტროენერგიის დავალინება'
+        current_water_balance: წყალმომარაგების დავალიანება
+        trash_customer:
+          curr_balance: დასუფთავების დავალიანება
         actions:
           search: აბონენტის ძებნა
           add_customer: აბონენტის რეგისტრაცია
