@@ -41,6 +41,7 @@ TelasiGe::Application.routes.draw do
     end
     scope '/customer', controller: 'customer' do
       get '/', action: 'index', as: 'customer'
+      match '/add_customer', action: 'add_customer', as: 'add_customer', via: ['get', 'post']
     end
   end
 

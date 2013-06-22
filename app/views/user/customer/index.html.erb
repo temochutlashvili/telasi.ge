@@ -1,1 +1,5 @@
 <div class="page-header"><h1><%= @title %></div>
+<%= render partial: 'user/customer/empty' if @customers.blank? %>
+<%= table_for @customers, title: t('models.billing_customer.registered_customers'), collapsible: true, icon: '/icons/fugue/light-bulb.png' do |t|
+  t.title_action user_add_customer_url, label: t('models.billing_customer.actions.add_customer'), icon: '/icons/fugue/light-bulb--plus.png'
+end %>
