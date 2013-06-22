@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/Eric-Guo/oracle-enhanced.git
+  remote: git://github.com/dimakura/oracle-enhanced.git
   revision: 12168a0f9eea0e6238eb5a1cc4376f2777cd2e06
   branch: rails4
   specs:
@@ -99,7 +99,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     mini_portile (0.5.0)
-    minitest (4.7.4)
+    minitest (4.7.5)
     moped (1.5.0)
     multi_json (1.7.7)
     nokogiri (1.6.0)

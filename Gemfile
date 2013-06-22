@@ -17,7 +17,7 @@ gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'arel', :git => "git://github.com/rails/arel"
 gem 'ruby-oci8', '~> 2.1.5'
 # gem 'activerecord-oracle_enhanced-adapter', git: 'https://github.com/rsim/oracle-enhanced'
-gem 'activerecord-oracle_enhanced-adapter', github: 'Eric-Guo/oracle-enhanced', branch: 'rails4'
+gem 'activerecord-oracle_enhanced-adapter', github: 'dimakura/oracle-enhanced', branch: 'rails4'
 # gem 'sqlite3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
