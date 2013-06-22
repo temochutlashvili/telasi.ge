@@ -53,6 +53,9 @@ TelasiGe::Application.routes.draw do
       get '/', action: 'index', as: 'users'
       get '/show/:id', action: 'show', as: 'user'
     end
+    scope '/regions', controller: 'regions' do
+      get '/', action: 'index', as: 'regions'
+    end
   end
 
   root to: redirect('/site/home')
