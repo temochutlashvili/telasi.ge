@@ -1,4 +1,6 @@
 <%= table_for @regions, title: @title, icon: '/icons/fugue/building.png', collapsible: true do |t|
   t.title_action admin_sync_regions_url, label: t('models.billing_region_config.actions.sync'), icon: '/icons/fugue/building--arrow.png', confirm: t('models.billing_region_config.actions.sync_confirm'), method: 'post'
-  t.text_field :name
+  t.text_field :name, url: ->(x){ admin_region_url(id: x.id) }
+  t.text_field :address
+  t.text_field :phone
 end %>

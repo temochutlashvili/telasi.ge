@@ -56,6 +56,7 @@ TelasiGe::Application.routes.draw do
     scope '/regions', controller: 'regions' do
       get '/', action: 'index', as: 'regions'
       post '/sync', action: 'sync', as: 'sync_regions'
+      get '/show/:id', action: 'show', as: 'region'
     end
   end
 
