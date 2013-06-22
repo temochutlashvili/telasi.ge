@@ -23,7 +23,7 @@ class Billing::Region < ActiveRecord::Base
     self.regionname
   end
 
-  # def ext_region
-  #   Ext::Region.where(regionkey: self.regionkey).first
-  # end
+  def region_config
+    Billing::RegionConfig.where(regionkey: self.regionkey).first
+  end
 end
