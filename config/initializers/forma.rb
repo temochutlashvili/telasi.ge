@@ -27,20 +27,8 @@ end
 
 ## GEO -> KA automatic conversion
 
-module Forma
-  module Utils
-    def extract_value(val, name)
-      def simple_value(model, name)
-        if model.respond_to?(name); model.send(name)
-        elsif model.respond_to?('[]'); model[name] || model[name.to_sym]
-        end
-      end
-      name.to_s.split('.').each { |n| val = simple_value(val, n) if val }
-      if val.present? and val.is_a?(String)
-        val.to_ka
-      else
-        val
-      end
-    end
+class Forma::Html::Element
+  def to_s
+    generate_html.to_ka.html_safe
   end
 end
