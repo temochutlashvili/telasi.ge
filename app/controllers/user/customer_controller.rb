@@ -14,6 +14,9 @@ class User::CustomerController < ActionsController
   def nav
     @nav = super
     @nav[I18n.t('applications.customer.title')] = user_customer_url
+    if action_name == 'add_customer'
+      @nav['title'] = nil
+    end
     @nav
   end
 end

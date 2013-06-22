@@ -1,5 +1,10 @@
 <div class="page-header"><h1><%= @title %></div>
-<%= render partial: 'user/customer/empty' if @customers.blank? %>
+<!-- registered customers -->
+<h2 class="app-group"><%= t('models.billing_customer.registered_customers') %></h2>
+<% if @customers.blank? %>
+  <%= render partial: 'user/customer/empty'%>
+<% else %>
 <%= table_for @customers, title: t('models.billing_customer.registered_customers'), collapsible: true, icon: '/icons/fugue/light-bulb.png' do |t|
   t.title_action user_add_customer_url, label: t('models.billing_customer.actions.add_customer'), icon: '/icons/fugue/light-bulb--plus.png'
 end %>
+<% end %>
