@@ -10,6 +10,7 @@ class Billing::CustomerRegistration
   field :rs_name, type: String
   field :confirmed, type: Mongoid::Boolean, default: false
   validates :rs_tin, presence: { message: I18n.t('models.billing_customer_registration.errors.tin_required') }
+  validates :custkey, uniqueness: { message: I18n.t('models.billing_customer_registration.errors.customer_duplicate'), scope: :user_id }
   validate :get_rs_name
 
   def customer

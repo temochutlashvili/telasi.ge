@@ -6,12 +6,15 @@
     <%= customer_search(@search) %>
   <% elsif @step == 2 %>
     <%= basic_customer_view(@customer) %>
+    <% if @duplication %>
+      <div class="alert alert-block alert-error">აბონენტის დუბლირება! ეს აბონენტი უკვე რეგისტრირებულია.</div>
+    <% end %>
     <div class="btn-toolbar">
-      <%= link_to t('models.billing_customer_registration.actions.continue_2'), user_add_customer_url(accnumb: params[:accnumb], step: 3), class: 'btn btn-success' %>
+      <%= link_to t('models.billing_customer_registration.actions.continue_2'), user_add_customer_url(accnumb: params[:accnumb], step: 3), class: 'btn btn-success' unless @duplication %>
       <%= link_to t('models.billing_customer_registration.actions.back_2'), user_add_customer_url, class: 'btn btn-danger' %>
     </div>
   <% elsif @step == 3 %>
-    <%= forma_for @registration, title: 'personal data', icon: '/icons/fugue/user.png' do |f|
+    <%= forma_for @registration, title: t('models.billing_customer_registration.actions.personal_data'), icon: '/icons/fugue/user.png' do |f|
       f.text_field :rs_tin, autofocus: true, required: true
       f.submit t('models.billing_customer_registration.actions.complete')
     end %>

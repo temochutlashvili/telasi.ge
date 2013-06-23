@@ -22,6 +22,7 @@ class User::CustomerController < ActionsController
         @registration = Billing::CustomerRegistration.new
       end
     elsif @customer
+      @duplication = Billing::CustomerRegistration.where(custkey: @customer.custkey, user: current_user).first.present?
       @step = 2
     elsif params[:step] == '4'
       @step = 4
