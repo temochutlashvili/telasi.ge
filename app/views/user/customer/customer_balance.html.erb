@@ -1,16 +1,2 @@
 <%= customer_search(@search) %>
-<%= view_for @customer, title: @customer.custname.to_ka, icon: '/icons/fugue/light-bulb.png' do |v|
-  v.tab title: t('models.general.general_info'), icon: '/icons/fugue/light-bulb.png' do |v|
-    v.text_field :accnumb, tag: 'code', required: true
-    v.text_field :custname, required: true
-    v.number_field :balance, after: 'GEL', required: true
-    v.number_field 'trash_customer.curr_balance', after: 'GEL'
-    v.number_field 'current_water_balance', after: 'GEL'
-  end
-  v.tab title: t('models.bs.customer.region'), icon: '/icons/fugue/globe.png' do |v|
-    v.text_field 'region', required: true
-    v.text_field 'region.region_config.address', label: t('models.bs.customer.region_address')
-    v.text_field 'region.region_config.phone', label: t('models.bs.customer.region_phone')
-    v.map_field  'region.region_config.location', label: t('models.bs.customer.region_location'), height: 400, width: 700
-  end
-end if @customer %>
+<%= basic_customer_view(@customer) if @customer %>
