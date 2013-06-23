@@ -14,6 +14,7 @@ ka:
       actions:
         edit: შეცვლა
         save: შენახვა
+        cancel: გაუქმება
     sys_user:
       users: "მომხმარებლები"
       users_description: "მომხმარებლების სია და მათი ადმინისტრირება"
