@@ -2,7 +2,7 @@
 class User::CustomerController < ActionsController
   def index
     @title = I18n.t('applications.customer.title')
-    @customers = []
+    @customers = Billing::CustomerRegistration.where(user: current_user)
   end
 
   def add_customer

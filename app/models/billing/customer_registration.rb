@@ -12,6 +12,10 @@ class Billing::CustomerRegistration
   validates :rs_tin, presence: { message: I18n.t('models.billing_customer_registration.errors.tin_required') }
   validate :get_rs_name
 
+  def customer
+    @customer ||= Billing::Customer.find(self.custkey)
+  end
+
   private
 
   def get_rs_name

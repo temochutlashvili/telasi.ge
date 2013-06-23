@@ -5,7 +5,13 @@
 <% if @customers.blank? %><%= render partial: 'user/customer/empty'%>
 <% else %>
 <%= table_for @customers, title: t('models.bs.customer.registered_customers'), collapsible: true, icon: '/icons/fugue/light-bulb.png' do |t|
+  t.text_field 'customer.accnumb', tag: 'code', label: t('models.bs.customer.accnumb')
+  t.text_field 'customer.custname', label: t('models.bs.customer.custname')
+  t.number_field 'customer.balance', after: 'GEL', label: t('models.bs.customer.balance')
+  #t.number_field 'customer.trash_customer.curr_balance', after: 'GEL', label: t('models.bs.customer.trash_customer.curr_balance')
+  #t.number_field 'customer.current_water_balance', after: 'GEL', label: t('models.bs.customer.current_water_balance')
   t.title_action user_add_customer_url, label: t('models.bs.customer.actions.add_customer'), icon: '/icons/fugue/light-bulb--plus.png'
+  t.boolean_field 'confirmed'
 end %>
 <% end %>
 <!-- customer balance -->
