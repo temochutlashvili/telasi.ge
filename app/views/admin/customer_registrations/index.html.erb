@@ -1,4 +1,5 @@
 <%= table_for @registrations, title: @title, collapsible: true, icon: '/icons/fugue/light-bulb.png' do |t|
+  t.item_action ->(x) { admin_confirm_customer_registration_url(id: x.id) }, label: t('models.billing_customer_registration.actions.confirm'), method: 'post', confirm: t('models.billing_customer_registration.actions.confirm_confirm'), icon: '/icons/fugue/tick-circle.png'
   t.text_field 'user'
   t.complex_field i18n: 'customer' do |c|
     c.text_field 'customer.accnumb', tag: 'code'

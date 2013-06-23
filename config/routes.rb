@@ -61,6 +61,7 @@ TelasiGe::Application.routes.draw do
     end
     scope '/customer_registrations', controller: 'customer_registrations' do
       get '/', action: 'index', as: 'customer_registrations'
+      post '/confirm/:id', action: 'confirm', as: 'confirm_customer_registration'
     end
   end
 

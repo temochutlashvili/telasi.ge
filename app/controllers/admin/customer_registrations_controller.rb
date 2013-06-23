@@ -4,6 +4,12 @@ class Admin::CustomerRegistrationsController < Admin::AdminController
     @registrations = Billing::CustomerRegistration.desc(:_id).paginate(per_page: 15)
   end
 
+  def confirm
+    registration = Billing::CustomerRegistration.find(params[:id])
+    registration.confirmed = true
+    redirect_to admin_customer_registrations_url, notice: I18n.t('models.billing_customer_registration.actions.confirm_complete')
+  end
+
   protected
 
   def nav
