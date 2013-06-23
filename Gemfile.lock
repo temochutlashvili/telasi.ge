@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/dimakura/forma
-  revision: 5081a62d95c6207e88b1fcab4f8168327ed199bc
+  revision: eb8cf6161e5d10e51572a31068ea5e041eb02ff3
   specs:
     forma (0.1.1)
       activesupport
