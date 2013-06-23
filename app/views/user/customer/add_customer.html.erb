@@ -1,0 +1,22 @@
+<div class="page-header"><h1><%= @title %></h1></div>
+<% if @step < 4%>
+  <h2 class="app-group"><%= t("models.billing_customer_registration.actions.step_#{@step}") %></h2>
+  <p class="text-info"><%= t("models.billing_customer_registration.actions.step_#{@step}_description") %></p>
+  <% if @step == 1 %>
+    <%= customer_search(@search) %>
+  <% elsif @step == 2 %>
+    <%= basic_customer_view(@customer) %>
+    <div class="btn-toolbar">
+      <%= link_to t('models.billing_customer_registration.actions.continue_2'), user_add_customer_url(accnumb: params[:accnumb], step: 3), class: 'btn btn-success' %>
+      <%= link_to t('models.billing_customer_registration.actions.back_2'), user_add_customer_url, class: 'btn btn-danger' %>
+    </div>
+  <% elsif @step == 3 %>
+    <%= forma_for @registration, title: 'personal data', icon: '/icons/fugue/user.png' do |f|
+      f.text_field :rs_tin, autofocus: true, required: true
+      f.submit t('models.billing_customer_registration.actions.complete')
+    end %>
+  <% end %>
+<% else %>
+  <h2 class="app-group"><%= t("models.billing_customer_registration.actions.registration_complete") %></h2>
+  <p class="text-success"><%= t("models.billing_customer_registration.actions.registration_complete_description") %></p>
+<% end %>
