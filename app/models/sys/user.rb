@@ -8,7 +8,7 @@ module Sys
     # mount_uploader :avatar, AvatarUploader
 
     field :email,                 type: String
-    field :email_confirmed,       type: Boolean
+    field :email_confirmed,       type: Mongoid::Boolean
     field :email_confirm_hash,    type: String
     field :hashed_password,       type: String
     field :salt,                  type: String
