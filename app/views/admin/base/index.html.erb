@@ -1,23 +1,18 @@
 <h2 class="app-group"><%= @title %></h2>
 <div class="applications">
-  <!-- users -->
+<%[
+  { label: 'models.sys_user.users', url: admin_users_url, icon: '/icons/fugue/users.png' },
+  { label: 'models.billing_region_config.regions', url: admin_regions_url, icon: '/icons/fugue/building.png' },
+  { label: 'models.billing_customer_registration.admin', url: admin_customer_registrations_url, icon: '/icons/fugue/light-bulb--pencil.png' }
+].each do |app| %>
   <div class="application">
     <div class="title">
-      <img src="/icons/fugue/users.png" />
-      <%= link_to t('models.sys_user.users'), admin_users_url %>
+      <img src="<%= app[:icon] %>" />
+      <%= link_to t(app[:label]), app[:url] %>
     </div>
     <div class="description muted">
-      <%= t('models.sys_user.users_description') %>
+      <%= t("#{app[:label]}_description") %>
     </div>
   </div>
-  <!-- regions -->
-  <div class="application">
-    <div class="title">
-      <img src="/icons/fugue/building.png" />
-      <%= link_to t('models.billing_region_config.regions'), admin_regions_url %>
-    </div>
-    <div class="description muted">
-      <%= t('models.billing_region_config.regions_description') %>
-    </div>
-  </div>
+<% end %>
 </div>

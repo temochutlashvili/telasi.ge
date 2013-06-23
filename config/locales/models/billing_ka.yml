@@ -23,6 +23,8 @@ ka:
     billing_customer_registration:
       rs_tin: თქვენი პირადი ნომერი ან ორგანიზაციის საიდენტიფიკაციო კოდი
       confirmed: 'დადასტურებული?'
+      admin: რეგისტრაციების მართვა
+      admin_description: აბონენტის რეგისტრაციის განცხადებების ნახვა და დადასტურება
       actions:
         complete: რეგისტრაციის დასრულება
         registration_complete: რეგისტრაცია დასრულებულია

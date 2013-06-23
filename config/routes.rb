@@ -59,6 +59,9 @@ TelasiGe::Application.routes.draw do
       get '/show/:id', action: 'show', as: 'region'
       match '/edit/:id', action: 'edit', as: 'edit_region', via: ['get', 'post']
     end
+    scope '/customer_registrations', controller: 'customer_registrations' do
+      get '/', action: 'index', as: 'customer_registrations'
+    end
   end
 
   root to: redirect('/site/home')
