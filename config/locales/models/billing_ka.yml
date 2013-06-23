@@ -6,6 +6,9 @@ ka:
         custname: "დასახელება"
         registered_customers: რეგისტრირებული აბონენტები
         region: ბიზნეს-ცენტრი
+        region_address: მისამართი
+        region_phone: ტელეფონი
+        region_location: მდებარეობა რუკაზე
         balance: 'ელქტროენერგიის დავალინება'
         current_water_balance: წყალმომარაგების დავალიანება
         trash_customer:

@@ -8,7 +8,7 @@
     v.number_field 'current_water_balance', after: 'GEL'
   end
   v.tab title: t('models.bs.customer.region'), icon: '/icons/fugue/globe.png' do |v|
-    v.text_field :region
+    v.text_field 'region', required: true
     v.text_field 'region.region_config.address', label: t('models.bs.customer.region_address')
     v.text_field 'region.region_config.phone', label: t('models.bs.customer.region_phone')
     v.map_field  'region.region_config.location', label: t('models.bs.customer.region_location'), height: 400, width: 700
