@@ -1,7 +1,4 @@
-<%= forma_for @search, title: t('models.bs.customer.actions.search'), method: 'get', icon: '/icons/fugue/magnifier.png' do |f|
-  f.text_field :accnumb, label: t('models.bs.customer.accnumb'), autofocus: true
-  f.submit t('models.bs.customer.actions.search')
-end %>
+<%= customer_search(@search) %>
 <%= view_for @customer, title: @customer.custname.to_ka, icon: '/icons/fugue/light-bulb.png' do |v|
   v.tab title: t('models.general.general_info'), icon: '/icons/fugue/light-bulb.png' do |v|
     v.text_field :accnumb, tag: 'code', required: true
