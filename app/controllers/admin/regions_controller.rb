@@ -19,7 +19,7 @@ class Admin::RegionsController < Admin::AdminController
     @title = I18n.t('models.billing_region_config.actions.edit')
     @region = Billing::RegionConfig.find(params[:id])
     if request.post?
-      # TODO:
+      @region.update_attributes(region_params)
     end
   end
 
@@ -31,5 +31,11 @@ class Admin::RegionsController < Admin::AdminController
     @nav[@region.name] = admin_region_url(id: @region.id) if @region
     @nav[@title] = nil unless action_name == 'show'
     @nav
+  end
+
+  private
+
+  def region_params
+    params.require(:billing_region_config).permit(:address, :phone, :phone_exp, :trash_office, :show_on_map, :location_latitude, :location_longitude)
   end
 end
