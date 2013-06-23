@@ -43,6 +43,7 @@ TelasiGe::Application.routes.draw do
       get '/', action: 'index', as: 'customer'
       match '/add_customer', action: 'add_customer', as: 'add_customer', via: ['get', 'post']
       get '/balance', action: 'customer_balance', as: 'customer_balance'
+      get '/info/:id', action: 'info', as: 'customer_info'
     end
   end
 

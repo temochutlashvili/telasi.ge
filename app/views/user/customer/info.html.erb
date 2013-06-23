@@ -1,0 +1,9 @@
+<%= view_for @customer, title: t('models.bs.customer.actions.customer_electricity'), icon: '/icons/fugue/light-bulb.png', collapsible: true do |v|
+  v.tab title: t('models.general.general_info'), icon: '/icons/fugue/user.png' do |t|
+    t.text_field 'accnumb', tag: 'code', required: true
+    t.text_field 'custname', required: true
+    t.number_field 'balance', required: true, after: 'GEL'
+    t.text_field 'address', required: true
+    t.text_field 'send_address'
+  end
+end %>

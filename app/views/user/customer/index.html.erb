@@ -5,6 +5,7 @@
 <% if @customers.blank? %><%= render partial: 'user/customer/empty'%>
 <% else %>
 <%= table_for @customers, title: t('models.bs.customer.registered_customers'), collapsible: true, icon: '/icons/fugue/light-bulb.png' do |t|
+  t.item_action ->(x) { user_customer_info_url(id: x.customer.custkey) }, label: t('models.billing_customer_registration.actions.info_show'), icon: '/icons/fugue/eye.png', condition: ->(x) { x.confirmed }
   t.text_field 'customer.accnumb', tag: 'code', label: t('models.bs.customer.accnumb')
   t.text_field 'customer.custname', label: t('models.bs.customer.custname')
   t.number_field 'customer.balance', after: 'GEL', label: t('models.bs.customer.balance')

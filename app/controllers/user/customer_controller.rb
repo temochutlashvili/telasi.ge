@@ -39,6 +39,15 @@ class User::CustomerController < ActionsController
     end
   end
 
+  def info
+    if Billing::CustomerRegistration.where(user: current_user, custkey: params[:id]).first.present?
+      @title = I18n.t('models.bs.customer.actions.show')
+      @customer = Billing::Customer.find(params[:id])
+    else
+      redirect_to user_customer_url, alert: 'ეს აბონენტი არაა რეგისტრირებული!'
+    end
+  end
+
   protected
 
   def nav
@@ -46,6 +55,8 @@ class User::CustomerController < ActionsController
     @nav[I18n.t('applications.customer.title')] = user_customer_url
     if [ 'add_customer', 'customer_balance' ].include? action_name
       @nav[@title] = nil
+    elsif @customer
+      @nav[@customer.custname.to_ka] = user_customer_info_url(@customer.custkey)
     end
     @nav
   end
