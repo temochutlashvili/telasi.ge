@@ -7,6 +7,7 @@ class Admin::CustomerRegistrationsController < Admin::AdminController
   def confirm
     registration = Billing::CustomerRegistration.find(params[:id])
     registration.confirmed = true
+    registration.save
     redirect_to admin_customer_registrations_url, notice: I18n.t('models.billing_customer_registration.actions.confirm_complete')
   end
 
