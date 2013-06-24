@@ -3,16 +3,30 @@ ka:
     bs:
       customer:
         accnumb: აბ.ნომერი
-        custname: "დასახელება"
+        accnumb_hint: აბონენტის ნომერი
+        custname: დასახელება
+        custname_hint: დასახელება ან სახელი და გვარი
         registered_customers: რეგისტრირებული აბონენტები
         region: ბიზნეს-ცენტრი
+        region_hint: აბონენტის მომსახურე ბიზნეს-ცენტრი
         region_address: მისამართი
+        region_address_hint: ბიზნეს-ცენტრის მისამართი
         region_phone: ტელეფონი
+        region_phone_hint: ბიზნეს-ცენტრის ტელეფონი
         region_location: მდებარეობა რუკაზე
+        region_location_hint: ბიზნეს-ცენტრის მდებარეობა რუკაზე
         balance: 'ელქტროენერგიის დავალინება'
+        balance2: 'დავალიანება'
+        balance2_hint: 'ელქტროენერგიის დავალიანება'
         current_water_balance: წყლის დავალიანება
         address: მისამართი
+        address_hint: აბონენტის მისამართი
         send_address: ქვითრის მისამართი
+        send_address_hint: ქვითრის მიტანის მისამართი
+        last_bill_number: ქვითრის ნომერი
+        last_bill_number_hint: ბოლო ქვითრის ნომერი
+        last_bill_date: ქვითრის თარიღი
+        last_bill_date_hint: ბოლო ქვითრის თარიღი
         trash_customer:
           curr_balance: დასუფთავების დავალიანება
         actions:

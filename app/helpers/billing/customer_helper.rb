@@ -16,7 +16,7 @@ module Billing::CustomerHelper
         v.number_field 'trash_customer.curr_balance', after: 'GEL'
         v.number_field 'current_water_balance', after: 'GEL'
       end
-      v.tab title: t('models.bs.customer.region'), icon: '/icons/fugue/globe.png' do |v|
+      v.tab title: t('models.bs.customer.region'), icon: '/icons/fugue/building.png' do |v|
         v.text_field 'region', required: true
         v.text_field 'region.region_config.address', label: t('models.bs.customer.region_address')
         v.text_field 'region.region_config.phone', label: t('models.bs.customer.region_phone')

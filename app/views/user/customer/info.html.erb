@@ -2,8 +2,16 @@
   v.tab title: t('models.general.general_info'), icon: '/icons/fugue/user.png' do |t|
     t.text_field 'accnumb', tag: 'code', required: true
     t.text_field 'custname', required: true
-    t.number_field 'balance', required: true, after: 'GEL'
+    t.number_field 'balance', required: true, after: 'GEL', i18n: 'balance2'
     t.text_field 'address', required: true
     t.text_field 'send_address'
+    t.text_field 'last_bill_number', tag: 'code', before: '№'
+    t.date_field 'last_bill_date'
+  end
+  v.tab title: t('models.bs.customer.region'), icon: '/icons/fugue/building.png' do |v|
+    v.text_field 'region', required: true
+    v.text_field 'region.region_config.address', i18n:  'region_address' # label: t('models.bs.customer.region_address')
+    v.text_field 'region.region_config.phone', i18n: 'region_phone' # label: t('models.bs.customer.region_phone')
+    v.map_field  'region.region_config.location', height: 400, width: 700, i18n: 'region_location' 
   end
 end %>
