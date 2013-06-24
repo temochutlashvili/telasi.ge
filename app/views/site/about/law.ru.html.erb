@@ -1,0 +1,26 @@
+<%= content_for :top do %>
+<div class="row-fluid breadcrumbs margin-bottom-20">
+  <div class="container">
+    <h1>Нормативная База</h1>
+  </div>
+</div>
+<% end %>
+<div class="well-read">
+  <p>
+    Корпоративная политика АО &quot;Теласи&quot; осуществляется в соответствии с законом Грузии
+    &quot;О предпринимателях&quot; и Уставом Общества. Контуры правового режима деятельности
+    АО &quot;Теласи&quot; обозначены в следующих законодательно-правовых актах:
+  </p>
+  <%= downloads_table [
+    { label: 'Закон Грузии <em>Об электроэнергетике и природном газе</em>',
+      url: '/docs/laws/law_of_georgia_on_energy_and_natural_gas_25.03.13_rus.pdf' },
+    { label: 'Закон Грузии <em>О предпринимателях</em>',
+      url: '/docs/laws/law_on_entrepreneurs_25.05.12_rus.pdf' },
+    { label: 'Закон Грузии <em>О рынке ценных бумаг</em>',
+      url: '/docs/laws/order_ministry77_22.03.2013_rus.pdf' },
+    { label: 'Приказ №77 от 30 августа 2006 г. министра энергетики Грузии <em>Об утверждении &quot;Правил рынка электроэнергии Грузии&quot;</em>',
+      url: '/docs/laws/order_ministry_77_22.03.2013_rus.pdf' },
+    { label: 'Постановления Национальной комиссии по регулированию энергетики и водоснабжения Грузии',
+      url: '/docs/laws/resolutions_gnewcrc_03.04.2013_rus.pdf' }
+  ] %>
+</div>
