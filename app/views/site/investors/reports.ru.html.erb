@@ -1,0 +1,14 @@
+<%= content_for :top do %>
+<div class="row-fluid breadcrumbs margin-bottom-20">
+  <div class="container">
+    <h1>Отчетная информация</h1>
+  </div>
+</div>
+<% end %>
+<%= downloads_table [
+  { label: '<em>Годовой Отчет</em> 2011', url: '/docs/telasi/annual_report_2011_rus.pdf' },
+  { label: '<em>Годовой Отчет</em> 2010', url: '/docs/telasi/annual_report_2010_rus.pdf' },
+  { label: '<em>Годовой Отчет</em> 2010, Приложение 1', url: '/docs/telasi/annual_report_2010_1_rus.pdf' },
+  { label: '<em>Годовой Отчет</em> 2010, Приложение 2', url: '/docs/telasi/annual_report_2010_2_rus.pdf' },
+  { label: '<em>Годовой Отчет</em> 2009', url: '/docs/telasi/annual_report_2009_rus.pdf' },
+] %>
