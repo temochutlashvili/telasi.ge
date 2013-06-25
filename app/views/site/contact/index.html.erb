@@ -10,7 +10,16 @@
     <div id="map" class="map map-box map-box-space margin-bottom-40"></div>
   </div>
   <div class="span3">
-    ---
+    <div class="headline">
+      <h3><%= t('site.pages.contact.our_address') %></h3>
+    </div>
+    <ul class="unstyled who margin-bottom-20">
+      <li><%= t('site.info.address.line1') %> <%= t('site.info.address.line2') %></li>
+      <li><%= t('site.info.phone1') %></li>
+      <li><%= t('site.info.phone2') %></li>
+      <li><%= t('site.info.fax') %></li>
+      <li><%= mail_to 'telasi@telasi.ge' %></li>
+    </ul>
   </div>
 </div>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -20,30 +29,12 @@
   ];
   var marker = null;
   var map = null;
-  // var infowindow = new google.maps.InfoWindow({ content: '(no-info)' });
   var default_position = new google.maps.LatLng(41.7341651833187, 44.78496193885803);
   var default_zoom = 13;
-  // var large_view = 16;
   var initializeMap = function() {
     var myOptions = { center: default_position, zoom: default_zoom, mapTypeId: google.maps.MapTypeId.ROADMAP };
     map = new google.maps.Map(document.getElementById("map"), myOptions);
     marker = new google.maps.Marker({ position: default_position, map: map, animation: google.maps.Animation.DROP });
   }
-  $(function() {
-    initializeMap();
-    // $('.region-link').click(function(evnt) {
-    //   var marker = markers[$(evnt.target).attr('data-index')];
-    //   infowindow.setContent(marker.info_html);
-    //   infowindow.open(map, marker);
-    //   map.setCenter(marker.getPosition());
-    //   map.setZoom(large_view);
-    //   return false;
-    // });
-    // $('.all-regions-link').click(function() {
-    //   infowindow.close();
-    //   map.setCenter(default_position);
-    //   map.setZoom(default_zoom);
-    //   return false;
-    // });
-  });
+  $(function() { initializeMap(); });
 </script>
