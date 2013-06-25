@@ -74,7 +74,7 @@ ka:
       phone_exp: ექსპლუატაცია
       trash_office: დასუფთავების?
       location: მდებარეობა
-      show_on_map: ვაჩვენო საერთო რუკაზე?
+      show_on_map: ვაჩვენო რუკაზე?
       actions:
         sync: 'რეგიონების სინქრონიზაცია'
         sync_confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'

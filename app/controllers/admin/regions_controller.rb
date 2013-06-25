@@ -19,7 +19,7 @@ class Admin::RegionsController < Admin::AdminController
     @title = I18n.t('models.billing_region_config.actions.edit')
     @region = Billing::RegionConfig.find(params[:id])
     if request.post?
-      @region.update_attributes(region_params)
+      redirect_to admin_region_url(id: @region.id), notice: 'რეგიონი განახლებულია' if @region.update_attributes(region_params)
     end
   end
 
