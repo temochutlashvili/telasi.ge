@@ -13,5 +13,6 @@
   end
   v.tab title: t('models.general.system_info'), icon: '/icons/fugue/traffic-cone.png' do |v|
     v.timestamps
+    v.text_field :regionkey, tag: 'code', required: true
   end
 end %>

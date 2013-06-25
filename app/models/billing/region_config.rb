@@ -3,6 +3,8 @@ class Billing::RegionConfig
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  CENTRAL_KEY = 111
+
   field :regionkey, type: Integer
   field :type,      type: Integer
   field :name,      type: String
