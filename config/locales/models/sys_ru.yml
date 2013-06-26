@@ -1,6 +1,7 @@
 ru:
   models:
     general:
+      search: Поиск
     sys_user:
       actions:
         login: "Вход"

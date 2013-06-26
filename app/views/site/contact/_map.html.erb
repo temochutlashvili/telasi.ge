@@ -26,7 +26,6 @@
     $('#myTab a').click(function (e) {
       e.preventDefault();
       $(this).tab('show');
-      //drawChart();
     });
   });
 </script>
@@ -34,12 +33,12 @@
 <div class="row-fluid">
   <div class="span5" style="min-height: 100px; padding-top: 20px;">
     <ul class="nav nav-tabs" id="myTab">
-      <li class="active"><a href="#tables2">ბიზნეს-ცენტრით</a></li>
-      <li class=""><a href="#chart2">აბონენტის ნომრით</a></li>
+      <li class="active"><a href="#tables2"><%= t('site.pages.contact.region.byregion') %></a></li>
+      <li class=""><a href="#chart2"><%= t('site.pages.contact.region.byaccnumb') %></a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="tables2">
-        <div class="muted" style="margin-bottom: 8px;">აარჩიეთ სიიდან თქვენი ბიზნეს-ცენტრი</div>
+        <div class="muted" style="margin-bottom: 8px;"><%= t('site.pages.contact.region.byregion_description') %></div>
         <select id="regions">
           <% Billing::RegionConfig.where(show_on_map: true).asc(:name).each do |region| %>
             <option value="<%= region.regionkey %>" data-phone="<%= region.phone %>" data-address="<%= region.address %>" data-latitude="<%= region.location_latitude %>" data-longitude="<%= region.location_longitude %>" data-name="<%= region.name %>"><%= region.name %></option>
@@ -47,11 +46,11 @@
         </select>
       </div>
       <div class="tab-pane" id="chart2">
-        <div class="muted" style="margin-bottom: 8px;">შეიყვანეთ თქვენი აბ.ნომერი</div>
+        <div class="muted" style="margin-bottom: 8px;"><%= t('site.pages.contact.region.byaccnumb_description') %></div>
         <div class="input-append">
           <form id="accnumb-form">
-            <input id="accnumb" type="text" style="width:200px;" placeholder="აბონენტის ნომერი">
-            <button type="submit" class="btn-u">ძებნა</button>
+            <input id="accnumb" type="text" style="width:120px;" placeholder="<%= t('models.bs.customer.accnumb') %>">
+            <button type="submit" class="btn-u"><%= t('models.general.search') %></button>
           </form>
           <script type="text/javascript">
             $(function() {
