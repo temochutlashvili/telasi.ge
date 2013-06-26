@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # core
 gem 'rails', '4.0.0'
+gem 'composite_primary_keys', '~> 5.0'
 gem 'turbolinks'
 
 # resources
