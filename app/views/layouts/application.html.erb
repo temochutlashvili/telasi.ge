@@ -3,6 +3,7 @@
 <head>
 <meta name="Author" content="Dimitri Kurashvili <dimakura@gmail.com>" />
 <title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
+<%= favicon_link_tag('/favicon.png') %>
 <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=true"></script>
