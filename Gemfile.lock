@@ -6,10 +6,12 @@ GIT
     activerecord-oracle_enhanced-adapter (1.4.2)
 
 GIT
-  remote: git://github.com/rails/arel
-  revision: a1b72178714fbf0033fe076b7e51f57eff152bdd
+  remote: git://github.com/drnic/composite_primary_keys.git
+  revision: 9fca42d62e4b312bcc595f8746785bcbd0ba47bd
+  branch: ar_4.0.x
   specs:
-    arel (4.0.0.20130418133826)
+    composite_primary_keys (5.0.12)
+      activerecord (>= 4.0.0.rc1)
 
 GIT
   remote: https://github.com/dimakura/forma
@@ -66,6 +68,7 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
+    arel (4.0.0)
     atomic (1.1.9)
     builder (3.1.4)
     coffee-rails (4.0.0)
@@ -172,8 +175,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter!
-  arel!
   coffee-rails (~> 4.0.0)
+  composite_primary_keys!
   forma!
   jbuilder (~> 1.0.1)
   jquery-rails

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # core
 gem 'rails', '4.0.0'
-gem 'composite_primary_keys', '~> 5.0'
+gem 'composite_primary_keys', github: 'drnic/composite_primary_keys', branch: 'ar_4.0.x'
 gem 'turbolinks'
 
 # resources
@@ -15,11 +15,9 @@ gem 'jquery-rails'
 
 # db
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
-gem 'arel', :git => "git://github.com/rails/arel"
 gem 'ruby-oci8', '~> 2.1.5'
 # gem 'activerecord-oracle_enhanced-adapter', git: 'https://github.com/rsim/oracle-enhanced'
 gem 'activerecord-oracle_enhanced-adapter', github: 'dimakura/oracle-enhanced', branch: 'rails4'
-# gem 'sqlite3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.0.1'
