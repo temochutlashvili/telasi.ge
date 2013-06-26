@@ -30,9 +30,6 @@
     });
   });
 </script>
-<%
-  regions = Billing::RegionConfig.where(show_on_map: true)
-%>
 <div id="map" class="map map-box map-box-space margin-bottom-40"></div>
 <div class="row-fluid">
   <div class="span5" style="min-height: 100px; padding-top: 20px;">
@@ -44,7 +41,7 @@
       <div class="tab-pane active" id="tables2">
         <div class="muted" style="margin-bottom: 8px;">აარჩიეთ სიიდან თქვენი ბიზნეს-ცენტრი</div>
         <select id="regions">
-          <% regions.each do |region| %>
+          <% Billing::RegionConfig.where(show_on_map: true).asc(:name).each do |region| %>
             <option value="<%= region.regionkey %>" data-phone="<%= region.phone %>" data-address="<%= region.address %>" data-latitude="<%= region.location_latitude %>" data-longitude="<%= region.location_longitude %>" data-name="<%= region.name %>"><%= region.name %></option>
           <% end %>
         </select>

@@ -66,5 +66,12 @@ TelasiGe::Application.routes.draw do
     end
   end
 
+  # API
+  namespace 'api' do
+    scope '/customer', controller: 'customer' do
+      get '/regionkey', action: 'regionkey', as: 'customer_regionkey'
+    end
+  end
+
   root to: redirect('/site/home')
 end
