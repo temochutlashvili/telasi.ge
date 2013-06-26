@@ -47,7 +47,26 @@
         </select>
       </div>
       <div class="tab-pane" id="chart2">
-        BY ACCNUMB
+        <div class="muted" style="margin-bottom: 8px;">შეიყვანეთ თქვენი აბ.ნომერი</div>
+        <div class="input-append">
+          <form id="accnumb-form">
+            <input id="accnumb" type="text" style="width:200px;" placeholder="აბონენტის ნომერი">
+            <button type="submit" class="btn-u">ძებნა</button>
+          </form>
+          <script type="text/javascript">
+            $(function() {
+              $('#accnumb-form').submit(function() {
+                $.get('/api/customer/regionkey', { accnumb: $('#accnumb').val() }, function(data) {
+                  if (data) {
+                    $('#regions').val(data);
+                    initAddress();
+                  }
+                });
+                return false;
+              });
+            });
+          </script>
+        </div>
       </div>
     </div>
   </div>
