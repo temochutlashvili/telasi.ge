@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # core
-gem 'rails', '4.0.0.rc2'
+gem 'rails', '4.0.0'
 gem 'turbolinks'
 
 # resources
