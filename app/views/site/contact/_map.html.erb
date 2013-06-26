@@ -1,0 +1,14 @@
+<div id="map" class="map map-box map-box-space margin-bottom-40"></div>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript">
+  var marker = null;
+  var map = null;
+  var default_position = new google.maps.LatLng(41.7341651833187, 44.78496193885803);
+  var default_zoom = 13;
+  var initializeMap = function() {
+    var myOptions = { center: default_position, zoom: default_zoom, mapTypeId: google.maps.MapTypeId.ROADMAP };
+    map = new google.maps.Map(document.getElementById("map"), myOptions);
+    marker = new google.maps.Marker({ position: default_position, map: map, animation: google.maps.Animation.DROP });
+  }
+  $(function() { initializeMap(); });
+</script>
