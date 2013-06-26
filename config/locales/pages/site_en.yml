@@ -49,3 +49,9 @@ en:
       contact:
         title: Contact
         title_long: Contact Us
+        our_address: Our Address
+        hot_line:
+          title: Hot Line
+          description: "If you have information on any contraventions or unlawful acts, discrediting the business reputation of Telasi, please, communicate of the fact by the company hot line:"
+          phone: "Auto answer: <strong>277-99-99</strong>"
+          confidential: Confidentiality of information is guaranteed.
