@@ -7,7 +7,7 @@
       c.number_field 'balance', required: true, after: 'GEL', i18n: 'balance2'
       c.complex_field i18n: 'pre_payment' do |c|
         c.number_field 'pre_payment', after: 'GEL'
-        c.date_field 'pre_payment_date', empty: false
+        c.date_field 'pre_payment_date', empty: false, formatter: '%d-%b-%Y %H:%M:%S'
       end
       c.text_field 'address', required: true
       c.text_field 'send_address'
@@ -37,5 +37,8 @@ end %>
   v.number_field 'curr_balance', after: 'GEL', required: true
   v.number_field 'balance', after: 'GEL', required: true
   v.number_field 'old_balance', after: 'GEL', required: true
-  
+  v.complex_field i18n: 'pre_payment' do |c|
+    c.number_field 'pre_payment', after: 'GEL'
+    c.date_field 'pre_payment_date', empty: false, formatter: '%d-%b-%Y %H:%M:%S'
+  end
 end %>

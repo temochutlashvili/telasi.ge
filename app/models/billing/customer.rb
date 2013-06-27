@@ -32,17 +32,6 @@ class Billing::Customer < ActiveRecord::Base
     Billing::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first.paydate rescue nil
   end
 
-  # def pre_trash_payment
-  #   Bs::TrashPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
-  #     sum += payment.amount
-  #   end
-  # end
-
-  # def pre_trash_payment_date
-  #   p = Bs::TrashPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first
-  #   p.paydate if p
-  # end
-
   # def pre_water_payment
   #   Bs::WaterPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
   #     sum += payment.amount
