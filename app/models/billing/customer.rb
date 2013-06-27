@@ -13,7 +13,7 @@ class Billing::Customer < ActiveRecord::Base
   has_many :water_items,    class_name: 'Billing::WaterItem',     foreign_key: :custkey, order: 'year, month'
   has_many :item_bills,     class_name: 'Billing::ItemBill',      foreign_key: :custkey, order: 'itemkey'
   # has_many :accounts,       class_name: 'Bs::Account',       foreign_key: :custkey
-  # has_one  :note,           class_name: 'Bs::Note',          foreign_key: :notekey
+  has_one  :note,           class_name: 'Billing::Note',          foreign_key: :notekey
   belongs_to :category,     class_name: 'Billing::Custcateg',     foreign_key: :custcatkey
   belongs_to :activity,     class_name: 'Billing::Custcateg',     foreign_key: :activity
 
@@ -24,16 +24,13 @@ class Billing::Customer < ActiveRecord::Base
   def last_bill_date; self.item_bills.last.billdate end
   def last_bill_number; self.item_bills.last.billnumber end
 
-  # def pre_payment
-  #   Bs::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
-  #     sum += payment.amount
-  #   end
-  # end
+  def pre_payment
+    Billing::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) { |sum, payment| sum += payment.amount }
+  end
 
-  # def pre_payment_date
-  #   p = Bs::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first
-  #   p.paydate if p
-  # end
+  def pre_payment_date
+    Billing::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first.paydate rescue nil
+  end
 
   # def pre_trash_payment
   #   Bs::TrashPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|

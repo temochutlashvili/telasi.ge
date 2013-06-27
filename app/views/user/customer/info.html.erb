@@ -4,6 +4,10 @@
       c.text_field 'accnumb', tag: 'code', required: true
       c.text_field 'custname', required: true
       c.number_field 'balance', required: true, after: 'GEL', i18n: 'balance2'
+      c.complex_field i18n: 'pre_payment' do |c|
+        c.number_field 'pre_payment', after: 'GEL'
+        c.date_field 'pre_payment_date', empty: false
+      end
       c.text_field 'address', required: true
       c.text_field 'send_address'
       c.text_field 'last_bill_number', tag: 'code', before: '№'
@@ -13,8 +17,9 @@
       c.text_field 'status_name'
       c.text_field 'category', required: true
       c.text_field 'activity'
-      c.date_field 'createdate'
+      c.date_field 'createdate', required: true
       c.date_field 'closedate'
+      c.text_field 'note'
     end
   end
   v.tab title: t('models.bs.customer.region'), icon: '/icons/fugue/building.png' do |v|
