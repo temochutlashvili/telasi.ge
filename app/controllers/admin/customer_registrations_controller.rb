@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::CustomerRegistrationsController < Admin::AdminController
   def index
     @title = I18n.t('models.billing_customer_registration.admin')

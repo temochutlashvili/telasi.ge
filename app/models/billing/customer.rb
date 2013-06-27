@@ -32,20 +32,15 @@ class Billing::Customer < ActiveRecord::Base
     Billing::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first.paydate rescue nil
   end
 
-  # def pre_water_payment
-  #   Bs::WaterPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
-  #     sum += payment.amount
-  #   end
-  # end
+  def pre_water_payment
+    Billing::WaterPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
+      sum += payment.amount
+    end
+  end
 
-  # def pre_water_payment_date
-  #   p = Bs::WaterPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first
-  #   p.paydate if p
-  # end
-
-  # def cut_candidate?
-  #   self.normal_balance > 0.50 or self.normal_trash_balance > 0.50 or self.normal_water_balance > 0.50
-  # end
+  def pre_water_payment_date
+    Billing::WaterPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first.paydate rescue nil
+  end
 
   def status_name
     case self.statuskey

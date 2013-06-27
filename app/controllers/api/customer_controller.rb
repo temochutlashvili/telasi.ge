@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Api::CustomerController < ApplicationController
   def regionkey
     customer = Billing::Customer.where(accnumb: params[:accnumb]).first

@@ -18,3 +18,9 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+report_bs:
+  adapter:  oracle_enhanced
+  database: 192.168.1.239:1521/orcl
+  username: bs
+  password: bsqaz12123498

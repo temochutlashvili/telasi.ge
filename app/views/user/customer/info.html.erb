@@ -42,3 +42,12 @@ end %>
     c.date_field 'pre_payment_date', empty: false, formatter: '%d-%b-%Y %H:%M:%S'
   end
 end %>
+<!-- water customer -->
+<%= view_for @customer, title: t('models.bs.customer.water_customer.title'), icon: '/icons/fugue/water.png', collapsible: true do |v|
+  # v.number_field 'water_balance', after: 'GEL'
+  v.number_field 'current_water_balance', after: 'GEL'
+  v.complex_field i18n: 'pre_water_payment' do |c|
+    c.number_field 'pre_water_payment', after: 'GEL'
+    c.date_field 'pre_water_payment_date', empty: false, formatter: '%d-%b-%Y %H:%M:%S'
+  end
+end %>
