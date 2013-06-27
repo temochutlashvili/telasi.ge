@@ -18,7 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_login
-    session[:return_url] = request.url
-    redirect_to login_url, alert: I18n.t('models.sys_user.actions.login_required') unless current_user
+    unless current_user
+      session[:return_url] = request.url
+      redirect_to login_url, alert: I18n.t('models.sys_user.actions.login_required')
+    end
   end
 end

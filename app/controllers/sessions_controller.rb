@@ -20,8 +20,8 @@ class SessionsController < ApplicationController
     if request.post?
       user = Sys::User.authenticate(params[:email], params[:password])
       if user and user.active
-        session[:user_id] = user.id
         url = session[:return_url] || root_url
+        session[:user_id] = user.id
         session[:return_url] = nil
         redirect_to url
       else
