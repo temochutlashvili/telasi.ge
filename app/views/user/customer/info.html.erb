@@ -1,3 +1,4 @@
+<!-- telasi customer -->
 <%= view_for @customer, title: t('models.bs.customer.actions.customer_electricity'), icon: '/icons/fugue/light-bulb.png', collapsible: true do |v|
   v.tab title: t('models.general.general_info'), icon: '/icons/fugue/user.png' do |t|
     t.col1 do |c|
@@ -28,4 +29,13 @@
     v.text_field 'region.region_config.phone', i18n: 'region_phone' # label: t('models.bs.customer.region_phone')
     v.map_field  'region.region_config.location', height: 400, width: 700, i18n: 'region_location' 
   end
+end %>
+<!-- trash customer -->
+<%= view_for @customer.trash_customer, title: t('models.bs.trashcustomer.title'), icon: '/icons/fugue/bin.png', collapsible: true do |v|
+  v.text_field 'customer.accnumb', tag: 'code', required: true
+  v.text_field 'customer.custname', required: true
+  v.number_field 'curr_balance', after: 'GEL', required: true
+  v.number_field 'balance', after: 'GEL', required: true
+  v.number_field 'old_balance', after: 'GEL', required: true
+  
 end %>
