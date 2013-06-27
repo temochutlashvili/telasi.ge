@@ -14,8 +14,8 @@ class Billing::Customer < ActiveRecord::Base
   has_many :item_bills,     class_name: 'Billing::ItemBill',      foreign_key: :custkey, order: 'itemkey'
   # has_many :accounts,       class_name: 'Bs::Account',       foreign_key: :custkey
   # has_one  :note,           class_name: 'Bs::Note',          foreign_key: :notekey
-  # belongs_to :category,     class_name: 'Bs::Custcateg',     foreign_key: :custcatkey
-  # belongs_to :activity,     class_name: 'Bs::Custcateg',     foreign_key: :activity
+  belongs_to :category,     class_name: 'Billing::Custcateg',     foreign_key: :custcatkey
+  belongs_to :activity,     class_name: 'Billing::Custcateg',     foreign_key: :activity
 
   def region; self.address.region end
   def last_water_item; self.water_items.last end
@@ -61,12 +61,12 @@ class Billing::Customer < ActiveRecord::Base
   #   self.normal_balance > 0.50 or self.normal_trash_balance > 0.50 or self.normal_water_balance > 0.50
   # end
 
-  # def status_name
-  #   case self.statuskey
-  #   when ACTIVE then 'აქტიური'
-  #   when INACTIVE then 'გაუქმებული'
-  #   when CLOSED then 'დახურული'
-  #   else '?'
-  #   end
-  # end
+  def status_name
+    case self.statuskey
+    when ACTIVE then I18n.t('models.bs.customer.statuses.active')
+    when INACTIVE then I18n.t('models.bs.customer.statuses.inactive')
+    when CLOSED then I18n.t('models.bs.customer.statuses.closed')
+    else '?'
+    end
+  end
 end

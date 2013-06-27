@@ -27,6 +27,20 @@ ka:
         last_bill_number_hint: ბოლო ქვითრის ნომერი
         last_bill_date: ქვითრის თარიღი
         last_bill_date_hint: ბოლო ქვითრის თარიღი
+        status_name: სტატუსი
+        status_name_hint: აბონენტის სტატუსი
+        statuses:
+          active: აქტიური
+          inactive: გაუქმებული
+          closed: დროებით დაკეტილი
+        category: კატეგორია
+        category_hint: აბონენტის კატეგორია
+        activity: საქმიანობის სფერო
+        activity_hint: აბონენტის საქმიანობის სფერო
+        createdate: შექმნის თარიღი
+        createdate_hint: აბონენტის შექმნის თარიღი
+        closedate: დახურვის თარიღი
+        closedate_hint: აბონენტის დახურვის თარიღი
         trash_customer:
           curr_balance: დასუფთავების დავალიანება
         actions:
