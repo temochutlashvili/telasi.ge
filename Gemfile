@@ -14,10 +14,11 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # db
+gem 'sqlite3'
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
-gem 'ruby-oci8', '~> 2.1.5'
+# gem 'ruby-oci8', '~> 2.1.5'
 # gem 'activerecord-oracle_enhanced-adapter', git: 'https://github.com/rsim/oracle-enhanced'
-gem 'activerecord-oracle_enhanced-adapter', github: 'dimakura/oracle-enhanced', branch: 'rails4'
+# gem 'activerecord-oracle_enhanced-adapter', github: 'dimakura/oracle-enhanced', branch: 'rails4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.0.1'

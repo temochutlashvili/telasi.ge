@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/dimakura/oracle-enhanced.git
-  revision: 12168a0f9eea0e6238eb5a1cc4376f2777cd2e06
-  branch: rails4
-  specs:
-    activerecord-oracle_enhanced-adapter (1.4.2)
-
-GIT
   remote: git://github.com/drnic/composite_primary_keys.git
   revision: 9fca42d62e4b312bcc595f8746785bcbd0ba47bd
   branch: ar_4.0.x
@@ -69,7 +62,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
     arel (4.0.0)
-    atomic (1.1.9)
+    atomic (1.1.10)
     builder (3.1.4)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -128,7 +121,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.1.0)
     ref (1.0.5)
-    ruby-oci8 (2.1.5)
     savon (2.2.0)
       akami (~> 1.2.0)
       builder (>= 2.1.2)
@@ -146,6 +138,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sqlite3 (1.3.7)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -174,7 +167,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-oracle_enhanced-adapter!
   coffee-rails (~> 4.0.0)
   composite_primary_keys!
   forma!
@@ -185,7 +177,7 @@ DEPENDENCIES
   mongoid!
   rails (= 4.0.0)
   rs.ge!
-  ruby-oci8 (~> 2.1.5)
+  sqlite3
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)
