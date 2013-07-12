@@ -1,1 +1,9 @@
-LOGIN
+<div class="row">
+  <div class="span8">
+    <%= form_tag login_url, method: 'post', class: 'rich-form' do %>
+      <%= text_field_tag :email %>
+      <%= password_field_tag :password %>
+      <%= submit_tag @title %>
+    <% end %>
+  </div>
+</div>
