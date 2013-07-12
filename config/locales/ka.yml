@@ -1,7 +1,9 @@
 ka:
   menu:
     login: შესვლა
+    home: საწყისი
   info:
     telasi: "სს თელასი"
   dashboard:
-    title: "მართვის პანელი"
+    title: "საწყისი"
+    login: "შესვლა"

@@ -3,16 +3,14 @@ module MenuHelper
   include Forma::Html
 
   def application_menu
-    # items = [
-    #   mi(name: 'customer', split: 'customer#index')
-    # ]
-    # el('ul', attrs: { class: 'nav' }, children: items.map { |x| x.to_e }).to_s
-    ''
+    menu([
+      mi(name: 'home', url: '/', select: 'dashboard#index')
+    ])
   end
 
   def application_right_menu
     menu([
-      mi(name: 'login')
+      mi(name: 'login', select: 'dashboard#login')
     ])
   end
 

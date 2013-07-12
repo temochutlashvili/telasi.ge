@@ -1,8 +1,16 @@
-@container-width: 986px;
+@container-width: 984px;
 @background: rgb(178, 223, 245);
 @border: #8bb8d2;
 @logo: #1a99a9;
 @logo-width: 200px;
+
+.rounded {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+};
 
 * { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; }
 a { color: #2181a9; }
@@ -19,10 +27,10 @@ body { background: @background; }
     position: absolute; top: 0; left: @logo-width; right: 0;
     ul {
       list-style: none; 
-      li {
-        line-height: 32px; font-size: 1em;
-        a { text-decoration: none; }
+      li { line-height: 32px; font-size: 0.95em;
+        a { .rounded; text-decoration: none; padding: 10px 16px; border: 1px solid transparent; }
       }
+      li.current { a { background: #f6f7f8; border: 1px solid #d0d2d3; } }
     }
   }
 }
