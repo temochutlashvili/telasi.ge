@@ -1,9 +1,0 @@
-en:
-  models:
-    general:
-    sys_user:
-      actions:
-        register: Register
-        login: "Login"
-        logout: "Logout"
-        logout_confirm: "Do you really want to logout?"
