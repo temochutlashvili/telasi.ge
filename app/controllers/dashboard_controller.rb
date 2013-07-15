@@ -11,4 +11,8 @@ class DashboardController < ApplicationController
   def register
     @title = I18n.t('models.sys_user.actions.register')
   end
+
+  def restore
+    @title = I18n.t('models.sys_user.actions.restore')
+  end
 end
