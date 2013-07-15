@@ -14,7 +14,11 @@
   </div>
   <div class="span4">
     <div class="module">
-      register ...
+      <p><%= t('models.sys_user.actions.not_registered_yet') %></p>
+      <p><a href="<%= register_url %>"><%= t('models.sys_user.actions.register') %> &rarr;</a></p>
+      <hr />
+      <p><%= t('models.sys_user.actions.restore_description') %></p>
+      <p><a href="<%= restore_url %>"><%= t('models.sys_user.actions.restore') %> &rarr;</a></p>
     </div>
   </div>
 </div>

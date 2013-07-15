@@ -4,7 +4,6 @@ module Sys
     include KA
     include Mongoid::Document
     include Mongoid::Timestamps
-    # store_in collection: 'users'
     # mount_uploader :avatar, AvatarUploader
 
     field :email,                 type: String
@@ -23,10 +22,6 @@ module Sys
     field :searchable,     type: Mongoid::Boolean
     field :email_visible,  type: Mongoid::Boolean
     field :mobile_visible, type: Mongoid::Boolean
-
-    # თანამშრომლის ობიექტი ამ მომხმარებლისთვის.
-    # has_many :employees
-    # has_many :stories, :as => :author
 
     index({ email: 1 }, { unique: true })
     # index(first_name: 1, last_name: 1)

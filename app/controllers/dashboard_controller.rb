@@ -7,4 +7,8 @@ class DashboardController < ApplicationController
   def login
     @title = I18n.t('dashboard.login')
   end
+
+  def register
+    @title = I18n.t('models.sys_user.actions.register')
+  end
 end

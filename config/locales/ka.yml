@@ -14,3 +14,8 @@ ka:
       actions:
         login: სისტემაში შესვლა
         login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი
+        register: მომხმარებლის რეგისტრაცია
+        register_short: რეგისტრაცია
+        not_registered_yet: ჯერ არ ხართ რეგისტრირებული?
+        restore: პაროლის აღდგენა
+        restore_description: პაროლი დაგავიწყდათ?
