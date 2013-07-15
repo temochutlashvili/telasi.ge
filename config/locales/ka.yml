@@ -7,3 +7,10 @@ ka:
   dashboard:
     title: "საწყისი"
     login: "შესვლა"
+  models:
+    sys_user:
+      email: ელ.ფოსტა
+      password: პაროლი
+      actions:
+        login: სისტემაში შესვლა
+        login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი

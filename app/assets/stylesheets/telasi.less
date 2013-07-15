@@ -4,13 +4,7 @@
 @logo: #1a99a9;
 @logo-width: 200px;
 
-.rounded {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-};
+.rounded(@radius: 5px) { -webkit-border-radius: @radius; -moz-border-radius: @radius; -ms-border-radius: @radius; -o-border-radius: @radius; border-radius: @radius; };
 
 * { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; }
 a { color: #2181a9; }
@@ -36,10 +30,45 @@ body { background: @background; }
 }
 
 .row {
+  .span1,.span2,.span3,.span4,.span5,.span6,.span7,.span8,.span9,.span10,.span11,.span12 {
+    float: left;
+    .module { margin-right: 12px; }
+    &:last-child { .module { margin-right: 0; }};
+    .module { .rounded; border: 1px solid #8bb8d2; padding: 20px; background: white; }
+    .module {
+      h1 { color: #eb7a24; font-size: 1.8em; font-family: Trebuchet MS,arial,sans-serif; margin-bottom: 32px;
+        p { color: #aaa; font-size: 14px; padding: 8px 0 0 0; font-weight: normal; }
+      }
+    }
+  }
   .span1 { width: @container-width/12; }
-  .span2 { width: @container-width/6; }
-  .span3 { width: @container-width/4; }
-  .span4 { width: @container-width/3; }
-  .span6 { width: @container-width/2; }
+  .span2 { width: @container-width/12*2; }
+  .span3 { width: @container-width/12*3; }
+  .span4 { width: @container-width/12*4; }
+  .span5 { width: @container-width/12*5; }
+  .span6 { width: @container-width/12*6; }
+  .span7 { width: @container-width/12*7; }
+  .span8 { width: @container-width/12*8; }
+  .span9 { width: @container-width/12*9; }
+  .span10 { width: @container-width/12*10; }
+  .span11 { width: @container-width/12*11; }
   .span12 { width: @container-width; }
+}
+
+form.rich-form {
+  ul { list-style: none; }
+  .field {
+    padding: 4px;
+    display: table-row;
+    label { display: table-cell; width: 150px; }
+    input { display: table-cell; margin-bottom: 5px; }
+    input[type=text], input[type=password] { .rounded(3px); padding: 5px; border: 1px solid #bbb; width: 200px; }
+  }
+  button[type=submit] {
+    .rounded;
+    margin: 8px 0 0 150px;
+    padding: 10px 15px;
+    color: white; border: 1px solid #41862a;
+    background: linear-gradient(#3fb745 50%,#149e3d);
+  }
 }
