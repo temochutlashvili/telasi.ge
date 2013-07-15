@@ -46,7 +46,11 @@ module FormHelper
       @autofocus = h[:autofocus]
     end
 
-    def names_chain; if @model.respond_to?(:table_name) then [ @model.table_name, @name ] else [ @name ] end end
+    def names_chain
+      if @model.respond_to?(:table_name) then [ @model.table_name, @name ]
+      elsif @model.respond_to?(:model_name) then [ @model.model_name.singular_route_key, @name ]
+      else [ @name ] end
+    end
     def field_name; names = names_chain; if names.length == 1 then names[0] elsif names.length == 2 then "#{names[0]}[#{names[1]}]" end end
     def field_id; "field_#{names_chain.join('_')}" end
     def field_value; if @model.is_a?(Hash) then @model[@name.to_sym] else @model.send(@name) end end

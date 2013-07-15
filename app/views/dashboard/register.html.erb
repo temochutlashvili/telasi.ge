@@ -1,1 +1,24 @@
-register
+<div class="row">
+  <div class="span8">
+    <div class="module">
+      <h1>
+        <%= t('models.sys_user.actions.register') %>
+        <p><%= t('models.sys_user.actions.register_description').html_safe %></p>
+      </h1>
+      <%= rich_form @user do |f|
+        f.text_field :email, autofocus: true
+        f.password_field :password
+        f.password_field :password_confirmation
+        f.text_field :first_name
+        f.text_field :last_name
+        f.text_field :mobile
+        f.submit t('models.sys_user.actions.register_short')
+      end %>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="module">
+      xxx
+    </div>
+  </div>
+</div>

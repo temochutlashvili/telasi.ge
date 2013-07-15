@@ -11,11 +11,16 @@ ka:
     sys_user:
       email: ელ.ფოსტა
       password: პაროლი
+      password_confirmation: დადასტურება
+      first_name: სახელი
+      last_name: გვარი
+      mobile: მობილური
       actions:
         login: სისტემაში შესვლა
         login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი
         register: მომხმარებლის რეგისტრაცია
         register_short: რეგისტრაცია
+        register_description: "შეავსეთ ყველა მოცემული ველი. განსაკუთრებული ყურადღება მიაქციეთ ელექტრონული ფოსტის მისამართს &mdash; ეს უნდა იყოს მოქმედი მისამართი."
         not_registered_yet: ჯერ არ ხართ რეგისტრირებული?
         restore: პაროლის აღდგენა
         restore_description: პაროლი დაგავიწყდათ?
