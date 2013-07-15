@@ -15,6 +15,7 @@ module FormHelper
 
     def initialize(model, h)
       @model = model
+      @auth_token = h[:auth_token]
       @fields = []
     end
 
@@ -27,8 +28,11 @@ module FormHelper
       el('form',
         attrs: { method: form_method, 'accept-charset' => 'UTF-8', class: 'rich-form' },
         children: [
-          el('ul', children: @fields.map { |f| el('li', children: [ f.to_e ] ) } + [
-            el('li', children: [ el('button', attrs: { type: 'submit' }, text: @submit) ])
+          el('ul',
+            children:
+              [ el('input', attrs: { type: 'hidden', name: 'authenticity_token', value: @auth_token }) ] +
+              @fields.map { |f| el('li', children: [ f.to_e ] ) } +
+              [ el('li', children: [ el('button', attrs: { type: 'submit' }, text: @submit) ])
           ])
         ]
       )
