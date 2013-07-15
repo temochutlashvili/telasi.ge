@@ -5,7 +5,13 @@
 @logo-width: 200px;
 
 .rounded(@radius: 5px) { -webkit-border-radius: @radius; -moz-border-radius: @radius; -ms-border-radius: @radius; -o-border-radius: @radius; border-radius: @radius; };
-
+.linear-gradient(@c1, @c2) {
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(50%, @c1), color-stop(100%, @c2));
+  background: -webkit-linear-gradient(@c1 50%, @c2);
+  background: -moz-linear-gradient(@c1 50%, @c2);
+  background: -o-linear-gradient(@c1 50%, @c2);
+  background: linear-gradient(@c1 50%, @c2);
+}
 * { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; }
 a { color: #2181a9; }
 .pull-right { float: right; }
@@ -58,17 +64,14 @@ body { background: @background; }
 form.rich-form {
   ul { list-style: none; }
   .field {
-    padding: 4px;
-    display: table-row;
+    padding: 4px; display: table-row;
     label { display: table-cell; width: 150px; }
-    input { display: table-cell; margin-bottom: 5px; }
-    input[type=text], input[type=password] { .rounded(3px); padding: 5px; border: 1px solid #bbb; width: 200px; }
+    input { display: table-cell; margin-bottom: 12px; }
+    input[type=text], input[type=password] { .rounded(3px); padding: 5px; border: 1px solid #bbb; width: 300px; }
   }
   button[type=submit] {
-    .rounded;
-    margin: 8px 0 0 150px;
-    padding: 10px 15px;
+    .rounded; .linear-gradient(#3fb745, #149e3d);
+    cursor: pointer; margin: 8px 0 0 150px; padding: 10px 15px;
     color: white; border: 1px solid #41862a;
-    background: linear-gradient(#3fb745 50%,#149e3d);
   }
 }
