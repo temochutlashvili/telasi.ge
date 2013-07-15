@@ -58,6 +58,12 @@ module FormHelper
     def field_name; names = names_chain; if names.length == 1 then names[0] elsif names.length == 2 then "#{names[0]}[#{names[1]}]" end end
     def field_id; "field_#{names_chain.join('_')}" end
     def field_value; if @model.is_a?(Hash) then @model[@name.to_sym] else @model.send(@name) end end
+    def errors
+      if @model.respond_to?(:errors)
+        errors = @model.errors[@name.to_sym]
+        errors.join('; ') if errors.present?
+      end
+    end
   end
 
   class TextField < Field
@@ -71,9 +77,12 @@ module FormHelper
     def to_e
       def field_type; @password ? 'password' : 'text' end
       def label_text; @label ? @label : I18n.t("models.#{names_chain.join('.')}") end
+      def field_class; if self.errors.present? then [ 'field', 'field-error' ] else [ 'field-error' ] end end
+      error_message = self.errors
       el('div', attrs: { class: 'field' }, children: [
         el('label', attrs: { for: field_id }, text: label_text),
-        el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus })
+        el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus }),
+        (el('div', attrs: { class: 'errors' }, text: error_message) if error_message.present?)
       ])
     end
   end

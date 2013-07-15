@@ -25,3 +25,10 @@ ka:
         already_registered: "თუ უკვე რეგისტრირებული ხართ, ხელმეორედ რეგისტრაცია არ არის საჭირო."
         restore: პაროლის აღდგენა
         restore_description: პაროლი დაგავიწყდათ?
+      errors:
+        email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
+        empty_password: ჩაწერეთ პაროლი
+        empty_first_name: ჩაწერეთ სახელი
+        empty_last_name: ჩაწერეთ გვარი
+        illegal_mobile: არასწორი მობილურის ნომერი
+        password_not_match: პაროლი არ ემთხვევა

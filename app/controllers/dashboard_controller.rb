@@ -10,7 +10,12 @@ class DashboardController < ApplicationController
 
   def register
     @title = I18n.t('models.sys_user.actions.register')
-    @user = Sys::User.new
+    if request.post?
+      @user = Sys::User.new(params.require(:sys_user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile))
+      @user.save
+    else
+      @user = Sys::User.new
+    end
   end
 
   def restore

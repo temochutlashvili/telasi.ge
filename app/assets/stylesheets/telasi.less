@@ -73,12 +73,13 @@ hr { border-top: 2px dotted #41862a; margin: 24px 0; }
 }
 
 form.rich-form {
-  ul { list-style: none; }
+  ul { list-style: none; li { padding-bottom: 12px; }}
   .field {
-    padding: 4px; display: table-row;
+    display: table-row;
     label { display: table-cell; width: 150px; }
-    input { display: table-cell; margin-bottom: 12px; }
+    input { display: table-cell; }
     input[type=text], input[type=password] { .rounded(3px); padding: 5px; border: 1px solid #bbb; width: 300px; }
+    .errors { color: red; padding-top: 4px; font-size: 13px; }
   }
   button[type=submit] {
     .rounded; .linear-gradient(#3fb745, #149e3d);
