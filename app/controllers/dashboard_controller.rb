@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
     if request.post?
       @user = Sys::User.new(params.require(:sys_user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :mobile))
       if @user.save
-        # UserMailer.email_confirmation(@user).deliver if @user.email_confirm_hash
+        UserMailer.email_confirmation(@user).deliver if @user.email_confirm_hash
         redirect_to register_complete_url # (email: @user.email)
       end
     else
