@@ -2,6 +2,7 @@
 TelasiGe::Application.routes.draw do
   scope controller: 'dashboard' do
     match '/login', action: 'login', as: 'login', via: ['get', 'post']
+    get '/logout', action: 'logout', as: 'logout'
     match '/register', action: 'register', as: 'register', via: ['get', 'post']
     get '/register_complete', action: 'register_complete', as: 'register_complete'
     get '/confirm', action: 'confirm', as: 'confirm'
