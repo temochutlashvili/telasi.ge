@@ -3,11 +3,6 @@ development:
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
-#   adapter: oracle_enhanced
-#   database: 192.168.1.10:1521/orcl
-#   username: dimitri
-#   password: erty2sami
-
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,18 +13,14 @@ test:
   pool: 5
   timeout: 5000
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+bs:
+  adapter: oracle_enhanced
+  database: 192.168.1.10:1521/orcl
+  username: dimitri
+  password: erty2sami
 
 report_bs:
-  adapter: sqlite3
-  database: db/report.sqlite3
-  pool: 5
-  timeout: 5000
-  # adapter:  oracle_enhanced
-  # database: 192.168.1.239:1521/orcl
-  # username: bs
-  # password: bsqaz12123498
+  adapter:  oracle_enhanced
+  database: 192.168.1.239:1521/orcl
+  username: bs
+  password: bsqaz12123498
