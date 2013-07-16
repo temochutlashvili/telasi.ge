@@ -33,5 +33,6 @@ class DashboardController < ApplicationController
     @user = Sys::User.find(params[:id]) rescue nil
     if @user and @user.confirm_email!(params[:c]) then @success = I18n.t('models.sys_user.actions.confirm_success')
     else @error = I18n.t('models.sys_user.actions.confirm_failure') end
+    @title = I18n.t('models.sys_user.actions.confirm_email')
   end
 end
