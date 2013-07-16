@@ -28,4 +28,10 @@ class DashboardController < ApplicationController
   def restore
     @title = I18n.t('models.sys_user.actions.restore')
   end
+
+  def confirm
+    @user = Sys::User.find(params[:id]) rescue nil
+    if @user and @user.confirm_email!(params[:c]) then @success = 'confirmed'
+    else @error = 'not confirmed' end
+  end
 end

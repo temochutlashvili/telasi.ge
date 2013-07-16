@@ -19,6 +19,11 @@ class DashboardControllerTest < ActionController::TestCase
     assert user.errors.empty?
     refute user.email_confirmed
     assert_equal 1, ActionMailer::Base.deliveries.size
-    # puts ActionMailer::Base.deliveries[0].body
+    # confirm email
+    get :confirm, { id: user.id.to_s, c: user.email_confirm_hash }
+    assert_response :success
+    assert user.reload
+    assert user.email_confirmed
+    refute user.email_confirm_hash
   end
 end

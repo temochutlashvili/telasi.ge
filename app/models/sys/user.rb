@@ -138,8 +138,6 @@ module Sys
       self.active = true
     end
 
-    def user_before_save
-      self.mobile = compact_mobile(self.mobile)
-    end
+    def user_before_save; self.mobile = compact_mobile(self.mobile) end
   end
 end
