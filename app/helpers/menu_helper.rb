@@ -51,6 +51,7 @@ module MenuHelper
         classes << 'with-submenu'
         children =[
           el('a', attrs: { href: '#' }, text: @label),
+          el('b', attrs: { class: 'caret' }),
           el('ul', attrs: { class: 'subitems' }, children: @subitems.map { |x| x.to_e })
         ]
       else

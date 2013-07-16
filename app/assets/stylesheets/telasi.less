@@ -49,9 +49,18 @@ hr { border-top: 2px dotted #41862a; margin: 24px 0; }
     }
     li.with-submenu {
       ul.subitems { display: none; }
+      a { padding-right: 24px; }
+      .caret {
+        width: 0; height: 0; position: absolute; top: 13px; right: 8px; 
+        border-top: 4px solid #aaa;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: none;
+      }
     }
     li.with-submenu.expanded, li.with-submenu.expanded.current {
       & > a { border: 1px solid #d0d2d3; border-bottom: none; .rounded-all(5px, 5px, 0, 0); }
+      & > .caret { border-bottom: 4px solid #aaa; border-top: none; }
       ul.subitems {
         z-index: 1000; display: block; padding: 8px 16px;
         position: absolute; top: 34px; right: 0;
