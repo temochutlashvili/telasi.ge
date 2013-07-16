@@ -127,7 +127,7 @@ module Sys
         self.email_confirmed = true
         self.email_confirm_hash = nil
       else
-        confirmed = (not Telasi::CONFIRM_ON_REGISTER)
+        confirmed = false # (not Telasi::CONFIRM_ON_REGISTER)
         self.admin = false
         self.email_confirmed = confirmed
         self.email_confirm_hash = confirmed ? nil : User.generate_hash(self)
