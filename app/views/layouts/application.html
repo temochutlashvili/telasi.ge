@@ -2,7 +2,8 @@
 <html lang="ka">
 <head>
 <title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
-<%= stylesheet_link_tag :application %>
+<%= stylesheet_link_tag 'application' %>
+<%= javascript_include_tag 'application' %>
 <%= favicon_link_tag('/favicon.png') %>
 </head>
 <body>

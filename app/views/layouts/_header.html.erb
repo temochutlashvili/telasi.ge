@@ -2,5 +2,14 @@
 <div class="container">
 <div id="logo"><%= link_to t('info.telasi'), root_url %></div>
 <%= render partial: 'layouts/menu' %>
+<script type="text/javascript">
+$(function() {
+  $('.with-submenu > a').click(function(evt) {
+    var anchor = $(evt.target);
+    anchor.parent().toggleClass("expanded");
+    return false;
+  });
+});
+</script>
 </div>
 </div>

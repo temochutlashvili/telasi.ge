@@ -8,7 +8,11 @@ module MenuHelper
 
   def application_right_menu
     if current_user
-      menu([ mi(name: 'profile', select: 'profile#*', label: current_user.full_name) ])
+      menu([
+        mi(name: 'profile', select: 'profile#*', label: current_user.full_name, subitems: [
+          mi(name: 'profile'), mi(name: 'logout', confirm: true)
+        ])
+      ])
     else
       menu([ mi(name: 'login', select: 'dashboard#login') ])
     end
@@ -28,6 +32,7 @@ module MenuHelper
       @label = opts[:label] || I18n.t("menu.#{@name}")
       @controller_name = opts[:controller_name]
       @action_name = opts[:action_name]
+      @subitems = opts[:subitems]
       opts[:select].split(' ').each do |s|
         a = s.split('#')
         @select[a[0]] = a[1].split(',') if a[1]
@@ -40,8 +45,17 @@ module MenuHelper
     end
 
     def to_e
-      children =[ el('a', attrs: { href: @url }, text: @label) ]
-      el('li', attrs: { class: ( current? ? 'current' :  'common') }, children: children)
+      classes = current? ? ['current'] : []
+      if @subitems.present?
+        classes << 'with-submenu'
+        children =[
+          el('a', attrs: { href: '#' }, text: @label),
+          el('ul', attrs: { class: 'subitems' }, children: @subitems.map { |x| x.to_e })
+        ]
+      else
+        children =[ el('a', attrs: { href: @url }, text: @label) ]
+      end
+      el('li', attrs: { class: classes }, children: children)
     end
   end
 end

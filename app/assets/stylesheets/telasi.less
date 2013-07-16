@@ -4,7 +4,15 @@
 @logo: #1a99a9;
 @logo-width: 200px;
 
-.rounded(@radius: 5px) { -webkit-border-radius: @radius; -moz-border-radius: @radius; -ms-border-radius: @radius; -o-border-radius: @radius; border-radius: @radius; };
+.rounded-all(@tl, @tr, @br, @bl) {
+  -webkit-border-top-left-radius: @tl; -webkit-border-top-right-radius: @tr; -webkit-border-bottom-right-radius: @br; -webkit-border-bottom-left-radius: @bl;
+  -moz-border-top-left-radius: @tl; -moz-border-top-right-radius: @tr; -moz-border-bottom-right-radius: @br; -moz-border-bottom-left-radius: @bl;
+  -ms-border-top-left-radius: @tl; -ms-border-top-right-radius: @tr; -ms-border-bottom-right-radius: @br; -ms-border-bottom-left-radius: @bl;
+  -o-border-top-left-radius: @tl; -o-border-top-right-radius: @tr; -o-border-bottom-right-radius: @br; -o-border-bottom-left-radius: @bl;
+  border-top-left-radius: @tl; border-top-right-radius: @tr; border-bottom-right-radius: @br; border-bottom-left-radius: @bl;
+}
+.rounded(@radius: 5px) { .rounded-all(@radius, @radius, @radius, @radius); };
+
 .linear-gradient(@c1, @c2) {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(50%, @c1), color-stop(100%, @c2));
   background: -webkit-linear-gradient(@c1 50%, @c2);
@@ -18,7 +26,7 @@ a { color: #2181a9; text-decoration: none; }
 body { background: @background; font-size: 16px; zoom: 100%; }
 p { margin-bottom: 12px; line-height: 1.5em; }
 hr { border-top: 2px dotted #41862a; margin: 24px 0; }
-.pull-right { float: right; }
+.pull-right { float: right; position: relative; }
 .container { width: @container-width; margin: 0 auto; position: relative; }
 
 #header {
@@ -30,11 +38,27 @@ hr { border-top: 2px dotted #41862a; margin: 24px 0; }
   #header-nav {
     position: absolute; top: 0; left: @logo-width; right: 0;
     ul {
-      list-style: none; 
-      li { line-height: 32px; font-size: 0.95em;
+      list-style: none; position: static; left: 0;
+      li {
+        line-height: 32px; font-size: 0.95em;
         a { .rounded; text-decoration: none; padding: 10px 16px; border: 1px solid transparent; }
       }
-      li.current { a { background: #f6f7f8; border: 1px solid #d0d2d3; } }
+      li.current {
+        a { background: #f6f7f8; border: 1px solid #d0d2d3; }
+      }
+    }
+    li.with-submenu {
+      ul.subitems { display: none; }
+    }
+    li.with-submenu.expanded, li.with-submenu.expanded.current {
+      & > a { border: 1px solid #d0d2d3; border-bottom: none; .rounded-all(5px, 5px, 0, 0); }
+      ul.subitems {
+        z-index: 1000; display: block; padding: 8px 16px;
+        position: absolute; top: 34px; right: 0;
+        background: white; 
+        li a { border: none; background: white; padding: 8px; }
+        border: 1px solid #d0d2d3; .rounded-all(0, 0, 5px, 5px); border-top: none;
+      }
     }
   }
 }

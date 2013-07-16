@@ -2,6 +2,7 @@ ka:
   menu:
     login: შესვლა
     home: საწყისი
+    profile: პროფილი
     logout: "გასვლა"
   info:
     telasi: "სს თელასი"
