@@ -11,7 +11,7 @@ class Billing::Account < ActiveRecord::Base
   belongs_to :address,       class_name: 'Bs::Address',       foreign_key: :premisekey
   belongs_to :meter_type,    class_name: 'Bs::MeterType',     foreign_key: :mttpkey
   has_one    :note,          class_name: 'Bs::Note',          foreign_key: :notekey
-  has_many   :tariffs,       class_name: 'Bs::AccountTariff', foreign_key: :acckey, order: :acctarkey
+  has_many   :tariffs,       -> { order 'acctarkey' }, class_name: 'Bs::AccountTariff', foreign_key: :acckey
   has_one    :route_account, class_name: 'Bs::RouteAccount',  foreign_key: :acckey
 
   def status; self.statuskey == 0 ? 'აქტიური' : 'გაუქმებული' end

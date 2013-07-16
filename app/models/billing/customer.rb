@@ -10,8 +10,8 @@ class Billing::Customer < ActiveRecord::Base
   belongs_to :address,      class_name: 'Billing::Address',       foreign_key: :premisekey
   belongs_to :send_address, class_name: 'Billing::Address',       foreign_key: :sendkey
   has_one  :trash_customer, class_name: 'Billing::TrashCustomer', foreign_key: :custkey
-  has_many :water_items,    class_name: 'Billing::WaterItem',     foreign_key: :custkey, order: 'year, month'
-  has_many :item_bills,     class_name: 'Billing::ItemBill',      foreign_key: :custkey, order: 'itemkey'
+  has_many :water_items,    -> { order 'year, month' }, class_name: 'Billing::WaterItem', foreign_key: :custkey
+  has_many :item_bills,     -> { order 'itemkey' },     class_name: 'Billing::ItemBill',  foreign_key: :custkey
   has_many :accounts,       class_name: 'Billing::Account',       foreign_key: :custkey
   has_one  :note,           class_name: 'Billing::Note',          foreign_key: :notekey
   belongs_to :category,     class_name: 'Billing::Custcateg',     foreign_key: :custcatkey
