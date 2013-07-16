@@ -72,8 +72,14 @@ hr { border-top: 2px dotted #41862a; margin: 24px 0; }
   .span12 { width: @container-width; }
 }
 
-.success {
+.block-success {
   .rounded; border: 1px solid #d6e9c6; padding: 20px; color: #468847; background: #dff0d8;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); 
+  h1 { font-size: 1.3em; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 3px dotted #d6e9c6; }
+  p { padding: 0; margin: 0; }
+}
+.block-error {
+  .rounded; border: 1px solid #eed3d7; padding: 20px; color: #b94a48; background: #f2dede;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); 
   h1 { font-size: 1.3em; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 3px dotted #d6e9c6; }
   p { padding: 0; margin: 0; }

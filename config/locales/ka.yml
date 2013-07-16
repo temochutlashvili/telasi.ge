@@ -29,6 +29,8 @@ ka:
         restore: პაროლის აღდგენა
         restore_description: პაროლი დაგავიწყდათ?
         confirm_email: ელ.ფოსტსის მისამართის დადასტურება
+        confirm_success: ელ.ფოსტა დადასტურებულია.
+        confirm_failure: დადასტურება ვერ მოხერხდა.
       errors:
         email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
         empty_password: ჩაწერეთ პაროლი
