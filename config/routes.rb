@@ -8,5 +8,9 @@ TelasiGe::Application.routes.draw do
     match '/restore', action: 'restore', as: 'restore', via: ['get', 'post']
   end
 
+  scope '/profile', controller: 'profile' do
+    get '/', action: 'index', as: 'profile'
+  end
+
   root 'dashboard#index'
 end

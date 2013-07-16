@@ -5,6 +5,7 @@
         <%= t('models.sys_user.actions.login') %>
         <p><%= t('models.sys_user.actions.login_description') %></p>
       </h1>
+      <% if @error.present? %><div class="block-error"><%= @error %></div><% end %>
       <%= rich_form({ email: params[:email], password: params[:password] }) do |f|
         f.text_field :email, autofocus: true, label: t('models.sys_user.email')
         f.password_field :password, label: t('models.sys_user.password')
