@@ -10,7 +10,7 @@ module MenuHelper
     if current_user
       menu([
         mi(name: 'profile', select: 'profile#*', label: current_user.full_name, subitems: [
-          mi(name: 'profile'), mi(name: 'logout', confirm: true)
+          mi(name: 'profile'), mi(name: 'logout', confirm: I18n.t('menu.logout_confirm'))
         ])
       ])
     else
@@ -33,6 +33,7 @@ module MenuHelper
       @controller_name = opts[:controller_name]
       @action_name = opts[:action_name]
       @subitems = opts[:subitems]
+      @confirm = opts[:confirm]
       opts[:select].split(' ').each do |s|
         a = s.split('#')
         @select[a[0]] = a[1].split(',') if a[1]
@@ -53,7 +54,7 @@ module MenuHelper
           el('ul', attrs: { class: 'subitems' }, children: @subitems.map { |x| x.to_e })
         ]
       else
-        children =[ el('a', attrs: { href: @url }, text: @label) ]
+        children =[ el('a', attrs: { href: @url, 'data-confirm' => @confirm }, text: @label) ]
       end
       el('li', attrs: { class: classes }, children: children)
     end
