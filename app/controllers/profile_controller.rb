@@ -7,6 +7,16 @@ class ProfileController < ApplicationController
     @user = current_user
   end
 
+  def edit
+    @title = I18n.t('models.sys_user.actions.edit_profile')
+    @user = current_user
+    if request.put?
+      if @user.update_attributes(params.require(:sys_user).permit(:first_name, :last_name, :mobile))
+        redirect_to profile_url, notice: I18n.t('models.sys_user.actions.edit_profile_complete')
+      end
+    end
+  end
+
   def change_password
     @title = I18n.t('models.sys_user.actions.change_password')
     if request.post?
@@ -29,7 +39,7 @@ class ProfileController < ApplicationController
 
   def nav
     @nav = [
-      { label: I18n.t('menu.profile'), url: profile_url, active: ( action_name == 'index' ) },
+      { label: I18n.t('menu.profile'), url: profile_url, active: ( ['index', 'edit'].include?(action_name) ) },
       { label: I18n.t('models.sys_user.actions.change_password'), url: change_password_url, active: ( action_name == 'change_password' ) },
     ]
   end

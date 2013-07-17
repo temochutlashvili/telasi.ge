@@ -26,11 +26,12 @@ module FormHelper
     def html
       def form_method; (@model.respond_to?(:new_record?) and not @model.new_record?) ? 'put' : 'post' end
       el('form',
-        attrs: { method: form_method, 'accept-charset' => 'UTF-8', class: 'rich-form' },
+        attrs: { method: 'post', 'accept-charset' => 'UTF-8', class: 'rich-form' },
         children: [
           el('ul',
             children:
               [ el('input', attrs: { type: 'hidden', name: 'authenticity_token', value: @auth_token }) ] +
+              [ el('input', attrs: { type: 'hidden', name: '_method', value: form_method }) ] +
               @fields.map { |f| el('li', children: [ f.to_e ] ) } +
               [ el('li', children: [ el('button', attrs: { type: 'submit' }, text: @submit) ])
           ])

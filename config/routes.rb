@@ -11,7 +11,7 @@ TelasiGe::Application.routes.draw do
 
   scope '/profile', controller: 'profile' do
     get '/', action: 'index', as: 'profile'
-    match '/edit', action: 'edit', as: 'edit_profile', via: ['get', 'post']
+    match '/edit', action: 'edit', as: 'edit_profile', via: ['get', 'put']
     match '/change_password', action: 'change_password', as: 'change_password', via: ['get', 'post']
   end
 

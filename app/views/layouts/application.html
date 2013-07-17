@@ -8,7 +8,12 @@
 </head>
 <body>
 <%= render partial: 'layouts/header' %>
-<div id="content"><div class="container"><%= yield %></div></div>
+<div id="content">
+  <div class="container">
+    <%= render partial: 'layouts/notice' %>
+    <%= yield %>
+  </div>
+</div>
 <%= render partial: 'layouts/footer' %>
 </body>
 </html>
