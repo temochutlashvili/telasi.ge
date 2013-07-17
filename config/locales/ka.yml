@@ -19,6 +19,8 @@ ka:
       first_name: სახელი
       last_name: გვარი
       mobile: მობილური
+      full_name: "სახელი, გვარი"
+      general_info: პირადი ინფორმაცია
       actions:
         login: სისტემაში შესვლა
         login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი
@@ -34,6 +36,9 @@ ka:
         confirm_email: ელ.ფოსტსის მისამართის დადასტურება
         confirm_success: ელ.ფოსტა დადასტურებულია.
         confirm_failure: დადასტურება ვერ მოხერხდა.
+        profile: თქვენი პროფილი
+        change_password: პაროლის შეცვლა
+        edit_profile: პირადი ინფორმაციის შეცვლა
       errors:
         email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
         empty_password: ჩაწერეთ პაროლი

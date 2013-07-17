@@ -22,10 +22,10 @@
 }
 
 * { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; }
-a { color: #2181a9; text-decoration: none; }
+a { color: #2181a9; text-decoration: underline; }
 body { background: @background; font-size: 16px; zoom: 100%; }
 p { margin-bottom: 12px; line-height: 1.5em; }
-hr { border-top: 2px dotted #41862a; margin: 24px 0; }
+hr { border-top: 1px solid rgb(214, 227, 232); margin: 24px 0; }
 .pull-right { float: right; position: relative; }
 .container { width: @container-width; margin: 0 auto; position: relative; }
 
@@ -76,6 +76,7 @@ hr { border-top: 2px dotted #41862a; margin: 24px 0; }
   margin-top: 24px;
   color: rgb(72, 91, 106);
   font-family: 'lucida grande', 'lucida sans unicode', helvetica, sans-serif;
+  a { text-decoration: none; }
 }
 
 .row {
@@ -89,6 +90,7 @@ hr { border-top: 2px dotted #41862a; margin: 24px 0; }
       h1 { color: #eb7a24; font-size: 1.8em; font-family: Trebuchet MS,arial,sans-serif; margin-bottom: 32px;
         p { color: #aaa; font-size: 14px; padding: 8px 0 0 0; font-weight: normal; }
       }
+      h2 { font-size: 1.4em; }
     }
   }
   .span1 { width: @container-width/12; }
@@ -134,4 +136,10 @@ form.rich-form {
     cursor: pointer; margin: 8px 0 0 150px; padding: 10px 15px;
     color: white; border: 1px solid #41862a;
   }
+}
+
+table.properties-table {
+  margin: 12px 0;
+  td { padding: 6px 6px 6px 0; }
+  td.label { width: 200px; }
 }

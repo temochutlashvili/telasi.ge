@@ -1,1 +1,19 @@
-INDEX
+<div class="row">
+  <div class="span3">
+    <div class="module">MENU</div>
+  </div>
+  <div class="span9">
+    <div class="module">
+      <h1><%= @title %></h1>
+      <h2><%= t('models.sys_user.general_info') %></h2>
+      <table class="properties-table">
+        <tr><td class="label"><%= t('models.sys_user.email') %></td><td><%= mail_to @user.email %></td></tr>
+        <tr><td class="label"><%= t('models.sys_user.password') %></td><td>******<br><%= link_to t('models.sys_user.actions.change_password'), change_password_url %></td></tr>
+        <tr><td class="label"><%= t('models.sys_user.full_name') %></td><td><%= @user.full_name %></td></tr>
+        <tr><td class="label"><%= t('models.sys_user.mobile') %></td><td><%= KA.format_mobile @user.mobile %></td></tr>
+      </table>
+      <p><%= link_to t('models.sys_user.actions.edit_profile'), edit_profile_url %></p>
+      <hr/>
+    </div>
+  </div>
+</div>
