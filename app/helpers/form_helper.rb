@@ -22,6 +22,7 @@ module FormHelper
     def text_field(name, h = {}); @fields << TextField.new(name, @model, h) end
     def password_field(name, h = {}); @fields << TextField.new(name, @model, h.merge(password: true)) end
     def submit(text); @submit = text end
+    def cancel_url(url); @cancel_url = url end
 
     def html
       def form_method; (@model.respond_to?(:new_record?) and not @model.new_record?) ? 'put' : 'post' end
@@ -33,7 +34,10 @@ module FormHelper
               [ el('input', attrs: { type: 'hidden', name: 'authenticity_token', value: @auth_token }) ] +
               [ el('input', attrs: { type: 'hidden', name: '_method', value: form_method }) ] +
               @fields.map { |f| el('li', children: [ f.to_e ] ) } +
-              [ el('li', children: [ el('button', attrs: { type: 'submit' }, text: @submit) ])
+              [ el('li', attrs: { class: 'bottom-actions' }, children: [
+                el('button', attrs: { type: 'submit' }, text: @submit),
+                ( el('a', attrs: { href: @cancel_url }, text: I18n.t('models.general.actions.cancel')) if @cancel_url.present? )
+              ])
           ])
         ]
       )
