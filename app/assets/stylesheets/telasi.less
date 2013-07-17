@@ -107,8 +107,18 @@ hr { border-top: 1px solid rgb(214, 227, 232); margin: 24px 0; }
   .span12 { width: @container-width; }
 }
 
+ul.side-menu {
+  list-style: none;
+  li {
+    a {
+      display: block; text-decoration: none; padding: 6px;
+      &.active { .rounded; font-weight: bold; background-color: rgb(223, 233, 238); color: #000; }
+    }
+  }
+}
+
 .block-success, .block-error {
-  .rounded; border-width: 1px; border-style: solid; padding: 20px; margin-bottom: 20px;
+  .rounded; border-width: 1px; border-style: solid; padding: 12px; margin-bottom: 20px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   h1 { font-size: 1.3em; margin-bottom: 16px; padding-bottom: 16px; border-bottom-width: 3px; border-bottom-style: dotted; }
   p { padding: 0; margin: 0; }
@@ -121,6 +131,7 @@ hr { border-top: 1px solid rgb(214, 227, 232); margin: 24px 0; }
   border-color: #eed3d7; color: #b94a48; background: #f2dede;
   h1 { border-color: #d6e9c6; }
 }
+.block-small { font-size: 13px; padding: 12px; }
 
 form.rich-form {
   ul { list-style: none; li { padding-bottom: 12px; }}

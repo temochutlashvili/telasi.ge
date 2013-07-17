@@ -16,6 +16,7 @@ ka:
       email: ელ.ფოსტა
       password: პაროლი
       password_confirmation: დადასტურება
+      old_password: ძველი პაროლი
       first_name: სახელი
       last_name: გვარი
       mobile: მობილური
@@ -38,6 +39,8 @@ ka:
         confirm_failure: დადასტურება ვერ მოხერხდა.
         profile: თქვენი პროფილი
         change_password: პაროლის შეცვლა
+        change_password_description: "პაროლის შესაცვლელად ჯერ ჩაწერეთ თქვენი ძველი პაროლი, შემდეგ კი &mdash; ახალი პაროლი და მისი დადასტურება."
+        change_password_complete: პაროლი შეცვლილია
         edit_profile: პირადი ინფორმაციის შეცვლა
       errors:
         email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
