@@ -5,6 +5,7 @@
         <a href="<%= admin_users_url %>">&larr; <%= t('models.sys_user.actions.admin_all_users') %></a>
       </div>
       <%= view_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |v|
+        v.title_action admin_edit_user_url(id: @user.id), label: t('models.sys_user.actions.edit'), icon: '/icons/user--pencil.png'
         v.tab do |t|
           t.col1 do |c|
             c.email_field 'email', required: true

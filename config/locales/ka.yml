@@ -63,6 +63,8 @@ ka:
         edit_profile_complete: პირადი ინფორმაცია შეცვლილია
         admin_show: მომხმარებლის თვისებები
         admin_all_users: ყველა მომხმარებელი
+        edit: მომხმარებლის შეცვლა
+        edit_complete: მომხმარებელი განახლებულია
       errors:
         email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
         empty_password: ჩაწერეთ პაროლი
