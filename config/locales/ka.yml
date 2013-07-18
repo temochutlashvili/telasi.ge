@@ -8,6 +8,12 @@ ka:
     customers: აბონენტები
     applications: სხვა პროგრამები
     applications_alt: პროგრამები
+  applications:
+    customers_title: აბონენტები
+    customers_description: აბონენტის ისტორია და ვალები.
+    admin:
+      users_title: მომხმარებლები
+      users_description: მომხმარებლების და მათი უფლებების მართვა.
   info:
     telasi: "სს თელასი"
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'

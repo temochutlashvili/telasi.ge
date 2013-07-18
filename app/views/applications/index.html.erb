@@ -1,1 +1,12 @@
-Apps
+<div class="row">
+  <div class="span12">
+    <div class="module">
+      <%= applications_list([ 'customers' ]) %>
+      <% if current_user.admin %>
+      <hr/>
+      <h1>ადმინისტრირება</h1>
+      <%= applications_list([ 'admin.users' ]) %>
+      <% end %>
+    </div>
+  </div>
+</div>

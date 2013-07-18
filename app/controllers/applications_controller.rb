@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ApplicationsController < ApplicationController
   before_action :validate_login, :nav
 
