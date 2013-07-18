@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ApplicationsController < ApplicationController
-  before_action :validate_login, :nav
+  before_action :nav
 
   def index
     @title = I18n.t('menu.applications_alt')
