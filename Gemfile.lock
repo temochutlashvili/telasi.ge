@@ -14,14 +14,6 @@ GIT
       activerecord (>= 4.0.0.rc1)
 
 GIT
-  remote: https://github.com/dimakura/forma
-  revision: f6d071d50a2de450d0729b9048976df509e6a4ca
-  specs:
-    forma (0.1.1)
-      activesupport
-      railties (>= 3.1)
-
-GIT
   remote: https://github.com/dimakura/rs.ge
   revision: 411e6c2161b2d95b2402e0c4995eaa56b7f3f422
   specs:
@@ -37,6 +29,13 @@ GIT
       moped (~> 1.5)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
+
+PATH
+  remote: ../carbon.ge/forma
+  specs:
+    forma (0.1.1)
+      activesupport
+      railties (>= 3.1)
 
 GEM
   remote: https://rubygems.org/

@@ -24,8 +24,8 @@ gem 'activerecord-oracle_enhanced-adapter', github: 'dimakura/oracle-enhanced', 
 gem 'jbuilder', '~> 1.0.1'
 
 # forms
-gem 'forma', git: 'https://github.com/dimakura/forma'
-# gem 'forma', path: '../carbon.ge/forma'
+# gem 'forma', git: 'https://github.com/dimakura/forma'
+gem 'forma', path: '../carbon.ge/forma'
 gem 'will_paginate'
 gem 'will_paginate_mongoid'
 

@@ -1,1 +1,4 @@
-INDEX
+<%= table_for @users, title: @title, icon: '/icons/users.png', collapsible: true do |t|
+  t.email_field 'email'
+  t.text_field 'full_name'
+end %>
