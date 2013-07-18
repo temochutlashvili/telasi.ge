@@ -3,7 +3,11 @@ module MenuHelper
   include Forma::Html
 
   def application_menu
-    menu([ mi(name: 'home', url: '/', select: 'dashboard#index') ])
+    menu([
+      mi(name: 'home', url: '/', select: 'dashboard#index'),
+      mi(name: 'customers', url: '/customers', select: 'customers#*'),
+      mi(name: 'applications', url: '/applications', select: 'applications#*'),
+    ])
   end
 
   def application_right_menu
