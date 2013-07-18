@@ -1,4 +1,13 @@
-<%= table_for @users, title: @title, icon: '/icons/users.png', collapsible: true do |t|
-  t.email_field 'email'
-  t.text_field 'full_name'
-end %>
+<div class="row">
+  <div class="span12">
+    <div class="module">
+      <%= table_for @users, title: @title, icon: '/icons/users.png', collapsible: true do |t|
+        t.email_field 'email'
+        t.text_field 'full_name', url: ->(x) { admin_user_url(id: x.id) }
+        t.boolean_field 'email_confirmed'
+        # t.row_class ->(x) { x.confi }
+        t.paginate records: t('models.general.records')
+      end %>
+    </div>
+  </div>
+</div>

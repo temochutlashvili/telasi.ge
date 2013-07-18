@@ -26,6 +26,7 @@ TelasiGe::Application.routes.draw do
   namespace 'admin' do
     scope '/users', controller: 'users' do
       get '/', action: 'index', as: 'users'
+      get '/show/:id', action: 'show', as: 'user'
     end
   end
 

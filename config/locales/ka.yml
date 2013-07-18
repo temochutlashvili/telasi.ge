@@ -22,6 +22,7 @@ ka:
     login: "შესვლა"
   models:
     general:
+      records: ჩანაწერი
       actions:
         save: შენახვა
         cancel: გაუქმება
@@ -35,6 +36,10 @@ ka:
       mobile: მობილური
       full_name: "სახელი, გვარი"
       general_info: პირადი ინფორმაცია
+      email_confirmed: დადასტურებული?
+      admin: ადმინისტრატორი?
+      created_at: რეგისტრირებულია
+      updated_at: ბოლო ცვლილება
       actions:
         login: სისტემაში შესვლა
         login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი
@@ -56,6 +61,8 @@ ka:
         change_password_complete: პაროლი შეცვლილია
         edit_profile: პირადი ინფორმაციის შეცვლა
         edit_profile_complete: პირადი ინფორმაცია შეცვლილია
+        admin_show: მომხმარებლის თვისებები
+        admin_all_users: ყველა მომხმარებელი
       errors:
         email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
         empty_password: ჩაწერეთ პაროლი
