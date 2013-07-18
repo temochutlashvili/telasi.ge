@@ -75,3 +75,7 @@ ka:
         illegal_login: არასწორი მომხმარებელი ან პაროლი
         login_required: საჭიროა სისტემაში ავტორიზაცია.
         admin_required: საჭიროა ადმინისტრატორის უფლებები.
+    billing_customer:
+      actions:
+        add: აბონენტის დამატება
+        add_description: თქვენ შეგიძლიათ ერთი ან რამოდენიმე აბონენტის დამატება
