@@ -15,5 +15,13 @@ TelasiGe::Application.routes.draw do
     match '/change_password', action: 'change_password', as: 'change_password', via: ['get', 'post']
   end
 
+  scope '/customers', controller: 'customers' do
+    get '/', action: 'index', as: 'customers'
+  end
+
+  scope '/applications', controller: 'applications' do
+    get '/', action: 'index', as: 'applications'
+  end
+
   root 'dashboard#index'
 end
