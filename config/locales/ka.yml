@@ -7,6 +7,7 @@ ka:
     logout_confirm: ნამდვილად გინდათ გასვლა?
     customers: აბონენტები
     applications: სხვა პროგრამები
+    applications_alt: პროგრამები
   info:
     telasi: "სს თელასი"
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'
