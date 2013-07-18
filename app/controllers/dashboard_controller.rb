@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class DashboardController < ApplicationController
-	def index
-		@title = I18n.t('dashboard.title')
-	end
+  def index; @title = I18n.t('dashboard.title') end
+  def register_complete; @title = I18n.t('models.sys_user.actions.register_complete') end
+  def restore; @title = I18n.t('models.sys_user.actions.restore') end
 
   def login
     @title = I18n.t('dashboard.login')
@@ -29,14 +29,6 @@ class DashboardController < ApplicationController
     else
       @user = Sys::User.new
     end
-  end
-
-  def register_complete
-    @title = I18n.t('models.sys_user.actions.register_complete')
-  end
-
-  def restore
-    @title = I18n.t('models.sys_user.actions.restore')
   end
 
   def confirm
