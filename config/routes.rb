@@ -23,5 +23,11 @@ TelasiGe::Application.routes.draw do
     get '/', action: 'index', as: 'applications'
   end
 
+  namespace 'admin' do
+    scope '/users', controller: 'users' do
+      get '/', action: 'index', as: 'users'
+    end
+  end
+
   root 'dashboard#index'
 end
