@@ -14,6 +14,8 @@ ka:
     admin:
       users_title: მომხმარებლები
       users_description: მომხმარებლების და მათი უფლებების მართვა.
+      customers_title: აბონენტები
+      customers_description: აბონენტების რეგისტრაციები და მათი დადასტურება.
   info:
     telasi: "სს თელასი"
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'

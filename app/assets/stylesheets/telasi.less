@@ -169,8 +169,9 @@ body.telasi {
   }
 
   .applications {
+    &:after { content: '.'; display: block; height: 0; width: 0; clear: both; overflow: hidden; };
     .application {
-      width: 33%;
+      width: 33%; float: left;
       .application-inner {
         width: 200px; height: 180px; margin: 0 auto; overflow: hidden;
         img { padding: 4px; border: 1px solid #d6e3e8; background: white; display: block; }
