@@ -16,6 +16,7 @@ module FormHelper
     def initialize(model, h)
       @model = model
       @auth_token = h[:auth_token]
+      @method = h[:method]
       @fields = []
     end
 
@@ -25,22 +26,22 @@ module FormHelper
     def cancel_url(url); @cancel_url = url end
 
     def html
-      def form_method; (@model.respond_to?(:new_record?) and not @model.new_record?) ? 'put' : 'post' end
-      el('form',
-        attrs: { method: 'post', 'accept-charset' => 'UTF-8', class: 'rich-form' },
-        children: [
-          el('ul',
-            children:
-              [ el('input', attrs: { type: 'hidden', name: 'authenticity_token', value: @auth_token }) ] +
-              [ el('input', attrs: { type: 'hidden', name: '_method', value: form_method }) ] +
-              @fields.map { |f| el('li', children: [ f.to_e ] ) } +
-              [ el('li', attrs: { class: 'bottom-actions' }, children: [
-                el('button', attrs: { type: 'submit' }, text: @submit),
-                ( el('a', attrs: { href: @cancel_url }, text: I18n.t('models.general.actions.cancel')) if @cancel_url.present? )
-              ])
-          ])
-        ]
-      )
+      def form_method
+        if @method then @method
+        elsif @model.respond_to?(:new_record?) and not @model.new_record? then 'put'
+        else 'post' end
+      end
+      tag_method = (@method || 'post').downcase
+      ul_children = @fields.map { |f| el('li', children: [ f.to_e ] ) }
+      if tag_method != 'get'
+        ul_children << el('input', attrs: { type: 'hidden', name: 'authenticity_token', value: @auth_token })
+        ul_children << el('input', attrs: { type: 'hidden', name: '_method', value: form_method })
+      end
+      ul_children << el('li', attrs: { class: 'bottom-actions' }, children: [
+        el('button', attrs: { type: 'submit' }, text: @submit),
+        ( el('a', attrs: { href: @cancel_url }, text: I18n.t('models.general.actions.cancel')) if @cancel_url.present? )
+      ])
+      el('form', attrs: { method: tag_method, 'accept-charset' => 'UTF-8', class: 'rich-form' }, children: [ el('ul', children: ul_children) ])
     end
   end
 

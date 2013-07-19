@@ -1,0 +1,20 @@
+<table class="properties-table">
+  <tr>
+    <td class="table-label"><%= t('models.billing_customer.accnumb') %></td>
+    <td><img src="/icons/tag.png"></img> <code><%= customer.accnumb %></code></td>
+  </tr>
+  <tr>
+    <td class="table-label"><%= t('models.billing_customer.custname') %></td>
+    <td><img src="/icons/user.png"></img> <%= customer.custname.to_ka %></td></tr>
+  <tr>
+    <td class="table-label"><%= t('models.billing_customer.balance') %></td>
+    <td><img src="/icons/light-bulb.png"></img> <code><%= number_with_precision customer.balance, precision: 2 %></code> GEL</td>
+  </tr>
+  <tr>
+    <td class="table-label"><%= t('models.billing_customer.trash_balance') %></td>
+    <td><img src="/icons/bin.png"></img> <code><%= number_with_precision customer.trash_balance, precision: 2 %></code> GEL</td>
+  </tr>
+  <tr>
+    <td class="table-label"><%= t('models.billing_customer.current_water_balance') %></td>
+    <td><img src="/icons/water.png"></img> <code><%= number_with_precision customer.current_water_balance, precision: 2 %></code> GEL</td></tr>
+</table>

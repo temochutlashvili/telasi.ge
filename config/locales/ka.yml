@@ -26,6 +26,7 @@ ka:
       actions:
         save: შენახვა
         cancel: გაუქმება
+        search: ძებნა
     sys_user:
       email: ელ.ფოსტა
       password: პაროლი
@@ -76,6 +77,14 @@ ka:
         login_required: საჭიროა სისტემაში ავტორიზაცია.
         admin_required: საჭიროა ადმინისტრატორის უფლებები.
     billing_customer:
+      accnumb: აბონენტის ნომერი
+      custname: დასახელება
+      balance: ვალი
+      trash_balance: დასუფთავების ვალი
+      current_water_balance: წყალკანალის ვალი
       actions:
         add: აბონენტის დამატება
         add_description: თქვენ შეგიძლიათ ერთი ან რამოდენიმე აბონენტის დამატება
+        search: აბონენტის ძებნა
+        search_description: "აბონენტის მოსაძებნად შეიყვანეთ მისი აბონეტის ნომერი. აბონენტის ნომერი, როგორც წესი არის 7-ნიშნა კოდი, რომელიც თქვენს ქვითარზეა მოცემული."
+        info: ინფორმაცია აბონენტზე

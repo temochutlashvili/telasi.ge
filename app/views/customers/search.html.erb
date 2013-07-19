@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="span3">
+    <div class="module">
+      <a href="<%= customers_url %>">&larr; <%= t('menu.customers') %></a>
+    </div>
+  </div>
+  <div class="span9">
+    <div class="module">
+      <h1><%= @title %> <p><%= t('models.billing_customer.actions.search_description') %></p></h1>
+      <%= rich_form({ accnumb: params[:accnumb] }, method: 'get') do |f|
+        f.text_field :accnumb, autofocus: true, label: I18n.t('models.billing_customer.accnumb')
+        f.submit t('models.general.actions.search')
+      end %>
+    </div>
+  </div>
+</div>
