@@ -31,6 +31,10 @@ class CustomersController < ApplicationController
     end
   end
 
+  def complete
+    @title = I18n.t('models.billing_customer_registration.actions.add_complete')
+  end
+
   protected
 
   def nav; end

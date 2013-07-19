@@ -101,3 +101,4 @@ ka:
         illegal_passport: არასწორი პირადობის საბუთის ნომერი
       actions:
         add: დამახსოვრება
+        add_complete: აბონენტი დამატებულია
