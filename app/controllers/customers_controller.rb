@@ -18,7 +18,17 @@ class CustomersController < ApplicationController
   def info
     @title = I18n.t('models.billing_customer.actions.info')
     @customer = Billing::Customer.find(params[:custkey])
-    # TODO:
+    if request.post?
+      @registration = Billing::CustomerRegistration.new(params.require(:billing_customer_registration).permit(:rs_tin, :passport, :passport_serial))
+      @registration.custkey = @customer.custkey
+      @registration.user = current_user
+      @registration.confirmed = false
+      if @registration.save
+        redirect_to add_customer_complete_url
+      end
+    else
+      @registration = Billing::CustomerRegistration.new
+    end
   end
 
   protected

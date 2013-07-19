@@ -18,7 +18,8 @@ TelasiGe::Application.routes.draw do
   scope '/customers', controller: 'customers' do
     get '/', action: 'index', as: 'customers'
     get '/search', action: 'search', as: 'search_customer'
-    get '/info/:custkey', action: 'info', as: 'customer_info'
+    match '/info/:custkey', action: 'info', as: 'customer_info', via: ['get', 'post']
+    get '/complete/:custkey', action: 'complete', as: 'add_customer_complete'
   end
 
   scope '/applications', controller: 'applications' do

@@ -10,6 +10,12 @@
       <%= render partial: 'customers/customer_info', locals: { customer: @customer } %>
       <hr />
       <%= render partial: 'customers/add_customer_description' %>
+      <%= rich_form @registration do |f| 
+        f.text_field :rs_tin, autofocus: true
+        f.text_field :passport
+        f.text_field :passport_serial
+        f.submit t('models.billing_customer_registration.actions.add')
+      end %>
     </div>
   </div>
 </div>
