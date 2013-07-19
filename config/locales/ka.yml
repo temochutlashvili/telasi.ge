@@ -81,7 +81,7 @@ ka:
       custname: დასახელება
       balance: ვალი
       trash_balance: დასუფთავების ვალი
-      current_water_balance: წყალკანალის ვალი
+      current_water_balance: წყალმომარაგების ვალი
       actions:
         add: აბონენტის დამატება
         add_description: თქვენ შეგიძლიათ ერთი ან რამოდენიმე აბონენტის დამატება
