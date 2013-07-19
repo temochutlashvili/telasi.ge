@@ -30,6 +30,8 @@ ka:
         cancel: გაუქმება
         search: ძებნა
     sys_user:
+      title:
+        single: მომხმარებელი
       email: ელ.ფოსტა
       password: პაროლი
       password_confirmation: დადასტურება
@@ -92,8 +94,11 @@ ka:
         info: ინფორმაცია აბონენტზე
     billing_customer_registration:
       title:
+        single: აბონენტის რეგისრაცია
+        single_alt: რეგისრაცია
         pluaral: აბონენტთა რეგისტრაციები
       rs_tin: პირადი ნომერი
+      rs_name: დასახელება (rs.ge)
       passport: პირადობის ნომერი
       passport_serial: პირადობის სერია
       added: დაემატა
