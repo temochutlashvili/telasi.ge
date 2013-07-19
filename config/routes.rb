@@ -32,6 +32,10 @@ TelasiGe::Application.routes.draw do
       get '/show/:id', action: 'show', as: 'user'
       match '/edit/:id', action: 'edit', as: 'edit_user', via: ['get', 'post']
     end
+    scope '/customers', controller: 'customers' do
+      get '/', action: 'index', as: 'customers'
+      get '/show/:id', action: 'show', as: 'show_customer'
+    end
   end
 
   root 'dashboard#index'

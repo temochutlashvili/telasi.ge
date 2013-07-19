@@ -51,4 +51,6 @@ class Billing::Customer < ActiveRecord::Base
     else '?'
     end
   end
+
+  def to_s; self.custname end
 end

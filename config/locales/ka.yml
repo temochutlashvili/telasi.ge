@@ -91,10 +91,14 @@ ka:
         search_description: "აბონენტის მოსაძებნად შეიყვანეთ მისი აბონეტის ნომერი. აბონენტის ნომერი, როგორც წესი არის 7-ნიშნა კოდი, რომელიც თქვენს ქვითარზეა მოცემული."
         info: ინფორმაცია აბონენტზე
     billing_customer_registration:
+      title:
+        pluaral: აბონენტთა რეგისტრაციები
       rs_tin: პირადი ნომერი
       passport: პირადობის ნომერი
       passport_serial: პირადობის სერია
       added: დაემატა
+      customer: აბონენტი
+      confirmed: დადასტურებული?
       errors:
         tin_required: ჩაწერეთ პირადი ნომერი
         tin_illegal: არასწორი პირადი ნომერი
