@@ -1,8 +1,22 @@
 <div class="row">
   <div class="span12">
     <div class="module">
-      <% if @registrations.empty? %><%= render partial: 'customers/empty' %><% end %>
-      <hr />
+      <% if @registrations.empty? %>
+        <%= render partial: 'customers/empty' %> <hr />
+      <% else %>
+        <% @registrations.each do |reg| %>
+          <table>
+            <tr>
+              <td style="width: 250px; border-right: 1px solid #d6e3e8;">
+                <h1>№<%= reg.customer.accnumb %></h1>
+              </td>
+              <td style="padding-left: 16px;">
+                 <%= render partial: 'customers/customer_info', locals: { customer: reg.customer } %>
+              </td>
+          </table>
+          <hr />
+        <% end %>
+      <% end %>
       <div style="text-align: center;">
         <div class="btn-toolbar">
          <%= link_to "#{t('models.billing_customer.actions.add')} &rarr;".html_safe, search_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
