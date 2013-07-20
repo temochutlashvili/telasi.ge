@@ -37,6 +37,7 @@ class CustomersController < ApplicationController
   end
 
   def history
+    @title = I18n.t('models.billing_customer.actions.history')
     @registration = Billing::CustomerRegistration.where(user: current_user, custkey: params[:custkey]).first
     if @registration
       @customer = @registration.customer

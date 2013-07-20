@@ -2,6 +2,9 @@
   <tr>
     <td style="width: 300px; border-right: 1px solid #d6e3e8; padding-right: 8px;">
       <h1>№<%= customer.accnumb %></h1>
+      <div>
+        <%= link_to t('models.billing_customer.actions.back_to_customers').html_safe, customers_url, class: ['btn', 'btn-success'] %>
+      </div>
     </td>
     <td style="padding-left: 16px;">
        <%= render partial: 'customers/customer_info', locals: { customer: customer, with_actions: false } %>

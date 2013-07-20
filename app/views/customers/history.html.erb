@@ -3,6 +3,11 @@
     <div class="module">
       <%= render partial: 'customers/customer_info_for_history', locals: { customer: @customer } %>
       <hr />
+      <div style="padding: 0 0 16px 0;">
+        <img src="/icons/light-bulb.png"></img>
+        <code>№<%= @customer.accnumb.to_ka %></code>
+        <span style="font-weight: bold;"><%= @title %></span>
+      </div>
       <table class="table table-striped table-hover table-bordered">
         <thead>
           <tr>
