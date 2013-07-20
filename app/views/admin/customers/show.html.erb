@@ -31,6 +31,9 @@
           t.text_field 'user.full_name', label: t('models.sys_user.full_name'), required: true
           t.text_field 'user.mobile', label: t('models.sys_user.mobile'), required: true
         end
+        f.tab title: t('models.general.system'), icon: '/icons/traffic-cone.png' do |t|
+          t.timestamps
+        end
       end %>
     </div>
   </div>

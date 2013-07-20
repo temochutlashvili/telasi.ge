@@ -26,6 +26,9 @@ ka:
     general:
       records: ჩანაწერი
       history: ისტორია
+      system: სისტემური
+      created_at: შექმნილია
+      updated_at: ბოლო ცვლილება
       actions:
         save: შენახვა
         cancel: გაუქმება
