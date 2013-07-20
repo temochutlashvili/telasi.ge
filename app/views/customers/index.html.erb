@@ -13,13 +13,13 @@
                   <p><%= t('models.billing_customer_registration.added')%>: <code><%= reg.created_at.strftime('%d-%b-%Y') %></code></p>
                 </div>
                 <% if reg.confirmed %>
-                  confirmed
+                  <!-- TODO: place here SMS notification preferences -->
                 <% else %>
                   <div class="alert" style="font-size: 12px;"><%= t('models.billing_customer_registration.errors.not_confirmed')%></div>
                 <% end %>
               </td>
               <td style="padding-left: 16px;">
-                 <%= render partial: 'customers/customer_info', locals: { customer: reg.customer } %>
+                 <%= render partial: 'customers/customer_info', locals: { customer: reg.customer, with_actions: reg.confirmed } %>
               </td>
           </table>
           <hr />

@@ -7,7 +7,7 @@
   <div class="span9">
     <div class="module">
       <h1><%= @title %></h1>
-      <%= render partial: 'customers/customer_info', locals: { customer: @customer } %>
+      <%= render partial: 'customers/customer_info', locals: { customer: @customer, with_actions: false } %>
       <hr />
       <%= render partial: 'customers/add_customer_description' %>
       <%= rich_form @registration do |f| 
