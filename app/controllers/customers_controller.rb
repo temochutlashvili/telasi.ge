@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
 
   def index
     @title = I18n.t('menu.customers')
-    @registrations = Billing::CustomerRegistration.where(user: current_user)
+    @registrations = Billing::CustomerRegistration.where(user: current_user, denied: false).desc(:_id)
   end
 
   def search

@@ -104,6 +104,8 @@ ka:
       added: დაემატა
       customer: აბონენტი
       confirmed: დადასტურებული?
+      denied: უარყოფილი?
+      denial_reason: უარყოფის მიზეზი
       errors:
         tin_required: ჩაწერეთ პირადი ნომერი
         tin_illegal: არასწორი პირადი ნომერი
@@ -117,3 +119,5 @@ ka:
         add_complete: აბონენტი დამატებულია
         registration_confirmed: აბონენტი დადასტურებულია
         registration_denied: აბონენტი უარყოფილია
+        confirm: დადასტურება
+        confirm_confirm: ნამდვილად გინდათ ამ აბონენტის დადასტურება?
