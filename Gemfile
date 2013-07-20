@@ -32,6 +32,7 @@ gem 'will_paginate_mongoid'
 # utils
 gem 'rs.ge', git: 'https://github.com/dimakura/rs.ge'
 gem 'ka'
+gem 'magti'
 
 # social media
 # gem 'omniauth-facebook'
