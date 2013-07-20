@@ -8,6 +8,7 @@
           c.text_field 'customer', url: ->(x) { admin_show_customer_url(id: x.id) }
         end
         t.boolean_field 'confirmed'
+        t.boolean_field 'denied'
         t.paginate records: t('models.general.records')
       end %>
     </div>

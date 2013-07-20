@@ -17,7 +17,7 @@ class Billing::CustomerRegistration
   validates :rs_tin, presence: { message: I18n.t('models.billing_customer_registration.errors.tin_required') }
   # validates :custkey, uniqueness: { message: I18n.t('models.billing_customer_registration.errors.customer_duplicate'), scope: :user_id }
   validates :passport, presence: { message: I18n.t('models.billing_customer_registration.errors.passport_required') }
-  validate :validate_rs_name, :validate_passport_number
+  validate :validate_rs_name, :validate_passport_number, :validate_denial_reason
 
   def customer
     @customer ||= Billing::Customer.find(self.custkey)
@@ -47,6 +47,12 @@ class Billing::CustomerRegistration
       if self.rs_name.blank?
         errors.add(:rs_tin, I18n.t('models.billing_customer_registration.errors.tin_illegal'))
       end
+    end
+  end
+
+  def validate_denial_reason
+    if self.denied and self.denial_reason.blank?
+      errors.add(:denial_reason, I18n.t('models.billing_customer_registration.errors.denial_reason_empty'))
     end
   end
 end

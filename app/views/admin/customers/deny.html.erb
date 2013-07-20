@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="span12">
+    <div class="module">
+      <div class="toolbar">
+        <%= link_to '&larr; რეგისტრაციის თვისებები'.html_safe, admin_show_customer_url(id: @registration.id) %> |
+        <%= link_to 'ყველა რეგისტრაცია', admin_customers_url %>
+      </div>
+      <%= forma_for @registration, title: @title, icon: '/icons/cross.png' do |f|
+        f.text_field :denial_reason, required: true, autofocus: true
+        f.submit @title
+      end %>
+    </div>
+  </div>
+</div>

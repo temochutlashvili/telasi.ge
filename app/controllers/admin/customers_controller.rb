@@ -16,10 +16,20 @@ class Admin::CustomersController < Admin::AdminController
     @registration.denied = false
     @registration.denial_reason = nil
     @registration.save
+    # TODO: send SMS
     redirect_to admin_show_customer_url(id: @registration.id), notice: I18n.t('models.billing_customer_registration.actions.registration_confirmed')
   end
 
   def deny
-    # TODO:
+    @title = I18n.t('models.billing_customer_registration.actions.deny_alt')
+    @registration = Billing::CustomerRegistration.find(params[:id])
+    if request.post?
+      @registration.confirmed = false
+      @registration.denied = true
+      if @registration.update_attributes(params.require(:billing_customer_registration).permit(:denial_reason))
+        # TODO: send SMS
+        redirect_to admin_show_customer_url(id: @registration.id), notice: I18n.t('models.billing_customer_registration.actions.registration_denied')
+      end
+    end
   end
 end
