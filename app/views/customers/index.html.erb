@@ -5,23 +5,7 @@
         <%= render partial: 'customers/empty' %> <hr />
       <% else %>
         <% @registrations.each do |reg| %>
-          <table>
-            <tr>
-              <td style="width: 300px; border-right: 1px solid #d6e3e8; padding-right: 8px;">
-                <h1>№<%= reg.customer.accnumb %></h1>
-                <div style="margin-top: -24px;">
-                  <p><%= t('models.billing_customer_registration.added')%>: <code><%= reg.created_at.strftime('%d-%b-%Y') %></code></p>
-                </div>
-                <% if reg.confirmed %>
-                  <!-- TODO: place here SMS notification preferences -->
-                <% else %>
-                  <div class="alert" style="font-size: 12px;"><%= t('models.billing_customer_registration.errors.not_confirmed')%></div>
-                <% end %>
-              </td>
-              <td style="padding-left: 16px;">
-                 <%= render partial: 'customers/customer_info', locals: { customer: reg.customer, with_actions: reg.confirmed } %>
-              </td>
-          </table>
+          <%= render partial: 'customers/registration_info', locals: { registration: reg } %>
           <hr />
         <% end %>
       <% end %>

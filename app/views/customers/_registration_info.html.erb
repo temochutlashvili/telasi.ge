@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <td style="width: 300px; border-right: 1px solid #d6e3e8; padding-right: 8px;">
+      <h1>№<%= registration.customer.accnumb %></h1>
+      <div style="margin-top: -24px;">
+        <p><%= t('models.billing_customer_registration.added')%>: <code><%= registration.created_at.strftime('%d-%b-%Y') %></code></p>
+      </div>
+      <% if registration.confirmed %>
+        <!-- TODO: place here SMS notification preferences -->
+      <% else %>
+        <div class="alert" style="font-size: 12px;"><%= t('models.billing_customer_registration.errors.not_confirmed')%></div>
+      <% end %>
+    </td>
+    <td style="padding-left: 16px;">
+       <%= render partial: 'customers/customer_info', locals: { customer: registration.customer, with_actions: registration.confirmed } %>
+    </td>
+</table>
