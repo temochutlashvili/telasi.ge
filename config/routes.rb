@@ -35,6 +35,8 @@ TelasiGe::Application.routes.draw do
     scope '/customers', controller: 'customers' do
       get '/', action: 'index', as: 'customers'
       get '/show/:id', action: 'show', as: 'show_customer'
+      post '/confirm/:id', action: 'confirm', as: 'confirm_customer'
+      match '/deny/:id', action: 'deny', as: 'deny_customer', via: ['get', 'post']
     end
   end
 

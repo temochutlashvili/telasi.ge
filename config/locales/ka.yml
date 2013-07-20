@@ -115,3 +115,5 @@ ka:
       actions:
         add: დამახსოვრება
         add_complete: აბონენტი დამატებულია
+        registration_confirmed: აბონენტი დადასტურებულია
+        registration_denied: აბონენტი უარყოფილია

@@ -23,6 +23,7 @@ class CustomersController < ApplicationController
       @registration.custkey = @customer.custkey
       @registration.user = current_user
       @registration.confirmed = false
+      @registration.denied = false
       if @registration.save
         redirect_to add_customer_complete_url
       end

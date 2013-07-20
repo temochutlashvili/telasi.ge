@@ -12,8 +12,11 @@ class Billing::CustomerRegistration
   field :passport, type: String
   field :passport_serial, type: String
   field :confirmed, type: Mongoid::Boolean, default: false
+  field :denied, type: Mongoid::Boolean, default: false
+  field :denial_reason, type: String
+  field :
   validates :rs_tin, presence: { message: I18n.t('models.billing_customer_registration.errors.tin_required') }
-  validates :custkey, uniqueness: { message: I18n.t('models.billing_customer_registration.errors.customer_duplicate'), scope: :user_id }
+  # validates :custkey, uniqueness: { message: I18n.t('models.billing_customer_registration.errors.customer_duplicate'), scope: :user_id }
   validates :passport, presence: { message: I18n.t('models.billing_customer_registration.errors.passport_required') }
   validate :validate_rs_name, :validate_passport_number
 
