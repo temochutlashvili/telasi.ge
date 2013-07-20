@@ -13,6 +13,9 @@ Billing::Street.establish_connection        :bs
 Billing::TrashCustomer.establish_connection :bs
 Billing::TrashPayment.establish_connection  :bs
 Billing::WaterItem.establish_connection     :bs
+Billing::Item.establish_connection          :bs
+Billing::Billoperation.establish_connection :bs
+Billing::Person.establish_connection        :bs
 
 # REPORT server
 Billing::WaterPayment.establish_connection  :report_bs

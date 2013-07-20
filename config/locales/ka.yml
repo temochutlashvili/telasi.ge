@@ -25,6 +25,7 @@ ka:
   models:
     general:
       records: ჩანაწერი
+      history: ისტორია
       actions:
         save: შენახვა
         cancel: გაუქმება

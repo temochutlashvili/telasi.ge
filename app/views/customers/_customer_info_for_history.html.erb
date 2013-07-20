@@ -1,0 +1,9 @@
+<table>
+  <tr>
+    <td style="width: 300px; border-right: 1px solid #d6e3e8; padding-right: 8px;">
+      <h1>№<%= customer.accnumb %></h1>
+    </td>
+    <td style="padding-left: 16px;">
+       <%= render partial: 'customers/customer_info', locals: { customer: customer, with_actions: false } %>
+    </td>
+</table>

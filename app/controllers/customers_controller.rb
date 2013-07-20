@@ -36,6 +36,16 @@ class CustomersController < ApplicationController
     @title = I18n.t('models.billing_customer_registration.actions.add_complete')
   end
 
+  def history
+    @registration = Billing::CustomerRegistration.where(user: current_user, custkey: params[:custkey]).first
+    if @registration
+      @customer = @registration.customer
+      @items = Billing::Item.where(customer: @customer).order('itemkey DESC').paginate(per_page: 10, page: params[:page])
+    else
+      redirect_to customers_url, notice: 'not allowed'
+    end
+  end
+
   protected
 
   def nav; end

@@ -9,16 +9,16 @@
   <tr>
     <td class="table-label"><%= t('models.billing_customer.balance') %></td>
     <td><img src="/icons/light-bulb.png"></img> <code><%= number_with_precision customer.balance, precision: 2 %></code> GEL</td>
-    <td><% if with_actions %><%= link_to 'ისტორია', customer_history_url(custkey: customer.custkey), class: ['btn', 'btn-success'] %><% end %></td>
+    <td><% if with_actions %><%= link_to t('models.general.history'), customer_history_url(custkey: customer.custkey), class: ['btn', 'btn-success'] %><% end %></td>
   </tr>
   <tr>
     <td class="table-label"><%= t('models.billing_customer.trash_balance') %></td>
     <td><img src="/icons/bin.png"></img> <code><%= number_with_precision customer.trash_balance, precision: 2 %></code> GEL</td>
-    <td><% if with_actions %><%= link_to 'ისტორია', customer_history_url(custkey: customer.custkey), class: ['btn', 'btn-warning'] %><% end %></td>
+    <td><% if with_actions %><%= link_to t('models.general.history'), customer_history_url(custkey: customer.custkey), class: ['btn', 'btn-warning'] %><% end %></td>
   </tr>
   <tr>
     <td class="table-label"><%= t('models.billing_customer.current_water_balance') %></td>
     <td><img src="/icons/water.png"></img> <code><%= number_with_precision customer.current_water_balance, precision: 2 %></code> GEL</td>
-    <td><% if with_actions %><%= link_to 'ისტორია', nil, class: ['btn', 'btn-info', 'disabled'] %><% end %></td>
+    <td><% if with_actions %><%= link_to t('models.general.history'), nil, class: ['btn', 'btn-info', 'disabled'] %><% end %></td>
   </tr>
 </table>
