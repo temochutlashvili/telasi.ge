@@ -8,7 +8,26 @@
         <code>№<%= @customer.accnumb.to_ka %></code>
         <span style="font-weight: bold;"><%= @title %></span>
       </div>
-      
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>ოპერაცია</th>
+            <th width="150">თანხა</th>
+            <th width="150">წინა ბალანსი</th>
+          </tr>
+        </thead>
+        <% @items.each do |item| %>
+        <tr>
+          <td>
+            <code><%= item.operdate.strftime('%d-%b-%Y') %></code>
+            <%= item.operation %>
+          </td>
+          <td style="text-align: right;"><code><%= number_with_precision item.amount, precision: 2 %></code> GEL</td>
+          <td style="text-align: right;"><code><%= number_with_precision item.balance, precision: 2 %></code> GEL</td>
+        </tr>
+        <% end %>
+      </table>
+      <%= will_paginate @items %>
     </div>
   </div>
 </div>

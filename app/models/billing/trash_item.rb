@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Bs::TrashItem < ActiveRecord::Base
+class Billing::TrashItem < ActiveRecord::Base
   self.table_name  = 'bs.trashitem'
   self.primary_key = :trashitemkey
   belongs_to :customer,  class_name: 'Billing::Customer', foreign_key: :custkey

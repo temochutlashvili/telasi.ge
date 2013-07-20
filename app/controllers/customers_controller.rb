@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CustomersController < ApplicationController
-  before_action :validate_login, :nav
+  before_action :validate_login
 
   def index
     @title = I18n.t('menu.customers')
@@ -47,7 +47,14 @@ class CustomersController < ApplicationController
     end
   end
 
-  protected
-
-  def nav; end
+  def trash_history
+    @title = I18n.t('models.billing_customer.actions.trash_history')
+    @registration = Billing::CustomerRegistration.where(user: current_user, custkey: params[:custkey]).first
+    if @registration
+      @customer = @registration.customer
+      @items = Billing::TrashItem.where(customer: @customer).order('trashitemid DESC').paginate(per_page: 10, page: params[:page])
+    else
+      redirect_to customers_url, notice: 'not allowed'
+    end
+  end
 end

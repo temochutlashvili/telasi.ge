@@ -21,7 +21,7 @@ TelasiGe::Application.routes.draw do
     match '/info/:custkey', action: 'info', as: 'customer_info', via: ['get', 'post']
     get '/complete/:custkey', action: 'complete', as: 'add_customer_complete'
     get '/history/:custkey', action: 'history', as: 'customer_history'
-    get '/trash_history/:custkey', action: 'trash_history', as: 'trash_history'
+    get '/trash_history/:custkey', action: 'trash_history', as: 'customer_trash_history'
   end
 
   scope '/applications', controller: 'applications' do
