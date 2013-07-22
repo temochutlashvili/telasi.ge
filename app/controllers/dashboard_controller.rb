@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
     @title = I18n.t('dashboard.login')
     user = Sys::User.authenticate(params[:email], params[:password])
     if request.post?
-      if user then session[:user_id] = user.id and redirect_to root_url
+      if user and user.email_confirmed and user.active then session[:user_id] = user.id and redirect_to root_url
       else @error = I18n.t('models.sys_user.errors.illegal_login') end
     end
   end
