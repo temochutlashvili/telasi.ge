@@ -1,4 +1,4 @@
 # -*- encoding : utf-8 -*-
 module Telasi
-  HOST = "http://my.telasi.ge"
+  HOST = "http://test.telasi.ge"
 end

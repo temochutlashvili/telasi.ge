@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class UserMailer < ActionMailer::Base
-  default :from => "my.Telasi.ge <sys@telasi.ge>"
+  default :from => "my.telasi.ge <sys@telasi.ge>"
 
   #
   # მომხმარებელზე დადასტურების კოდის გაგზავნა.
