@@ -27,7 +27,7 @@ class Admin::CustomersController < Admin::AdminController
       @registration.confirmed = false
       @registration.denied = true
       if @registration.update_attributes(params.require(:billing_customer_registration).permit(:denial_reason))
-        # TODO: send SMS
+        send_sms(@registration, "abonenti ##{@registration.customer.accnumb} ar dagidasturdat, Semdegi mizezis gamo: #{@registration.denial_reason}")
         redirect_to admin_show_customer_url(id: @registration.id), notice: I18n.t('models.billing_customer_registration.actions.registration_denied')
       end
     end
