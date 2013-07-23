@@ -148,6 +148,7 @@ ka:
       bank_account_separator: საბანკო ანგარიში
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
+        tin_illegal: არასწორი საიდენტიფიკაციო კოდი
         mobile_required: მობილურის მითითება აუცილებელია
         email_required: ელ.ფოსტის მითითება აუცილებელია
         address_required: მისამართის მითითება აუცილებელია

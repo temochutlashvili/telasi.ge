@@ -12,6 +12,7 @@ class NewCustomerController < ApplicationController
     user = current_user
     if request.post?
       @application = Network::NewCustomerApplication.new(params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account))
+      @application.user = user
       if @application.save
         # TODO: redirect to the next step
       end
