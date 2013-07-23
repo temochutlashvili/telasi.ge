@@ -4,7 +4,7 @@ class NewCustomerController < ApplicationController
 
   def index
     @title = I18n.t('models.network_new_customer_application.actions.index_page.title')
-    # TODO: applications
+    @applications = Network::NewCustomerApplication.where(user: current_user).desc(:_id)
   end
 
   def new

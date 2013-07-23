@@ -2,9 +2,51 @@
   <div class="span12">
     <div class="module">
       <h1><%= @title %></h1>
+      <% if @applications.any? %>
+        <% @applications.each do |app| %>
+          <table>
+            <tr>
+              <td style="width: 250px; border-right: 1px solid #d6e3e8; padding: 0;">
+                <h1>#<%= app.number %></h1>
+              </td>
+              <td style="padding: 0 0 0 16px;">
+                <table class="properties-table">
+                  <tr>
+                    <td class="table-label"><%= t('models.network_new_customer_application.rs_name') %></td>
+                    <td>
+                      <img src="/icons/user.png" />
+                      <span class="label label-inverse"><%= app.rs_tin %></span>
+                      <%= app.rs_name %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-label"><%= t('models.network_new_customer_application.email') %></td>
+                    <td>
+                      <img src="/icons/mail.png" />
+                      <%= mail_to app.email %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-label"><%= t('models.network_new_customer_application.mobile') %></td>
+                    <td>
+                      <img src="/icons/mobile-phone.png" />
+                      <%= app.mobile %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
       <hr />
       <div style="text-align:center;">
-        <a class="btn btn-success btn-large" href="<%= new_new_customer_url %>"><%= t('models.network_new_customer_application.actions.new') %> &rarr;</a>
+        <div class="muted" style="padding: 0 0 32px 0 ;">
+          ელექტრონული განცხადების შემოტანით შეგიძლიათ თელასის ქსელში აბონირების პროცესის დაწყება.
+        </div>
+        <div>
+          <a class="btn btn-success btn-large" href="<%= new_new_customer_url %>"><%= t('models.network_new_customer_application.actions.new') %> &rarr;</a>
+        </div>
       </div>
     </div>
   </div>
