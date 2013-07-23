@@ -3,6 +3,7 @@ class Network::NewCustomerApplication
   include Mongoid::Document
   include Mongoid::Timestamps
   belongs_to :user, class_name: 'Sys::User'
+  field :number,    type: Integer
   field :rs_tin,    type: String
   field :rs_name,   type: String
   # field :vat_payer, type: Mongoid::Boolean
@@ -19,8 +20,11 @@ class Network::NewCustomerApplication
   validates :bank_code, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_code_required') }
   validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
   validate :validate_rs_name
+  before_create :assign_number
 
   private
+
+  def assign_number; self.number = (Network::NewCustomerApplication.last.number rescue 1) end
 
   def validate_rs_name
     if self.rs_tin.present?
