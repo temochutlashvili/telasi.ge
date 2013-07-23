@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="span3">
+    <div class="module">
+      <div class="toolar">
+        <a href="<%= new_customer_url %>">&larr; <%= t('models.network_new_customer_application.actions.index_page.title') %></a>
+      </div>
+    </div>
+  </div>
+  <div class="span9">
+    <div class="module">
+      <h1>
+        <%= @title %>
+        <p><%= t('models.network_new_customer_application.actions.new_description') %></p>
+      </h1>
+      <%= rich_form @application do |f|
+        f.text_field :rs_tin, autofocus: true, hint: true
+        f.text_field :mobile
+        f.text_field :email
+        f.text_field :address, hint: true
+        f.separator_field label: t('models.network_new_customer_application.bank_account_separator')
+        f.text_field :bank_code
+        f.text_field :bank_account
+        f.submit "#{t('models.network_new_customer_application.actions.new2')} &rarr;".html_safe
+      end %>
+    </div>
+  </div>
+</div>

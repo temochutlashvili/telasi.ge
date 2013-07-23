@@ -22,6 +22,7 @@ module FormHelper
 
     def text_field(name, h = {}); @fields << TextField.new(name, @model, h) end
     def password_field(name, h = {}); @fields << TextField.new(name, @model, h.merge(password: true)) end
+    def separator_field(h = {}); @fields << SeparatorField.new(nil, nil, h) end
     def submit(text); @submit = text end
     def cancel_url(url); @cancel_url = url end
 
@@ -53,6 +54,7 @@ module FormHelper
       @model = @model.symbolize_keys if @model.is_a?(Hash)
       @name = name
       @label = h[:label]
+      @hint = h[:hint]
       @autofocus = h[:autofocus]
     end
 
@@ -83,13 +85,24 @@ module FormHelper
     def to_e
       def field_type; @password ? 'password' : 'text' end
       def label_text; @label ? @label : I18n.t("models.#{names_chain.join('.')}") end
+      def hint_text; if @hint == true then I18n.t("models.#{names_chain.join('.')}_hint") else @hint end end
       def field_class; if self.errors.present? then [ 'field', 'field-error' ] else [ 'field-error' ] end end
       error_message = self.errors
+      hint = hint_text
       el('div', attrs: { class: 'field' }, children: [
         el('label', attrs: { for: field_id }, text: label_text),
         el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus }),
-        (el('div', attrs: { class: 'errors' }, text: error_message) if error_message.present?)
+        (el('div', attrs: { class: 'hint' }, text: hint.html_safe ) if hint.present?),
+        (el('div', attrs: { class: 'errors' }, text: error_message) if error_message.present?),
       ])
+    end
+  end
+
+  class SeparatorField < Field
+    include Forma::Html
+
+    def to_e
+      el('div', text: @label, attrs: { class: 'separator' })
     end
   end
 end
