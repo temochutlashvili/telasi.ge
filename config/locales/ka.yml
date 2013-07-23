@@ -146,6 +146,13 @@ ka:
       bank_account: საბანკო ანგარიშის ნომერი IBAN ფორმატში
       bank_account_hint: თქვენი პირადი ან ორგანიზაციის კუთვნილი საბანკო ანგარიშის ნომერი.
       bank_account_separator: საბანკო ანგარიში
+      errors:
+        tin_required: საიდ.კოდის მითითება აუცილებელია
+        mobile_required: მობილურის მითითება აუცილებელია
+        email_required: ელ.ფოსტის მითითება აუცილებელია
+        address_required: მისამართის მითითება აუცილებელია
+        bank_code_required: ბანკის კოდის მითითება აუცილებელია
+        bank_account_required: საბანკო ანგარიშის მითითება აუცილებელია
       actions:
         new: ახალი განცხადება
         new2: განცხადების დამატება

@@ -10,7 +10,13 @@ class NewCustomerController < ApplicationController
   def new
     @title = I18n.t('models.network_new_customer_application.actions.new')
     user = current_user
-    @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
-    # TODO: save application
+    if request.post?
+      @application = Network::NewCustomerApplication.new(params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account))
+      if @application.save
+        # TODO: redirect to the next step
+      end
+    else
+      @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
+    end
   end
 end
