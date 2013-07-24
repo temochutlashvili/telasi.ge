@@ -23,6 +23,7 @@ module FormHelper
     def text_field(name, h = {}); @fields << TextField.new(name, @model, h) end
     def password_field(name, h = {}); @fields << TextField.new(name, @model, h.merge(password: true)) end
     def separator_field(h = {}); @fields << SeparatorField.new(nil, nil, h) end
+    def combo_field(name, collection, h = {}); @fields << ComboField.new(name, @model, h.merge(collection: collection)) end
     def submit(text); @submit = text end
     def cancel_url(url); @cancel_url = url end
 
@@ -72,6 +73,18 @@ module FormHelper
         errors.join('; ') if errors.present?
       end
     end
+    def to_e
+      def label_text; @label ? @label : I18n.t("models.#{names_chain.join('.')}") end
+      def hint_text; if @hint == true then I18n.t("models.#{names_chain.join('.')}_hint") else @hint end end
+      error_message = self.errors
+      hint = hint_text
+      el('div', attrs: { class: 'field' }, children: [
+        el('label', attrs: { for: field_id }, text: label_text),
+        content_element,
+        (el('div', attrs: { class: 'hint' }, text: hint.html_safe ) if hint.present?),
+        (el('div', attrs: { class: 'errors' }, text: error_message) if error_message.present?),
+      ])
+    end
   end
 
   class TextField < Field
@@ -82,19 +95,23 @@ module FormHelper
       @password = h[:password] || false
     end
 
-    def to_e
+    def content_element
       def field_type; @password ? 'password' : 'text' end
-      def label_text; @label ? @label : I18n.t("models.#{names_chain.join('.')}") end
-      def hint_text; if @hint == true then I18n.t("models.#{names_chain.join('.')}_hint") else @hint end end
-      def field_class; if self.errors.present? then [ 'field', 'field-error' ] else [ 'field-error' ] end end
-      error_message = self.errors
-      hint = hint_text
-      el('div', attrs: { class: 'field' }, children: [
-        el('label', attrs: { for: field_id }, text: label_text),
-        el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus }),
-        (el('div', attrs: { class: 'hint' }, text: hint.html_safe ) if hint.present?),
-        (el('div', attrs: { class: 'errors' }, text: error_message) if error_message.present?),
-      ])
+      el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus })
+    end
+  end
+
+  class ComboField < Field
+    def initialize(name, model, h)
+      super
+      @collection = h[:collection] || []
+    end
+
+    def content_element
+      value = field_value.to_s
+      el('select', attrs: { id: field_id, name: field_name }, children: @collection.to_a.map { |x|
+        el('option', attrs: { value: x[1], selected: ( 'selected' if value == x[1].to_s ) }, text: x[0])
+      })
     end
   end
 

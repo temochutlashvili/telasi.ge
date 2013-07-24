@@ -157,6 +157,8 @@ ka:
       status_2: უარყოფილი
       status_3: მიღებული
       status_4: შესრულებული
+      type_individual: ინდივიდუალური
+      type_summary: ჯამური
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი
@@ -187,6 +189,12 @@ ka:
         accounts_page:
           title: აბონენტები
           empty_description: არც ერთი აბონენტი არ არის განსაზღვრული. თქვენ შეგიძლიათ ერთ განცხადებაში ერთი ან რამდენიმე აბონენტის დამატება.
+    network_new_customer_item:
+      address: მისამართი
+      address_hint: მიუთითეთ გამრიცხველიანების ობიექტის ზუსტი მისამართი
+      address_code: საკადასტრო კოდი
+      address_code_hint: მიუთითეთ გამრიცხველიანების ობიექტის საკადასტრო კოდი
+      voltage: ძაბვის საფეხური
     network_new_customer_tariff:
       voltage: ძაბვა
       power: სიმძლავრე

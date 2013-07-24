@@ -47,7 +47,12 @@ class NewCustomerController < ApplicationController
 
   def new_account
     with_application do
-      # TODO: new account
+      @title = I18n.t('models.network_new_customer_application.actions.new_account')
+      if request.post?
+        @account = Network::NewCustomerItem.new(account_params)
+      else
+        @account = Network::NewCustomerItem.new
+      end
     end
   end
 
@@ -72,7 +77,6 @@ class NewCustomerController < ApplicationController
     ]
   end
 
-  def application_params
-    params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account)
-  end
+  def application_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account) end
+  def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :voltage) end
 end

@@ -5,3 +5,12 @@
     </div>
   </div> 
 <% end %>
+<div class="module">
+  <h1><%= @title %></h1>
+  <%= rich_form @account do |f|
+    f.text_field 'address_code', hint: true, autofocus: true
+    f.text_field 'address', hint: true
+    f.combo_field 'voltage', { '220V' => '220', '380V' => '380', '6/10kV' => '6/10' }
+    f.submit @title
+  end %>
+</div>
