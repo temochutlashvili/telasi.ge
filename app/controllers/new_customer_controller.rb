@@ -45,6 +45,12 @@ class NewCustomerController < ApplicationController
     end
   end
 
+  def new_account
+    with_application do
+      # TODO: new account
+    end
+  end
+
   private
 
   def with_application

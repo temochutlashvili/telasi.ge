@@ -182,9 +182,11 @@ ka:
           all_applications: ყველა განცხადება
         edit:
           title: განცხადების შეცვლა
-          show_action: უკან განცხადებაში
+        new_account: ახალი აბონენტი
+        back_to_application: უკან განცხადებაში
         accounts_page:
           title: აბონენტები
+          empty_description: არც ერთი აბონენტი არ არის განსაზღვრული. თქვენ შეგიძლიათ ერთ განცხადებაში ერთი ან რამდენიმე აბონენტის დამატება.
     network_new_customer_tariff:
       voltage: ძაბვა
       power: სიმძლავრე

@@ -31,6 +31,7 @@ TelasiGe::Application.routes.draw do
     match '/edit/:id', action: 'edit', as: 'edit_new_customer', via: ['get', 'put']
     get '/payments/:id', action: 'payments', as: 'new_customer_payments'
     get '/accounts/:id', action: 'accounts', as: 'new_customer_accounts'
+    get '/accounts/:id/new', action: 'new_account', as: 'new_customer_new_account'
   end
 
   scope '/applications', controller: 'applications' do
