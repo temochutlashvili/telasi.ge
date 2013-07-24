@@ -43,10 +43,19 @@ class NewCustomerController < ApplicationController
   def with_application
     @application = Network::NewCustomerApplication.where(user: current_user, _id: params[:id]).first
     if @application
+      @nav = nav
       yield if block_given?
     else
       redirect_to new_customer_url, alert: 'not permitted'
     end
+  end
+
+  def nav
+    [
+      { label: I18n.t('models.network_new_customer_application.actions.nav.main'), url: show_new_customer_url(id: @application.id), active: (action_name == 'show') },
+      { label: I18n.t('models.network_new_customer_application.actions.nav.accounts'), url: new_customer_accounts_url(id: @application.id), active: (action_name == 'accounts') },
+      { label: I18n.t('models.network_new_customer_application.actions.nav.payments'), url: new_customer_payments_url(id: @application.id), active: (action_name == 'payments') },
+    ]
   end
 
   def application_params
