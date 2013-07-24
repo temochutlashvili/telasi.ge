@@ -39,6 +39,12 @@ class NewCustomerController < ApplicationController
     end
   end
 
+  def accounts
+    with_application do
+      @title = I18n.t('models.network_new_customer_application.actions.accounts_page.title')
+    end
+  end
+
   private
 
   def with_application

@@ -18,6 +18,7 @@ class Network::NewCustomerApplication
   field :bank_code,    type: String
   field :bank_account, type: String
   field :status,     type: Integer, default: STATUS_DEFAULT
+  embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   validates :user, presence: { message: 'user required' }
   validates :rs_tin, presence: { message: I18n.t('models.network_new_customer_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_new_customer_application.errors.mobile_required') }

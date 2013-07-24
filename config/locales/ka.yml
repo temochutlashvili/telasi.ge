@@ -183,6 +183,8 @@ ka:
         edit:
           title: განცხადების შეცვლა
           show_action: უკან განცხადებაში
+        accounts_page:
+          title: აბონენტები
     network_new_customer_tariff:
       voltage: ძაბვა
       power: სიმძლავრე

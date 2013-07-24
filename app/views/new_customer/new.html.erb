@@ -5,10 +5,10 @@
     </div>
   </div>
 <% end %>
-    <div class="module">
-      <h1>
-        <%= @title %>
-        <p><%= t('models.network_new_customer_application.actions.new_description') %></p>
-      </h1>
-      <%= render partial: 'new_customer/form', locals: { application: @application, submit: t('models.network_new_customer_application.actions.new2') } %>
-    </div>
+<div class="module">
+  <h1>
+    <%= @title %>
+    <p><%= t('models.network_new_customer_application.actions.new_description') %></p>
+  </h1>
+  <%= render partial: 'new_customer/form', locals: { application: @application, submit: t('models.network_new_customer_application.actions.new2') } %>
+</div>
