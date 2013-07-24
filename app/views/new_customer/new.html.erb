@@ -12,16 +12,7 @@
         <%= @title %>
         <p><%= t('models.network_new_customer_application.actions.new_description') %></p>
       </h1>
-      <%= rich_form @application do |f|
-        f.text_field :rs_tin, autofocus: true, hint: true
-        f.text_field :mobile
-        f.text_field :email
-        f.text_field :address, hint: true
-        f.separator_field label: t('models.network_new_customer_application.bank_account_separator')
-        f.text_field :bank_code
-        f.text_field :bank_account
-        f.submit "#{t('models.network_new_customer_application.actions.new2')} &rarr;".html_safe
-      end %>
+      <%= render partial: 'new_customer/form', locals: { application: @application, submit: t('models.network_new_customer_application.actions.new2') } %>
     </div>
   </div>
 </div>
