@@ -24,6 +24,7 @@ module FormHelper
     def password_field(name, h = {}); @fields << TextField.new(name, @model, h.merge(password: true)) end
     def separator_field(h = {}); @fields << SeparatorField.new(nil, nil, h) end
     def combo_field(name, collection, h = {}); @fields << ComboField.new(name, @model, h.merge(collection: collection)) end
+    def number_field(name, h = {}); @fields << TextField.new(name, @model, h) end
     def submit(text); @submit = text end
     def cancel_url(url); @cancel_url = url end
 
@@ -57,6 +58,7 @@ module FormHelper
       @label = h[:label]
       @hint = h[:hint]
       @autofocus = h[:autofocus]
+      @width = h[:width]
     end
 
     def names_chain
@@ -97,7 +99,8 @@ module FormHelper
 
     def content_element
       def field_type; @password ? 'password' : 'text' end
-      el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus })
+      def style; @width ?  { width: "#{@width}px" } : nil end
+      el('input', attrs: { id: field_id, name: field_name, type: field_type, value: field_value, autofocus: @autofocus, style: style})
     end
   end
 

@@ -6,11 +6,26 @@
   </div> 
 <% end %>
 <div class="module">
-  <h1><%= @title %></h1>
+  <h1>
+    <%= @title %>
+    &mdash;
+    <% if params[:type] == 'summary' %>
+    <%= t('models.network_new_customer_item.type_summary') %>
+    <% else %>
+    <%= t('models.network_new_customer_item.type_individual') %>
+    <% end %>
+  </h1>
   <%= rich_form @account do |f|
     f.text_field 'address_code', hint: true, autofocus: true
     f.text_field 'address', hint: true
-    f.combo_field 'voltage', { '220V' => '220', '380V' => '380', '6/10kV' => '6/10' }
+    f.combo_field 'voltage', voltage_collection
+    f.number_field 'power', width: 100
+    f.combo_field 'use', use_collection
+    if params[:type] == 'summary'
+      f.number_field :count, width: 100, hint: true
+    else
+      f.text_field :rs_tin, width: 200, hint: true
+    end
     f.submit @title
   end %>
 </div>
