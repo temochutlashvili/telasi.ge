@@ -1,11 +1,4 @@
-<% content_for :side do %>
-  <div class="module">
-    <div style="padding-bottom: 24px;">
-      <a href="<%= new_customer_url %>">&larr; <%= t('models.network_new_customer_application.actions.show_page.all_applications') %></a>
-    </div>
-    <%= side_menu @nav %>
-  </div>
-<% end %>
+<%= render partial: 'new_customer/show_side' %>
 <div class="module">
   <h1>#<%= @application.number %></h1>
   <hr />

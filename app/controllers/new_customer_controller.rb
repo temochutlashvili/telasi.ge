@@ -19,6 +19,7 @@ class NewCustomerController < ApplicationController
     else
       @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
     end
+    render layout: 'two_columns'
   end
 
   def show
