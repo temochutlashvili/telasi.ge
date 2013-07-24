@@ -174,7 +174,10 @@ ka:
         show_page:
           title: განცხადების დეტალები
           general: ძირითადი ინფორმაცია
-        edit: ძირითადი ინფორმაციის შეცვლა
+          edit: ძირითადი ინფორმაციის შეცვლა
+        edit:
+          title: განცხადების შეცვლა
+          show_action: უკან განცხადებაში
     network_new_customer_tariff:
       voltage: ძაბვა
       power: სიმძლავრე

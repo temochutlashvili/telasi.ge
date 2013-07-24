@@ -9,7 +9,7 @@
       <h1>#<%= @application.number %></h1>
       <hr />
       <h2><%= t('models.network_new_customer_application.actions.show_page.general') %></h2>
-      <%= render partial: 'new_customer/info', locals: { application: @application, with_bank_account: true, with_actions: true  } %>
+      <%= render partial: 'new_customer/info', locals: { application: @application, extended: true, with_actions: true  } %>
       <hr />
     </div>
   </div>

@@ -11,7 +11,7 @@ class NewCustomerController < ApplicationController
     @title = I18n.t('models.network_new_customer_application.actions.new')
     user = current_user
     if request.post?
-      @application = Network::NewCustomerApplication.new(params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account))
+      @application = Network::NewCustomerApplication.new(application_params)
       @application.user = user
       if @application.save
         # TODO: redirect to the next step
@@ -27,6 +27,17 @@ class NewCustomerController < ApplicationController
     end
   end
 
+  def edit
+    with_application do
+      @title = I18n.t('models.network_new_customer_application.actions.edit.title')
+      if request.put?
+        if @application.update_attributes(application_params)
+          redirect_to show_new_customer_url(id: @application.id)
+        end
+      end
+    end
+  end
+
   private
 
   def with_application
@@ -38,4 +49,7 @@ class NewCustomerController < ApplicationController
     end
   end
 
+  def application_params
+    params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account)
+  end
 end

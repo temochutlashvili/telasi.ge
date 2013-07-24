@@ -25,7 +25,14 @@
       <%= KA.format_mobile application.mobile %>
     </td>
   </tr>
-  <% if defined?(with_bank_account) and with_bank_account %>
+  <% if defined?(extended) and extended %>
+  <tr>
+    <td class="table-label"><%= t('models.network_new_customer_application.address') %></td>
+    <td>
+      <img src="/icons/home.png" />
+      <%= application.address %>
+    </td>
+  </tr>
   <tr>
     <td class="table-label"><%= t('models.network_new_customer_application.bank_account_alt') %></td>
     <td>
@@ -38,6 +45,6 @@
 </table>
 <% if defined?(with_actions) and with_actions %>
 <div class="toolbar">
-  <%= link_to  t('models.network_new_customer_application.actions.edit'), edit_new_customer_url(id: application.id) %>
+  <%= link_to  t('models.network_new_customer_application.actions.show_page.edit'), edit_new_customer_url(id: application.id) %>
 </div>
 <% end %>
