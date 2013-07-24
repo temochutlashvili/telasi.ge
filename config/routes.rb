@@ -47,6 +47,7 @@ TelasiGe::Application.routes.draw do
     end
     scope '/network', controller: 'network' do
       get '/', action: 'index', as: 'network'
+      get '/generate_tariffs', action: 'generate_tariffs', as: 'generate_network_tariffs'
     end
   end
 
