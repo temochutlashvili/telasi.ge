@@ -37,6 +37,7 @@ ka:
         save: შენახვა
         cancel: გაუქმება
         search: ძებნა
+        show: ნახვა
     sys_user:
       title:
         single: მომხმარებელი

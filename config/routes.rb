@@ -27,6 +27,7 @@ TelasiGe::Application.routes.draw do
   scope '/new_customer', controller: 'new_customer' do
     get '/', action: 'index', as: 'new_customer'
     match '/new', action: 'new', as: 'new_new_customer', via: ['get', 'post']
+    get '/show/:id', action: 'show', as: 'show_new_customer'
   end
 
   scope '/applications', controller: 'applications' do

@@ -8,6 +8,9 @@
             <tr>
               <td style="width: 250px; border-right: 1px solid #d6e3e8; padding: 0;">
                 <h1>#<%= app.number %></h1>
+                <div style="margin-top: -16px;">
+                  <%= link_to "#{t('models.general.actions.show')} &rarr;".html_safe, show_new_customer_url(app.id), class: [ 'btn', 'btn-primary' ] %>
+                </div>
               </td>
               <td style="padding: 0 0 0 16px;">
                 <table class="properties-table">
