@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
+<%= stylesheet_link_tag 'application' %>
+<%= javascript_include_tag 'application' %>
+<%= favicon_link_tag('/favicon.png') %>
+</head>
+<body class="telasi">
+<%= render partial: 'layouts/header' %>
+<div id="content">
+  <div class="container">
+    <%= render partial: 'layouts/notice' %>
+    <div class="row">
+      <div class="span3">
+        <%= yield :side %>
+      </div>
+      <div class="span9">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render partial: 'layouts/footer' %>
+</body>
+</html>

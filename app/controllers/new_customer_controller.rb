@@ -45,6 +45,7 @@ class NewCustomerController < ApplicationController
     if @application
       @nav = nav
       yield if block_given?
+      # render layout: 'two_columns'
     else
       redirect_to new_customer_url, alert: 'not permitted'
     end
