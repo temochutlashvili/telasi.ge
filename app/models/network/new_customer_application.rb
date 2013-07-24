@@ -28,10 +28,11 @@ class Network::NewCustomerApplication
   validate :validate_rs_name
   before_create :assign_number
 
+  def status_name; I18n.t("models.network_new_customer_application.status_#{self.status}") end
+
   private
 
   def assign_number; self.number = (Network::NewCustomerApplication.last.number rescue 1) end
-  def status_name; I18n.t("models.network_new_customer_application.status.#{self.status}") end
 
   def validate_rs_name
     if self.rs_tin.present?
