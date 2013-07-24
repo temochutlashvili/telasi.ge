@@ -20,4 +20,22 @@ class NewCustomerController < ApplicationController
       @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
     end
   end
+
+  def show
+    with_application do
+      @title = I18n.t('models.network_new_customer_application.actions.show_page.title')
+    end
+  end
+
+  private
+
+  def with_application
+    @application = Network::NewCustomerApplication.where(user: current_user, _id: params[:id]).first
+    if @application
+      yield if block_given?
+    else
+      redirect_to new_customer_url, alert: 'not permitted'
+    end
+  end
+
 end
