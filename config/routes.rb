@@ -45,6 +45,9 @@ TelasiGe::Application.routes.draw do
       get '/confirm/:id', action: 'confirm', as: 'confirm_customer'
       match '/deny/:id', action: 'deny', as: 'deny_customer', via: ['get', 'post']
     end
+    scope '/network', controller: 'network' do
+      get '/', action: 'index', as: 'network'
+    end
   end
 
   root 'dashboard#index'
