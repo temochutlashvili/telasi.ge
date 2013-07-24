@@ -14,7 +14,7 @@ class NewCustomerController < ApplicationController
       @application = Network::NewCustomerApplication.new(application_params)
       @application.user = user
       if @application.save
-        # TODO: redirect to the next step
+        redirect_to show_new_customer_url(id: @application.id)
       end
     else
       @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
@@ -45,7 +45,7 @@ class NewCustomerController < ApplicationController
     if @application
       @nav = nav
       yield if block_given?
-      # render layout: 'two_columns'
+      render layout: 'two_columns'
     else
       redirect_to new_customer_url, alert: 'not permitted'
     end
