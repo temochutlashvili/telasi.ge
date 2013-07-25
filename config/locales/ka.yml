@@ -183,6 +183,7 @@ ka:
         edit:
           title: განცხადების შეცვლა
         new_account: ახალი აბონენტი
+        new_account_complete: აბონენტი დამატებულია
         back_to_application: უკან განცხადებაში
         accounts_page:
           title: აბონენტები

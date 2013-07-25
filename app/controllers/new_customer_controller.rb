@@ -51,6 +51,10 @@ class NewCustomerController < ApplicationController
       @title = I18n.t('models.network_new_customer_application.actions.new_account')
       if request.post?
         @account = Network::NewCustomerItem.new(account_params)
+        @account.application = @application
+        if @account.save
+          redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_application.actions.new_account_complete')
+        end
       else
         @account = Network::NewCustomerItem.new
       end
