@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'rs'
+
 class Network::NewCustomerItem
   USE_PERSONAL     = 0
   USE_NOT_PERSONAL = 1
