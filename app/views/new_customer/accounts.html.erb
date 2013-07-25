@@ -40,7 +40,8 @@
           <code><%= item.rs_tin%></code> <br />
           <%= item.rs_name %>
           <% else %>
-          TODO:
+          <code><%= item.count %></code>
+          <%= t('models.network_new_customer_item.customer_count') %>
           <% end %>
         </td>
         <td>
