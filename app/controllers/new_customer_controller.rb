@@ -106,6 +106,14 @@ class NewCustomerController < ApplicationController
     end
   end
 
+  def delete_file
+    with_application do
+      file = @application.files.where(_id: params[:file_id]).first
+      file.destroy
+      redirect_to new_customer_files_url(id: @application.id), notice: I18n.t('models.network_new_customer_application.actions.delete_complete')
+    end
+  end
+
   private
 
   def resolve_layout
