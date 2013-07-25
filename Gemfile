@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 1.0.1'
 gem 'forma', path: '../carbon.ge/forma'
 gem 'bootstrap-will_paginate'
 gem 'will_paginate_mongoid'
+gem 'carrierwave'
+gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # utils
 gem 'rs.ge', git: 'https://github.com/dimakura/rs.ge'

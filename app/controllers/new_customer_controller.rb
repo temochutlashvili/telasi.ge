@@ -93,7 +93,7 @@ class NewCustomerController < ApplicationController
 
   def upload_file
     with_application do
-      @title = I18n.t('models.network_new_customer_application.actions.upload_file')
+      @title = I18n.t('models.network_new_customer_application.actions.upload')
     end
   end
 
