@@ -136,9 +136,9 @@ class NewCustomerController < ApplicationController
   def nav
     [
       { label: I18n.t('models.network_new_customer_application.actions.nav.main'), url: show_new_customer_url(id: @application.id), active: (action_name == 'show') },
-      { label: I18n.t('models.network_new_customer_application.actions.nav.accounts'), url: new_customer_accounts_url(id: @application.id), active: (action_name == 'accounts') },
+      { label: "#{I18n.t('models.network_new_customer_application.actions.nav.accounts')} (#{@application.items.size})", url: new_customer_accounts_url(id: @application.id), active: (action_name == 'accounts') },
       # { label: I18n.t('models.network_new_customer_application.actions.nav.payments'), url: new_customer_payments_url(id: @application.id), active: (action_name == 'payments') },
-      { label: I18n.t('models.network_new_customer_application.actions.nav.files'), url: new_customer_files_url(id: @application.id), active: (action_name == 'files') },
+      { label: "#{I18n.t('models.network_new_customer_application.actions.nav.files')} (#{@application.files.size})", url: new_customer_files_url(id: @application.id), active: (action_name == 'files') },
     ]
   end
 
