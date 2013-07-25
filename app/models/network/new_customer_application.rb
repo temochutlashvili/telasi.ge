@@ -11,7 +11,6 @@ class Network::NewCustomerApplication
   field :number,    type: Integer
   field :rs_tin,    type: String
   field :rs_name,   type: String
-  # field :vat_payer, type: Mongoid::Boolean
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
@@ -19,6 +18,7 @@ class Network::NewCustomerApplication
   field :bank_account, type: String
   field :status,     type: Integer, default: STATUS_DEFAULT
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
+  embeds_many :calculations, class_name: 'Network::NewCustomerCalculation', inverse_of: :application
   validates :user, presence: { message: 'user required' }
   validates :rs_tin, presence: { message: I18n.t('models.network_new_customer_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_new_customer_application.errors.mobile_required') }
