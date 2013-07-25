@@ -27,4 +27,11 @@ class Network::NewCustomerTariff
       end
     end
   end
+
+  def self.tariff_for(voltage, power)
+    Network::NewCustomerTariff.each do |t|
+      return t if t.voltage == voltage and power >= t.power_from and power <= t.power_to
+    end
+    nil
+  end
 end

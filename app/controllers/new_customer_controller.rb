@@ -68,6 +68,7 @@ class NewCustomerController < ApplicationController
       @account = @application.items.where(_id: params[:item_id]).first
       if request.put?
         if @account.update_attributes(account_params)
+          @application.calculate!
           redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.edit_account_complete')
         end
       end
