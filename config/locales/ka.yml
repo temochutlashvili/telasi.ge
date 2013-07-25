@@ -182,8 +182,6 @@ ka:
           all_applications: ყველა განცხადება
         edit:
           title: განცხადების შეცვლა
-        new_account: ახალი აბონენტი
-        new_account_complete: აბონენტი დამატებულია
         back_to_application: უკან განცხადებაში
         accounts_page:
           title: აბონენტები
@@ -215,6 +213,10 @@ ka:
       details: დეტალები
       customer_count: აბონენტი
       actions:
+        new_account: ახალი აბონენტი
+        new_account_complete: აბონენტი დამატებულია
+        edit_account: აბონენტის შეცვლა
+        edit_account_complete: აბონენტი შეცვლილია
         delete_confirm: ნამდვილად გინდათ ამ აბონენტის წაშლა?
         delete_complete: აბონენტი წაშლილია.
       errors:
