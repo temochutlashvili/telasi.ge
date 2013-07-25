@@ -12,11 +12,19 @@ class Network::NewCustomerItem
   field :voltage, type: String
   field :power,   type: Float
   field :use,     type: Integer, default: USE_PERSONAL
-  field :count,   type: Integer
+  field :count,   type: Integer, default: 0
   field :rs_tin,  type: String
   field :rs_name, type: String
   field :comment, type: String
   embedded_in :application, class_name: 'Network::NewCustomerApplication', inverse_of: :items
+  validates :address, presence: { message: I18n.t('models.network_new_customer_item.errors.address_required') }
+  validates :address_code, presence: { message: I18n.t('models.network_new_customer_item.errors.address_code_required') }
+  validates :voltage, presence: { message: 'required' }
+  validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
+  validates :count, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_count') }
+  validate :validate_type
+  validate :validate_power
+  # before_save :on_before_save
 
   def unit
     if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
@@ -26,35 +34,28 @@ class Network::NewCustomerItem
   def summary?; self.summary end
   def personal?; not self.summary end
 
-  # validates_presence_of :type
-  # validates_presence_of :address, message: 'ჩაწერეთ მისამართი.'
-  # validates_presence_of :address_code, message: 'ჩაწერეთ საკადასტრო კოდი.'
-  # validates_presence_of :voltage
-  # validates_numericality_of :power, message: 'ჩაწერეთ სწორი რიცხვითი მნიშვნელობა.'
-
-  # validate :validate_type
-  # validate :validate_power
-  # before_save :on_before_save
-
   private
 
-  # def validate_type
-  #   if self.type == TYPE_DETAIL
-  #     errors.add(:tin, 'ჩაწერეთ საიდენტიფიკაციო ნომერი') if self.tin.blank?
-  #   end
-  # end
+  def validate_type
+    if self.personal?
+      if self.rs_tin.blank?
+        errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_required'))
+      elsif not self.rs_tin =~ /^([0-9]{11}|[0-9]{7})$/
+        errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_illegal'))
+      else
+        self.rs_name = RS.get_name_from_tin(RS::SU.merge(tin: self.rs_tin))
+        if self.rs_name.blank?
+          errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_illegal'))
+        end
+      end
+    elsif self.count.nil? or self.count <= 0
+      errors.add(:count, I18n.t('models.network_new_customer_item.errors.illegal_count'))
+    end
+  end
 
-  # def validate_power
-  #   errors.add(:power, 'სიმძლავრე უნდა იყოს მეტი 0-ზე.') if self.power.nil? or self.power <= 0
-  # end
-
-  # def on_before_save
-  #   if self.type == TYPE_DETAIL
-  #     self.count = 0
-  #   else
-  #     self.tin = nil
-  #     self.name = nil
-  #     self.count = 1 if self.count.nil? or self.count <= 0
-  #   end
-  # end
+  def validate_power
+    if self.power.nil? or self.power <= 0
+      errors.add(:power, I18n.t('models.network_new_customer_item.errors.illegal_power'))
+    end
+  end
 end

@@ -216,6 +216,14 @@ ka:
       actions:
         delete_confirm: ნამდვილად გინდათ ამ აბონენტის წაშლა?
         delete_complete: აბონენტი წაშლილია.
+      errors:
+        address_required: ჩაწერეთ მისამართი
+        address_code_required: ჩაწერეთ საკადასტრო კოდი
+        illegal_power: სიმძლავრე უნდა იყოს რიცხვი
+        tin_required: ჩაწერეთ საიდენტიფიკაციო კოდი
+        tin_illegal: არასწორი საიდენტიფიკაციო კოდი
+        illegal_count: ჯამური რაოდენობა უნდა იყოს რიცხვი და > 0
+        illegal_power: სიმძლავრე უნდა იყოს რიცხვი და > 0
     network_new_customer_tariff:
       voltage: ძაბვა
       power: სიმძლავრე
