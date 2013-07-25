@@ -6,7 +6,7 @@ class Network::NewCustomerItem
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :summary, type: Mongoid::Document
+  field :summary, type: Mongoid::Boolean
   field :address,      type: String
   field :address_code, type: String
   field :voltage, type: String
@@ -17,6 +17,14 @@ class Network::NewCustomerItem
   field :rs_name, type: String
   field :comment, type: String
   embedded_in :application, class_name: 'Network::NewCustomerApplication', inverse_of: :items
+
+  def unit
+    if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
+    else I18n.t('models.network_new_customer_item.unit_volt') end
+  end
+
+  def summary?; self.summary end
+  def personal?; not self.summary end
 
   # validates_presence_of :type
   # validates_presence_of :address, message: 'ჩაწერეთ მისამართი.'

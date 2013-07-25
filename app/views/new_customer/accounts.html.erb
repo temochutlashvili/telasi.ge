@@ -16,7 +16,40 @@
   </div>
 
   <% if @application.items.any? %>
-    NOT EMPTY
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th><%= t('models.network_new_customer_item.address') %></th>
+          <th><%= t('models.network_new_customer_item.voltage_and_power') %></th>
+          <th><%= t('models.network_new_customer_item.details') %></th>
+          <th width="16"><img src="/icons/wrench.png"></img></th>
+        </tr>
+      </thead>
+      <% @application.items.each do |item| %>
+      <tr>
+        <td>
+          <code><%= item.address_code %></code> <br />
+          <%= item.address %>
+        </td>
+        <td>
+          <code><%= item.voltage %></code> <%= item.unit%> &mdash;
+          <code><%= item.power %></code> <%= t('models.network_new_customer_item.unit_kwt') %>
+        </td>
+        <td>
+          <% if item.personal? %>
+          <code><%= item.rs_tin%></code> <br />
+          <%= item.rs_name %>
+          <% else %>
+          TODO:
+          <% end %>
+        </td>
+        <td>
+          <%= link_to '<img src="/icons/pencil.png"></img>'.html_safe, new_customer_edit_account_url(id: @application.id, item_id: item.id) %> <br/>
+          <%= link_to '<img src="/icons/bin.png"></img>'.html_safe, new_customer_delete_account_url(id: @application.id, item_id: item.id), method: 'delete', data: { confirm: I18n.t('models.network_new_customer_item.actions.delete_confirm') } %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
   <% else %>
     <div class="muted" style="text-align: center;">
       <%= t('models.network_new_customer_application.actions.accounts_page.empty_description') %>

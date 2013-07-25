@@ -32,6 +32,8 @@ TelasiGe::Application.routes.draw do
     get '/payments/:id', action: 'payments', as: 'new_customer_payments'
     get '/accounts/:id', action: 'accounts', as: 'new_customer_accounts'
     match '/accounts/:id/new', action: 'new_account', as: 'new_customer_new_account', via: ['get', 'post']
+    match '/accounts/:id/edit/:item_id', action: 'edit_account', as: 'new_customer_edit_account', via: ['get', 'put']
+    delete '/accounts/:id/delete/:item_id', action: 'delete_account', as: 'new_customer_delete_account'
   end
 
   scope '/applications', controller: 'applications' do

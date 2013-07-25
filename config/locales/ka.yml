@@ -199,7 +199,11 @@ ka:
       voltage_220: 220 ვ
       voltage_380: 380 ვ
       voltage_610: 6/10 კვ
+      unit_volt: ვ
+      unit_kvolt: კვ
+      unit_kwt: კვტ
       power: "სიმძლავრე, კვტ"
+      voltage_and_power: ძაბვა და სიმძლავრე
       use: მრიცხველის სახეობა
       use_personal: საყოფაცხოვრებო
       use_not_personal: არა საყოფაცხოვრებო
@@ -208,6 +212,10 @@ ka:
       count_hint: აქ ჩაწერეთ ამ ჯამური განცხადების აბონენტთა საერთო რაოდენობა
       rs_tin: საიდენტიფიკაციო კოდი
       rs_tin_hint: "ფიზიკური პირის შემთხვევაში ჩაწერეთ 11 ნიშნა პირადი ნომერი, ხოლო ორგანიზაციის შემთხვევაში &mdash; 9 ნიშნა საიდენტიფიკაციო კოდი."
+      details: დეტალები
+      actions:
+        delete_confirm: ნამდვილად გინდათ ამ აბონენტის წაშლა?
+        delete_complete: აბონენტი წაშლილია.
     network_new_customer_tariff:
       voltage: ძაბვა
       power: სიმძლავრე
