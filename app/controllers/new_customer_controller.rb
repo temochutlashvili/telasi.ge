@@ -94,6 +94,15 @@ class NewCustomerController < ApplicationController
   def upload_file
     with_application do
       @title = I18n.t('models.network_new_customer_application.actions.upload')
+      if request.post? and params[:sys_file]
+        @file = Sys::File.new(params.require(:sys_file).permit(:file))
+        if @file.save
+          @application.files << @file
+          redirect_to new_customer_files_url(id: @application.id), notice: I18n.t('models.network_new_customer_application.actions.upload_complete')
+        end
+      else
+        @file = Sys::File.new
+      end
     end
   end
 

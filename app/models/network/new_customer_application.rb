@@ -25,7 +25,7 @@ class Network::NewCustomerApplication
   field :need_resolution, type: Mongoid::Boolean, default: true
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   embeds_many :calculations, class_name: 'Network::NewCustomerCalculation', inverse_of: :application
-  has_many :files, class_name: 'Sys::File'
+  has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
   validates :user, presence: { message: 'user required' }
   validates :rs_tin, presence: { message: I18n.t('models.network_new_customer_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_new_customer_application.errors.mobile_required') }

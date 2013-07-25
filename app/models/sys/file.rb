@@ -2,5 +2,6 @@
 class Sys::File
   include Mongoid::Document
   include Mongoid::Timestamps
-  mount_uploader :avatar, AvatarUploader
+  belongs_to :mountable, polymorphic: true
+  mount_uploader :file, TelasiUploader
 end
