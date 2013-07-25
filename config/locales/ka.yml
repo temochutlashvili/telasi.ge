@@ -186,6 +186,8 @@ ka:
         accounts_page:
           title: აბონენტები
           empty_description: არც ერთი აბონენტი არ არის განსაზღვრული. თქვენ შეგიძლიათ ერთ განცხადებაში ერთი ან რამდენიმე აბონენტის დამატება.
+          calculations: პაკეტის ღირებულება
+          calculations_description: "პაკეტის ღირებულება დაითვლება აბონენტების რაოდენობის, ძაბვის საფეხურის და მოთხოვნილი სიმძლავრის მიხედვით."
     network_new_customer_item:
       type_individual: ინდივიდუალური
       type_summary: ჯამური
@@ -200,6 +202,7 @@ ka:
       unit_volt: ვ
       unit_kvolt: კვ
       unit_kwt: კვტ
+      unit_days: დღე
       power: "სიმძლავრე, კვტ"
       voltage_and_power: ძაბვა და სიმძლავრე
       use: მრიცხველის სახეობა
@@ -233,3 +236,11 @@ ka:
       days_to_complete: ვადა
       days_to_complete_without_resolution: ვადა
       price_gel: ფასი
+    network_new_customer_calculation:
+      power: სიმძლავრე
+      voltage: ძაბვა
+      amount: საფასური
+      days: ვადა
+      summary: შეჯამება
+      errors:
+        not_compatible_volatage_and_power: სიმძლავრე არ შეესაბამება ძაბვის საფეხურს!

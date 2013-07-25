@@ -82,7 +82,7 @@ class Network::NewCustomerApplication
       end
     else
       if power > 0
-        self.calculations << price_gel::NewCustomerCalculation.new(voltage: volt, power: power, tariff_id: nil)
+        self.calculations << Network::NewCustomerCalculation.new(voltage: volt, power: power, tariff_id: nil)
         self.amount = nil
       end
     end
