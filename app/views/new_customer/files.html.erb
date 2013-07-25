@@ -1,0 +1,9 @@
+<%= render partial: 'new_customer/show_side' %>
+<div class="module">
+  <h1>#<%= @application.number %></h1>
+  <hr />
+  <h2><%= @title %></h2>
+  <div class="btn-toolbar">
+    <%= link_to t('models.network_new_customer_application.actions.upload'), new_customer_upload_file_url(id: @application.id), class: [ 'btn', 'btn-success' ] %>
+  </div>
+</div>

@@ -1,10 +1,4 @@
-<% content_for :side do %>
-  <div class="module">
-    <div class="toolar">
-      <a href="<%= show_new_customer_url %>">&larr; <%= t('models.network_new_customer_application.actions.back_to_application') %></a>
-    </div>
-  </div>
-<% end %>
+<%= render partial: 'new_customer/side_back', locals: { url: show_new_customer_url } %>
 <div class="module">
   <h1><%= @title %></h1>
   <%= render partial: 'new_customer/form', locals: { application: @application, submit: t('models.network_new_customer_application.actions.edit.title') } %>

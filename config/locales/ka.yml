@@ -173,6 +173,7 @@ ka:
           main: ძირითადი
           accounts: აბონენტები
           payments: გადახდები
+          files: ფაილები
         index_page:
           title: ქსელზე მიერთება
         show_page:
@@ -180,6 +181,8 @@ ka:
           general: ძირითადი ინფორმაცია
           edit: ძირითადი ინფორმაციის შეცვლა
           all_applications: ყველა განცხადება
+          goto_accounts: აბონენტების მართვა
+        upload: ფალის ატვირთვა
         edit:
           title: განცხადების შეცვლა
         back_to_application: უკან განცხადებაში
@@ -242,5 +245,6 @@ ka:
       amount: საფასური
       days: ვადა
       summary: შეჯამება
+      no_items_description: "ამ განცხადებაში ჯერ არც ერთი აბონენტი არ არის განსაზღვრული. პაკეტის ღირებულება გამოჩნდება მას შემდეგ, რაც შეიტანთ ერთ ან რამდენიმე აბონენტს."
       errors:
         not_compatible_volatage_and_power: სიმძლავრე არ შეესაბამება ძაბვის საფეხურს!

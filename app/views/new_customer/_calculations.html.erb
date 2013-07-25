@@ -1,5 +1,6 @@
 <h2><%= t('models.network_new_customer_application.actions.accounts_page.calculations') %>
   <p><%= t('models.network_new_customer_application.actions.accounts_page.calculations_description') %></p></h2>
+<% if @application.items.any? %>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -35,3 +36,8 @@
   </tfoot>
   <% end %>
 </table>
+<% else %>
+<div class="alert alert-info">
+  <%= t('models.network_new_customer_calculation.no_items_description') %>
+</div>
+<% end %>
