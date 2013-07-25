@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class NewCustomerController < ApplicationController
   before_action :validate_login
+  layout :resolve_layout
 
   def index
     @title = I18n.t('models.network_new_customer_application.actions.index_page.title')
@@ -19,7 +20,7 @@ class NewCustomerController < ApplicationController
     else
       @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
     end
-    render layout: 'two_columns'
+    # render layout: 'two_columns'
   end
 
   def show
@@ -58,12 +59,18 @@ class NewCustomerController < ApplicationController
 
   private
 
+  def resolve_layout
+    case action_name
+    when 'index' then 'application'
+    else 'two_columns'
+    end
+  end
+
   def with_application
     @application = Network::NewCustomerApplication.where(user: current_user, _id: params[:id]).first
     if @application
       @nav = nav
       yield if block_given?
-      render layout: 'two_columns'
     else
       redirect_to new_customer_url, alert: 'not permitted'
     end
