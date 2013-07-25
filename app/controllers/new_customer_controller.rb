@@ -74,6 +74,14 @@ class NewCustomerController < ApplicationController
     end
   end
 
+  def delete_account
+    with_application do
+      account = @application.items.where(_id: params[:item_id]).first
+      account.destroy
+      redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.delete_complete')
+    end
+  end
+
   private
 
   def resolve_layout
