@@ -80,6 +80,7 @@ class NewCustomerController < ApplicationController
     with_application do
       account = @application.items.where(_id: params[:item_id]).first
       account.destroy
+      @application.calculate!
       redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.delete_complete')
     end
   end
