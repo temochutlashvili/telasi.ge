@@ -1,0 +1,22 @@
+<div class="toolbar">
+  <a href="<%= admin_network_url %>">&larr; ყველა განცხადება</a>
+</div>
+<%= view_for @application, title: @title, collapsible: true, icon: '/icons/user--plus.png' do |f|
+  f.tab title: 'ძირითადი' do |t|
+    t.text_field :number, required: true, tag: 'code'
+    t.complex_field i18n: 'rs_name', required: true do |c|
+      c.text_field :rs_tin, tag: 'code'
+      c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
+    end
+    t.email_field :email, required: true
+    t.text_field :mobile, required: true
+    t.text_field :address, required: true
+    t.complex_field i18n: 'bank_account', required: true do |c|
+      c.text_field :bank_code, tag: 'code'
+      c.text_field :bank_account
+    end
+  end
+  f.tab title: 'სისტემური' do |t|
+    t.timestamps
+  end
+end %>
