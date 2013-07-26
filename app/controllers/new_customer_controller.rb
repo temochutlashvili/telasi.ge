@@ -3,6 +3,8 @@ class NewCustomerController < ApplicationController
   before_action :validate_login
   layout :resolve_layout
 
+# ==> Application
+
   def index
     @title = I18n.t('models.network_new_customer_application.actions.index_page.title')
     @applications = Network::NewCustomerApplication.where(user: current_user).desc(:_id)
@@ -39,6 +41,8 @@ class NewCustomerController < ApplicationController
       end
     end
   end
+
+# ==> Accounts
 
   def accounts
     with_application do
@@ -84,6 +88,16 @@ class NewCustomerController < ApplicationController
       redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.delete_complete')
     end
   end
+
+# ==> Payments
+
+  def payments
+    with_application do
+      @title = I18n.t('models.network_new_customer_application.payments')
+    end
+  end
+
+# ==> Files
 
   def files
     with_application do
@@ -137,7 +151,7 @@ class NewCustomerController < ApplicationController
     [
       { label: I18n.t('models.network_new_customer_application.actions.nav.main'), url: show_new_customer_url(id: @application.id), active: (action_name == 'show') },
       { label: "#{I18n.t('models.network_new_customer_application.actions.nav.accounts')} (#{@application.items.size})", url: new_customer_accounts_url(id: @application.id), active: (action_name == 'accounts') },
-      # { label: I18n.t('models.network_new_customer_application.actions.nav.payments'), url: new_customer_payments_url(id: @application.id), active: (action_name == 'payments') },
+      { label: I18n.t('models.network_new_customer_application.actions.nav.payments'), url: new_customer_payments_url(id: @application.id), active: (action_name == 'payments') },
       { label: "#{I18n.t('models.network_new_customer_application.actions.nav.files')} (#{@application.files.size})", url: new_customer_files_url(id: @application.id), active: (action_name == 'files') },
     ]
   end
