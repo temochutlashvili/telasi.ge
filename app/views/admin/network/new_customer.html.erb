@@ -2,7 +2,7 @@
   <a href="<%= admin_network_url %>">&larr; ყველა განცხადება</a>
 </div>
 <%= view_for @application, title: @title, collapsible: true, icon: '/icons/user--plus.png' do |f|
-  f.tab title: 'ძირითადი' do |t|
+  f.tab title: 'ძირითადი', icon: '/icons/user--plus.png' do |t|
     t.text_field :number, required: true, tag: 'code'
     t.complex_field i18n: 'rs_name', required: true do |c|
       c.text_field :rs_tin, tag: 'code'
@@ -10,13 +10,43 @@
     end
     t.email_field :email, required: true
     t.text_field :mobile, required: true
-    t.text_field :address, required: true
-    t.complex_field i18n: 'bank_account', required: true do |c|
+    t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
+    t.complex_field label: 'საბანკო ანგარიში', required: true do |c|
       c.text_field :bank_code, tag: 'code'
       c.text_field :bank_account
     end
   end
-  f.tab title: 'სისტემური' do |t|
+  f.tab title: "აბონენტები &mdash; <strong>#{@application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
+    t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
+      items.table do |t|
+        t.text_field :address
+        t.complex_field i18n: 'voltage' do |c|
+          c.text_field :voltage, tag: 'code'
+          c.text_field :unit
+        end
+        t.number_field :power, after: 'კვტ'
+        t.complex_field label: 'აბონენტი' do |c|
+          c.text_field :rs_tin, tag: 'code'
+          c.text_field :rs_name, empty: false
+        end
+        t.complex_field label: 'ჯამი?' do |c|
+          c.boolean_field :summary?
+          c.text_field :count, tag: 'code', after: 'მრიცხველი'
+        end
+      end
+    end
+  end
+  f.tab title: "ფაილები &mdash; <strong>#{@application.files.count}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
+    t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
+      files.table do |t|
+        t.text_field 'file.filename', url: ->(x) { x.file.url }, label: 'ფაილი'
+      end
+    end
+  end
+  f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
     t.timestamps
+    t.text_field 'user.full_name', label: 'მომხმარებელი'
+    t.email_field 'user.email', label: 'მომხმ. ელ.ფოსტა'
+    t.text_field 'user.mobile', label: 'მომხმ. მობილური'
   end
 end %>
