@@ -1,16 +1,10 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <%= table_for @tariffs, title: 'ტარიფები', icon: '/icons/network.png', collapsible: true do |t|
-        t.title_action admin_generate_network_tariffs_url, label: 'გენერაცია', icon: '/icons/wand.png', confirm: 'ნამდვილად?' if @tariffs.empty?
-        t.text_field :voltage
-        t.complex_field i18n: 'power' do |c|
-          c.text_field :power_from, tag: 'code', after: '-'
-          c.text_field :power_to, tag: 'code', after: 'kW'
-        end
-        t.text_field :days_to_complete, tag: 'code', after: 'დღე'
-        t.number_field :price_gel, after: 'GEL'
-      end %>
-    </div>
-  </div>
-</div>
+<%= table_for @applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
+  t.text_field :number, tag: 'code'
+  t.text_field :status_name
+  t.complex_field i18n: 'rs_name' do |c|
+    c.text_field :rs_tin, tag: 'code'
+    c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
+  end
+  t.number_field :amount, after: 'GEL'
+  t.number_field :days, max_digits: 0, after: 'დღე'
+end %>
