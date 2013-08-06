@@ -36,6 +36,10 @@ class Admin::NetworkController < Admin::AdminController
     end
   end
 
+  def add_new_customer_account
+    @title = 'ახალი აბონენტის დამატება'
+  end
+
 # ==> Tariffs
 
   # TODO: tariffs page
