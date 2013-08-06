@@ -38,6 +38,18 @@ class Admin::NetworkController < Admin::AdminController
 
   def add_new_customer_account
     @title = 'ახალი აბონენტის დამატება'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      @account = Network::NewCustomerItem.new(account_params)
+      @account.application = @application
+      @account.summary = params[:type] == 'summary'
+      if @account.save
+        @application.calculate!
+        redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
+      end
+    else
+      @account = Network::NewCustomerItem.new
+    end
   end
 
 # ==> Tariffs
@@ -62,7 +74,6 @@ class Admin::NetworkController < Admin::AdminController
     'one_column'
   end
 
-  def new_customer_params
-    params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account)
-  end
+  def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account) end
+  def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :voltage, :power, :use, :rs_tin, :count) end
 end

@@ -45,6 +45,8 @@ module Admin::NetworkHelper
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
           items.table do |t|
+            t.title_action admin_add_new_customer_account_url(id: application.id), label: 'ინდივიდუალური', icon: '/icons/plus.png'
+            t.title_action admin_add_new_customer_account_url(id: application.id, type: 'summary'), label: 'ჯამური', icon: '/icons/plus.png'
             t.text_field :address
             t.complex_field i18n: 'voltage' do |c|
               c.text_field :voltage, tag: 'code'
