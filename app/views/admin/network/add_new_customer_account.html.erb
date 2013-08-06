@@ -1,13 +1,1 @@
-<%= forma_for @account, title: @title, collapsible: true, icon: '/icons/user--plus.png' do |f|
-  f.text_field :address_code, required: true, autofocus: true
-  f.text_field :address, required: true, width: 300 #, :voltage, :power, :use, :rs_tin, :count
-  f.combo_field :voltage, collection: voltage_collection, empty: false, required: true
-  f.number_field :power, after: 'kWh', width: 100, required: true
-  if params[:type] == 'summary'
-    f.text_field :count, required: true
-  else
-    f.text_field :rs_tin, required: true
-  end
-  f.submit 'ანგარიშის დამატება'
-  f.bottom_action admin_new_customer_url(id: @application.id, tab: 'accounts'), label: 'გაუქმება', icon: '/icons/cross.png'
-end %>
+<%= new_customer_account_form @account, title: @title, icon: '/icons/user--plus.png', submit: 'ანგარიშის დამატება', cancel_url: admin_new_customer_url(id: @application.id, tab: 'accounts') %>

@@ -52,6 +52,19 @@ class Admin::NetworkController < Admin::AdminController
     end
   end
 
+  def edit_new_customer_account
+    @title = 'აბონენტის რედაქტირება'
+    @application = Network::NewCustomerApplication.find(params[:app_id])
+    @account = @application.items.where(id: params[:id]).first
+    if request.post?
+      if @account.update_attributes(account_params)
+        @application.calculate!
+        redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
+      end
+    end
+  end
+
+
 # ==> Tariffs
 
   # TODO: tariffs page

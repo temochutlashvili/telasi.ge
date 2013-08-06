@@ -47,17 +47,18 @@ module Admin::NetworkHelper
           items.table do |t|
             t.title_action admin_add_new_customer_account_url(id: application.id), label: 'ინდივიდუალური', icon: '/icons/plus.png'
             t.title_action admin_add_new_customer_account_url(id: application.id, type: 'summary'), label: 'ჯამური', icon: '/icons/plus.png'
+            t.item_action ->(x) { admin_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', label: 'შეცვლა'
             t.text_field :address
-            t.complex_field i18n: 'voltage' do |c|
+            t.complex_field i18n: 'voltage', label: 'ძაბვა' do |c|
               c.text_field :voltage, tag: 'code'
               c.text_field :unit
             end
-            t.number_field :power, after: 'კვტ'
+            t.number_field :power, after: 'კვტ', label: 'სიმძლავრე'
             t.complex_field label: 'აბონენტი' do |c|
               c.text_field :rs_tin, tag: 'code'
               c.text_field :rs_name, empty: false
             end
-            t.complex_field label: 'ჯამური რაოდენობა' do |c|
+            t.complex_field label: 'ჯამ.რაოდენობა' do |c|
               c.boolean_field :summary?
               c.text_field :count, tag: 'code', after: 'მრიცხველი'
             end
@@ -90,6 +91,23 @@ module Admin::NetworkHelper
         end
         t.timestamps
       end
+    end
+  end
+
+
+  def new_customer_account_form(account, opts = {})
+    forma_for @account, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
+      f.text_field :address_code, required: true, autofocus: true
+      f.text_field :address, required: true, width: 300 #, :voltage, :power, :use, :rs_tin, :count
+      f.combo_field :voltage, collection: voltage_collection, empty: false, required: true
+      f.number_field :power, after: 'kWh', width: 100, required: true
+      if params[:type] == 'summary'
+        f.text_field :count, required: true
+      else
+        f.text_field :rs_tin, required: true
+      end
+      f.submit opts[:submit]
+      f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
     end
   end
 end
