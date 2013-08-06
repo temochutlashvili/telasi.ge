@@ -1,5 +1,18 @@
 # -*- encoding : utf-8 -*-
 module Admin::NetworkHelper
+  def new_customer_form(application, opts = {})
+    forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
+      f.text_field  :rs_tin,       required: true, autofocus: true
+      f.text_field  :mobile,       required: true
+      f.email_field :email,        required: true
+      f.text_field  :address,      required: true, width: 300
+      f.text_field  :bank_code,    required: true
+      f.text_field  :bank_account, required: true, width: 300
+      f.submit (opts[:submit] || opts[:title])
+      f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
+    end
+  end
+
   def new_customer_view(application, opts = {})
     def selected_tab
       case params[:tab]

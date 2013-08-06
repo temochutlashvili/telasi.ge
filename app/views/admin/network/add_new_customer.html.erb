@@ -1,10 +1,1 @@
-<%= forma_for @application, title: @title, collapsible: true, icon: '/icons/plus.png' do |f|
-  f.text_field  :rs_tin,       required: true, autofocus: true
-  f.text_field  :mobile,       required: true
-  f.email_field :email,        required: true
-  f.text_field  :address,      required: true, width: 300
-  f.text_field  :bank_code,    required: true
-  f.text_field  :bank_account, required: true, width: 300
-  f.submit 'ახალი განცხადება'
-  f.bottom_action admin_network_url, label: 'გაუქმება', icon: '/icons/cross.png'
-end %>
+<%= new_customer_form(@application, title: @title, submit: 'ახალი განცხადება', cancel_url: admin_network_url, icon: '/icons/plus.png') %>
