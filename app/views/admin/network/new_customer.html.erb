@@ -11,9 +11,13 @@
     t.email_field :email, required: true
     t.text_field :mobile, required: true
     t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
-    t.complex_field label: 'საბანკო ანგარიში', required: true do |c|
-      c.text_field :bank_code, tag: 'code'
-      c.text_field :bank_account
+    t.col2 do |c|
+      c.complex_field label: 'საბანკო ანგარიში', required: true do |c|
+        c.text_field :bank_code, tag: 'code'
+        c.text_field :bank_account
+      end
+      c.number_field :amount, after: 'GEL'
+      c.number_field :days, max_digits: 0, after: 'დღე'
     end
   end
   f.tab title: "აბონენტები &mdash; <strong>#{@application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
@@ -29,7 +33,7 @@
           c.text_field :rs_tin, tag: 'code'
           c.text_field :rs_name, empty: false
         end
-        t.complex_field label: 'ჯამი?' do |c|
+        t.complex_field label: 'ჯამური რაოდენობა' do |c|
           c.boolean_field :summary?
           c.text_field :count, tag: 'code', after: 'მრიცხველი'
         end
@@ -44,9 +48,11 @@
     end
   end
   f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
+    t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
+      c.email_field 'user.email', after: '&mdash;'.html_safe
+      c.text_field 'user.full_name'
+      c.text_field 'user.mobile'
+    end
     t.timestamps
-    t.text_field 'user.full_name', label: 'მომხმარებელი'
-    t.email_field 'user.email', label: 'მომხმ. ელ.ფოსტა'
-    t.text_field 'user.mobile', label: 'მომხმ. მობილური'
   end
 end %>
