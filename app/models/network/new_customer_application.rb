@@ -89,7 +89,7 @@ class Network::NewCustomerApplication
     end
   end
 
-  def assign_number; self.number = (Network::NewCustomerApplication.last.number rescue 1) end
+  def assign_number; self.number = (Network::NewCustomerApplication.last.number + 1 rescue 1) end
 
   def validate_rs_name
     if self.rs_tin.present?
