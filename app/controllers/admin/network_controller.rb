@@ -2,6 +2,8 @@
 class Admin::NetworkController < Admin::AdminController
   layout :resolve_layout
 
+# ==> NewCustomerApplication
+
   def index
     @title = 'ქსელი'
     @applications = Network::NewCustomerApplication.desc(:_id)
@@ -18,10 +20,19 @@ class Admin::NetworkController < Admin::AdminController
       @application = Network::NewCustomerApplication.new(new_customer_params)
       @application.user = current_user
       if @application.save
-        redirect_to admin_network_url, notice: 'განცხადება დამატებულია'
+        redirect_to admin_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება დამატებულია'
       end
     else
       @application = Network::NewCustomerApplication.new
+    end
+  end
+
+  def edit_new_customer
+    @title = 'ქსელზე მიერთების განცხადების შეცვლა'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      @application.update_attributes(new_customer_params)
+      redirect_to admin_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება შეცვლილია'
     end
   end
 

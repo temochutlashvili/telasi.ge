@@ -3,6 +3,7 @@
 </div>
 <%= view_for @application, title: @title, collapsible: true, icon: '/icons/user--plus.png' do |f|
   f.tab title: 'ძირითადი', icon: '/icons/user--plus.png' do |t|
+    t.action admin_edit_new_customer_url(id: @application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
     t.text_field :number, required: true, tag: 'code'
     t.text_field :status_name, required: true
     t.complex_field i18n: 'rs_name', required: true do |c|

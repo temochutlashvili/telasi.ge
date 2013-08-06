@@ -58,6 +58,7 @@ TelasiGe::Application.routes.draw do
     scope '/network', controller: 'network' do
       get '/', action: 'index', as: 'network'
       match '/new_customer/new', action: 'add_new_customer', as: 'add_new_customer', via: ['get', 'post']
+      match '/new_customer/edut/:id', action: 'edit_new_customer', as: 'edit_new_customer', via: ['get', 'post']
       get '/new_customer/:id', action: 'new_customer', as: 'new_customer'
       get '/generate_tariffs', action: 'generate_tariffs', as: 'generate_network_tariffs'
     end
