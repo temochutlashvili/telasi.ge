@@ -4,6 +4,7 @@
 <%= view_for @application, title: @title, collapsible: true, icon: '/icons/user--plus.png' do |f|
   f.tab title: 'ძირითადი', icon: '/icons/user--plus.png' do |t|
     t.text_field :number, required: true, tag: 'code'
+    t.text_field :status_name, required: true
     t.complex_field i18n: 'rs_name', required: true do |c|
       c.text_field :rs_tin, tag: 'code'
       c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
@@ -39,8 +40,6 @@
         end
       end
     end
-  #end
-  #f.tab title: "გათვლები &mdash; <strong>#{@application.calculations.count}</strong>".html_safe, icon: '/icons/calculator.png' do |t|
     t.table_field :calculations, table: { title: 'გათვლები', icon: '/icons/calculator.png' } do |calcs|
       calcs.table do |t|
         t.complex_field i18n: 'voltage' do |c|
