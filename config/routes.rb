@@ -64,6 +64,7 @@ TelasiGe::Application.routes.draw do
         get   '/:id', action: 'new_customer', as: 'new_customer'
         match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
         match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
+        delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
       end
     end
   end

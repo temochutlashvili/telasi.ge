@@ -64,6 +64,13 @@ class Admin::NetworkController < Admin::AdminController
     end
   end
 
+  def delete_new_customer_account
+    application = Network::NewCustomerApplication.find(params[:app_id])
+    account = application.items.where(id: params[:id]).first
+    account.destroy
+    application.calculate!
+    redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
+  end
 
 # ==> Tariffs
 

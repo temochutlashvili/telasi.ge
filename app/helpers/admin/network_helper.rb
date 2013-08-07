@@ -47,7 +47,8 @@ module Admin::NetworkHelper
           items.table do |t|
             t.title_action admin_add_new_customer_account_url(id: application.id), label: 'ინდივიდუალური', icon: '/icons/plus.png'
             t.title_action admin_add_new_customer_account_url(id: application.id, type: 'summary'), label: 'ჯამური', icon: '/icons/plus.png'
-            t.item_action ->(x) { admin_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', label: 'შეცვლა'
+            t.item_action ->(x) { admin_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png'
+            t.item_action ->(x) { admin_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?'
             t.text_field :address
             t.complex_field i18n: 'voltage', label: 'ძაბვა' do |c|
               c.text_field :voltage, tag: 'code'
