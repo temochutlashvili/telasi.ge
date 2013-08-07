@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
   # -*- encoding : utf-8 -*-
 module Admin::NetworkHelper
   def new_customer_form(application, opts = {})

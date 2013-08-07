@@ -70,5 +70,11 @@ TelasiGe::Application.routes.draw do
     end
   end
 
+  namespace 'select' do
+    scope 'customer', controller: 'customer' do
+      get '/', action: 'index', as: 'customer'
+    end
+  end
+
   root 'dashboard#index'
 end
