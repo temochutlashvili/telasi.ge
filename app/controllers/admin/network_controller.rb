@@ -76,7 +76,10 @@ class Admin::NetworkController < Admin::AdminController
     @title = 'აბონენტის დაკავშირება'
     @application = Network::NewCustomerApplication.find(params[:app_id])
     @account = @application.items.where(id: params[:id]).first
-    # TODO:
+    if request.post?
+      @account.update_attributes(params.require(:network_new_customer_item).permit(:customer_id))
+      redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts')
+    end
   end
 
 # ==> Tariffs

@@ -51,21 +51,23 @@ module Admin::NetworkHelper
             t.item_action ->(x) { admin_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა'
             t.item_action ->(x) { admin_link_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/user.png', tooltip: 'ბილინგის აბონენტთან დაკავშირება'
             t.item_action ->(x) { admin_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა'
-            
             t.text_field :address
             t.complex_field label: 'ძაბვა / სიმძლავრე' do |c|
               c.text_field :voltage, tag: 'code'
-              c.text_field :unit
-              c.number_field :power, after: 'კვტ', before: '/'
+              c.text_field :unit, after: '/'
+              c.number_field :power, after: 'კვტ'
             end
-            
             t.complex_field label: 'აბონენტი' do |c|
               c.text_field :rs_tin, tag: 'code'
               c.text_field :rs_name, empty: false
             end
-            t.complex_field label: 'ჯამ.რაოდენობა' do |c|
+            t.complex_field label: 'ჯამ.რაოდ' do |c|
               c.boolean_field :summary?
-              c.text_field :count, tag: 'code', after: 'მრიცხველი'
+              c.text_field :count, tag: 'code', after: 'მრიც.'
+            end
+            t.complex_field label: 'ბილინგის აბონენტი' do |c|
+              c.text_field 'customer.accnumb', tag: 'code'
+              c.text_field 'customer.custname'
             end
           end
         end
