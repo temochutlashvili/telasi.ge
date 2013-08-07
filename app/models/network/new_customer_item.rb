@@ -18,6 +18,7 @@ class Network::NewCustomerItem
   field :rs_tin,  type: String
   field :rs_name, type: String
   field :comment, type: String
+  field :customer_id, type: Integer
   embedded_in :application, class_name: 'Network::NewCustomerApplication', inverse_of: :items
   validates :address, presence: { message: I18n.t('models.network_new_customer_item.errors.address_required') }
   validates :address_code, presence: { message: I18n.t('models.network_new_customer_item.errors.address_code_required') }
@@ -33,6 +34,7 @@ class Network::NewCustomerItem
     else I18n.t('models.network_new_customer_item.unit_volt') end
   end
 
+  def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def summary?; self.summary end
   def personal?; not self.summary end
 

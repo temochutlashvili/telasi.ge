@@ -72,6 +72,13 @@ class Admin::NetworkController < Admin::AdminController
     redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
   end
 
+  def link_new_customer_account
+    @title = 'აბონენტის დაკავშირება'
+    @application = Network::NewCustomerApplication.find(params[:app_id])
+    @account = @application.items.where(id: params[:id]).first
+    # TODO:
+  end
+
 # ==> Tariffs
 
   # TODO: tariffs page

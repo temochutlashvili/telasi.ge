@@ -1,0 +1,5 @@
+<%= forma_for @account, title: 'ბილინგის აბონენტის მიბმა', icon: '/icons/user--plus.png', collapsible: true do |f|
+  f.select_field :customer, '/select/customer', label: 'ბილინგის აბონენტი', required: true
+  f.submit 'დაკავშიება'
+  f.bottom_action admin_new_customer_url(id: @application.id, tab: 'accounts'), label: 'გაუქმება', icon: '/icons/cross.png'
+end %>
