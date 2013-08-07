@@ -78,8 +78,8 @@ end
 
 ## GEO -> KA automatic conversion
 
-class Forma::Html::Element
-  def to_s
-    generate_html.to_ka.html_safe
+class Forma::TextField
+  def view_element(val)
+    el((@tag || 'span'), text: (password ? '******' : val.to_s.to_ka), attrs: { id: self.id })
   end
 end
