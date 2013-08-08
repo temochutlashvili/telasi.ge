@@ -44,12 +44,11 @@ module Admin::NetworkHelper
         end
       end
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
-        t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
+        t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png', collapsible: true } do |items|
           items.table do |t|
             t.title_action admin_add_new_customer_account_url(id: application.id), label: 'ინდივიდუალური', icon: '/icons/plus.png'
             t.title_action admin_add_new_customer_account_url(id: application.id, type: 'summary'), label: 'ჯამური', icon: '/icons/plus.png'
             t.item_action ->(x) { admin_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა'
-            t.item_action ->(x) { admin_link_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/user.png', tooltip: 'ბილინგის აბონენტთან დაკავშირება'
             t.item_action ->(x) { admin_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა'
             t.text_field :address
             t.complex_field label: 'ძაბვა / სიმძლავრე' do |c|
@@ -65,13 +64,9 @@ module Admin::NetworkHelper
               c.boolean_field :summary?
               c.text_field :count, tag: 'code', after: 'მრიც.'
             end
-            t.complex_field label: 'ბილინგის აბონენტი' do |c|
-              c.text_field 'customer.accnumb', tag: 'code'
-              c.text_field 'customer.custname'
-            end
           end
         end
-        t.table_field :calculations, table: { title: 'გათვლები', icon: '/icons/calculator.png' } do |calcs|
+        t.table_field :calculations, table: { title: 'გათვლები', icon: '/icons/calculator.png', collapsible: true } do |calcs|
           calcs.table do |t|
             t.complex_field i18n: 'voltage' do |c|
               c.text_field 'voltage', tag: 'code'
@@ -80,6 +75,24 @@ module Admin::NetworkHelper
             t.text_field 'power', tag: 'code', after: t('models.network_new_customer_item.unit_kwt')
             t.number_field 'amount', after: 'GEL'
             t.number_field 'days', after: t('models.network_new_customer_item.unit_days')
+          end
+        end
+        t.table_field :items, table: { title: 'ბილინგის აბონენტებთან კავშირი' , icon: '/icons/user.png', collapsible: true } do |items|
+          items.table do |t|
+            t.item_action ->(x) { admin_link_new_customer_account_url(app_id: application.id, id: x.id) }, icon: ->(x) { x.customer_id.present? ? '/icons/user--pencil.png' : '/icons/user--plus.png' }, tooltip: 'ბილინგის აბონენტთან დაკავშირება'
+            t.item_action ->(x) { admin_remove_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ბილინგის აბონენტთან კავშირის წაშლა?', condition: ->(x) { x.customer_id.present? }
+            t.complex_field label: 'აბონენტი' do |c|
+              c.text_field :rs_tin, tag: 'code'
+              c.text_field :rs_name, empty: false
+            end
+            t.complex_field label: 'ჯამ.რაოდ' do |c|
+              c.boolean_field :summary?
+              c.text_field :count, tag: 'code', after: 'მრიც.'
+            end
+            t.complex_field label: 'ბილინგის აბონენტი' do |c|
+              c.text_field 'customer.accnumb', tag: 'code'
+              c.text_field 'customer.custname', empty: false
+            end
           end
         end
       end
@@ -100,7 +113,6 @@ module Admin::NetworkHelper
       end
     end
   end
-
 
   def new_customer_account_form(account, opts = {})
     forma_for @account, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|

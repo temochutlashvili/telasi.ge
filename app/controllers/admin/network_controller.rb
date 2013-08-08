@@ -82,6 +82,14 @@ class Admin::NetworkController < Admin::AdminController
     end
   end
 
+  def remove_new_customer_account
+    application = Network::NewCustomerApplication.find(params[:app_id])
+    account = application.items.where(id: params[:id]).first
+    account.customer_id = nil
+    account.save
+    redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
+  end
+
 # ==> Tariffs
 
   # TODO: tariffs page
