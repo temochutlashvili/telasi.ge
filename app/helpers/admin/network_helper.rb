@@ -36,13 +36,15 @@ module Admin::NetworkHelper
         t.email_field :email, required: true
         t.text_field :mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
+        t.complex_field label: 'საბანკო ანგარიში', required: true do |c|
+          c.text_field :bank_code, tag: 'code'
+          c.text_field :bank_account
+        end
         t.col2 do |c|
-          c.complex_field label: 'საბანკო ანგარიში', required: true do |c|
-            c.text_field :bank_code, tag: 'code'
-            c.text_field :bank_account
-          end
           c.number_field :amount, after: 'GEL'
           c.number_field :days, max_digits: 0, after: 'დღე'
+          c.number_field :paid, after: 'GEL'
+          c.number_field :remaining, after: 'GEL'
         end
       end
       # 2. customers

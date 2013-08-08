@@ -47,7 +47,6 @@ class Network::NewCustomerApplication
     calculate_voltage(VOLTAGE_380, calc_220_in_380) 
     calculate_voltage(VOLTAGE_610)
     self.save
-    # self.application.recalculate!
   end
 
   def billing_items
@@ -59,9 +58,9 @@ class Network::NewCustomerApplication
     end
   end
 
-  def payments
-    self.billing_items.select { |x| x.billoperkey == 116 }
-  end
+  def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
+  def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } end
+  def remaining; self.amount - self.paid end
 
   private
 
