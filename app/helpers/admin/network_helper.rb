@@ -18,10 +18,12 @@ module Admin::NetworkHelper
     def selected_tab
       case params[:tab]
       when 'accounts' then 1
-      when 'files' then 2
-      when 'sys' then 3
+      when 'operations' then 2
+      when 'files' then 3
+      when 'sys' then 4
       else 0 end
     end
+    # 1. general
     view_for application, title: opts[:title], collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
         t.action admin_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
@@ -43,6 +45,7 @@ module Admin::NetworkHelper
           c.number_field :days, max_digits: 0, after: 'დღე'
         end
       end
+      # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png', collapsible: true } do |items|
           items.table do |t|
@@ -96,6 +99,22 @@ module Admin::NetworkHelper
           end
         end
       end
+      # 3. billing operations
+      f.tab title: "ოპერაციები &mdash; <strong>#{application.billing_items.count}</strong>".html_safe, icon: '/icons/edit-list.png' do |t|
+        t.table_field :billing_items, table: { title: 'ბილინგის ოპერაციები', icon: '/icons/edit-list.png' } do |operations|
+          operations.table do |t|
+            t.text_field 'customer.accnumb', tag: 'code', label: 'აბონენტი'
+            t.complex_field label: 'ოპერაცია' do |c|
+              c.text_field 'operation.billopername', after: '&mdash;'.html_safe
+              c.text_field 'operation.billoperkey', class: 'muted'
+            end
+            t.number_field 'kwt', after: 'kWh', label: 'დარიცხვა'
+            t.number_field 'amount', after: 'GEL', label: 'თანხა'
+            t.number_field 'balance', after: 'GEL', label: 'ბალანსი'
+          end
+        end
+      end
+      # 4. files
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
         t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
           files.table do |t|
@@ -103,6 +122,7 @@ module Admin::NetworkHelper
           end
         end
       end
+      # 5. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
         t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
           c.email_field 'user.email', after: '&mdash;'.html_safe

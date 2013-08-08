@@ -50,6 +50,15 @@ class Network::NewCustomerApplication
     # self.application.recalculate!
   end
 
+  def billing_items
+    if @__billing_items
+      @__billing_items
+    else
+      customer_ids = items.map{ |x| x.customer_id }.select{ |x| x.present? }
+      @__billing_items = Billing::Item.where('custkey IN ?', customer_ids).order('itemkey DESC')
+    end
+  end
+
   private
 
   def cnt(volt); self.items.where(voltage: volt).inject(0){ |cnt, x| cnt + (x.summary? ? x.count : 1) } end
