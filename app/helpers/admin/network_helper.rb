@@ -23,8 +23,8 @@ module Admin::NetworkHelper
       when 'sys' then 4
       else 0 end
     end
-    # 1. general
-    view_for application, title: opts[:title], collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
+    view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
+      # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
         t.action admin_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
         t.text_field :number, required: true, tag: 'code'
@@ -104,6 +104,7 @@ module Admin::NetworkHelper
         t.table_field :billing_items, table: { title: 'ბილინგის ოპერაციები', icon: '/icons/edit-list.png' } do |operations|
           operations.table do |t|
             t.text_field 'customer.accnumb', tag: 'code', label: 'აბონენტი'
+            t.date_field 'itemdate', label: 'თარიღი'
             t.complex_field label: 'ოპერაცია' do |c|
               c.text_field 'operation.billopername', after: '&mdash;'.html_safe
               c.text_field 'operation.billoperkey', class: 'muted'

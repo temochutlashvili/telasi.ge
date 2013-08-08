@@ -59,6 +59,10 @@ class Network::NewCustomerApplication
     end
   end
 
+  def payments
+    self.billing_items.select { |x| x.billoperkey == 116 }
+  end
+
   private
 
   def cnt(volt); self.items.where(voltage: volt).inject(0){ |cnt, x| cnt + (x.summary? ? x.count : 1) } end
