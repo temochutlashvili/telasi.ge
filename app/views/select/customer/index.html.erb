@@ -1,4 +1,8 @@
-<%= table_for @customers, title: 'აბონენტები' do |t|
+<%= search_form @search do |f|
+  f.text_field 'accnumb', label: 'აბ.ნომერი'
+  f.text_field 'custname', label: 'დასახელება'
+end %>
+<%= table_for @customers, title: 'აბონენტები', collapsible: true, icon: '/icons/users.png' do |t|
   t.item_action '#select', select: true
   t.complex_field label: 'აბონენტი' do |c|
     c.text_field :accnumb, tag: 'code'

@@ -33,6 +33,8 @@ ka:
       system: სისტემური
       created_at: შექმნილია
       updated_at: ბოლო ცვლილება
+      search: ძებნა
+      search_clear: ფორმის გასუფთავება
       actions:
         save: შენახვა
         cancel: გაუქმება
