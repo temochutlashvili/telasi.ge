@@ -23,6 +23,14 @@ class Network::NewCustomerApplication
   field :amount, type: Float, default: 0
   field :days,   type: Integer, default: 0
   field :need_resolution, type: Mongoid::Boolean, default: true
+
+  # send_date, არის თარიღი, როდესაც მოხდა განცხადების თელასში გამოგზავნა
+  field :send_date, type: Date
+  # start_date, არის თარიღი, როდესაც თელასმა განხცადება წამოებაში მიიღო
+  field :start_date, type: Date
+  # end_date, არის თარიღი, როდესაც აბონირება დასრულდა
+  field :end_date, type: Date
+
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   embeds_many :calculations, class_name: 'Network::NewCustomerCalculation', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
