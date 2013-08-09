@@ -19,9 +19,10 @@ module Admin::NetworkHelper
     def selected_tab
       case params[:tab]
       when 'accounts' then 1
-      when 'operations' then 2
-      when 'files' then 3
-      when 'sys' then 4
+      when 'sms' then 2
+      when 'operations' then 3
+      when 'files' then 4
+      when 'sys' then 5
       else 0 end
     end
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
@@ -104,6 +105,16 @@ module Admin::NetworkHelper
               c.text_field 'customer.accnumb', tag: 'code'
               c.text_field 'customer.custname', empty: false
             end
+          end
+        end
+      end
+      # 3. sms messages
+      f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
+        t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
+          sms.table do |t|
+            t.text_field :mobile
+            t.text_field :message
+            t.boolean_field :sent
           end
         end
       end
