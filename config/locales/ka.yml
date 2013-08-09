@@ -167,6 +167,8 @@ ka:
       payments: გადახდები
       paid: გადახდილია
       remaining: დარჩენილია
+      need_resolution: სპეც.ნებართვა?
+      need_resolution_hint: საჭიროებს თუ არა ეს განცხადება სპეციალურ ნებართვას?
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი

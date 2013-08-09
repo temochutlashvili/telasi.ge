@@ -9,6 +9,7 @@ module Admin::NetworkHelper
       f.text_field  :address,      required: true, width: 300
       f.text_field  :bank_code,    required: true
       f.text_field  :bank_account, required: true, width: 300
+      f.boolean_field :need_resolution, required: true
       f.submit (opts[:submit] || opts[:title])
       f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
     end
@@ -40,6 +41,7 @@ module Admin::NetworkHelper
           c.text_field :bank_code, tag: 'code'
           c.text_field :bank_account
         end
+        t.boolean_field :need_resolution, required: true
         t.col2 do |c|
           c.number_field :amount, after: 'GEL'
           c.number_field :days, max_digits: 0, after: 'დღე'
