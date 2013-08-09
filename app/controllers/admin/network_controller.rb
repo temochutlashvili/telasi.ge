@@ -36,6 +36,12 @@ class Admin::NetworkController < Admin::AdminController
     end
   end
 
+  def delete_new_customer
+    application = Network::NewCustomerApplication.find(params[:id])
+    application.destroy
+    redirect_to admin_network_url, notice: 'განცხადება წაშლილია!'
+  end
+
   def add_new_customer_account
     @title = 'ახალი აბონენტის დამატება'
     @application = Network::NewCustomerApplication.find(params[:id])
@@ -101,6 +107,21 @@ class Admin::NetworkController < Admin::AdminController
         @application.status = params[:status].to_i
         @application.save
         redirect_to admin_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
+      end
+    else
+      @message = Sys::SmsMessage.new
+    end
+  end
+
+  def send_new_customer_sms
+    @title = 'შეტყობინების გაგზავნა'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      @message = Sys::SmsMessage.new(params.require(:sys_sms_message).permit(:message))
+      @message.messageable = @application
+      @message.mobile = @application.mobile
+      if @message.save
+        redirect_to admin_new_customer_url(id: @application.id, tab: 'sms'), notice: 'შეტყობინება გაგზავნილია'
       end
     else
       @message = Sys::SmsMessage.new

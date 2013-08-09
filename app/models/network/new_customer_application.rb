@@ -69,8 +69,8 @@ class Network::NewCustomerApplication
   end
 
   def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
-  def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } end
-  def remaining; self.amount - self.paid end
+  def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } || 0  end
+  def remaining; if self.amount.present? then self.amount - self.paid else 0 end end
 
   def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
   def self.status_icon(status)

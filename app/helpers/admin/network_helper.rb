@@ -26,6 +26,7 @@ module Admin::NetworkHelper
       else 0 end
     end
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
+      f.title_action admin_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
         t.action admin_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
@@ -118,13 +119,14 @@ module Admin::NetworkHelper
       f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
         t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
           sms.table do |t|
+            t.title_action admin_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
             t.date_field :created_at, formatter: '%d-%b-%Y %H:%M:%S'
             t.text_field :mobile, tag: 'code'
             t.text_field :message
           end
         end
       end
-      # 3. billing operations
+      # 4. billing operations
       f.tab title: "ოპერაციები &mdash; <strong>#{application.billing_items.count}</strong>".html_safe, icon: '/icons/edit-list.png' do |t|
         t.table_field :billing_items, table: { title: 'ბილინგის ოპერაციები', icon: '/icons/edit-list.png' } do |operations|
           operations.table do |t|
@@ -140,7 +142,7 @@ module Admin::NetworkHelper
           end
         end
       end
-      # 4. files
+      # 5. files
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
         t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
           files.table do |t|
@@ -148,7 +150,7 @@ module Admin::NetworkHelper
           end
         end
       end
-      # 5. sys
+      # 6. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
         t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
           c.email_field 'user.email', after: '&mdash;'.html_safe
