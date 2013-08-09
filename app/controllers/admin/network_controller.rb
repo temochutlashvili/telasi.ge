@@ -104,6 +104,7 @@ class Admin::NetworkController < Admin::AdminController
       @message.messageable = @application
       @message.mobile = @application.mobile
       if @message.save
+        @message.send_sms!
         @application.status = params[:status].to_i
         @application.save
         redirect_to admin_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
@@ -121,6 +122,7 @@ class Admin::NetworkController < Admin::AdminController
       @message.messageable = @application
       @message.mobile = @application.mobile
       if @message.save
+        @message.send_sms!
         redirect_to admin_new_customer_url(id: @application.id, tab: 'sms'), notice: 'შეტყობინება გაგზავნილია'
       end
     else
