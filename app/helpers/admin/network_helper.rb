@@ -29,8 +29,14 @@ module Admin::NetworkHelper
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
         t.action admin_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
+        application.transitions.each do |status|
+          t.action admin_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
+        end
         t.text_field :number, required: true, tag: 'code'
-        t.text_field :status_name, required: true
+        t.complex_field i18n: 'status_name', required: true do |c|
+          c.image_field :status_icon
+          c.text_field :status_name
+        end
         t.complex_field i18n: 'rs_name', required: true do |c|
           c.text_field :rs_tin, tag: 'code'
           c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
@@ -165,6 +171,14 @@ module Admin::NetworkHelper
       else
         f.text_field :rs_tin, required: true
       end
+      f.submit opts[:submit]
+      f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
+    end
+  end
+
+  def sms_message_form(message, opts = {})
+    forma_for message, title: opts[:title], icon: opts[:icon], collapsible: true do |f|
+      f.text_field 'message', required: true, autofocus: true, width: 400
       f.submit opts[:submit]
       f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
     end

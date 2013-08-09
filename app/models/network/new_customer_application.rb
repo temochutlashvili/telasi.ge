@@ -46,6 +46,7 @@ class Network::NewCustomerApplication
   validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
   validate :validate_rs_name
   before_create :assign_number
+  before_update :status_manager
 
   def calculate!
     self.calculations.destroy_all
@@ -71,11 +72,20 @@ class Network::NewCustomerApplication
   def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } end
   def remaining; self.amount - self.paid end
 
-  def status_name; I18n.t("models.network_new_customer_application.status_#{self.status}") end
-
-  def status_icon
-    # TODO:
+  def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
+  def self.status_icon(status)
+    case status
+    # when STATUS_DEFAULT    then '/icons/mail-open.png'
+    when STATUS_SENT       then '/icons/mail-send.png'
+    when STATUS_CANCELED   then '/icons/cross.png'
+    when STATUS_CONFIRMED  then '/icons/clock.png'
+    when STATUS_COMPLETE   then '/icons/tick.png'
+    else '/icons/mail-open.png'
+    end
   end
+
+  def status_name; Network::NewCustomerApplication.status_name(self.status) end
+  def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
 
   # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
   def transitions
@@ -134,6 +144,16 @@ class Network::NewCustomerApplication
       # self.vat_payer = RS.is_vat_payer(RS::SU)
       if self.rs_name.blank?
         errors.add(:rs_tin, I18n.t('models.network_new_customer_application.errors.tin_illegal'))
+      end
+    end
+  end
+
+  def status_manager
+    if self.status_changed?
+      case self.status
+      when STATUS_SENT      then self.send_date  = Date.today
+      when STATUS_CONFIRMED then self.start_date = Date.today and self.plan_end_date = Date.today + self.days
+      when STATUS_COMPLETE  then self.end_date   = Date.today
       end
     end
   end

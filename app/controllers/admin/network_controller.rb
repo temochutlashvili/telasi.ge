@@ -92,6 +92,19 @@ class Admin::NetworkController < Admin::AdminController
 
   def change_status
     @title = 'სტატუსის ცვლილება'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      @message = Sys::SmsMessage.new(params.require(:sys_sms_message).permit(:message))
+      @message.messageable = @application
+      @message.mobile = @application.mobile
+      if @message.save
+        @application.status = params[:status].to_i
+        @application.save
+        redirect_to admin_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
+      end
+    else
+      @message = Sys::SmsMessage.new
+    end
   end
 
 # ==> Tariffs

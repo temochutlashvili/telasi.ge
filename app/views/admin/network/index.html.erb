@@ -1,7 +1,10 @@
 <%= table_for @applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
   t.title_action admin_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
   t.text_field :number, tag: 'code'
-  t.text_field :status_name
+  t.complex_field i18n: 'status_name', required: true do |c|
+    c.image_field :status_icon
+    c.text_field :status_name
+  end
   t.complex_field i18n: 'rs_name' do |c|
     c.text_field :rs_tin, tag: 'code'
     c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
