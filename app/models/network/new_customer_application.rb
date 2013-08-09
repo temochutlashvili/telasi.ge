@@ -47,8 +47,6 @@ class Network::NewCustomerApplication
   validate :validate_rs_name
   before_create :assign_number
 
-  def status_name; I18n.t("models.network_new_customer_application.status_#{self.status}") end
-
   def calculate!
     self.calculations.destroy_all
     self.amount = 0
@@ -72,6 +70,22 @@ class Network::NewCustomerApplication
   def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
   def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } end
   def remaining; self.amount - self.paid end
+
+  def status_name; I18n.t("models.network_new_customer_application.status_#{self.status}") end
+
+  def status_icon
+    # TODO:
+  end
+
+  # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
+  def transitions
+    case self.status
+    when STATUS_DEFAULT then [ STATUS_SENT, STATUS_CANCELED ]
+    when STATUS_SENT then [ STATUS_CONFIRMED, STATUS_CANCELED ]
+    when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
+    else [ ]
+    end
+  end
 
   private
 
