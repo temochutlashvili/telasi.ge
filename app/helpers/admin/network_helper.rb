@@ -47,6 +47,10 @@ module Admin::NetworkHelper
           c.number_field :days, max_digits: 0, after: 'დღე'
           c.number_field :paid, after: 'GEL'
           c.number_field :remaining, after: 'GEL'
+          c.date_field :send_date
+          c.date_field :start_date
+          c.date_field :end_date
+          c.date_field :plan_end_date
         end
       end
       # 2. customers

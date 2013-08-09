@@ -28,7 +28,9 @@ class Network::NewCustomerApplication
   field :send_date, type: Date
   # start_date, არის თარიღი, როდესაც თელასმა განხცადება წამოებაში მიიღო
   field :start_date, type: Date
-  # end_date, არის თარიღი, როდესაც აბონირება დასრულდა
+  # plan_end_date / end_date, არის თარიღი (გეგმიური / რეალური), როდესაც დასრულდება
+  # ამ განცხადებით გათვალიწინებული ყველა სამუშაო
+  field :plan_end_date, type: Date
   field :end_date, type: Date
 
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
