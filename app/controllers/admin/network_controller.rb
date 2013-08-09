@@ -90,6 +90,10 @@ class Admin::NetworkController < Admin::AdminController
     redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
   end
 
+  def change_status
+    @title = 'სტატუსის ცვლილება'
+  end
+
 # ==> Tariffs
 
   # TODO: tariffs page

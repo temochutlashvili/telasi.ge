@@ -67,6 +67,7 @@ TelasiGe::Application.routes.draw do
         delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
         match '/link_new_customer_account/:app_id/:id', action: 'link_new_customer_account', as: 'link_new_customer_account', via: ['get','post']
         delete '/remove_new_customer_account/:app_id/:id', action: 'remove_new_customer_account', as: 'remove_new_customer_account'
+        match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
       end
     end
   end
