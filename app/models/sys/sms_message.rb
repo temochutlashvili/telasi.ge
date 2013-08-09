@@ -5,6 +5,5 @@ class Sys::SmsMessage
   belongs_to :messageable, polymorphic: true
   field :mobile, type: String
   field :message, type: String
-  field :sent, type: Mongoid::Boolean, default: false
-  validate :message, presence: { message: 'ჩაწერეთ განმარტება.' }
+  validates :message, presence: { message: 'ჩაწერეთ შინაარსი.' }
 end

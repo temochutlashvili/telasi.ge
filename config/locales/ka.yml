@@ -274,4 +274,4 @@ ka:
     sys_sms_message:
       message: შეტყობინება
       mobile: მობილური
-      sent: გაგზავნილია?
+      created_at: გაგზავნის თარიღი
