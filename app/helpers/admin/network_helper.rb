@@ -146,6 +146,8 @@ module Admin::NetworkHelper
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
         t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
           files.table do |t|
+            t.title_action admin_upload_new_customer_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png'
+            t.item_action ->(x) { admin_delete_new_customer_file_url(id: application.id, file_id: x.id) }, icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ ფაილის წაშლა?', method: 'delete'
             t.text_field 'file.filename', url: ->(x) { x.file.url }, label: 'ფაილი'
           end
         end

@@ -130,6 +130,27 @@ class Admin::NetworkController < Admin::AdminController
     end
   end
 
+  def upload_file
+    @title = 'ფაილის ატვირთვა'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post? and params[:sys_file]
+      @file = Sys::File.new(params.require(:sys_file).permit(:file))
+      if @file.save
+        @application.files << @file
+        redirect_to admin_new_customer_url(id: @application.id, tab: 'files'), notice: 'ფაილი დამატებულია'
+      end
+    else
+      @file = Sys::File.new
+    end
+  end
+
+  def delete_file
+    application = Network::NewCustomerApplication.find(params[:id])
+    file = application.files.where(_id: params[:file_id]).first
+    file.destroy
+    redirect_to admin_new_customer_url(id: application.id, tab: 'files'), notice: 'ფაილი წაშლილია'
+  end
+
 # ==> Tariffs
 
   # TODO: tariffs page

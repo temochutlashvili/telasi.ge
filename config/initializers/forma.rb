@@ -23,7 +23,7 @@ module CommonActions
     bottom_action(
       url,
       label: I18n.t('models.general.actions.cancel'),
-      icon: '/icons/fugue/cross.png',
+      icon: '/icons/cross.png',
       confirm: h[:confirm]
     )
   end
