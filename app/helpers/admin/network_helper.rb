@@ -63,6 +63,7 @@ module Admin::NetworkHelper
       end
       # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
+        t.action admin_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png', collapsible: true } do |items|
           items.table do |t|
             t.title_action admin_add_new_customer_account_url(id: application.id), label: 'ინდივიდუალური', icon: '/icons/plus.png'
@@ -83,6 +84,7 @@ module Admin::NetworkHelper
               c.boolean_field :summary?
               c.text_field :count, tag: 'code', after: 'მრიც.'
             end
+            t.number_field :amount, after: 'GEL'
           end
         end
         t.table_field :calculations, table: { title: 'გათვლები', icon: '/icons/calculator.png', collapsible: true } do |calcs|

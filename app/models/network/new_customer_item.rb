@@ -46,7 +46,7 @@ class Network::NewCustomerItem
         errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_required'))
       elsif not self.rs_tin =~ /^([0-9]{11}|[0-9]{7})$/
         errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_illegal'))
-      else
+      elsif self.rs_name.blank?
         self.rs_name = RS.get_name_from_tin(RS::SU.merge(tin: self.rs_tin))
         if self.rs_name.blank?
           errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_illegal'))

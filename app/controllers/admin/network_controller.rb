@@ -96,6 +96,12 @@ class Admin::NetworkController < Admin::AdminController
     redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
   end
 
+  def calculate_distribution
+    application = Network::NewCustomerApplication.find(params[:id])
+    application.calculate_distribution!
+    redirect_to admin_new_customer_url(id: application.id, tab: 'accounts'), notice: 'განაწილება დათვლილია'
+  end
+
   def change_status
     @title = 'სტატუსის ცვლილება'
     @application = Network::NewCustomerApplication.find(params[:id])

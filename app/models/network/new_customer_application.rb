@@ -74,8 +74,10 @@ class Network::NewCustomerApplication
     if items.size > 0 and total_amount > 0
       per_item = total_amount / items.size
       remainder = total_amount - per_item * items.size
-      items.each_with_index do |x, index|
-        x.amount = ((items.size == index + 1) ? per_item + remainder : per_item)/ 100.0
+      items.each do |x|
+        addition = 0
+        addition = 1 and remainder -= 1 if remainder > 0
+        x.amount = (per_item + addition) / 100.0
         x.save
       end
     end
