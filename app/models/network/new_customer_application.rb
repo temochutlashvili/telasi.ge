@@ -68,6 +68,19 @@ class Network::NewCustomerApplication
     end
   end
 
+  def calculate_distribution!
+    items = self.items.where(summary: false)
+    total_amount = (self.remaining * 100).to_i
+    if items.size > 0 and total_amount > 0
+      per_item = total_amount / items.size
+      remainder = total_amount - per_item * items.size
+      items.each_with_index do |x, index|
+        x.amount = ((items.size == index + 1) ? per_item + remainder : per_item)/ 100.0
+        x.save
+      end
+    end
+  end
+
   def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
   def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } || 0  end
   def remaining; if self.amount.present? then self.amount - self.paid else 0 end end

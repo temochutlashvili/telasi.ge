@@ -19,6 +19,7 @@ class Network::NewCustomerItem
   field :rs_name, type: String
   field :comment, type: String
   field :customer_id, type: Integer
+  field :amount, type: Float
   embedded_in :application, class_name: 'Network::NewCustomerApplication', inverse_of: :items
   validates :address, presence: { message: I18n.t('models.network_new_customer_item.errors.address_required') }
   validates :address_code, presence: { message: I18n.t('models.network_new_customer_item.errors.address_code_required') }
@@ -27,7 +28,6 @@ class Network::NewCustomerItem
   validates :count, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_count') }
   validate :validate_type
   validate :validate_power
-  # before_save :on_before_save
 
   def unit
     if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
