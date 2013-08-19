@@ -73,6 +73,7 @@ TelasiGe::Application.routes.draw do
         match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
         delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
         post '/calculate_distribution/:id', action: 'calculate_distribution', as: 'calculate_new_customer_distribution'
+        post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
       end
     end
   end

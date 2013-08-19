@@ -102,6 +102,12 @@ class Admin::NetworkController < Admin::AdminController
     redirect_to admin_new_customer_url(id: application.id, tab: 'accounts'), notice: 'განაწილება დათვლილია'
   end
 
+  def send_to_bs
+    application = Network::NewCustomerApplication.find(params[:id])
+    application.send_to_bs!
+    redirect_to admin_new_customer_url(id: application.id, tab: 'general'), notice: 'აბონენტი გაგზავნილია ბილინგში'
+  end
+
   def change_status
     @title = 'სტატუსის ცვლილება'
     @application = Network::NewCustomerApplication.find(params[:id])

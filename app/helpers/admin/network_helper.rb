@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-  # -*- encoding : utf-8 -*-
 module Admin::NetworkHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
@@ -32,6 +31,9 @@ module Admin::NetworkHelper
         t.action admin_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
         application.transitions.each do |status|
           t.action admin_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
+        end
+        if application.status == Network::NewCustomerApplication::STATUS_COMPLETE
+          t.action admin_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
         end
         t.text_field :number, required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
