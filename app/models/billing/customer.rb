@@ -49,5 +49,5 @@ class Billing::Customer < ActiveRecord::Base
     end
   end
 
-  def to_s; self.custname end
+  def to_s; self.custname.to_ka end
 end
