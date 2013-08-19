@@ -160,6 +160,7 @@ ka:
       status_2: უარყოფილი
       status_3: მიღებული
       status_4: შესრულებული
+      status_5: ბილინგში ასახული
       amount: ღირებულება
       days: ვადა
       status_name: სტატუსი

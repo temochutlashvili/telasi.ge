@@ -5,6 +5,7 @@ class Network::NewCustomerApplication
   STATUS_CANCELED   = 2
   STATUS_CONFIRMED  = 3
   STATUS_COMPLETE   = 4
+  STATUS_IN_BS      = 5
   VOLTAGE_220 = '220'
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
@@ -95,6 +96,7 @@ class Network::NewCustomerApplication
     when STATUS_CANCELED   then '/icons/cross.png'
     when STATUS_CONFIRMED  then '/icons/clock.png'
     when STATUS_COMPLETE   then '/icons/tick.png'
+    when STATUS_IN_BS      then '/icons/lock.png'
     else '/icons/mail-open.png'
     end
   end
