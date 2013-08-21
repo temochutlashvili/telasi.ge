@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 # core
 gem 'rails', '4.0.0'
-gem 'composite_primary_keys', github: 'drnic/composite_primary_keys', branch: 'ar_4.0.x'
+# gem 'composite_primary_keys', github: 'drnic/composite_primary_keys', branch: 'ar_4.0.x'
+gem 'composite_primary_keys'
 gem 'turbolinks'
 
 # resources
