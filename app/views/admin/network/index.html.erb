@@ -1,3 +1,6 @@
+<div style="text-align:center; padding: 0 0 20px 0;">
+  <%= link_to 'ტარიფები', admin_tariffs_url, class: 'btn btn-large' %>
+</div>
 <%= table_for @applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
   t.title_action admin_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
   t.text_field :number, tag: 'code'

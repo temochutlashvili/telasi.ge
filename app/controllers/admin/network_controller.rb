@@ -165,11 +165,10 @@ class Admin::NetworkController < Admin::AdminController
 
 # ==> Tariffs
 
-  # TODO: tariffs page
-  # def tariffs
-  #   @titlte = 'ტარიფები'
-  #   @tariffs = Network::NewCustomerTariff.asc(:_id)
-  # end
+  def tariffs
+    @titlte = 'ტარიფები'
+    @tariffs = Network::NewCustomerTariff.asc(:_id)
+  end
 
   def generate_tariffs
     Network::NewCustomerTariff.generate!
@@ -178,13 +177,7 @@ class Admin::NetworkController < Admin::AdminController
 
   private
 
-  def resolve_layout
-    # case action_name
-    # when 'index' then 'one_column'
-    # else 'two_column' end
-    'one_column'
-  end
-
+  def resolve_layout; 'one_column' end
   def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account, :need_resolution) end
   def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :voltage, :power, :use, :rs_tin, :count) end
 end
