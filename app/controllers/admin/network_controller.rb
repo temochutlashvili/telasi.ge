@@ -166,7 +166,7 @@ class Admin::NetworkController < Admin::AdminController
 # ==> Tariffs
 
   def tariffs
-    @titlte = 'ტარიფები'
+    @title = 'ტარიფები'
     @tariffs = Network::NewCustomerTariff.asc(:_id)
   end
 
