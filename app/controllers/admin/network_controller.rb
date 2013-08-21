@@ -172,7 +172,7 @@ class Admin::NetworkController < Admin::AdminController
 
   def generate_tariffs
     Network::NewCustomerTariff.generate!
-    redirect_to admin_network_url, notice: 'ტარიფები გენერირებულია'
+    redirect_to admin_tariffs_url, notice: 'ტარიფები გენერირებულია'
   end
 
   private
