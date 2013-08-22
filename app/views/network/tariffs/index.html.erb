@@ -1,8 +1,11 @@
 <div style="padding-bottom: 16px;">
-  <%= link_to '&larr; მთავარ მენიუში'.html_safe, admin_network_url %>
+  <!-- %= link_to '&larr; მთავარ მენიუში'.html_safe, admin_network_url % -->
 </div>
+<% @tariffs = [] %>
+
 <%= table_for @tariffs, title: 'ტარიფები', icon: '/icons/network.png', collapsible: true do |t|
-  t.title_action admin_generate_network_tariffs_url, label: 'გენერაცია', icon: '/icons/wand.png', confirm: 'ნამდვილად?' if @tariffs.empty?
+  t.title_action admin_network_generate_network_tariffs_url,
+    label: 'გენერაცია', icon: '/icons/wand.png', confirm: 'ნამდვილად?' if @tariffs.empty?
   t.text_field :voltage
   t.complex_field i18n: 'power' do |c|
     c.text_field :power_from, tag: 'code', after: '-'

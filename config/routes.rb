@@ -55,33 +55,34 @@ TelasiGe::Application.routes.draw do
       get '/confirm/:id', action: 'confirm', as: 'confirm_customer'
       match '/deny/:id', action: 'deny', as: 'deny_customer', via: ['get', 'post']
     end
-    namespace 'network' do
-      scope '/', controller: 'network' do
-        get '/', action: 'index', as: 'network'
-      end
-      scope '/tariffs', controller: 'tariffs' do
-        get '/', action: 'tariffs', as: 'tariffs'
-        get '/generate_tariffs', action: 'generate_tariffs', as: 'generate_network_tariffs'
-      end
-      scope '/new_customer' do
-        match '/new', action: 'add_new_customer', as: 'add_new_customer', via: ['get', 'post']
-        match '/edit/:id', action: 'edit_new_customer', as: 'edit_new_customer', via: ['get', 'post']
-        get   '/:id', action: 'new_customer', as: 'new_customer'
-        delete '/delete/:id', action: 'delete_new_customer', as: 'delete_new_customer'
-        match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
-        match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
-        delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
-        match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
-        match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
-        match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
-        delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
-        post '/calculate_distribution/:id', action: 'calculate_distribution', as: 'calculate_new_customer_distribution'
-        post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
-        match '/link_bs_customer/:id', action: 'link_bs_customer', as: 'link_bs_customer', via: ['get','post']
-        delete '/remove_bs_customer/:id', action: 'remove_bs_customer', as: 'remove_bs_customer'
-        match '/change_plan_date/:id', action: 'change_plan_date', as: 'change_plan_date', via: ['get','post']
-        match '/change_real_date/:id', action: 'change_real_date', as: 'change_real_date', via: ['get','post']
-      end
+    get '/network' => redirect('/network')
+  end
+  namespace 'network' do
+    scope '/', controller: 'base' do
+      get '/', action: 'index', as: 'network'
+    end
+    scope '/tariffs', controller: 'tariffs' do
+      get '/', action: 'index', as: 'tariffs'
+      get '/generate_tariffs', action: 'generate_tariffs', as: 'generate_network_tariffs'
+    end
+    scope '/new_customer' do
+      match '/new', action: 'add_new_customer', as: 'add_new_customer', via: ['get', 'post']
+      match '/edit/:id', action: 'edit_new_customer', as: 'edit_new_customer', via: ['get', 'post']
+      get   '/:id', action: 'new_customer', as: 'new_customer'
+      delete '/delete/:id', action: 'delete_new_customer', as: 'delete_new_customer'
+      match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
+      match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
+      delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
+      match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
+      match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
+      match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
+      delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
+      post '/calculate_distribution/:id', action: 'calculate_distribution', as: 'calculate_new_customer_distribution'
+      post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
+      match '/link_bs_customer/:id', action: 'link_bs_customer', as: 'link_bs_customer', via: ['get','post']
+      delete '/remove_bs_customer/:id', action: 'remove_bs_customer', as: 'remove_bs_customer'
+      match '/change_plan_date/:id', action: 'change_plan_date', as: 'change_plan_date', via: ['get','post']
+      match '/change_real_date/:id', action: 'change_real_date', as: 'change_real_date', via: ['get','post']
     end
   end
 

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::Network::BaseController < Admin::AdminController
+class Network::BaseController < Admin::AdminController
   layout 'one_column'
 
   def index

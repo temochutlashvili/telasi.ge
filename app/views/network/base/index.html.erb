@@ -1,8 +1,8 @@
 <div style="text-align:center; padding: 0 0 20px 0;">
-  <a class="btn" href="<%= admin_network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
+  <a class="btn" href="<%= network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
 </div>
 <%= table_for @applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
-  t.title_action admin_network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
+  t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
   t.text_field :number, tag: 'code'
   t.complex_field i18n: 'status_name', required: true do |c|
     c.image_field :status_icon
@@ -10,7 +10,7 @@
   end
   t.complex_field i18n: 'rs_name' do |c|
     c.text_field :rs_tin, tag: 'code'
-    c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
+    c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
   end
   t.number_field :amount, after: 'GEL'
   t.number_field :days, max_digits: 0, after: 'დღე'
