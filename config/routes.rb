@@ -55,9 +55,11 @@ TelasiGe::Application.routes.draw do
       get '/confirm/:id', action: 'confirm', as: 'confirm_customer'
       match '/deny/:id', action: 'deny', as: 'deny_customer', via: ['get', 'post']
     end
-    scope '/network', controller: 'network' do
-      get '/', action: 'index', as: 'network'
-      scope '/tariffs' do
+    namespace 'network' do
+      scope '/', controller: 'network' do
+        get '/', action: 'index', as: 'network'
+      end
+      scope '/tariffs', controller: 'tariffs' do
         get '/', action: 'tariffs', as: 'tariffs'
         get '/generate_tariffs', action: 'generate_tariffs', as: 'generate_network_tariffs'
       end
