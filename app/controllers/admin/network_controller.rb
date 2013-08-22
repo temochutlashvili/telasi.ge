@@ -76,22 +76,20 @@ class Admin::NetworkController < Admin::AdminController
     redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
   end
 
-  def link_new_customer_account
+  def link_bs_customer
     @title = 'აბონენტის დაკავშირება'
-    @application = Network::NewCustomerApplication.find(params[:app_id])
-    @account = @application.items.where(id: params[:id]).first
+    @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
-      @account.update_attributes(params.require(:network_new_customer_item).permit(:customer_id))
-      redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts')
+      @application.update_attributes(params.require(:network_new_customer_application).permit(:customer_id))
+      redirect_to admin_new_customer_url(id: @application.id, tab: 'general')
     end
   end
 
-  def remove_new_customer_account
-    application = Network::NewCustomerApplication.find(params[:app_id])
-    account = application.items.where(id: params[:id]).first
-    account.customer_id = nil
-    account.save
-    redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
+  def remove_bs_customer
+    application = Network::NewCustomerApplication.find(params[:id])
+    application.customer_id = nil
+    application.save
+    redirect_to admin_new_customer_url(id: application.id, tab: 'general')
   end
 
   def calculate_distribution

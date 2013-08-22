@@ -66,6 +66,15 @@ module Admin::NetworkHelper
           c.number_field :power, after: 'კვტ'
         end
         t.boolean_field :need_resolution, required: true
+        t.complex_field label: 'ბილინგის აბონენტი' do |c|
+          c.text_field 'customer.accnumb', tag: 'code', empty: false
+          c.text_field 'customer.custname' do |cust|
+            cust.action admin_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png'
+            if application.customer_id.present?
+              cust.action admin_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?'
+            end
+          end
+        end
         t.col2 do |c|
           c.number_field :amount, after: 'GEL'
           c.number_field :days, max_digits: 0, after: 'დღე'

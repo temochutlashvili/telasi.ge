@@ -69,14 +69,14 @@ TelasiGe::Application.routes.draw do
         match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
         match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
         delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
-        match '/link_new_customer_account/:app_id/:id', action: 'link_new_customer_account', as: 'link_new_customer_account', via: ['get','post']
-        delete '/remove_new_customer_account/:app_id/:id', action: 'remove_new_customer_account', as: 'remove_new_customer_account'
         match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
         match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
         match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
         delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
         post '/calculate_distribution/:id', action: 'calculate_distribution', as: 'calculate_new_customer_distribution'
         post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
+        match '/link_bs_customer/:id', action: 'link_bs_customer', as: 'link_bs_customer', via: ['get','post']
+        delete '/remove_bs_customer/:id', action: 'remove_bs_customer', as: 'remove_bs_customer'
       end
     end
   end
