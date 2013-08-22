@@ -13,7 +13,7 @@ class Network::NewCustomerController < Admin::AdminController
       @application = Network::NewCustomerApplication.new(new_customer_params)
       @application.user = current_user
       if @application.save
-        redirect_to admin_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება დამატებულია'
+        redirect_to network_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება დამატებულია'
       end
     else
       @application = Network::NewCustomerApplication.new
@@ -25,14 +25,14 @@ class Network::NewCustomerController < Admin::AdminController
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
       @application.update_attributes(new_customer_params)
-      redirect_to admin_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება შეცვლილია'
+      redirect_to network_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება შეცვლილია'
     end
   end
 
   def delete_new_customer
     application = Network::NewCustomerApplication.find(params[:id])
     application.destroy
-    redirect_to admin_network_url, notice: 'განცხადება წაშლილია!'
+    redirect_to network_home_url, notice: 'განცხადება წაშლილია!'
   end
 
   def add_new_customer_account
@@ -42,7 +42,7 @@ class Network::NewCustomerController < Admin::AdminController
       @account = Network::NewCustomerItem.new(account_params)
       @account.application = @application
       if @account.save
-        redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
+        redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
       end
     else
       @account = Network::NewCustomerItem.new
@@ -56,7 +56,7 @@ class Network::NewCustomerController < Admin::AdminController
     if request.post?
       if @account.update_attributes(account_params)
         @application.calculate!
-        redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
+        redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
       end
     end
   end
@@ -66,7 +66,7 @@ class Network::NewCustomerController < Admin::AdminController
     account = application.items.where(id: params[:id]).first
     account.destroy
     application.calculate!
-    redirect_to admin_new_customer_url(id: application.id, tab: 'accounts')
+    redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
   end
 
   def link_bs_customer
@@ -74,7 +74,7 @@ class Network::NewCustomerController < Admin::AdminController
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
       @application.update_attributes(params.require(:network_new_customer_application).permit(:customer_id))
-      redirect_to admin_new_customer_url(id: @application.id, tab: 'general')
+      redirect_to network_new_customer_url(id: @application.id, tab: 'general')
     end
   end
 
@@ -82,19 +82,19 @@ class Network::NewCustomerController < Admin::AdminController
     application = Network::NewCustomerApplication.find(params[:id])
     application.customer_id = nil
     application.save
-    redirect_to admin_new_customer_url(id: application.id, tab: 'general')
+    redirect_to network_new_customer_url(id: application.id, tab: 'general')
   end
 
   def calculate_distribution
     application = Network::NewCustomerApplication.find(params[:id])
     application.calculate_distribution!
-    redirect_to admin_new_customer_url(id: application.id, tab: 'accounts'), notice: 'განაწილება დათვლილია'
+    redirect_to network_new_customer_url(id: application.id, tab: 'accounts'), notice: 'განაწილება დათვლილია'
   end
 
   def send_to_bs
     application = Network::NewCustomerApplication.find(params[:id])
     application.send_to_bs!
-    redirect_to admin_new_customer_url(id: application.id, tab: 'general'), notice: 'აბონენტი გაგზავნილია ბილინგში'
+    redirect_to network_new_customer_url(id: application.id, tab: 'general'), notice: 'აბონენტი გაგზავნილია ბილინგში'
   end
 
   def change_status
@@ -108,7 +108,7 @@ class Network::NewCustomerController < Admin::AdminController
         @message.send_sms!
         @application.status = params[:status].to_i
         @application.save
-        redirect_to admin_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
+        redirect_to network_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
       end
     else
       @message = Sys::SmsMessage.new
@@ -124,7 +124,7 @@ class Network::NewCustomerController < Admin::AdminController
       @message.mobile = @application.mobile
       if @message.save
         @message.send_sms!
-        redirect_to admin_new_customer_url(id: @application.id, tab: 'sms'), notice: 'შეტყობინება გაგზავნილია'
+        redirect_to network_new_customer_url(id: @application.id, tab: 'sms'), notice: 'შეტყობინება გაგზავნილია'
       end
     else
       @message = Sys::SmsMessage.new
@@ -138,7 +138,7 @@ class Network::NewCustomerController < Admin::AdminController
       @file = Sys::File.new(params.require(:sys_file).permit(:file))
       if @file.save
         @application.files << @file
-        redirect_to admin_new_customer_url(id: @application.id, tab: 'files'), notice: 'ფაილი დამატებულია'
+        redirect_to network_new_customer_url(id: @application.id, tab: 'files'), notice: 'ფაილი დამატებულია'
       end
     else
       @file = Sys::File.new
@@ -149,7 +149,7 @@ class Network::NewCustomerController < Admin::AdminController
     application = Network::NewCustomerApplication.find(params[:id])
     file = application.files.where(_id: params[:file_id]).first
     file.destroy
-    redirect_to admin_new_customer_url(id: application.id, tab: 'files'), notice: 'ფაილი წაშლილია'
+    redirect_to network_new_customer_url(id: application.id, tab: 'files'), notice: 'ფაილი წაშლილია'
   end
 
   def change_plan_date
@@ -157,7 +157,7 @@ class Network::NewCustomerController < Admin::AdminController
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
       if @application.update_attributes(params.require(:network_new_customer_application).permit(:plan_end_date))
-        redirect_to admin_new_customer_url(id: @application.id), notice: 'გეგმიური დასრულების თარიღი შეცვლილია'
+        redirect_to network_new_customer_url(id: @application.id), notice: 'გეგმიური დასრულების თარიღი შეცვლილია'
       end
     end
   end
@@ -167,7 +167,7 @@ class Network::NewCustomerController < Admin::AdminController
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
       if @application.update_attributes(params.require(:network_new_customer_application).permit(:end_date))
-        redirect_to admin_new_customer_url(id: @application.id), notice: 'დასრულების თარიღი შეცვლილია'
+        redirect_to network_new_customer_url(id: @application.id), notice: 'დასრულების თარიღი შეცვლილია'
       end
     end
   end
@@ -179,6 +179,7 @@ class Network::NewCustomerController < Admin::AdminController
     if @application
       if not @application.new_record?
         @nav[ "№#{@application.number}" ] = network_new_customer_url(id: @application.id)
+        @nav[@title] = nil if action_name != 'new_customer'
       else
         @nav['ახალი განცხადება'] = nil
       end

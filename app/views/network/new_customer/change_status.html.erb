@@ -5,4 +5,4 @@
     <%= Network::NewCustomerApplication.status_name params[:status].to_i %>
   </strong>
 </div>
-<%= sms_message_form @message, title: 'SMS შეტყობინება', icon: '/icons/mail.png', submit: 'სტატუსის შეცვლა', cancel_url: admin_new_customer_url(id: @application.id) %>
+<%= sms_message_form @message, title: 'SMS შეტყობინება', icon: '/icons/mail.png', submit: 'სტატუსის შეცვლა', cancel_url: network_new_customer_url(id: @application.id) %>
