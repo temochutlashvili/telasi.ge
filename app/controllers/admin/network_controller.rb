@@ -48,9 +48,7 @@ class Admin::NetworkController < Admin::AdminController
     if request.post?
       @account = Network::NewCustomerItem.new(account_params)
       @account.application = @application
-      @account.summary = params[:type] == 'summary'
       if @account.save
-        @application.calculate!
         redirect_to admin_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
       end
     else
@@ -179,5 +177,5 @@ class Admin::NetworkController < Admin::AdminController
 
   def resolve_layout; 'one_column' end
   def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power) end
-  def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :voltage, :power, :use, :rs_tin, :count) end
+  def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :rs_tin, :customer_id) end
 end

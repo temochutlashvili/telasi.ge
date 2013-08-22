@@ -40,7 +40,6 @@ class Network::NewCustomerApplication
   field :end_date, type: Date
 
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
-  # embeds_many :calculations, class_name: 'Network::NewCustomerCalculation', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   validates :user, presence: { message: 'user required' }
@@ -72,7 +71,6 @@ class Network::NewCustomerApplication
         self.days = nil
       end
     end
-    # self.save
   end
 
   def billing_items
@@ -84,25 +82,14 @@ class Network::NewCustomerApplication
     end
   end
 
-  def calculate_distribution!
-    items = self.items.where(summary: false)
-    total_amount = (self.remaining * 100).to_i
-    if items.size > 0 and total_amount > 0
-      per_item = total_amount / items.size
-      remainder = total_amount - per_item * items.size
-      items.each do |x|
-        addition = 0
-        addition = 1 and remainder -= 1 if remainder > 0
-        x.amount = (per_item + addition) / 100.0
-        x.save
-      end
-    end
+  def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
+  def unit
+    if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
+    else I18n.t('models.network_new_customer_item.unit_volt') end
   end
-
   def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
   def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } || 0  end
   def remaining; if self.amount.present? then self.amount - self.paid else 0 end end
-
   def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
   def self.status_icon(status)
     case status
@@ -115,7 +102,6 @@ class Network::NewCustomerApplication
     else '/icons/mail-open.png'
     end
   end
-
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
 
@@ -129,49 +115,58 @@ class Network::NewCustomerApplication
     end
   end
 
-  # ბილინგში გაგზავნა.
-  def send_to_bs!
-    # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
-    items_without_customer = self.items.where(summary: false, customer_id: nil)
-    raise 'ყველა აბონენტი არაა გაწერილი ბილინგში' if items_without_customer.count > 0
-    # --> დავალიანების გადათვლა
-    self.calculate_distribution!
-    # --> გადანაწილება
-    Billing::Item.transaction do
-      if self.items.count == 1
-        item = self.items.first
-        customer = item.customer
-        account  = customer.accounts.first
-        amount = self.amount
-        # bs.item
-        bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
-          perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: amount,
-          enterdate: Time.now, itemcatkey: 0)
-        bs_item.save!
-        # bs.customer update
-        customer.except = 1
-        customer.save!
-        # bs.zdeposit_cust_qs
-        network_customer = Billing::NetworkCustomer.where(customer: customer).first
-        network_customer.exception_end_date = Date.today + 10
-        network_customer.save!
-        # bs.zdepozit_item_qs
-        network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
-          operkey: 1000, enterdate: Time.now, operdate: Date.today, perskey: 1)
-        network_item.save!
-      else
-        raise 'ეს სიტუაცია ჯერ არაა მზად!'
-      end
-    end
-    # update status
-    self.status = STATUS_IN_BS
-    self.save
+  def calculate_distribution!
+    # items = self.items.where(summary: false)
+    # total_amount = (self.remaining * 100).to_i
+    # if items.size > 0 and total_amount > 0
+    #   per_item = total_amount / items.size
+    #   remainder = total_amount - per_item * items.size
+    #   items.each do |x|
+    #     addition = 0
+    #     addition = 1 and remainder -= 1 if remainder > 0
+    #     x.amount = (per_item + addition) / 100.0
+    #     x.save
+    #   end
+    # end
   end
 
-  def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
-  def unit
-    if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
-    else I18n.t('models.network_new_customer_item.unit_volt') end
+  # ბილინგში გაგზავნა.
+  def send_to_bs!
+    # # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
+    # items_without_customer = self.items.where(summary: false, customer_id: nil)
+    # raise 'ყველა აბონენტი არაა გაწერილი ბილინგში' if items_without_customer.count > 0
+    # # --> დავალიანების გადათვლა
+    # self.calculate_distribution!
+    # # --> გადანაწილება
+    # Billing::Item.transaction do
+    #   if self.items.count == 1
+    #     item = self.items.first
+    #     customer = item.customer
+    #     account  = customer.accounts.first
+    #     amount = self.amount
+    #     # bs.item
+    #     bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
+    #       perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: amount,
+    #       enterdate: Time.now, itemcatkey: 0)
+    #     bs_item.save!
+    #     # bs.customer update
+    #     customer.except = 1
+    #     customer.save!
+    #     # bs.zdeposit_cust_qs
+    #     network_customer = Billing::NetworkCustomer.where(customer: customer).first
+    #     network_customer.exception_end_date = Date.today + 10
+    #     network_customer.save!
+    #     # bs.zdepozit_item_qs
+    #     network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
+    #       operkey: 1000, enterdate: Time.now, operdate: Date.today, perskey: 1)
+    #     network_item.save!
+    #   else
+    #     raise 'ეს სიტუაცია ჯერ არაა მზად!'
+    #   end
+    # end
+    # # update status
+    # self.status = STATUS_IN_BS
+    # self.save
   end
 
   private
