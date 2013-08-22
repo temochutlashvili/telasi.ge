@@ -178,6 +178,6 @@ class Admin::NetworkController < Admin::AdminController
   private
 
   def resolve_layout; 'one_column' end
-  def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account, :need_resolution) end
+  def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power) end
   def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :voltage, :power, :use, :rs_tin, :count) end
 end

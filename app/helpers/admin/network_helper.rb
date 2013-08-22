@@ -2,15 +2,24 @@
 module Admin::NetworkHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
-      f.text_field  :rs_tin,       required: true, autofocus: true
-      f.text_field  :mobile,       required: true
-      f.email_field :email,        required: true
-      f.text_field  :address,      required: true, width: 300
-      f.text_field  :bank_code,    required: true
-      f.text_field  :bank_account, required: true, width: 300
-      f.boolean_field :need_resolution, required: true
-      f.submit (opts[:submit] || opts[:title])
-      f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
+      f.tab do |t|
+        t.col1 do |c|
+          c.text_field  :rs_tin,       required: true, autofocus: true
+          c.text_field  :mobile,       required: true
+          c.email_field :email,        required: true
+          c.text_field  :address_code, required: true
+          c.text_field  :address,      required: true, width: 300
+          c.text_field  :bank_code,    required: true
+          c.text_field  :bank_account, required: true, width: 300
+        end
+        t.col2 do |c|
+          c.combo_field :voltage, collection: voltage_collection, empty: false, required: true
+          c.number_field :power, after: 'kWh', width: 100, required: true
+          c.boolean_field :need_resolution, required: true
+        end
+        f.submit (opts[:submit] || opts[:title])
+        f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
+      end
     end
   end
 
@@ -50,6 +59,11 @@ module Admin::NetworkHelper
         t.complex_field label: 'საბანკო ანგარიში', required: true do |c|
           c.text_field :bank_code, tag: 'code'
           c.text_field :bank_account
+        end
+        t.complex_field label: 'ძაბვა / სიმძლავრე', required: true do |c|
+          c.text_field :voltage, tag: 'code'
+          c.text_field :unit, after: '/'
+          c.number_field :power, after: 'კვტ'
         end
         t.boolean_field :need_resolution, required: true
         t.col2 do |c|
