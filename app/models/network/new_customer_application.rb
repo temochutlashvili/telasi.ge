@@ -57,39 +57,24 @@ class Network::NewCustomerApplication
   before_update :status_manager
   before_save :calculate!
 
-  def calculate!
-    tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power)
-    if tariff
-      if power > 0
-        tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
-        self.amount = tariff.price_gel
-        self.days = tariff_days
-      end
-    else
-      if power > 0
-        self.amount = nil
-        self.days = nil
-      end
-    end
-  end
-
+  def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def billing_items
     if @__billing_items
       @__billing_items
+    elsif self.customer_id.present?
+      @__billing_items = Billing::Item.where(custkey: self.customer_id).order('itemkey DESC')
     else
-      customer_ids = items.map{ |x| x.customer_id }.select{ |x| x.present? }
-      @__billing_items = Billing::Item.where('custkey IN ?', customer_ids).order('itemkey DESC')
+      @__billing_items = []
     end
-  end
-
-  def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
-  def unit
-    if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
-    else I18n.t('models.network_new_customer_item.unit_volt') end
   end
   def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
   def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } || 0  end
   def remaining; if self.amount.present? then self.amount - self.paid else 0 end end
+  def unit
+    if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
+    else I18n.t('models.network_new_customer_item.unit_volt') end
+  end
+
   def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
   def self.status_icon(status)
     case status
@@ -112,6 +97,22 @@ class Network::NewCustomerApplication
     when STATUS_SENT then [ STATUS_DEFAULT, STATUS_CONFIRMED, STATUS_CANCELED ]
     when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
     else [ ]
+    end
+  end
+
+  def calculate!
+    tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power)
+    if tariff
+      if power > 0
+        tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
+        self.amount = tariff.price_gel
+        self.days = tariff_days
+      end
+    else
+      if power > 0
+        self.amount = nil
+        self.days = nil
+      end
     end
   end
 
