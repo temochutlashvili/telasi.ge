@@ -82,8 +82,12 @@ module Admin::NetworkHelper
           c.number_field :remaining, after: 'GEL'
           c.date_field :send_date
           c.date_field :start_date
-          c.date_field :end_date
-          c.date_field :plan_end_date
+          c.date_field :end_date do |real|
+            real.action admin_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if application.end_date.present?
+          end
+          c.date_field :plan_end_date do |plan|
+            plan.action admin_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if application.plan_end_date.present?
+          end
         end
       end
       # 2. customers

@@ -99,6 +99,9 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.0.4)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.8.0)
     ka (0.1.0)
     less (2.3.2)
@@ -194,6 +197,7 @@ DEPENDENCIES
   forma!
   jbuilder (~> 1.0.1)
   jquery-rails (~> 3)
+  jquery-ui-rails
   ka
   less (~> 2)
   magti

@@ -1,0 +1,10 @@
+<%= forma_for @application, title: @title do |f|
+  f.text_field 'number', tag: 'code', readonly: true, required: true
+  f.complex_field i18n: 'rs_name', required: true, readonly: true do |c|
+    c.text_field :rs_tin, tag: 'code'
+    c.text_field :rs_name
+  end
+  f.date_field 'plan_end_date'
+  f.submit 'შეცვლა'
+  f.cancel_button admin_new_customer_url(id: @application.id)
+end %>

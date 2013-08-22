@@ -159,6 +159,26 @@ class Admin::NetworkController < Admin::AdminController
     redirect_to admin_new_customer_url(id: application.id, tab: 'files'), notice: 'ფაილი წაშლილია'
   end
 
+  def change_plan_date
+    @title = 'გეგმიური დასრულების თარიღის შეცვლა'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      if @application.update_attributes(params.require(:network_new_customer_application).permit(:plan_end_date))
+        redirect_to admin_new_customer_url(id: @application.id), notice: 'გეგმიური დასრულების თარიღი შეცვლილია'
+      end
+    end
+  end
+
+  def change_real_date
+    @title = 'დასრულების თარიღის შეცვლა'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      if @application.update_attributes(params.require(:network_new_customer_application).permit(:end_date))
+        redirect_to admin_new_customer_url(id: @application.id), notice: 'დასრულების თარიღი შეცვლილია'
+      end
+    end
+  end
+
 # ==> Tariffs
 
   def tariffs
