@@ -59,7 +59,7 @@ TelasiGe::Application.routes.draw do
   end
   namespace 'network' do
     scope '/', controller: 'base' do
-      get '/', action: 'index', as: 'network'
+      get '/', action: 'index', as: 'home'
     end
     scope '/tariffs', controller: 'tariffs' do
       get '/', action: 'index', as: 'tariffs'

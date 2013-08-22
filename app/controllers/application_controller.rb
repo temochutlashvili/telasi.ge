@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   def current_user; Sys::User.current_user ||= (Sys::User.find(session[:user_id]) rescue nil) if session[:user_id] end
   helper_method :current_user
 
+  def render(*args)
+    nav if self.respond_to?(:nav)
+    super
+  end
+
   protected
 
   def locale_config

@@ -4,12 +4,15 @@ class Network::TariffsController < Admin::AdminController
 
   def index
     @title = 'ტარიფები'
-    Admin::Network::TariffsController
-    # @tariffs = Network::NewCustomerTariff.asc(:_id)
+    @tariffs = Network::NewCustomerTariff.asc(:_id)
   end
 
   def generate_tariffs
     Network::NewCustomerTariff.generate!
-    redirect_to admin_tariffs_url, notice: 'ტარიფები გენერირებულია'
+    redirect_to network_tariffs_url, notice: 'ტარიფები გენერირებულია'
+  end
+
+  def nav
+    @nav = { 'ქსელი' => network_home_url, 'ტარიფები' => nil }
   end
 end

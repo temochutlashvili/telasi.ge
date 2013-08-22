@@ -14,7 +14,10 @@
     <%= render partial: 'layouts/notice' %>
     <div class="row">
       <div class="span12">
-        <div class="module"><%= yield %></div>
+        <div class="module">
+          <%= nav_menu %>
+          <%= yield %>
+        </div>
       </div>
     </div>
   </div>
