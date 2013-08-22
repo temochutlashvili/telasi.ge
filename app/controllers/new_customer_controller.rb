@@ -3,8 +3,6 @@ class NewCustomerController < ApplicationController
   before_action :validate_login
   layout :resolve_layout
 
-# ==> Application
-
   def index
     @title = I18n.t('models.network_new_customer_application.actions.index_page.title')
     @applications = Network::NewCustomerApplication.where(user: current_user).desc(:_id)

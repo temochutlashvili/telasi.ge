@@ -172,6 +172,20 @@ class Network::NewCustomerController < Admin::AdminController
     end
   end
 
+  protected
+
+  def nav
+    @nav = { 'ქსელი' => network_home_url }
+    if @application
+      if not @application.new_record?
+        @nav[ "№#{@application.number}" ] = network_new_customer_url(id: @application.id)
+      else
+        @nav['ახალი განცხადება'] = nil
+      end
+    end
+    @nav
+  end
+
   private
 
   def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power) end

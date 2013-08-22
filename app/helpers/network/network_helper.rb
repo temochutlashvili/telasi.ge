@@ -34,15 +34,15 @@ module Network::NetworkHelper
       else 0 end
     end
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
-      f.title_action admin_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
+      f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
-        t.action admin_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
+        t.action network_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
         application.transitions.each do |status|
-          t.action admin_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
+          t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
         end
         if application.status == Network::NewCustomerApplication::STATUS_COMPLETE
-          t.action admin_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
+          t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
         end
         t.text_field :number, required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
@@ -51,7 +51,7 @@ module Network::NetworkHelper
         end
         t.complex_field i18n: 'rs_name', required: true do |c|
           c.text_field :rs_tin, tag: 'code'
-          c.text_field :rs_name, url: ->(x) { admin_new_customer_url(id: x.id) }
+          c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
         end
         t.email_field :email, required: true
         t.text_field :mobile, required: true
@@ -69,9 +69,9 @@ module Network::NetworkHelper
         t.complex_field label: 'ბილინგის აბონენტი' do |c|
           c.text_field 'customer.accnumb', tag: 'code', empty: false
           c.text_field 'customer.custname' do |cust|
-            cust.action admin_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png'
+            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png'
             if application.customer_id.present?
-              cust.action admin_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?'
+              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?'
             end
           end
         end
@@ -83,21 +83,21 @@ module Network::NetworkHelper
           c.date_field :send_date
           c.date_field :start_date
           c.date_field :end_date do |real|
-            real.action admin_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if application.end_date.present?
+            real.action network_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if application.end_date.present?
           end
           c.date_field :plan_end_date do |plan|
-            plan.action admin_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if application.plan_end_date.present?
+            plan.action network_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if application.plan_end_date.present?
           end
         end
       end
       # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
-        t.action admin_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
+        t.action network_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
           items.table do |t|
-            t.title_action admin_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png'
-            t.item_action ->(x) { admin_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა'
-            t.item_action ->(x) { admin_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა'
+            t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png'
+            t.item_action ->(x) { network_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა'
+            t.item_action ->(x) { network_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა'
             t.complex_field label: 'მისამართი' do |c|
               c.text_field :address_code, tag: 'code'
               c.text_field :address
@@ -118,7 +118,7 @@ module Network::NetworkHelper
       f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
         t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
           sms.table do |t|
-            t.title_action admin_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
+            t.title_action network_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
             t.date_field :created_at, formatter: '%d-%b-%Y %H:%M:%S'
             t.text_field :mobile, tag: 'code'
             t.text_field :message
@@ -145,8 +145,8 @@ module Network::NetworkHelper
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
         t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
           files.table do |t|
-            t.title_action admin_upload_new_customer_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png'
-            t.item_action ->(x) { admin_delete_new_customer_file_url(id: application.id, file_id: x.id) }, icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ ფაილის წაშლა?', method: 'delete'
+            t.title_action network_upload_new_customer_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png'
+            t.item_action ->(x) { network_delete_new_customer_file_url(id: application.id, file_id: x.id) }, icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ ფაილის წაშლა?', method: 'delete'
             t.text_field 'file.filename', url: ->(x) { x.file.url }, label: 'ფაილი'
           end
         end
