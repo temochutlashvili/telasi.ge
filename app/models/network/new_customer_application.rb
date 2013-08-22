@@ -108,7 +108,7 @@ class Network::NewCustomerApplication
   def transitions
     case self.status
     when STATUS_DEFAULT then [ STATUS_SENT, STATUS_CANCELED ]
-    when STATUS_SENT then [ STATUS_CONFIRMED, STATUS_CANCELED ]
+    when STATUS_SENT then [ STATUS_DEFAULT, STATUS_CONFIRMED, STATUS_CANCELED ]
     when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
     else [ ]
     end
@@ -207,8 +207,9 @@ class Network::NewCustomerApplication
   def status_manager
     if self.status_changed?
       case self.status
+      when STATUS_DEFAULT   then self.send_date = nil
       when STATUS_SENT      then self.send_date  = Date.today
-      when STATUS_CONFIRMED then self.start_date = Date.today and self.plan_end_date = Date.today + self.days
+      when STATUS_CONFIRMED then self.start_date = Date.today and self.plan_end_date = self.send_date + self.days
       when STATUS_COMPLETE  then self.end_date   = Date.today
       end
     end
