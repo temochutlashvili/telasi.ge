@@ -74,7 +74,7 @@ class Network::NewCustomerController < Admin::AdminController
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
       @application.update_attributes(params.require(:network_new_customer_application).permit(:customer_id))
-      redirect_to network_new_customer_url(id: @application.id, tab: 'general')
+      redirect_to network_new_customer_url(id: @application.id, tab: 'accounts')
     end
   end
 
@@ -82,7 +82,7 @@ class Network::NewCustomerController < Admin::AdminController
     application = Network::NewCustomerApplication.find(params[:id])
     application.customer_id = nil
     application.save
-    redirect_to network_new_customer_url(id: application.id, tab: 'general')
+    redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
   end
 
   def calculate_distribution

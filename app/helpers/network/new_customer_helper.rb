@@ -66,15 +66,6 @@ module Network::NewCustomerHelper
           c.number_field :power, after: 'კვტ'
         end
         t.boolean_field :need_resolution, required: true
-        t.complex_field label: 'ბილინგის აბონენტი' do |c|
-          c.text_field 'customer.accnumb', tag: 'code', empty: false
-          c.text_field 'customer.custname' do |cust|
-            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png'
-            if application.customer_id.present?
-              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?'
-            end
-          end
-        end
         t.col2 do |c|
           c.number_field :amount, after: 'GEL'
           c.number_field :days, max_digits: 0, after: 'დღე'
@@ -93,6 +84,15 @@ module Network::NewCustomerHelper
       # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
         t.action network_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
+        t.complex_field label: 'ბილინგის აბონენტი' do |c|
+          c.text_field 'customer.accnumb', tag: 'code', empty: false
+          c.text_field 'customer.custname' do |cust|
+            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png'
+            if application.customer_id.present?
+              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?'
+            end
+          end
+        end
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
           items.table do |t|
             t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png'
