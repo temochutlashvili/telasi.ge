@@ -83,6 +83,7 @@ TelasiGe::Application.routes.draw do
       match '/change_real_date/:id', action: 'change_real_date', as: 'change_real_date', via: ['get','post']
       post '/sync_accounts/:id', action: 'sync_accounts', as: 'new_customer_sync_accounts'
       post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
+      get '/paybill/:id', action: 'paybill', as: 'new_customer_paybill'
     end
   end
 

@@ -174,6 +174,10 @@ class Network::NewCustomerController < Admin::AdminController
     redirect_to network_new_customer_url(id: application.id, tab: 'accounts'), notice: 'სინქრონიზაცია დასრულებულია'
   end
 
+  def paybill
+    @application = Network::NewCustomerApplication.find(params[:id])
+  end
+
   protected
 
   def nav
