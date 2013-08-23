@@ -112,6 +112,7 @@ class Network::NewCustomerApplication
     end
   end
 
+  # ვალის გადანაწილების დათვლა.
   def calculate_distribution!
     items = self.items
     total_amount = (self.remaining * 100).to_i
@@ -129,41 +130,41 @@ class Network::NewCustomerApplication
 
   # ბილინგში გაგზავნა.
   def send_to_bs!
-    # # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
-    # items_without_customer = self.items.where(summary: false, customer_id: nil)
-    # raise 'ყველა აბონენტი არაა გაწერილი ბილინგში' if items_without_customer.count > 0
-    # # --> დავალიანების გადათვლა
-    # self.calculate_distribution!
-    # # --> გადანაწილება
-    # Billing::Item.transaction do
-    #   if self.items.count == 1
-    #     item = self.items.first
-    #     customer = item.customer
-    #     account  = customer.accounts.first
-    #     amount = self.amount
-    #     # bs.item
-    #     bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
-    #       perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: amount,
-    #       enterdate: Time.now, itemcatkey: 0)
-    #     bs_item.save!
-    #     # bs.customer update
-    #     customer.except = 1
-    #     customer.save!
-    #     # bs.zdeposit_cust_qs
-    #     network_customer = Billing::NetworkCustomer.where(customer: customer).first
-    #     network_customer.exception_end_date = Date.today + 10
-    #     network_customer.save!
-    #     # bs.zdepozit_item_qs
-    #     network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
-    #       operkey: 1000, enterdate: Time.now, operdate: Date.today, perskey: 1)
-    #     network_item.save!
-    #   else
-    #     raise 'ეს სიტუაცია ჯერ არაა მზად!'
-    #   end
-    # end
-    # # update status
-    # self.status = STATUS_IN_BS
-    # self.save
+    # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
+    items_without_customer = self.items.where(customer_id: nil)
+    raise 'ყველა აბონენტი არაა აბონირებული!' if items_without_customer.any?
+    # --> დავალიანების გადათვლა
+    self.calculate_distribution!
+    # --> გადანაწილება
+    Billing::Item.transaction do
+      if self.items.count == 1
+        item = self.items.first
+        customer = item.customer
+        account  = customer.accounts.first
+        amount = self.amount
+        # bs.item
+        bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
+          perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: amount,
+          enterdate: Time.now, itemcatkey: 0)
+        bs_item.save!
+        # bs.customer update
+        customer.except = 1
+        customer.save!
+        # bs.zdeposit_cust_qs
+        network_customer = Billing::NetworkCustomer.where(customer: customer).first
+        network_customer.exception_end_date = Date.today + 10
+        network_customer.save!
+        # bs.zdepozit_item_qs
+        network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
+          operkey: 1000, enterdate: Time.now, operdate: Date.today, perskey: 1)
+        network_item.save!
+      else
+        raise 'ეს სიტუაცია ჯერ არაა მზად!'
+      end
+    end
+    # update application status
+    self.status = STATUS_IN_BS
+    self.save
   end
 
   private
