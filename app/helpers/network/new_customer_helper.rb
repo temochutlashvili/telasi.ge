@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Network::NetworkHelper
+module Network::NewCustomerHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
