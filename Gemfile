@@ -38,6 +38,10 @@ gem 'rs.ge', git: 'https://github.com/dimakura/rs.ge'
 gem 'ka'
 gem 'magti'
 
+# pdf
+gem 'prawn'
+gem 'prawn_rails'
+
 # social media
 # gem 'omniauth-facebook'
 
