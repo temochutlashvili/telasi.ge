@@ -12,7 +12,7 @@ class Network::NewCustomerApplication
   include Mongoid::Document
   include Mongoid::Timestamps
   belongs_to :user, class_name: 'Sys::User'
-  field :number,    type: Integer
+  field :number,    type: String
   field :rs_tin,    type: String
   field :rs_name,   type: String
   field :mobile,    type: String
@@ -53,7 +53,6 @@ class Network::NewCustomerApplication
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
   validate :validate_rs_name
-  before_create :assign_number
   before_update :status_manager
   before_save :calculate!
 
@@ -171,8 +170,6 @@ class Network::NewCustomerApplication
   end
 
   private
-
-  def assign_number; self.number = (Network::NewCustomerApplication.last.number + 1 rescue 1) end
 
   def validate_rs_name
     if self.rs_tin.present?

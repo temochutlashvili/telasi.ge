@@ -4,7 +4,8 @@ module Network::NewCustomerHelper
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
         t.col1 do |c|
-          c.text_field  :rs_tin,       required: true, autofocus: true
+          c.text_field  :number,       autofocus: true
+          c.text_field  :rs_tin,       required: true
           c.text_field  :mobile,       required: true
           c.email_field :email,        required: true
           c.text_field  :address_code, required: true

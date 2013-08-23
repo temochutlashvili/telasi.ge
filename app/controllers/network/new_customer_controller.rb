@@ -189,6 +189,6 @@ class Network::NewCustomerController < Admin::AdminController
 
   private
 
-  def new_customer_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power) end
+  def new_customer_params; params.require(:network_new_customer_application).permit(:number, :rs_tin, :mobile, :email, :address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power) end
   def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :rs_tin, :customer_id) end
 end
