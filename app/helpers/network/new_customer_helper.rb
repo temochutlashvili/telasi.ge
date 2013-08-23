@@ -81,7 +81,6 @@ module Network::NewCustomerHelper
       end
       # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
-        # t.action network_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
         if application.can_send_to_item?
           t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
         end
@@ -97,6 +96,7 @@ module Network::NewCustomerHelper
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
           items.table do |t|
             t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png'
+            t.title_action network_new_customer_sync_accounts_url(id: application.id), label: 'სინქრონიზაცია ბილინგთან', icon: '/icons/arrow-circle-double-135.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'
             t.item_action ->(x) { network_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა'
             t.item_action ->(x) { network_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა'
             t.complex_field label: 'მისამართი' do |c|

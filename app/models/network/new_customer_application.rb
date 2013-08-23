@@ -54,7 +54,7 @@ class Network::NewCustomerApplication
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
   validate :validate_rs_name
   before_update :status_manager
-  before_save :calculate!
+  before_save :calculate_total_cost
 
   def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def billing_items
@@ -88,7 +88,7 @@ class Network::NewCustomerApplication
   end
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
-  def can_send_to_item?; self.status == STATUS_COMPLETE end
+  def can_send_to_item?; self.status == STATUS_COMPLETE and self.items.any? end
 
   # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
   def transitions
@@ -100,35 +100,31 @@ class Network::NewCustomerApplication
     end
   end
 
-  def calculate!
-    tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power)
-    if tariff
-      if power > 0
-        tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
-        self.amount = tariff.price_gel
-        self.days = tariff_days
-      end
-    else
-      if power > 0
-        self.amount = nil
-        self.days = nil
-      end
+  # ახდენს სინქრონიზაციას BS.CUSTOMER ცხრილთან.
+  def sync_accounts!
+    customers = Billing::Customer.where(custsert: self.number)
+    customers.each do |customer|
+      related = self.items.where(customer_id: customer.custkey).first || Network::NewCustomerItem.new(application: self, customer_id: customer.custkey)
+      related.rs_tin = customer.taxid
+      related.address = customer.address.to_s.to_ka
+      related.address_code = '180.180.180.test'
+      related.save
     end
   end
 
   def calculate_distribution!
-    # items = self.items.where(summary: false)
-    # total_amount = (self.remaining * 100).to_i
-    # if items.size > 0 and total_amount > 0
-    #   per_item = total_amount / items.size
-    #   remainder = total_amount - per_item * items.size
-    #   items.each do |x|
-    #     addition = 0
-    #     addition = 1 and remainder -= 1 if remainder > 0
-    #     x.amount = (per_item + addition) / 100.0
-    #     x.save
-    #   end
-    # end
+    items = self.items
+    total_amount = (self.remaining * 100).to_i
+    if items.any? and total_amount > 0
+      per_item = total_amount / items.size
+      remainder = total_amount - per_item * items.size
+      items.each do |x|
+        addition = 0
+        addition = 1 and remainder -= 1 if remainder > 0
+        x.amount = (per_item + addition) / 100.0
+        x.save
+      end
+    end
   end
 
   # ბილინგში გაგზავნა.
@@ -171,6 +167,22 @@ class Network::NewCustomerApplication
   end
 
   private
+
+  def calculate_total_cost
+    tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power)
+    if tariff
+      if power > 0
+        tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
+        self.amount = tariff.price_gel
+        self.days = tariff_days
+      end
+    else
+      if power > 0
+        self.amount = nil
+        self.days = nil
+      end
+    end
+  end
 
   def validate_rs_name
     if self.rs_tin.present?

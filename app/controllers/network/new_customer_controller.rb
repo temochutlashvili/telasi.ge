@@ -42,6 +42,7 @@ class Network::NewCustomerController < Admin::AdminController
       @account = Network::NewCustomerItem.new(account_params)
       @account.application = @application
       if @account.save
+        @application.calculate_distribution!
         redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
       end
     else
@@ -55,7 +56,7 @@ class Network::NewCustomerController < Admin::AdminController
     @account = @application.items.where(id: params[:id]).first
     if request.post?
       if @account.update_attributes(account_params)
-        @application.calculate!
+        @application.calculate_distribution!
         redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
       end
     end
@@ -65,7 +66,7 @@ class Network::NewCustomerController < Admin::AdminController
     application = Network::NewCustomerApplication.find(params[:app_id])
     account = application.items.where(id: params[:id]).first
     account.destroy
-    application.calculate!
+    application.calculate_distribution!
     redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
   end
 
@@ -83,12 +84,6 @@ class Network::NewCustomerController < Admin::AdminController
     application.customer_id = nil
     application.save
     redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
-  end
-
-  def calculate_distribution
-    application = Network::NewCustomerApplication.find(params[:id])
-    application.calculate_distribution!
-    redirect_to network_new_customer_url(id: application.id, tab: 'accounts'), notice: 'განაწილება დათვლილია'
   end
 
   def send_to_bs
@@ -170,6 +165,13 @@ class Network::NewCustomerController < Admin::AdminController
         redirect_to network_new_customer_url(id: @application.id), notice: 'დასრულების თარიღი შეცვლილია'
       end
     end
+  end
+
+  def sync_accounts
+    application = Network::NewCustomerApplication.find(params[:id])
+    application.sync_accounts!
+    application.calculate_distribution!
+    redirect_to network_new_customer_url(id: application.id, tab: 'accounts'), notice: 'სინქრონიზაცია დასრულებულია'
   end
 
   protected

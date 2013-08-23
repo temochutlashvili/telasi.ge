@@ -77,12 +77,12 @@ TelasiGe::Application.routes.draw do
       match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
       match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
       delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
-      post '/calculate_distribution/:id', action: 'calculate_distribution', as: 'calculate_new_customer_distribution'
-      post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
       match '/link_bs_customer/:id', action: 'link_bs_customer', as: 'link_bs_customer', via: ['get','post']
       delete '/remove_bs_customer/:id', action: 'remove_bs_customer', as: 'remove_bs_customer'
       match '/change_plan_date/:id', action: 'change_plan_date', as: 'change_plan_date', via: ['get','post']
       match '/change_real_date/:id', action: 'change_real_date', as: 'change_real_date', via: ['get','post']
+      post '/sync_accounts/:id', action: 'sync_accounts', as: 'new_customer_sync_accounts'
+      post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
     end
   end
 
