@@ -175,7 +175,8 @@ class Network::NewCustomerController < Admin::AdminController
   end
 
   def paybill
-    @application = Network::NewCustomerApplication.find(params[:id])
+    application = Network::NewCustomerApplication.find(params[:id])
+    @data =  { number: '12'  }
   end
 
   protected
