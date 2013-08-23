@@ -42,9 +42,6 @@ module Network::NewCustomerHelper
         application.transitions.each do |status|
           t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
         end
-        if application.status == Network::NewCustomerApplication::STATUS_COMPLETE
-          t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
-        end
         t.text_field :number, required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
           c.image_field :status_icon
@@ -84,7 +81,10 @@ module Network::NewCustomerHelper
       end
       # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
-        t.action network_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
+        # t.action network_calculate_new_customer_distribution_url(id: application.id), label: 'ვალის განაწილება', icon: '/icons/wand.png', method: 'post'
+        if application.can_send_to_item?
+          t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
+        end
         t.complex_field label: 'ბილინგის აბონენტი' do |c|
           c.text_field 'customer.accnumb', tag: 'code', empty: false
           c.text_field 'customer.custname' do |cust|

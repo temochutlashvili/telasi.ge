@@ -88,6 +88,7 @@ class Network::NewCustomerApplication
   end
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
+  def can_send_to_item?; self.status == STATUS_COMPLETE end
 
   # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
   def transitions
