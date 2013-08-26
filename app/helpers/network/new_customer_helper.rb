@@ -38,7 +38,7 @@ module Network::NewCustomerHelper
       f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
-        t.action network_new_customer_paybill_url(id: application.id), label: 'საგ/დავ ბეჭდვა', icon: '/icons/printer.png'
+        t.action network_new_customer_paybill_url(id: application.id, format: 'pdf'), label: 'საგ/დავ ბეჭდვა', icon: '/icons/printer.png'
         t.action network_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
         application.transitions.each do |status|
           t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)

@@ -175,8 +175,13 @@ class Network::NewCustomerController < Admin::AdminController
   end
 
   def paybill
-    application = Network::NewCustomerApplication.find(params[:id])
-    @data =  { number: '12'  }
+    app = Network::NewCustomerApplication.find(params[:id])
+    @data = { date: Date.today,
+      payer: app.rs_name, payer_account: app.bank_account, payer_bank: 'თიბისი ბანკი', payer_bank_code: app.bank_code,
+      receiver: 'სს თელასი', receiver_account: 'GE22LB0000000192039878  ', receiver_bank: 'სს ლიბერთი ბანკი', receiver_bank_code: 'LBTRGE89',
+      reason: "სს თელასის განამაწილებელ ქსელში ჩართვის ღირებულების 50%-ის დაფარვა. განცხადება №#{app.number}.",
+      amount: (app.amount / 2.0).to_i
+    }
   end
 
   protected
