@@ -178,10 +178,14 @@ class Network::NewCustomerController < Admin::AdminController
     app = Network::NewCustomerApplication.find(params[:id])
     @data = { date: Date.today,
       payer: app.rs_name, payer_account: app.bank_account, payer_bank: app.bank_name, payer_bank_code: app.bank_code,
-      receiver: 'სს თელასი', receiver_account: 'GE22LB0000000192039878  ', receiver_bank: 'სს ლიბერთი ბანკი', receiver_bank_code: 'LBTRGE89',
+      receiver: 'სს თელასი', receiver_account: 'GE53TB1147136030100001  ', receiver_bank: 'სს თიბისი ბანკი', receiver_bank_code: 'TBCBGE22',
       reason: "სს თელასის განამაწილებელ ქსელში ჩართვის ღირებულების 50%-ის დაფარვა. განცხადება №#{app.number}.",
       amount: (app.amount / 2.0).to_i
     }
+  end
+
+  def print
+    @application = Network::NewCustomerApplication.find(params[:id])
   end
 
   protected

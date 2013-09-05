@@ -84,6 +84,7 @@ TelasiGe::Application.routes.draw do
       post '/sync_accounts/:id', action: 'sync_accounts', as: 'new_customer_sync_accounts'
       post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
       get '/paybill/:id', action: 'paybill', as: 'new_customer_paybill'
+      get '/print/:id', action: 'print', as: 'new_customer_print'
     end
   end
 
