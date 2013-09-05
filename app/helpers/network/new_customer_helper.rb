@@ -3,24 +3,21 @@ module Network::NewCustomerHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
-        t.col1 do |c|
-          c.text_field  :number,       autofocus: true
-          c.text_field  :rs_tin,       required: true
-          c.text_field  :mobile,       required: true
-          c.email_field :email,        required: true
-          c.text_field  :address_code, required: true
-          c.text_field  :address,      required: true, width: 300
-          c.text_field  :bank_code,    required: true
-          c.text_field  :bank_account, required: true, width: 300
-        end
-        t.col2 do |c|
-          c.combo_field :voltage, collection: voltage_collection, empty: false, required: true
-          c.number_field :power, after: 'kWh', width: 100, required: true
-          c.boolean_field :need_resolution, required: true
-        end
-        f.submit (opts[:submit] || opts[:title])
-        f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
+        t.text_field  :number,       autofocus: true
+        t.text_field  :rs_tin,       required: true
+        t.text_field  :mobile,       required: true
+        t.email_field :email,        required: true
+        t.text_field  :address_code, required: true
+        t.text_field  :address,      required: true, width: 300
+        # t.text_field  :bank_code,    required: true
+        t.combo_field :bank_code, collection: banks, empty: false, required: true
+        t.text_field  :bank_account, required: true, width: 300
+        t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
+        t.number_field :power, after: 'kWh', width: 100, required: true
+        t.boolean_field :need_resolution, required: true
       end
+      f.submit (opts[:submit] || opts[:title])
+      f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
     end
   end
 
