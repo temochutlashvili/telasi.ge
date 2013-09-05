@@ -36,7 +36,7 @@ def left_side(pdf,w,d)
   end
   def payer_bank_table(pdf,w,d)
     w1 = 96
-    w2 = 130
+    w2 = 160
     w3 = 63
     pdf.make_table [['გადამხდელის ბანკი', d[:payer_bank], 'ბანკის კოდი', d[:payer_bank_code], '']] do |t|
       t.column_widths = [w1, w2, w3, w - w1 - w2 - w3 - 5, 5 ]
@@ -82,7 +82,7 @@ def left_side(pdf,w,d)
   end
   def receiver_bank_table(pdf,w,d)
     w1 = 96
-    w2 = 130
+    w2 = 160
     w3 = 63
     pdf.make_table [['მიმღების ბანკი', d[:receiver_bank], 'ბანკის კოდი', d[:receiver_bank_code], '']] do |t|
       t.column_widths = [w1, w2, w3, w - w1 - w2 - w3 - 5, 5 ]

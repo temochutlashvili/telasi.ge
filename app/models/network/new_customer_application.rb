@@ -73,6 +73,7 @@ class Network::NewCustomerApplication
     if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
     else I18n.t('models.network_new_customer_item.unit_volt') end
   end
+  def bank_name; Bank.bank_name(self.bank_code) end
 
   def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
   def self.status_icon(status)
