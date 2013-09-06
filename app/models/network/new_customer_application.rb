@@ -13,6 +13,7 @@ class Network::NewCustomerApplication
   include Mongoid::Timestamps
   belongs_to :user, class_name: 'Sys::User'
   field :number,    type: String
+  field :payment_id, type: Integer
   field :rs_tin,    type: String
   field :rs_name,   type: String
   field :mobile,    type: String
@@ -55,6 +56,7 @@ class Network::NewCustomerApplication
   validate :validate_rs_name
   before_update :status_manager
   before_save :calculate_total_cost
+  before_create :init_payment_id
 
   def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def billing_items
@@ -74,6 +76,7 @@ class Network::NewCustomerApplication
     else I18n.t('models.network_new_customer_item.unit_volt') end
   end
   def bank_name; Bank.bank_name(self.bank_code) end
+  def effective_number; self.number.blank? ? self.payment_id : self.number end
 
   def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
   def self.status_icon(status)
@@ -205,5 +208,10 @@ class Network::NewCustomerApplication
       when STATUS_COMPLETE  then self.end_date   = Date.today
       end
     end
+  end
+
+  def init_payment_id
+    last = Network::NewCustomerApplication.last
+    self.payment_id = last.present? ? last.payment_id + 1 : 1
   end
 end

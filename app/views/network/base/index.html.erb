@@ -3,7 +3,7 @@
 </div>
 <%= table_for @applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
   t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
-  t.text_field :number, tag: 'code'
+  t.text_field 'effective_number', i18n: 'number', tag: 'code'
   t.complex_field i18n: 'status_name', required: true do |c|
     c.image_field :status_icon
     c.text_field :status_name

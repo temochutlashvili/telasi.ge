@@ -41,7 +41,7 @@ module Network::NewCustomerHelper
         application.transitions.each do |status|
           t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
         end
-        t.text_field :number, required: true, tag: 'code'
+        t.text_field 'number', required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
           c.image_field :status_icon
           c.text_field :status_name
@@ -159,6 +159,7 @@ module Network::NewCustomerHelper
           c.text_field 'user.mobile'
         end
         t.timestamps
+        t.number_field 'payment_id', required: true, max_digits: 0
       end
     end
   end
