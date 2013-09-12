@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :locale_config
 
-  def current_user; Sys::User.current_user ||= (Sys::User.find(session[:user_id]) rescue nil) if session[:user_id] end
+  def current_user
+    @_curr_user ||= (Sys::User.find(session[:user_id]) rescue nil) if session[:user_id]
+  end
   helper_method :current_user
 
   def render(*args)

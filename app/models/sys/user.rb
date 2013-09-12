@@ -37,8 +37,6 @@ module Sys
     before_create :user_before_create
     before_save :user_before_save
 
-    def self.current_user; Thread.current[:current_user] end
-    def self.current_user=(usr); Thread.current[:current_user] = usr end
     def full_name; "#{first_name} #{last_name}" end
     def self.encrypt_password(password, salt); Digest::SHA1.hexdigest("#{password}dimitri#{salt}") end
     def self.generate_hash(user); Digest::MD5.hexdigest("#{Time.now}#{rand(20111111)/11.0}#{user.email}") end
