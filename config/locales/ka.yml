@@ -183,6 +183,10 @@ ka:
       power: სიმძლავრე
       payment_id: გადახდის კოდი
       payment_id_hint: ამ კოდით ახორციელებს კლიენტი გადახდას
+      factura_id: საიდ. კოდი
+      factura_id_hint: ფაქტურის საიდენტიფიკაციო კოდი
+      factura_number: ნომერი
+      factura_number_hint: ფაქტურის ნომერი და სერია
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი

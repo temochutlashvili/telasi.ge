@@ -39,6 +39,10 @@ class Network::NewCustomerApplication
   # ამ განცხადებით გათვალიწინებული ყველა სამუშაო
   field :plan_end_date, type: Date
   field :end_date, type: Date
+  # factura fields
+  field :factura_id, type: Integer
+  field :factura_seria, type: String
+  field :factura_number, type: Integer
 
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
@@ -171,6 +175,8 @@ class Network::NewCustomerApplication
     self.save
   end
 
+  def can_send_factura?; self.status == STATUS_IN_BS and self.factura_seria.blank? end
+
   private
 
   def calculate_total_cost
@@ -191,8 +197,8 @@ class Network::NewCustomerApplication
 
   def validate_rs_name
     if self.rs_tin.present?
-      self.rs_name = RS.get_name_from_tin(RS::SU.merge(tin: self.rs_tin))
-      # self.vat_payer = RS.is_vat_payer(RS::SU)
+      self.rs_name = RS.get_name_from_tin(RS::TELASI_SU.merge(tin: self.rs_tin))
+      # self.vat_payer = RS.is_vat_payer(RS::TELASI_SU)
       if self.rs_name.blank?
         errors.add(:rs_tin, I18n.t('models.network_new_customer_application.errors.tin_illegal'))
       end

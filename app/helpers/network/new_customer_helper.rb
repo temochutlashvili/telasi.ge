@@ -28,7 +28,8 @@ module Network::NewCustomerHelper
       when 'sms' then 2
       when 'operations' then 3
       when 'files' then 4
-      when 'sys' then 5
+      when 'factura' then 5
+      when 'sys' then 6
       else 0 end
     end
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
@@ -151,7 +152,18 @@ module Network::NewCustomerHelper
           end
         end
       end
-      # 6. sys
+      # 6. factura
+      f.tab title: 'ფაქტურა', icon: '/icons/money.png' do |t|
+        if application.can_send_factura?
+          t.action network_new_customer_send_factura_url(id: application.id), icon: '/icons/money--arrow.png', label: 'ფაქტურის გაგზავნა', method: 'post', confirm: 'ნამდვილად გინდათ ფაქტურის გაგზავნა?'
+        end
+        t.text_field 'factura_id', tag: 'code'
+        t.complex_field i18n: 'factura_number' do |c|
+          c.text_field 'factura_seria', tag: 'code', after: '&mdash;'.html_safe
+          c.text_field 'factura_number', empty: false
+        end
+      end
+      # 7. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
         t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
           c.email_field 'user.email', after: '&mdash;'.html_safe

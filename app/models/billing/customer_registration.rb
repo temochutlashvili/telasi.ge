@@ -43,7 +43,7 @@ class Billing::CustomerRegistration
 
   def validate_rs_name
     if self.rs_tin.present?
-      self.rs_name = RS.get_name_from_tin(RS::SU.merge(tin: self.rs_tin))
+      self.rs_name = RS.get_name_from_tin(RS::TELASI_SU.merge(tin: self.rs_tin))
       if self.rs_name.blank?
         errors.add(:rs_tin, I18n.t('models.billing_customer_registration.errors.tin_illegal'))
       end
