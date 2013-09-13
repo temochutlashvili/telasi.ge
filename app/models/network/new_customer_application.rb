@@ -44,6 +44,8 @@ class Network::NewCustomerApplication
   field :factura_id, type: Integer
   field :factura_seria, type: String
   field :factura_number, type: Integer
+  field :need_factura, type: Mongoid::Boolean, default: true
+  field :show_tin_on_print, type: Mongoid::Boolean, default: true
 
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
@@ -51,7 +53,7 @@ class Network::NewCustomerApplication
   validates :user, presence: { message: 'user required' }
   validates :rs_tin, presence: { message: I18n.t('models.network_new_customer_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_new_customer_application.errors.mobile_required') }
-  validates :email, presence: { message: I18n.t('models.network_new_customer_application.errors.email_required') }
+  # validates :email, presence: { message: I18n.t('models.network_new_customer_application.errors.email_required') }
   validates :address, presence: { message: I18n.t('models.network_new_customer_application.errors.address_required') }
   validates :address_code, presence: { message: I18n.t('models.network_new_customer_application.errors.address_code_required') }
   validates :bank_code, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_code_required') }
@@ -176,7 +178,7 @@ class Network::NewCustomerApplication
     self.save
   end
 
-  def can_send_factura?; self.status == STATUS_IN_BS and self.factura_seria.blank? end
+  def can_send_factura?; self.need_factura and self.status == STATUS_IN_BS and self.factura_seria.blank? end
 
   private
 

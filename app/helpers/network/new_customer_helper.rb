@@ -6,7 +6,7 @@ module Network::NewCustomerHelper
         t.text_field  :number
         t.text_field  :rs_tin, required: true, autofocus: true
         t.text_field  :mobile, required: true
-        t.email_field :email, required: true
+        t.email_field :email
         t.text_field  :address, required: true, width: 500
         t.text_field  :work_address, required: true, width: 500
         t.text_field  :address_code, required: true
@@ -15,6 +15,8 @@ module Network::NewCustomerHelper
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
         t.number_field :power, after: 'kWh', width: 100, required: true
         t.boolean_field :need_resolution, required: true
+        t.boolean_field :need_factura, required: true
+        t.boolean_field :show_tin_on_print, required: true
       end
       f.submit (opts[:submit] || opts[:title])
       f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
@@ -51,7 +53,7 @@ module Network::NewCustomerHelper
           c.text_field :rs_tin, tag: 'code'
           c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
         end
-        t.email_field :email, required: true
+        t.email_field :email
         t.text_field :mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
         t.complex_field i18n: 'work_address', required: true do |c|
@@ -68,6 +70,8 @@ module Network::NewCustomerHelper
           c.number_field :power, after: 'კვტ'
         end
         t.boolean_field :need_resolution, required: true
+        t.boolean_field :need_factura, required: true
+        t.boolean_field :show_tin_on_print, required: true
         t.col2 do |c|
           c.number_field :amount, after: 'GEL'
           c.number_field :days, max_digits: 0, after: 'დღე'

@@ -189,6 +189,10 @@ ka:
       factura_id_hint: ფაქტურის საიდენტიფიკაციო კოდი
       factura_number: ნომერი
       factura_number_hint: ფაქტურის ნომერი და სერია
+      need_factura: ჭირდება ფაქტურა?
+      need_factura_hint: ჭირდება თუ არა ამ აბონენტს ფაქტურის გაგზავნა?
+      show_tin_on_print: ვაჩვენო საიდ. კოდი
+      show_tin_on_print_hint: გამოიტანოს თუ არა აბონენტის საიდენტიფიკაციო კოდი საბეჭდ ფორმაში?
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი
