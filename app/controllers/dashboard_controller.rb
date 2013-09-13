@@ -15,7 +15,6 @@ class DashboardController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    Sys::User.current_user = nil
     redirect_to root_url
   end
 
