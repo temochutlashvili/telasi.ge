@@ -83,6 +83,10 @@ def page1(pdf)
   pdf.text 'განაწილების ლიცენზიატის მიერ შეტყობინების გაგზავნის ფორმა:'
   pdf.move_down 10
   pdf.text "☐ წერილობითი\n ☒ ელექტრონული", size: 10
+  pdf.move_down 20
+  pdf.text 'გესაჭიროებათ თუ არა საგადასახადო ანგარიშ-ფაქტურის გამოწერა?'
+  pdf.move_down 10
+  pdf.text @application.need_factura ? "☒ დიან\n ☐ არა" : "☐ დიან\n ☒ არა", size: 10
 end
 
 def page2(pdf)
