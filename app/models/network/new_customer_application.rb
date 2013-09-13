@@ -39,6 +39,7 @@ class Network::NewCustomerApplication
   # plan_end_date / end_date, არის თარიღი (გეგმიური / რეალური), როდესაც დასრულდება
   # ამ განცხადებით გათვალიწინებული ყველა სამუშაო
   field :plan_end_date, type: Date
+  field :plan_end_date_changed_manually, type: Boolean
   field :end_date, type: Date
   # factura fields
   field :factura_id, type: Integer
@@ -94,8 +95,7 @@ class Network::NewCustomerApplication
     when STATUS_CONFIRMED  then '/icons/clock.png'
     when STATUS_COMPLETE   then '/icons/tick.png'
     when STATUS_IN_BS      then '/icons/lock.png'
-    else '/icons/mail-open.png'
-    end
+    else '/icons/mail-open.png' end
   end
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
@@ -189,6 +189,9 @@ class Network::NewCustomerApplication
         tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
         self.amount = tariff.price_gel
         self.days = tariff_days
+        if self.send_date and not self.plan_end_date_changed_manually
+          self.plan_end_date = self.send_date + self.days
+        end
       end
     else
       if power > 0

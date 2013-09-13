@@ -153,7 +153,9 @@ class Network::NewCustomerController < Admin::AdminController
     @title = 'გეგმიური დასრულების თარიღის შეცვლა'
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
-      if @application.update_attributes(params.require(:network_new_customer_application).permit(:plan_end_date))
+      update_params = params.require(:network_new_customer_application).permit(:plan_end_date).merge(plan_end_date_changed_manually: true)
+      if @application.update_attributes(update_params)
+        @application.save
         redirect_to network_new_customer_url(id: @application.id), notice: 'გეგმიური დასრულების თარიღი შეცვლილია'
       end
     end
