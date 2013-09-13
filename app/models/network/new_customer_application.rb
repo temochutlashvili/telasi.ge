@@ -199,11 +199,10 @@ class Network::NewCustomerApplication
   end
 
   def validate_rs_name
-    if self.rs_tin.present?
+    if self.rs_tin.present? and self.rs_tin_changed?
       self.rs_name = RS.get_name_from_tin(RS::TELASI_SU.merge(tin: self.rs_tin))
-      # self.vat_payer = RS.is_vat_payer(RS::TELASI_SU)
       if self.rs_name.blank?
-        errors.add(:rs_tin, I18n.t('models.network_new_customer_application.errors.tin_illegal'))
+        self.errors.add(:rs_tin, I18n.t('models.network_new_customer_application.errors.tin_illegal'))
       end
     end
   end
