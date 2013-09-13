@@ -43,7 +43,7 @@ def page1(pdf)
   end
   pdf.move_down 5
   pdf.text '(სახელი, გვარი ან იურიდიული პირის შემთხვევაში მისი სახელი (სახელწოდება), ან სხვა პირის შემთხვევაში მისი სახელწოდება)', size: 6, align: :center
-  pdf.table [['საიდენტიფიკაციო კოდი:', @application.rs_tin]],
+  pdf.table [['საიდენტიფიკაციო კოდი:', (@application.show_tin_on_print ? @application.rs_tin : '')]],
     column_widths: [220, 250] do |t|
     t.column(0).style borders: []
     t.column(1).style borders: [:bottom]
