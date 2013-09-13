@@ -19,6 +19,7 @@ class Network::NewCustomerApplication
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
+  field :work_address, type: String
   field :address_code, type: String
   field :bank_code,    type: String
   field :bank_account, type: String

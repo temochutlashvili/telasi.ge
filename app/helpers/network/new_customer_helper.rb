@@ -3,13 +3,13 @@ module Network::NewCustomerHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
-        t.text_field  :number,       autofocus: true
-        t.text_field  :rs_tin,       required: true
-        t.text_field  :mobile,       required: true
-        t.email_field :email,        required: true
+        t.text_field  :number
+        t.text_field  :rs_tin, required: true, autofocus: true
+        t.text_field  :mobile, required: true
+        t.email_field :email, required: true
+        t.text_field  :address, required: true, width: 500
+        t.text_field  :work_address, required: true, width: 500
         t.text_field  :address_code, required: true
-        t.text_field  :address,      required: true, width: 300
-        # t.text_field  :bank_code,    required: true
         t.combo_field :bank_code, collection: banks, empty: false, required: true
         t.text_field  :bank_account, required: true, width: 300
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
@@ -54,6 +54,10 @@ module Network::NewCustomerHelper
         t.email_field :email, required: true
         t.text_field :mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
+        t.complex_field i18n: 'work_address', required: true do |c|
+          c.text_field 'address_code', tag: 'code'
+          c.text_field 'work_address', empty: false
+        end
         t.complex_field label: 'საბანკო ანგარიში', required: true do |c|
           c.text_field :bank_code, tag: 'code'
           c.text_field :bank_account
