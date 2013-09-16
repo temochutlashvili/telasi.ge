@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: 7087ec96de927f347f754e1907ca64527df6b4ea
+  revision: b84b811d47778b9d9f1a6ebc5e084aac7b9c0b63
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -198,7 +198,7 @@ GEM
       httpi (~> 2.0)
       nokogiri (>= 1.4.0, < 1.6)
     will_paginate (3.0.4)
-    will_paginate_mongoid (2.0.0)
+    will_paginate_mongoid (2.0.1)
       mongoid
       will_paginate (~> 3.0)
 
