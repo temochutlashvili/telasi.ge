@@ -196,7 +196,7 @@ class Network::NewCustomerController < Admin::AdminController
     factura = RS::Factura.new(date: Time.now, seller_id: RS::TELASI_PAYER_ID)
     if RS.save_factura(factura, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, buyer_tin: application.rs_tin))
       amount = application.amount
-      vat = amount * (1-1/1.18)
+      vat = application.rs_vat_payer ? amount * (1-1/1.18) : 0
       factura_item = RS::FacturaItem.new(factura: factura, good: 'ქსელზე მიერთების პაკეტის ღირებულება', unit: 'ცალი', amount: amount, vat: vat, quantity: 1)
       RS.save_factura_item(factura_item, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID))
       if RS.send_factura(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
