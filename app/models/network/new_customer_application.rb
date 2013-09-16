@@ -16,6 +16,7 @@ class Network::NewCustomerApplication
   field :payment_id, type: Integer
   field :rs_tin,    type: String
   field :rs_name,   type: String
+  field :rs_vat_payer, type: Mongoid::Boolean
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
@@ -191,6 +192,7 @@ class Network::NewCustomerApplication
         if self.send_date and not self.plan_end_date_changed_manually
           self.plan_end_date = self.send_date + self.days
         end
+        self.amount = (self.amount / 1.18 * 100).round / 100.0 unless self.rs_vat_payer
       end
     else
       if power > 0
