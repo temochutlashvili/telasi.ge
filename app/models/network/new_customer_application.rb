@@ -61,9 +61,8 @@ class Network::NewCustomerApplication
   validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
-  validate :validate_rs_name
-  before_update :status_manager
-  before_save :calculate_total_cost
+  validate :validate_rs_name, :validate_number
+  before_save :status_manager, :calculate_total_cost
   before_create :init_payment_id
 
   def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
@@ -207,6 +206,12 @@ class Network::NewCustomerApplication
       if self.rs_name.blank?
         self.errors.add(:rs_tin, I18n.t('models.network_new_customer_application.errors.tin_illegal'))
       end
+    end
+  end
+
+  def validate_number
+    if self.status != STATUS_DEFAULT and self.number.blank?
+      self.errors.add(:number, I18n.t('models.network_new_customer_application.errors.number_required'))
     end
   end
 

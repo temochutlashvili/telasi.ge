@@ -202,6 +202,7 @@ ka:
         address_code_required: ჩაწერეთ საკადასტრო კოდი
         bank_code_required: ბანკის კოდის მითითება აუცილებელია
         bank_account_required: საბანკო ანგარიშის მითითება აუცილებელია
+        number_required: ჩაწერეთ ნომერი
       actions:
         new: ახალი განცხადება
         new2: განცხადების დამატება

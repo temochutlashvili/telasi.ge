@@ -3,8 +3,8 @@ module Network::NewCustomerHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
-        t.text_field  :number
-        t.text_field  :rs_tin, required: true, autofocus: true
+        t.text_field  :number, required: true, autofocus: true
+        t.text_field  :rs_tin, required: true
         t.text_field  :mobile, required: true
         t.email_field :email
         t.text_field  :address, required: true, width: 500
