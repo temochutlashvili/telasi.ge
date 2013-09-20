@@ -184,7 +184,7 @@ class Network::NewCustomerController < Admin::AdminController
     @data = { date: Date.today,
       payer: app.rs_name, payer_account: app.bank_account, payer_bank: app.bank_name, payer_bank_code: app.bank_code,
       receiver: 'სს თელასი', receiver_account: 'GE53TB1147136030100001  ', receiver_bank: 'სს თიბისი ბანკი', receiver_bank_code: 'TBCBGE22',
-      reason: "სს თელასის განამაწილებელ ქსელში ჩართვის ღირებულების 50%-ის დაფარვა. განცხადება №#{app.effective_number}.",
+      reason: "სს თელასის განამაწილებელ ქსელში ჩართვის ღირებულების 50%-ის დაფარვა. განცხადება №#{app.effective_number}; TAXID: #{app.rs_tin}.",
       amount: (app.amount / 2.0).to_i
     }
   end

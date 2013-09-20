@@ -52,6 +52,7 @@ class Network::NewCustomerApplication
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
+
   validates :user, presence: { message: 'user required' }
   validates :rs_tin, presence: { message: I18n.t('models.network_new_customer_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_new_customer_application.errors.mobile_required') }
