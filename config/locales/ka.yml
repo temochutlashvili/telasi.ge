@@ -173,6 +173,10 @@ ka:
       old_power: არსებული სიმძლავრე
       voltage: ახალი ძაბვა
       power: ახალი სიმძლავრე
+      unit_volt: ვ
+      unit_kvolt: კვ
+      unit_kwt: კვტ
+      unit_days: დღე
     network_new_customer_application:
       number: ნომერი
       rs_name: განმცხადებელი

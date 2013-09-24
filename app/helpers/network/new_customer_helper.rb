@@ -42,18 +42,21 @@ module Network::NewCustomerHelper
     end
   end
 
+  private
+  def selected_new_customer_tab
+    case params[:tab]
+    when 'accounts' then 1
+    when 'sms' then 2
+    when 'operations' then 3
+    when 'files' then 4
+    when 'factura' then 5
+    when 'sys' then 6
+    else 0 end
+  end
+
+  public
   def new_customer_view(application, opts = {})
-    def selected_tab
-      case params[:tab]
-      when 'accounts' then 1
-      when 'sms' then 2
-      when 'operations' then 3
-      when 'files' then 4
-      when 'factura' then 5
-      when 'sys' then 6
-      else 0 end
-    end
-    view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_tab do |f|
+    view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_new_customer_tab do |f|
       f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|

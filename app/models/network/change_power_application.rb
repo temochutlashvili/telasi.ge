@@ -55,7 +55,16 @@ class Network::ChangePowerApplication
   validate :validate_rs_name
   before_save :status_manager, :calculate_total_cost
 
-  def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
+  def unit
+    if self.voltage == '6/10' then I18n.t('models.network_change_power_application.unit_kvolt')
+    else I18n.t('models.network_change_power_application.unit_volt') end
+  end
+  def old_unit
+    if self.old_voltage == '6/10' then I18n.t('models.network_change_power_application.unit_kvolt')
+    else I18n.t('models.network_change_power_application.unit_volt') end
+  end
+  def bank_name; Bank.bank_name(self.bank_code) end
+  def self.status_name(status); I18n.t("models.network_change_power_application.status_#{status}") end
   def self.status_icon(status)
     case status
     # when STATUS_DEFAULT    then '/icons/mail-open.png'

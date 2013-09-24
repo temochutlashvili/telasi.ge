@@ -14,10 +14,20 @@ class Network::ChangePowerController < Admin::AdminController
       @application.user = current_user
       @application.status = Network::NewCustomerApplication::STATUS_SENT
       if @application.save
-        redirect_to network_change_power_url(id: @application.id)
+        redirect_to network_change_power_url(id: @application.id), notice: 'განცხადება შექმნილია.'
       end
     else
       @application = Network::ChangePowerApplication.new
+    end
+  end
+
+  def edit
+    @title = 'განცხადების შეცვლა'
+    @application = Network::ChangePowerApplication.find(params[:id])
+    if request.post?
+      if @application.update_attributes(change_power_params)
+        redirect_to network_change_power_url(id: @application.id), notice: 'განცხადება შეცვლილია.'
+      end
     end
   end
 
