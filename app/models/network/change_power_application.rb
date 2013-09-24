@@ -55,6 +55,20 @@ class Network::ChangePowerApplication
   validate :validate_rs_name
   before_save :status_manager, :calculate_total_cost
 
+  def self.status_name(status); I18n.t("models.network_new_customer_application.status_#{status}") end
+  def self.status_icon(status)
+    case status
+    # when STATUS_DEFAULT    then '/icons/mail-open.png'
+    when STATUS_SENT       then '/icons/mail-send.png'
+    when STATUS_CANCELED   then '/icons/cross.png'
+    when STATUS_CONFIRMED  then '/icons/clock.png'
+    when STATUS_COMPLETE   then '/icons/tick.png'
+    when STATUS_IN_BS      then '/icons/lock.png'
+    else '/icons/mail-open.png' end
+  end
+  def status_name; Network::NewCustomerApplication.status_name(self.status) end
+  def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
+
   private
 
   def status_manager

@@ -140,6 +140,39 @@ ka:
         confirm_confirm: ნამდვილად გინდათ ამ აბონენტის დადასტურება?
         deny: უარყოფა
         deny_alt: რეგისტრაციის უარყოფა
+    network_change_power_application:
+      number: ნომერი
+      rs_name: განმცხადებელი
+      rs_tin: პირადი ნომერი ან საიდენტიფიკაციო კოდი
+      rs_tin_hint: "ფიზიკური პირებისთვის ჩაწერეთ 11 ნიშნა პირადი ნომერი, ხოლო ორგანიზაციებისთვის &mdash; 9-ნიშნა საიდენტიფიკაციო ნომერი"
+      rs_vat_payer: დღგ-ს გადამხდელი?
+      rs_vat_payer_hint: არის თუ არა ეს ორგანიზაცია დღგ-ს გადამხდელი?
+      mobile: მობილური
+      email: ელ.ფოსტა
+      address: იურ. მისამართი
+      address_code: საკადასტრო კოდი
+      address_hint: იურიდიული ან რეგისტრაციის მისამართი
+      work_address: გამრ. მისამართი
+      work_address_hint: "გამრიცხველიანების მისამართი (დატოვეთ ცარიელი, თუ ემთხვევა იურიდიულ მისამართს)"
+      bank_code: ბანკის SWIFT კოდი
+      bank_account: საბანკო ანგარიშის ნომერი IBAN ფორმატში
+      bank_account_alt: საბანკო ანგარიში
+      bank_account_hint: თქვენი პირადი ან ორგანიზაციის კუთვნილი საბანკო ანგარიშის ნომერი.
+      bank_account_separator: საბანკო ანგარიში
+      status: სტატუსი
+      status_0: გაუგზავნელი
+      status_1: გადაგზავნილი
+      status_2: უარყოფილი
+      status_3: მიღებული
+      status_4: შესრულებული
+      status_5: ბილინგში ასახული
+      amount: ღირებულება
+      days: ვადა
+      status_name: სტატუსი
+      old_voltage: არსებული ძაბვა
+      old_power: არსებული სიმძლავრე
+      voltage: ახალი ძაბვა
+      power: ახალი სიმძლავრე
     network_new_customer_application:
       number: ნომერი
       rs_name: განმცხადებელი
