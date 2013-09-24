@@ -1,0 +1,90 @@
+# -*- encoding : utf-8 -*-
+class Network::ChangePowerApplication
+  VOLTAGE_220 = '220'
+  VOLTAGE_380 = '380'
+  VOLTAGE_610 = '6/10'
+  STATUS_DEFAULT    = 0
+  STATUS_SENT       = 1
+  STATUS_CANCELED   = 2
+  STATUS_CONFIRMED  = 3
+  STATUS_COMPLETE   = 4
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Network::RsName
+  belongs_to :user, class_name: 'Sys::User'
+  field :number,    type: String
+  field :rs_tin,    type: String
+  field :rs_name,   type: String
+  field :rs_vat_payer, type: Mongoid::Boolean
+  field :mobile,    type: String
+  field :email,     type: String
+  field :address,   type: String
+  field :work_address, type: String
+  field :address_code, type: String
+  field :bank_code,    type: String
+  field :bank_account, type: String
+  field :status,     type: Integer, default: STATUS_DEFAULT
+  # old voltage
+  field :old_voltage, type: String
+  field :old_power,   type: Float
+  field :voltage,     type: String
+  field :power,       type: Float
+  field :amount,      type: Float, default: 0
+  field :days,        type: Integer, default: 0
+  field :customer_id, type: Integer
+  # dates
+  field :send_date, type: Date
+  field :start_date, type: Date
+  field :plan_end_date, type: Date
+  field :plan_end_date_changed_manually, type: Boolean
+  field :end_date, type: Date
+
+  validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
+  validates :user, presence: { message: 'user required' }
+  validates :rs_tin, presence: { message: I18n.t('models.network_change_power_application.errors.tin_required') }
+  validates :mobile, presence: { message: I18n.t('models.network_change_power_application.errors.mobile_required') }
+  validates :address, presence: { message: I18n.t('models.network_change_power_application.errors.address_required') }
+  validates :address_code, presence: { message: I18n.t('models.network_change_power_application.errors.address_code_required') }
+  validates :bank_code, presence: { message: I18n.t('models.network_change_power_application.errors.bank_code_required') }
+  validates :bank_account, presence: { message: I18n.t('models.network_change_power_application.errors.bank_account_required') }
+  validates :old_voltage, presence: { message: 'required!' }
+  validates :old_power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
+  validates :voltage, presence: { message: 'required!' }
+  validates :power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
+
+  validate :validate_rs_name
+  before_save :status_manager, :calculate_total_cost
+
+  private
+
+  def status_manager
+    if self.status_changed?
+      case self.status
+      when STATUS_DEFAULT   then self.send_date = nil
+      when STATUS_SENT      then self.send_date  = Date.today
+      when STATUS_CONFIRMED then self.start_date = Date.today and self.plan_end_date = self.send_date + self.days
+      when STATUS_COMPLETE  then self.end_date   = Date.today
+      end
+    end
+  end
+
+  def calculate_total_cost
+    # tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power)
+    # if tariff
+    #   if power > 0
+    #     tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
+    #     self.amount = tariff.price_gel
+    #     self.days = tariff_days
+    #     if self.send_date and not self.plan_end_date_changed_manually
+    #       self.plan_end_date = self.send_date + self.days
+    #     end
+    #     self.amount = (self.amount / 1.18 * 100).round / 100.0 unless self.rs_vat_payer
+    #   end
+    # else
+    #   if power > 0
+    #     self.amount = nil
+    #     self.days = nil
+    #   end
+    # end
+  end
+end

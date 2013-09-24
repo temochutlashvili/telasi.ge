@@ -4,6 +4,7 @@ class Network::BaseController < Admin::AdminController
 
   def index
     @title = 'ქსელი'
-    @applications = Network::NewCustomerApplication.desc(:_id)
+    @new_customers = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page_new], per_page: 10)
+    @change_powers = Network::ChangePowerApplication.desc(:_id).paginate(page: params[:page_change], per_page: 10)
   end
 end

@@ -1,7 +1,8 @@
 <div style="text-align:center; padding: 0 0 20px 0;">
   <a class="btn" href="<%= network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
 </div>
-<%= table_for @applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
+<!-- new customer applications -->
+<%= table_for @new_customers, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
   t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
   t.text_field 'effective_number', i18n: 'number', tag: 'code'
   t.complex_field i18n: 'status_name', required: true do |c|
@@ -14,4 +15,10 @@
   end
   t.number_field :amount, after: 'GEL'
   t.number_field :days, max_digits: 0, after: 'დღე'
+  t.paginate param_name: 'page_new', records: 'ჩანაწერი'
+end %>
+<!-- change power applications -->
+<%= table_for @change_powers, title: 'სიმძლავრის ცვლილების განცხადებები', icon: '/icons/user--pencil.png', collapsible: true do |t|
+  t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
+  t.paginate param_name: 'page_change', records: 'ჩანაწერი'
 end %>
