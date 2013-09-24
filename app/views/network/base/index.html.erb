@@ -5,7 +5,4 @@
 <!-- new customer applications -->
 <%= new_customer_table @new_customers %>
 <!-- change power applications -->
-<%= table_for @change_powers, title: 'სიმძლავრის ცვლილების განცხადებები', icon: '/icons/user--pencil.png', collapsible: true do |t|
-  t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
-  t.paginate param_name: 'page_change', records: 'ჩანაწერი'
-end %>
+<%= change_power_table @change_powers %>
