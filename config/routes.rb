@@ -89,6 +89,7 @@ TelasiGe::Application.routes.draw do
       post '/send_factura/:id', action: 'send_factura', as: 'new_customer_send_factura'
     end
     scope '/change_power', controller: 'change_power' do
+      get '/', action: 'index', as: 'change_power_applications'
       match '/new', action: 'new', as: 'add_change_power', via: ['get', 'post']
       match '/edit/:id', action: 'edit', as: 'edit_change_power', via: ['get', 'post']
       get   '/:id', action: 'show', as: 'change_power'
