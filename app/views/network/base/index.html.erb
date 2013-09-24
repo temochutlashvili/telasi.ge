@@ -1,8 +1,7 @@
 <div style="text-align:center; padding: 0 0 20px 0;">
-  <a class="btn" href="<%= network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
+  <a class="btn btn-success" href="<%= network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
   <a class="btn" href="<%= network_new_customers_url %>"><img src="/icons/user--plus.png"></img> ქსელზე მიერთება</a>
+  <a class="btn" href="<%= network_change_power_applications_url %>"><img src="/icons/user--pencil.png"></img> სიმძლავრის შეცვლა</a>
 </div>
-<!-- new customer applications -->
 <%= new_customer_table @new_customers %>
-<!-- change power applications -->
 <%= change_power_table @change_powers %>

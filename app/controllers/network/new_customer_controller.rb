@@ -5,7 +5,7 @@ class Network::NewCustomerController < Admin::AdminController
   layout 'one_column'
 
   def index
-    @applications = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page], per_page: 10)
+    @applications = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page_new], per_page: 10)
   end
 
   def new_customer

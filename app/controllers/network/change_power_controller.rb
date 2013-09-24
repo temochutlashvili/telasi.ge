@@ -4,6 +4,7 @@ class Network::ChangePowerController < Admin::AdminController
 
   def index
     @title = 'განცხადებები'
+    @applications = Network::ChangePowerApplication.desc(:_id).paginate(page: params[:page_change], per_page: 10)
   end
 
   def new
