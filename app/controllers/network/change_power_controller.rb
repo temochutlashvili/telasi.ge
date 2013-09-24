@@ -21,6 +21,11 @@ class Network::ChangePowerController < Admin::AdminController
     end
   end
 
+  def show
+    @application = Network::ChangePowerApplication.find(params[:id])
+    @title = 'განცხადების შეცვლა'
+  end
+
   def edit
     @title = 'განცხადების შეცვლა'
     @application = Network::ChangePowerApplication.find(params[:id])
@@ -31,9 +36,10 @@ class Network::ChangePowerController < Admin::AdminController
     end
   end
 
-  def show
-    @application = Network::ChangePowerApplication.find(params[:id])
-    @title = 'განცხადების შეცვლა'
+  def delete
+    application = Network::ChangePowerApplication.find(params[:id])
+    application.destroy
+    redirect_to network_change_power_applications_url, notice: 'განცხადება წაშლილია.'
   end
 
   protected
