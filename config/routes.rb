@@ -87,6 +87,12 @@ TelasiGe::Application.routes.draw do
       get '/print/:id', action: 'print', as: 'new_customer_print'
       post '/send_factura/:id', action: 'send_factura', as: 'new_customer_send_factura'
     end
+    scope '/change_power', controller: 'change_power' do
+      match '/new', action: 'new', as: 'add_change_power', via: ['get', 'post']
+      match '/edit/:id', action: 'edit', as: 'edit_change_power', via: ['get', 'post']
+      get   '/:id', action: 'show', as: 'change_power'
+      delete '/delete/:id', action: 'delete', as: 'delete_change_power'
+    end
   end
 
   namespace 'select' do
