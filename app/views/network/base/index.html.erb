@@ -1,22 +1,9 @@
 <div style="text-align:center; padding: 0 0 20px 0;">
   <a class="btn" href="<%= network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
+  <a class="btn" href="<%= network_new_customers_url %>"><img src="/icons/user--plus.png"></img> ქსელზე მიერთება</a>
 </div>
 <!-- new customer applications -->
-<%= table_for @new_customers, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
-  t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
-  t.text_field 'effective_number', i18n: 'number', tag: 'code'
-  t.complex_field i18n: 'status_name', required: true do |c|
-    c.image_field :status_icon
-    c.text_field :status_name
-  end
-  t.complex_field i18n: 'rs_name' do |c|
-    c.text_field :rs_tin, tag: 'code'
-    c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
-  end
-  t.number_field :amount, after: 'GEL'
-  t.number_field :days, max_digits: 0, after: 'დღე'
-  t.paginate param_name: 'page_new', records: 'ჩანაწერი'
-end %>
+<%= new_customer_table @new_customers %>
 <!-- change power applications -->
 <%= table_for @change_powers, title: 'სიმძლავრის ცვლილების განცხადებები', icon: '/icons/user--pencil.png', collapsible: true do |t|
   t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'

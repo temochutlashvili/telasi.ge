@@ -1,5 +1,23 @@
 # -*- encoding : utf-8 -*-
 module Network::NewCustomerHelper
+  def new_customer_table(applications, opts = {})
+    table_for applications, title: 'ქსელზე მიერთების განცხადებები', icon: '/icons/user--plus.png', collapsible: true do |t|
+      t.title_action network_add_new_customer_url, label: 'ახალი განცხადება', icon: '/icons/plus.png'
+      t.text_field 'effective_number', i18n: 'number', tag: 'code'
+      t.complex_field i18n: 'status_name', required: true do |c|
+        c.image_field :status_icon
+        c.text_field :status_name
+      end
+      t.complex_field i18n: 'rs_name' do |c|
+        c.text_field :rs_tin, tag: 'code'
+        c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
+      end
+      t.number_field :amount, after: 'GEL'
+      t.number_field :days, max_digits: 0, after: 'დღე'
+      t.paginate param_name: 'page_new', records: 'ჩანაწერი'
+    end
+  end
+
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|

@@ -4,6 +4,10 @@ require 'rs'
 class Network::NewCustomerController < Admin::AdminController
   layout 'one_column'
 
+  def index
+    @applications = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page], per_page: 10)
+  end
+
   def new_customer
     @title = 'ქსელზე მიერთების განცხადება'
     @application = Network::NewCustomerApplication.find(params[:id])
@@ -215,7 +219,7 @@ class Network::NewCustomerController < Admin::AdminController
   protected
 
   def nav
-    @nav = { 'ქსელი' => network_home_url }
+    @nav = { 'ქსელი' => network_home_url, 'ქსელზე მიერთება' => network_new_customers_url }
     if @application
       if not @application.new_record?
         @nav[ "№#{@application.effective_number}" ] = network_new_customer_url(id: @application.id)
