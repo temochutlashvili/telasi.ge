@@ -20,5 +20,7 @@ Billing::TrashItem.establish_connection       :bs
 Billing::Trashoperation.establish_connection  :bs
 Billing::NetworkCustomer.establish_connection :bs
 Billing::NetworkItem.establish_connection     :bs
+Billing::Paypoint.establish_connection        :bs
+Billing::Aviso.establish_connection           :bs
 # REPORT server
 Billing::WaterPayment.establish_connection  :report_bs
