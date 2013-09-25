@@ -32,6 +32,17 @@ class Network::AvisoController < Admin::AdminController
     redirect_to network_aviso_url(id: aviso.avdetkey, tab: 'related'), notice: 'განცხადება დაკავშირებულია ავიზოსთან.'
   end
 
+  def delink
+    aviso = Billing::Aviso.find(params[:id])
+    application = aviso.related_application
+    aviso.status = false
+    if aviso.save
+      application.aviso_id = nil
+      application.save
+    end
+    redirect_to network_aviso_url(id: aviso.avdetkey), notice: 'განცხადება წაშლილია.'
+  end
+
   protected
 
   def nav
