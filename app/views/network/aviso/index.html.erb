@@ -16,3 +16,11 @@ end %>
   # t.text_field 'note'
   t.paginate records: 'ჩანაწერი'
 end %>
+<div class="alert alert-error">
+  <p>
+    ეს ღილაკი არ იქნება მუშა სისტემაში. ტესტირების მიზნით ის დროებით დადებულია აქ.
+  </p>
+  <p>
+    <%= link_to 'ავიზოების სინქრონიზაცია', network_sync_avisos_url, class: ['btn', 'btn-danger'], method: 'post', data: { confirm: 'დაადასტურეთ სინქრონიზაცია.' } %>
+  </p>
+</div>

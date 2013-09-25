@@ -57,6 +57,20 @@ class Network::AvisoController < Admin::AdminController
     end
   end
 
+  def sync
+    Network::NewCustomerApplication.where(:aviso_id.ne => nil, customer_id: nil).each do |app|
+      aviso = Billing::Aviso.find(app.aviso_id) rescue nil
+      if aviso and aviso.accnumb.present?
+        customer = Billing::Customer.where(accnumb: aviso.accnumb).first
+        if customer
+          app.customer_id = customer.custkey
+          app.save
+        end
+      end
+    end
+    redirect_to network_avisos_url, notice: 'ავიზოების სინქრონიზირებულია.'
+  end
+
   protected
 
   def nav
