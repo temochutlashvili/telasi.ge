@@ -18,6 +18,18 @@ class Network::AvisoController < Admin::AdminController
   def show
     @title = 'ავიზოს თვისებები'
     @aviso = Billing::Aviso.find(params[:id])
+    @application = @aviso.guessed_application unless @aviso.status
+  end
+
+  def link
+    aviso = Billing::Aviso.find(params[:id])
+    application = aviso.guessed_application
+    aviso.status = true
+    if aviso.save
+      application.aviso_id = aviso.avdetkey
+      application.save
+    end
+    redirect_to network_aviso_url(id: aviso.avdetkey, tab: 'related'), notice: 'განცხადება დაკავშირებულია ავიზოსთან.'
   end
 
   protected

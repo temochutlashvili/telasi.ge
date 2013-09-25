@@ -1,12 +1,37 @@
-<%= view_for @aviso, title: @title, icon: '/icons/money-coin.png', collapsible: true do |f|
-  f.date_field 'avdate', label: 'თარიღი', required: true
-  f.complex_field label: 'ბანკი', required: true do |c|
-    c.text_field 'paypoint'
-    c.text_field 'basepointkey', class: 'muted', before: '&mdash;'.html_safe
+<%= view_for @aviso, title: @title, icon: '/icons/money-coin.png', collapsible: true, selected_tab: (params[:tab] == 'related' ? 1 : 0) do |f|
+  f.tab title: 'ავიზო', icon: '/icons/money-coin.png' do |f|
+    f.date_field 'avdate', label: 'თარიღი', required: true
+    f.complex_field label: 'ბანკი', required: true do |c|
+      c.text_field 'paypoint'
+      c.text_field 'basepointkey', class: 'muted', before: '&mdash;'.html_safe
+    end
+    f.number_field 'amount', label: 'თანხა', after: 'GEL', required: true
+    f.boolean_field 'status', label: 'დამუშავებულია?', hint: 'დამუშავებულია თუ არა ეს ავიზო?', required: true
+    f.text_field 'accnumb', label: 'აბ.#'
+    f.text_field 'invoice', label: 'ინვოისის #'
+    f.text_field 'note', label: 'შენიშვნა'
   end
-  f.number_field 'amount', label: 'თანხა', after: 'GEL', required: true
-  f.boolean_field 'status', label: 'დმშ?', hint: 'დამუშავებულია თუ არა ეს ავიზო?'
-  f.text_field 'accnumb', label: 'აბ.#'
-  f.text_field 'invoice', label: 'ინვოისის #'
-  f.text_field 'note', label: 'შენიშვნა'
+  f.tab title: 'დაკავშირებული განცხადება', icon: '/icons/chain.png' do |f|
+    f.text_field 'related_application.effective_number', label: 'ნომერი', url: ->(x) { network_new_customer_url(id: x.related_application.id) }
+    f.date_field 'related_application.send_date', label: 'თარიღი'
+  end
 end %>
+
+<% if @application %>
+  <div class="alert alert-block alert-success">
+    <p>
+      მოიძებნა განცხადება, რომელიც შესაძლოა იყოს დაკავშირებული ამ ავიზოსთან (იხ. ქვემოთ).
+    </p>
+    <p>
+      თუ განცხადება სწორადაა ნაპოვნი, გთხოვთ დაადასტუროთ ეს მწვანე ღილაკზე დაჭერით.
+    </p>
+    <p style="text-align: center;">
+      <%= link_to 'განცხადების დაკავშირება', network_link_aviso_url(id: @aviso.avdetkey), class: ['btn', 'btn-success'], method: 'post', data: { confirm: 'ნამდვილად გინდათ ავიზოს დაკავშირება ამ განცხადებასთან?' } %>
+    </p>
+  </div>
+  <%= new_customer_view @application, title: 'დაკავშირებული განცხადება', without_actions: true %>
+<% elsif not @aviso.status %>
+  <div class="alert alert-block alert-error">
+    ვერ მოიძებნა დაკავშირებული განცხადება!
+  </div>
+<% end %>

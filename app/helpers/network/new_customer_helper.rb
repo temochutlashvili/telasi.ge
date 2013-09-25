@@ -56,15 +56,16 @@ module Network::NewCustomerHelper
 
   public
   def new_customer_view(application, opts = {})
+    show_actions = (not opts[:without_actions])
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_new_customer_tab do |f|
-      f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
+      f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?' if show_actions
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
-        t.action network_new_customer_print_url(id: application.id, format: 'pdf'), label: 'განცხადების ბეჭდვა', icon: '/icons/printer.png'
-        t.action network_new_customer_paybill_url(id: application.id, format: 'pdf'), label: 'საგ/დავ ბეჭდვა', icon: '/icons/printer.png'
-        t.action network_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
+        t.action network_new_customer_print_url(id: application.id, format: 'pdf'), label: 'განცხადების ბეჭდვა', icon: '/icons/printer.png' if show_actions
+        t.action network_new_customer_paybill_url(id: application.id, format: 'pdf'), label: 'საგ/დავ ბეჭდვა', icon: '/icons/printer.png' if show_actions
+        t.action network_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png' if show_actions
         application.transitions.each do |status|
-          t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
+          t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status) if show_actions
         end
         t.text_field 'number', required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
@@ -103,33 +104,33 @@ module Network::NewCustomerHelper
           c.date_field :send_date
           c.date_field :start_date
           c.date_field :end_date do |real|
-            real.action network_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if application.end_date.present?
+            real.action network_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if (application.end_date.present? and show_actions)
           end
           c.date_field :plan_end_date do |plan|
-            plan.action network_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if application.plan_end_date.present?
+            plan.action network_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if (application.plan_end_date.present? and show_actions)
           end
         end
       end
       # 2. customers
       f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
         if application.can_send_to_item?
-          t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?'
+          t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?' if show_actions
         end
         t.complex_field label: 'ბილინგის აბონენტი' do |c|
           c.text_field 'customer.accnumb', tag: 'code', empty: false
           c.text_field 'customer.custname' do |cust|
-            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png'
+            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png' if show_actions
             if application.customer_id.present?
-              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?'
+              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?' if show_actions
             end
           end
         end
         t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
           items.table do |t|
-            t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png'
-            t.title_action network_new_customer_sync_accounts_url(id: application.id), label: 'სინქრონიზაცია ბილინგთან', icon: '/icons/arrow-circle-double-135.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'
-            t.item_action ->(x) { network_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა'
-            t.item_action ->(x) { network_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა'
+            t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png' if show_actions
+            t.title_action network_new_customer_sync_accounts_url(id: application.id), label: 'სინქრონიზაცია ბილინგთან', icon: '/icons/arrow-circle-double-135.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' if show_actions
+            t.item_action ->(x) { network_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა' if show_actions
+            t.item_action ->(x) { network_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა' if show_actions
             t.complex_field label: 'მისამართი' do |c|
               c.text_field :address_code, tag: 'code'
               c.text_field :address
@@ -150,7 +151,7 @@ module Network::NewCustomerHelper
       f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
         t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
           sms.table do |t|
-            t.title_action network_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
+            t.title_action network_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png' if show_actions
             t.date_field :created_at, formatter: '%d-%b-%Y %H:%M:%S'
             t.text_field :mobile, tag: 'code'
             t.text_field :message
@@ -177,7 +178,7 @@ module Network::NewCustomerHelper
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
         t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
           files.table do |t|
-            t.title_action network_upload_new_customer_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png'
+            t.title_action network_upload_new_customer_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png' if show_actions
             t.item_action ->(x) { network_delete_new_customer_file_url(id: application.id, file_id: x.id) }, icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ ფაილის წაშლა?', method: 'delete'
             t.text_field 'file.filename', url: ->(x) { x.file.url }, label: 'ფაილი'
           end
@@ -186,7 +187,7 @@ module Network::NewCustomerHelper
       # 6. factura
       f.tab title: 'ფაქტურა', icon: '/icons/money.png' do |t|
         if application.can_send_factura?
-          t.action network_new_customer_send_factura_url(id: application.id), icon: '/icons/money--arrow.png', label: 'ფაქტურის გაგზავნა', method: 'post', confirm: 'ნამდვილად გინდათ ფაქტურის გაგზავნა?'
+          t.action network_new_customer_send_factura_url(id: application.id), icon: '/icons/money--arrow.png', label: 'ფაქტურის გაგზავნა', method: 'post', confirm: 'ნამდვილად გინდათ ფაქტურის გაგზავნა?' if show_actions
         end
         t.text_field 'factura_id', tag: 'code'
         t.complex_field i18n: 'factura_number' do |c|

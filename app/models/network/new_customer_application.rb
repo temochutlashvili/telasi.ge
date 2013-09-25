@@ -49,6 +49,8 @@ class Network::NewCustomerApplication
   field :factura_number, type: Integer
   field :need_factura, type: Mongoid::Boolean, default: true
   field :show_tin_on_print, type: Mongoid::Boolean, default: true
+  # aviso id
+  field :aviso_id, type: Integer
 
   embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
