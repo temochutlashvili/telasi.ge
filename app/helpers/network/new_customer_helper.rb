@@ -67,7 +67,9 @@ module Network::NewCustomerHelper
         application.transitions.each do |status|
           t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status) if show_actions
         end
-        t.text_field 'number', required: true, tag: 'code'
+        t.text_field 'number', required: true, tag: 'code' do |f|
+          f.action network_aviso_url(id: application.aviso_id), label: 'ავიზოს ნახვა', icon: '/icons/money.png' if application.aviso_id.present?
+        end
         t.complex_field i18n: 'status_name', required: true do |c|
           c.image_field :status_icon
           c.text_field :status_name
