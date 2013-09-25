@@ -19,7 +19,7 @@
   end
   f.tab title: 'დაკავშირებული განცხადება', icon: '/icons/chain.png' do |f|
     f.text_field 'related_application.effective_number', label: 'ნომერი', url: ->(x) { network_new_customer_url(id: x.related_application.id) } do |f|
-      f.action network_delink_aviso_url(id: @aviso.avdetkey), icon: '/icons/bin.png', label: 'კავშირის წაშლა', method: 'delete', confirm: 'ნამდვილად გინდათ კავშირის წაშლა?' if @aviso.related_application.present?
+      f.action network_delink_aviso_url(id: @aviso.avdetkey), icon: '/icons/bin.png', label: 'კავშირის წაშლა', method: 'delete', confirm: 'ნამდვილად გინდათ კავშირის წაშლა?' if (@aviso.related_application.present? and not @aviso.in_item)
     end
     f.date_field 'related_application.send_date', label: 'თარიღი'
   end
