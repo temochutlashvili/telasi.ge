@@ -6,10 +6,16 @@
       c.text_field 'basepointkey', class: 'muted', before: '&mdash;'.html_safe
     end
     f.number_field 'amount', label: 'თანხა', after: 'GEL', required: true
-    f.boolean_field 'status', label: 'დამუშავებულია?', hint: 'დამუშავებულია თუ არა ეს ავიზო?', required: true
-    f.text_field 'accnumb', label: 'აბ.#'
+    f.text_field 'accnumb', label: 'აბ.#', tag: 'code' do |f|
+      f.action network_add_aviso_customer_url(id: @aviso.avdetkey), label: 'აბონენტის განსაზღვრა', icon: '/icons/user--plus.png' if (not @aviso.status)
+    end
     f.text_field 'invoice', label: 'ინვოისის #'
     f.text_field 'note', label: 'შენიშვნა'
+    f.col2 do |f|
+      f.boolean_field 'status', label: 'დამუშავებულია?', hint: 'დამუშავებულია თუ არა ეს ავიზო?', required: true
+      f.boolean_field 'is_created', label: 'აბონ. შექმნილია?', hint: 'შექმნილია თუ არა ახალი აბონენტი ამ განცხადების საფუძველზე?'
+      f.boolean_field 'in_item', label: 'ოპერ. ბილინგშია?', hint: 'გატარებულია თუ არა ეს ოპერაცია ბილინგში?'
+    end
   end
   f.tab title: 'დაკავშირებული განცხადება', icon: '/icons/chain.png' do |f|
     f.text_field 'related_application.effective_number', label: 'ნომერი', url: ->(x) { network_new_customer_url(id: x.related_application.id) } do |f|

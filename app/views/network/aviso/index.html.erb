@@ -10,7 +10,7 @@ end %>
     c.text_field 'basepointkey', class: 'muted'
   end
   t.boolean_field 'status', label: 'დმშ?', hint: 'დამუშავებულია თუ არა ეს ავიზო?'
-  t.text_field 'accnumb', label: 'აბ.#'
+  t.text_field 'accnumb', label: 'აბ.#', tag: 'code'
   t.text_field 'invoice', label: 'ინვოისის #'
   t.number_field 'amount', label: 'თანხა', after: 'GEL'
   # t.text_field 'note'

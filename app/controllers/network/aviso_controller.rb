@@ -43,13 +43,26 @@ class Network::AvisoController < Admin::AdminController
     redirect_to network_aviso_url(id: aviso.avdetkey), notice: 'განცხადება წაშლილია.'
   end
 
+  def add_customer
+    @aviso = Billing::Aviso.find(params[:id])
+    @title = 'აბონენტის განსაზღვრა'
+    if params[:meter]
+      @account = Billing::Account.where(mtnumb: params[:meter]).first
+    elsif params[:custkey]
+      customer = Billing::Customer.find(params[:custkey])
+      @aviso.accnumb = customer.accnumb
+      @aviso.status = true
+      @aviso.save
+      redirect_to network_aviso_url(id: @aviso.avdetkey), notice: 'აბონენტი დაკავშირებულია.'
+    end
+  end
+
   protected
 
   def nav
     @nav = { 'ქსელი' => network_home_url, 'ავიზოები' => network_avisos_url }
-    if @aviso
-      @nav['ავიზოს თვისებები'] = network_aviso_url(id: @aviso.avdetkey)
-    end
+    @nav['ავიზოს თვისებები'] = network_aviso_url(id: @aviso.avdetkey) if @aviso
+    @nav['აბონენტის განსაზღვრა'] = nil if action_name == 'add_customer'
     @nav
   end
 end

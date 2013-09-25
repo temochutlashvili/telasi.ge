@@ -70,6 +70,7 @@ TelasiGe::Application.routes.draw do
       get '/show/:id', action: 'show', as: 'aviso'
       post '/link/:id', action: 'link', as: 'link_aviso'
       delete '/delink/:id', action: 'delink', as: 'delink_aviso'
+      match '/add_customer/:id', action: 'add_customer', as: 'add_aviso_customer', via: ['get', 'post']
     end
     scope '/new_customer', controller: 'new_customer' do
       get '/', action: 'index', as: 'new_customers'
