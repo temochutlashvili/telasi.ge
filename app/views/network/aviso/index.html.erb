@@ -1,7 +1,7 @@
 <%= search_form @search do |f|
   f.combo_field 'paypoint', label: 'ბანკი', collection: Billing::Paypoint.network_paypoints, empty: '-- აარჩიეთ ბანკი --'
   f.date_field 'date', label: 'თარიღი', default: Date.today
-  f.boolean_field 'complete', label: 'დამუშავებული?'
+  f.combo_field 'complete', label: 'დამუშავებული?', collection: { 'კი' => 'yes', 'არა' => 'no' }, empty: '--'
 end %>
 <%= table_for @avisos, title: 'ავიზოები', icon: '/icons/money-coin.png', collapsible: true do |t|
   t.date_field 'avdate', label: 'თარიღი', url: ->(x) { network_aviso_url(id: x.avdetkey) }
