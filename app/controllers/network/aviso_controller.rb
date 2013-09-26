@@ -9,7 +9,7 @@ class Network::AvisoController < Admin::AdminController
     if @search
       rel = rel.where(basepointkey: @search['paypoint'].to_i) if @search['paypoint'].present?
       rel = rel.where(avdate: Date.strptime(@search['date'])) if @search['date'].present?
-      rel = rel.where(status: @search[:complete] == 'yes')
+      rel = rel.where(status: @search[:complete] == 'yes') if @search[:complete].present?
     end
     @avisos = rel.order('avdetkey DESC').paginate(page: params[:page], per_page: 10)
   end
