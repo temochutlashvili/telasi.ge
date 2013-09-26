@@ -1,7 +1,27 @@
 <%= search_form @search do |f|
-  f.number_field 'number', label: 'ნომერი'
-  f.combo_field 'status', label: 'სტატუსი', collection: Hash[ * (Network::NewCustomerApplication::STATUSES.map { |x| [Network::NewCustomerApplication.status_name(x), x] }).flatten ], empty: '-- აარჩიეთ --'
-  f.text_field 'rs_name', label: 'განმცხადებელი'
-  f.text_field 'rs_tin', label: 'განმცხადებელის საიდ. კოდი'
+  f.tab do |f|
+    f.number_field 'number', label: 'ნომერი'
+    f.combo_field 'status', label: 'სტატუსი', collection: Hash[ * (Network::NewCustomerApplication::STATUSES.map { |x| [Network::NewCustomerApplication.status_name(x), x] }).flatten ], empty: '-- აარჩიეთ --'
+    f.text_field 'rs_name', label: 'განმცხადებელი'
+    f.text_field 'rs_tin', label: 'განმცხადებელის საიდ. კოდი'
+    f.col2 do |f|
+      f.complex_field label: 'გამოგზავნის თარიღი' do |c|
+        c.date_field 'send_d1'
+        c.date_field 'send_d2'
+      end
+      f.complex_field label: 'დაწყების თარიღი' do |c|
+        c.date_field 'start_d1'
+        c.date_field 'start_d2'
+      end
+      f.complex_field label: 'რეალური თარიღი' do |c|
+        c.date_field 'real_d1'
+        c.date_field 'real_d2'
+      end
+      f.complex_field label: 'გეგმიური თარიღი' do |c|
+        c.date_field 'plan_d1'
+        c.date_field 'plan_d2'
+      end
+    end
+  end
 end %>
 <%= new_customer_table @applications %>

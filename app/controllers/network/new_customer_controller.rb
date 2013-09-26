@@ -13,6 +13,14 @@ class Network::NewCustomerController < Admin::AdminController
       rel = rel.where(rs_name: @search[:rs_name].mongonize) if @search[:rs_name].present?
       rel = rel.where(rs_tin: @search[:rs_tin].mongonize) if @search[:rs_tin].present?
       rel = rel.where(status: @search[:status].to_i) if @search[:status].present?
+      rel = rel.where(:send_date.gte => @search[:send_d1]) if @search[:send_d1].present?
+      rel = rel.where(:send_date.lte => @search[:send_d2]) if @search[:send_d2].present?
+      rel = rel.where(:start_date.gte => @search[:start_d1]) if @search[:start_d1].present?
+      rel = rel.where(:start_date.lte => @search[:start_d2]) if @search[:start_d2].present?
+      rel = rel.where(:plan_end_date.gte => @search[:plan_d1]) if @search[:plan_d1].present?
+      rel = rel.where(:plan_end_date.lte => @search[:plan_d2]) if @search[:plan_d2].present?
+      rel = rel.where(:end_date.gte => @search[:real_d1]) if @search[:real_d1].present?
+      rel = rel.where(:end_date.lte => @search[:real_d2]) if @search[:real_d2].present?
     end
     @applications = rel.desc(:_id).paginate(page: params[:page_new], per_page: 10)
   end
