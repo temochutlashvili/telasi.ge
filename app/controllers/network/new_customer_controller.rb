@@ -6,7 +6,15 @@ class Network::NewCustomerController < Admin::AdminController
 
   def index
     @title = 'ქსელზე მიერთება'
-    @applications = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page_new], per_page: 10)
+    @search = params[:search] == 'clear' ? nil : params[:search]
+    rel = Network::NewCustomerApplication
+    if @search
+      rel = rel.where(number: @search[:number].mongonize) if @search[:number].present?
+      rel = rel.where(rs_name: @search[:rs_name].mongonize) if @search[:rs_name].present?
+      rel = rel.where(rs_tin: @search[:rs_tin].mongonize) if @search[:rs_tin].present?
+      rel = rel.where(status: @search[:status].to_i) if @search[:status].present?
+    end
+    @applications = rel.desc(:_id).paginate(page: params[:page_new], per_page: 10)
   end
 
   def new_customer
