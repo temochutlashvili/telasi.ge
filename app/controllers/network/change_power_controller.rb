@@ -3,7 +3,7 @@ class Network::ChangePowerController < Admin::AdminController
   layout 'one_column'
 
   def index
-    @title = 'განცხადებები'
+    @title = 'სიმძლავრის შეცვლა'
     @applications = Network::ChangePowerApplication.desc(:_id).paginate(page: params[:page_change], per_page: 10)
   end
 

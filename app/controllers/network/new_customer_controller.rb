@@ -5,6 +5,7 @@ class Network::NewCustomerController < Admin::AdminController
   layout 'one_column'
 
   def index
+    @title = 'ქსელზე მიერთება'
     @applications = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page_new], per_page: 10)
   end
 
