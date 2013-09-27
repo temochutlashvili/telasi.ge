@@ -5,7 +5,7 @@ class Network::AvisoController < Admin::AdminController
   def index
     @title = 'ავიზოები'
     @search = params[:search] == 'clear' ? nil : params[:search]
-    rel = Billing::Aviso
+    rel = Billing::Aviso.where(avtpkey: Billing::Aviso::NEW_CUSTOMER_APP)
     if @search
       rel = rel.where(basepointkey: @search['paypoint'].to_i) if @search['paypoint'].present?
       rel = rel.where(avdate: Date.strptime(@search['date'])) if @search['date'].present?

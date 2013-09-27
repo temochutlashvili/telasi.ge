@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Billing::Aviso < ActiveRecord::Base
+  NEW_CUSTOMER_APP = 301
   self.table_name  = 'payments.avizo_detail'
   self.primary_key = :avdetkey
   belongs_to :paypoint, class_name: 'Billing::Paypoint', foreign_key: 'basepointkey'
