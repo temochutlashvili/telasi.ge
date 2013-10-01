@@ -154,6 +154,8 @@ class NewCustomerController < ApplicationController
     ]
   end
 
-  def application_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account) end
+  def application_params; params.require(:network_new_customer_application).permit(:rs_tin,
+    :mobile, :email, :address, :bank_code, :bank_account, :work_address, :address_code,
+    :bank_code, :bank_account, :power, :voltage) end
   def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :voltage, :power, :use, :rs_tin, :count) end
 end

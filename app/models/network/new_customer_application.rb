@@ -18,7 +18,7 @@ class Network::NewCustomerApplication
   field :payment_id, type: Integer
   field :rs_tin,    type: String
   field :rs_name,   type: String
-  field :rs_vat_payer, type: Mongoid::Boolean
+  field :rs_vat_payer, type: Mongoid::Boolean, default: true
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
