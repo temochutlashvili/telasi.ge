@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <td class="table-label"><%= t('models.billing_customer.current_water_balance') %></td>
-    <td><img src="/icons/water.png"></img> <code><%= number_with_precision customer.current_water_balance, precision: 2 %></code> GEL</td>
+    <td><img src="/icons/water.png"></img> <code><%= number_with_precision (customer.current_water_balance || 0), precision: 2 %></code> GEL</td>
     <td>
       <% if with_actions %><%= link_to t('models.general.history'), nil, class: ['btn', 'btn-info', 'disabled'] %><% end %>
     </td>
