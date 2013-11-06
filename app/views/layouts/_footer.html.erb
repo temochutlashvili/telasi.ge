@@ -1,5 +1,10 @@
 <div class="container">
   <div id="footer">
+    <div class="pull-right" style="font-size: 14px;">
+      <%= link_to 'ქართული', root_url(locale: 'ka') %> |
+      <%= link_to 'English', root_url(locale: 'en') %> |
+      <%= link_to 'Русский', root_url(locale: 'ru') %>
+    </div>
     &copy; 2013 <a href="http://telasi.ge"><%= t('info.telasi') %></a>
   </div>
 </div>
