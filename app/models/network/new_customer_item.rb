@@ -23,7 +23,7 @@ class Network::NewCustomerItem
   def validate_type
     if self.rs_tin.blank?
       errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_required'))
-    elsif not self.rs_tin =~ /^([0-9]{11}|[0-9]{7})$/
+    elsif not self.rs_tin =~ /^([0-9]{11}|[0-9]{9}|[0-9]{5})$/
       errors.add(:rs_tin, I18n.t('models.network_new_customer_item.errors.tin_illegal'))
     else
       self.rs_name = RS.get_name_from_tin(RS::TELASI_SU.merge(tin: self.rs_tin))
