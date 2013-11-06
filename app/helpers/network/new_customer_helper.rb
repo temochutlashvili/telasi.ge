@@ -24,6 +24,7 @@ module Network::NewCustomerHelper
         t.text_field  :number, required: true, autofocus: true
         t.text_field  :rs_tin, required: true
         t.boolean_field :rs_vat_payer, required: true
+        t.boolean_field :personal_use, required: true
         t.text_field  :mobile, required: true
         t.email_field :email
         t.text_field  :address, required: true, width: 500
@@ -79,6 +80,7 @@ module Network::NewCustomerHelper
           c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
         end
         t.boolean_field :rs_vat_payer, required: true
+        t.boolean_field :personal_use, required: true
         t.email_field :email
         t.text_field :mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
