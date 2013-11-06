@@ -5,7 +5,7 @@ ka:
     profile: პროფილი
     logout: "გასვლა"
     logout_confirm: ნამდვილად გინდათ გასვლა?
-    customers: აბონენტები
+    customers: დავალიანება
     applications: სხვა პროგრამები
     applications_alt: პროგრამები
   applications:
