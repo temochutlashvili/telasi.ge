@@ -22,6 +22,7 @@ ka:
     new_customer_description: ახალ აბონენტად დარეგისტრირება.
   info:
     telasi: "სს თელასი"
+    department: ინფორმაციული ტექნოლოგიების დეპარტამენტი
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'
   dashboard:
     title: საწყისი
