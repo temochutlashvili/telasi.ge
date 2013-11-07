@@ -3,27 +3,17 @@
     <div class="span6">
       <div class="topad">
         <div class="picture picture-left"></div>
-        <h3>თქვენი დავალიანება</h3>
-        <p>
-          გაიგეთ თქვენი დავალიანება, ნახეთ დარიცხვის ისტორია,
-          მიიღეთ SMS შეტყობინენბები დაგვიანებულ გადახდებზე.
-        </p>
-        <p class="link">
-          <%= link_to 'გადასვლა &rarr;'.html_safe, customers_url %>
-        </p>
+        <h3><%= t('dashboard.your_debt') %></h3>
+        <p><%= t('dashboard.your_debt_descr') %></p>
+        <p class="link"><%= link_to t('dashboard.details').html_safe, customers_url %></p>
       </div>
     </div>
     <div class="span6">
       <div class="topad">
         <div class="picture picture-right"></div>
-        <h3>ქსელზე მიერთება</h3>
-        <p>
-          აპირებთ გახდეთ თელასის აბონენტი?
-          შეავსეთ განაცხადი ინტერნეტით და აკონტროლეთ მთელი პროცესი.
-        </p>
-        <p>
-          <%= link_to 'გადასვლა &rarr;'.html_safe, new_customer_url %>
-        </p>
+        <h3><%= t('dashboard.new_customer') %></h3>
+        <p><%= t('dashboard.new_customer_description') %></p>
+        <p><%= link_to t('dashboard.details').html_safe, new_customer_url %></p>
       </div>
     </div>
   </div>
@@ -32,23 +22,18 @@
       <div>
         <div class="row">
           <div class="span6">
+            <p><%= t('register.invite.title') %></p>
             <p>
-              პირველად ხართ აქ?
-            </p>
-            <p>
-              <%= link_to 'გაიარეთ რეგისტრაცია &rarr;'.html_safe, register_url, class: ['btn', 'btn-primary', 'btn-large'] %>
+              <%= link_to t('register.invite.action').html_safe, register_url, class: ['btn', 'btn-primary', 'btn-large'] %>
             </p>
             <p style="font-size: 12px; color: #777; padding-right: 50px;">
-              როგორც რეგისტრირებულ მომხმარებელს შეგეძლებათ მრავი სასრგებლო
-              ფუნქციით სარგებლობა!
+              <%= t('register.invite.description') %>
             </p>
           </div>
           <div class="span6">
+            <p><%= t('login.invite.title') %></p>
             <p>
-              უკვე რეგისტრირებული ხართ?
-            </p>
-            <p>
-              <%= link_to 'ავტორიზაცია &rarr;'.html_safe, login_url, class: ['btn', 'btn-success', 'btn-large'] %>
+              <%= link_to t('login.invite.action').html_safe, login_url, class: ['btn', 'btn-success', 'btn-large'] %>
             </p>
           </div>
         </div>
