@@ -21,12 +21,12 @@ ru:
     new_customer_title: Новые Абоненты
     new_customer_description: Регистрация новых абонентов.
   info:
-    telasi: "АО Теласи"
+    telasi: АО Теласи
     department: Департамент информационных технологий
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'
   dashboard:
-    title: "Начальная"
-    login: "Вход"
+    title: Начальная
+    login: Вход
     details: Перейти &rarr;
     your_debt: Ваша Задолженность
     your_debt_descr: "Узнайте задолженность, просмотрите историю начисления, получайте SMS предупреждения в случае пересрочки платежа."
@@ -39,22 +39,22 @@ ru:
       description: Регистрированный абонент может пользоваться кучей полезных возможностей!
   login:
     invite:
-      title: Уже регистрировались?
+      title: Уже прошли регистрацию?
       action: Вход &rarr;
   models:
     general:
-      records: ჩანაწერი
-      history: ისტორია
-      system: სისტემური
-      created_at: შექმნილია
-      updated_at: ბოლო ცვლილება
-      search: ძებნა
-      search_clear: ფორმის გასუფთავება
+      records: записей
+      history: История
+      system: Система
+      created_at: создано
+      updated_at: Последнее изменение
+      search: Поиск
+      search_clear: Очистить форму
       actions:
-        save: შენახვა
-        cancel: გაუქმება
-        search: ძებნა
-        show: ნახვა
+        save: Сохранить
+        cancel: Отменить
+        search: Поиск
+        show: Просмотр
     sys_user:
       title:
         single: Пользователь
@@ -79,7 +79,7 @@ ru:
         register_description: "Заполните все обязательные поля. В электронной почте укажите адресс, который доступен вам &mdash; мы пришлем вам письмо с активирующей ссылкой."
         register_complete: Регистрация завершена
         register_complete_description: "Регистрация успешно завершена. Сейчас требуется подтверждение адресса вашей почты. Мы уже послали письмо с активирующей ссылкой. Пожалуйста, проверьте ваш почтовый ящик &mdash; через несколько минут письмо будет у вас."
-        not_registered_yet: Вы еще не зарегистрированны?
+        not_registered_yet: Вы еще не регистрировались?
         already_registered: "Если вы уже регистрированы, повторная регитсрация необязательна."
         restore: Востановить пароль
         restore_description: Забыли пароль?
@@ -97,7 +97,7 @@ ru:
         edit: მომხმარებლის შეცვლა
         edit_complete: მომხმარებელი განახლებულია
       errors:
-        illegal_email: неправильный адресс электронного ящика
+        illegal_email: неправильный адресс электронной почты
         email_is_taken: аддресс уже использован
         empty_password: введите пароль
         empty_first_name: введите имя
