@@ -153,7 +153,7 @@ class Network::NewCustomerApplication
     # --> დავალიანების გადათვლა
     self.calculate_distribution!
     # --> გადანაწილება
-    Billing::Item.transaction do
+    # Billing::Item.transaction do
       if self.items.count == 1
         item = self.items.first
         customer = item.customer
@@ -178,7 +178,7 @@ class Network::NewCustomerApplication
       else
         raise 'ეს სიტუაცია ჯერ არაა მზად!'
       end
-    end
+    # end
     # update application status
     self.status = STATUS_IN_BS
     self.save
