@@ -88,10 +88,10 @@ ru:
         confirm_failure: დადასტურება ვერ მოხერხდა.
         profile: Мой профиль
         change_password: Смена пароля
-        change_password_description: "პაროლის შესაცვლელად ჯერ ჩაწერეთ თქვენი ძველი პაროლი, შემდეგ კი &mdash; ახალი პაროლი და მისი დადასტურება."
+        change_password_description: "Для смены пароля сначала укажите свой старый пароль, а потом &mdash; новый и его подтверждение."
         change_password_complete: Пароль изменен
         edit_profile: Изменение личной информаци
-        edit_profile_complete: პირადი ინფორმაცია შეცვლილია
+        edit_profile_complete: Личные данные изменены.
         admin_show: მომხმარებლის თვისებები
         admin_all_users: ყველა მომხმარებელი
         edit: მომხმარებლის შეცვლა
