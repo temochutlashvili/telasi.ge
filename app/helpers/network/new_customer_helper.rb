@@ -28,7 +28,7 @@ module Network::NewCustomerHelper
         t.text_field  :mobile, required: true
         t.email_field :email
         t.text_field  :address, required: true, width: 500
-        t.text_field  :work_address, required: true, width: 500
+        t.text_field  :work_address, width: 500
         t.text_field  :address_code, required: true
         t.combo_field :bank_code, collection: banks, empty: false, required: true
         t.text_field  :bank_account, required: true, width: 300

@@ -69,7 +69,7 @@ class Network::NewCustomerApplication
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
   validate :validate_rs_name, :validate_number
-  before_save :status_manager, :calculate_total_cost
+  before_save :status_manager, :calculate_total_cost, :upcase_number
   before_create :init_payment_id
 
   def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
@@ -211,6 +211,10 @@ class Network::NewCustomerApplication
   def validate_number
     if self.status != STATUS_DEFAULT and self.number.blank?
       self.errors.add(:number, I18n.t('models.network_new_customer_application.errors.number_required'))
+    elsif self.number.present?
+      unless /^(CNS|TCNS|1TCNS|3TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ self.number
+        self.errors.add(:number, 'არასწორი ფორმატი!')
+      end
     end
   end
 
@@ -228,5 +232,10 @@ class Network::NewCustomerApplication
   def init_payment_id
     last = Network::NewCustomerApplication.last
     self.payment_id = last.present? ? last.payment_id + 1 : 1
+  end
+
+  def upcase_number
+    self.number = self.number.upcase if self.number.present?
+    true
   end
 end

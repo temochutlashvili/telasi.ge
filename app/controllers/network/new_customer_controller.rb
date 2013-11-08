@@ -236,8 +236,6 @@ class Network::NewCustomerController < Admin::AdminController
     end
   end
 
-  protected
-
   def nav
     @nav = { 'ქსელი' => network_home_url, 'ქსელზე მიერთება' => network_new_customers_url }
     if @application

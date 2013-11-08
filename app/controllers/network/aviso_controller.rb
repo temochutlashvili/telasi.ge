@@ -71,8 +71,6 @@ class Network::AvisoController < Admin::AdminController
     redirect_to network_avisos_url, notice: 'ავიზოების სინქრონიზირებულია.'
   end
 
-  protected
-
   def nav
     @nav = { 'ქსელი' => network_home_url, 'ავიზოები' => network_avisos_url }
     @nav['ავიზოს თვისებები'] = network_aviso_url(id: @aviso.avdetkey) if @aviso
