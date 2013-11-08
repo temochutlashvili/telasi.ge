@@ -54,6 +54,7 @@ TelasiGe::Application.routes.draw do
       get '/show/:id', action: 'show', as: 'show_customer'
       get '/confirm/:id', action: 'confirm', as: 'confirm_customer'
       match '/deny/:id', action: 'deny', as: 'deny_customer', via: ['get', 'post']
+      delete '/delete/:id', action: 'delete', as: 'delete_customer'
     end
     get '/network' => redirect('/network')
   end

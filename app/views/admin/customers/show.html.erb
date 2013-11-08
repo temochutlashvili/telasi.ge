@@ -7,6 +7,7 @@
       <%= view_for @registration, title: @title, icon: '/icons/user.png', collapsible: true do |f|
         f.title_action(admin_confirm_customer_url(id: @registration.id), label: I18n.t('models.billing_customer_registration.actions.confirm'), confirm: I18n.t('models.billing_customer_registration.actions.confirm_confirm'), icon: '/icons/tick.png') unless @registration.confirmed
         f.title_action(admin_deny_customer_url(id: @registration.id), label: I18n.t('models.billing_customer_registration.actions.deny'), icon: '/icons/cross.png') unless @registration.denied
+        f.title_action(admin_delete_customer_url(id: @registration.id), label: 'წაშლა', icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ რეგისტრაციის წაშლა?', method: 'delete')
         f.tab title: t('models.billing_customer_registration.title.single_alt'), icon: '/icons/user.png' do |t|
           t.col1 do |c|
             c.complex_field i18n: 'customer', required: true do |c|

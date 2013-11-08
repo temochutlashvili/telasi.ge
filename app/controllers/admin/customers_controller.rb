@@ -33,6 +33,12 @@ class Admin::CustomersController < Admin::AdminController
     end
   end
 
+  def delete
+    registration = Billing::CustomerRegistration.find(params[:id])
+    registration.destroy
+    redirect_to admin_customers_url, notice: 'რეგისტრაცია წაშლილია'
+  end
+
   private
 
   def send_sms(registration, text)
