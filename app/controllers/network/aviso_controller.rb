@@ -26,6 +26,7 @@ class Network::AvisoController < Admin::AdminController
     aviso.status = true
     if aviso.save
       application.aviso_id = aviso.avdetkey
+      application.customer_id = Billing::Customer.where(accnumb: aviso.accnumb).first.custkey rescue nil
       application.save
     end
     redirect_to network_aviso_url(id: aviso.avdetkey, tab: 'related'), notice: 'განცხადება დაკავშირებულია ავიზოსთან.'
