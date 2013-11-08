@@ -19,7 +19,7 @@ class CustomersController < ApplicationController
     @title = I18n.t('models.billing_customer.actions.info')
     @customer = Billing::Customer.find(params[:custkey])
     if request.post?
-      @registration = Billing::CustomerRegistration.new(params.require(:billing_customer_registration).permit(:rs_tin, :passport, :passport_serial))
+      @registration = Billing::CustomerRegistration.new(params.require(:billing_customer_registration).permit(:rs_tin, :dob))
       @registration.custkey = @customer.custkey
       @registration.user = current_user
       @registration.confirmed = false

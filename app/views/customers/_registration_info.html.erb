@@ -14,7 +14,9 @@
         <div style="margin-top: -24px;">
           <p><%= t('models.billing_customer_registration.added')%>: <code><%= registration.created_at.strftime('%d-%b-%Y') %></code></p>
         </div>
-        <div class="alert" style="font-size: 12px;"><%= t('models.billing_customer_registration.errors.not_confirmed')%></div>
+        <div class="alert" style="font-size: 12px;">
+          <%= t('models.billing_customer_registration.errors.not_confirmed').html_safe %>
+        </div>
       <% end %>
     </td>
     <td style="padding-left: 16px;">

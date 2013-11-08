@@ -133,8 +133,7 @@ ka:
         pluaral: აბონენტთა რეგისტრაციები
       rs_tin: პირადი ნომერი
       rs_name: დასახელება (rs.ge)
-      passport: პირადობის ნომერი
-      passport_serial: პირადობის სერია
+      dob: დაბადების თარიღი
       added: დაემატა
       customer: აბონენტი
       confirmed: დადასტურებული?
@@ -143,15 +142,16 @@ ka:
       errors:
         tin_required: ჩაწერეთ პირადი ნომერი
         tin_illegal: არასწორი პირადი ნომერი
+        dob_required: ჩაწერეთ დაბადების თარიღი 
         customer_duplicate: ეს აბონენტი უკვე დამახსოვრებულია
         passport_required: ჩაწერეთ პირადობის საბუთის ნომერი
         empty_serial: ჩაწერეთ პირადობის საბუთის სერიული ნომერი
         illegal_passport: არასწორი პირადობის საბუთის ნომერი
-        not_confirmed: აბონენტი ჯერ არაა დადასტურებული. დადასტურებას 5 სამუშაო დღემდე შეიძლება დასჭირდეს.
+        not_confirmed: აბონენტი ჯერ არაა დადასტურებული. დადასტურებას <strong>5 სამუშაო დღემდე</strong> შეიძლება დასჭირდეს.
         denial_reason_empty: ჩაწერეთ უარყოფის მიზეზი.
       actions:
         add: დამახსოვრება
-        add_complete: აბონენტი დამატებულია
+        add_complete: აბონენტი დამახსოვრებულია
         registration_confirmed: აბონენტი დადასტურებულია
         registration_denied: აბონენტი უარყოფილია
         confirm: დადასტურება

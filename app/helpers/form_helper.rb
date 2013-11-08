@@ -25,6 +25,7 @@ module FormHelper
     def separator_field(h = {}); @fields << SeparatorField.new(nil, nil, h) end
     def combo_field(name, collection, h = {}); @fields << ComboField.new(name, @model, h.merge(collection: collection)) end
     def number_field(name, h = {}); @fields << TextField.new(name, @model, h) end
+    def date_field(name, h = {}); @fields << DateField.new(name, @model, h) end
     def submit(text); @submit = text end
     def cancel_url(url); @cancel_url = url end
 
@@ -123,6 +124,15 @@ module FormHelper
 
     def to_e
       el('div', text: @label, attrs: { class: 'separator' })
+    end
+  end
+
+  class DateField < Field
+    include Forma::Html
+
+    def content_element
+      def date_field_value; val = field_value ; val.present? ? val.strftime('%d-%b-%Y') : '' end
+      el('input', attrs: { id: field_id, name: field_name, type: 'text', class: 'datepicker', value: date_field_value, autofocus: @autofocus })
     end
   end
 end

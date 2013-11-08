@@ -4,3 +4,6 @@
 //= require turbolinks
 //= require bootstrap.min
 //= require forma
+$(function() {
+  $('.datepicker').datepicker({ dateFormat: 'dd-M-yy' });
+});
