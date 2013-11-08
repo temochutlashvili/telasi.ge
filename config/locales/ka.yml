@@ -12,6 +12,7 @@ ka:
     customers_title: აბონენტები
     customers_description: აბონენტის ისტორია და ვალები.
     admin:
+      title: ადმინისტრირება
       users_title: მომხმარებლები
       users_description: მომხმარებლების და მათი უფლებების მართვა.
       customers_title: აბონენტები

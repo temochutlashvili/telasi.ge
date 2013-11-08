@@ -9,17 +9,18 @@ ru:
     applications: Все Программы
     applications_alt: Программы
   applications:
-    customers_title: Абоненты
+    customers_title: Задолженность
     customers_description: Задолженность и история абонента.
     admin:
+      title: Администрирование
       users_title: Пользователь
       users_description: Пользователи и их права.
       customers_title: Абоненты
-      customers_description: Регистрации абонентов.
+      customers_description: Подтверждение абонентов.
       network_title: Сеть
       network_description: Управление сетями.
-    new_customer_title: Новые Абоненты
-    new_customer_description: Регистрация новых абонентов.
+    new_customer_title: Новый Абонент
+    new_customer_description: Создание заявки нового абонента.
   info:
     telasi: АО Теласи
     department: Департамент информационных технологий

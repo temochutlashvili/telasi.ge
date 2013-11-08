@@ -4,7 +4,7 @@
       <%= applications_list([ 'customers', 'new_customer' ]) %>
       <% if current_user and current_user.admin %>
       <hr/>
-      <h1>ადმინისტრირება</h1>
+      <h1><%= t('applications.admin.title') %></h1>
       <%= applications_list([ 'admin.users', 'admin.customers', 'admin.network' ]) %>
       <% end %>
     </div>
