@@ -19,6 +19,9 @@ class Billing::CustomerRegistration
   validate :validate_rs_name, :validate_denial_reason
 
   def customer; @customer ||= Billing::Customer.find(self.custkey) end
+  def cra_url; "http://service.telasi.ge/cra/by_name_and_dob?first_name=#{first_name}&last_name=#{last_name}&date=#{dob.strftime('%d-%b-%Y')}" end
+  def first_name; self.rs_name.split(' ')[0] end
+  def last_name; self.rs_name.split(' ')[1] end
 
   private
 

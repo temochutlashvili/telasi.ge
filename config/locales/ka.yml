@@ -139,6 +139,7 @@ ka:
       confirmed: დადასტურებული?
       denied: უარყოფილი?
       denial_reason: უარყოფის მიზეზი
+      cra: შემოწმება
       errors:
         tin_required: ჩაწერეთ პირადი ნომერი
         tin_illegal: არასწორი პირადი ნომერი

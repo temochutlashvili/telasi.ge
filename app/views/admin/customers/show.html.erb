@@ -13,12 +13,10 @@
               c.text_field 'customer.accnumb', tag: 'code'
               c.text_field 'customer'
             end
-            c.complex_field i18n: 'passport', required: true do |c|
-              c.text_field 'passport_serial', empty: false, tag: 'code'
-              c.text_field 'passport'
-            end
             c.text_field :rs_tin, required: true, tag: 'code'
+            c.date_field :dob, required: true
             c.text_field :rs_name, required: true
+            c.text_field :cra, required: true, value: 'შემოწმება რეესტრში', url: ->(x) { x.cra_url }
           end
           t.col2 do |c|
             c.boolean_field :confirmed, required: true
