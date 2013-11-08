@@ -21,7 +21,7 @@ module Network::NewCustomerHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
-        t.text_field  :number, required: true, autofocus: true
+        t.text_field  :number, autofocus: true
         t.text_field  :rs_tin, required: true
         t.boolean_field :rs_vat_payer, required: true
         t.boolean_field :personal_use, required: true
