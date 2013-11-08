@@ -11,10 +11,10 @@
       <table class="table table-striped table-hover table-bordered">
         <thead>
           <tr>
-            <th>ოპერაცია</th>
-            <th width="150">დარიცხვა</th>
-            <th width="150">თანხა</th>
-            <th width="150">წინა ბალანსი</th>
+            <th><%= t('models.billing_customer.operation') %></th>
+            <th width="150"><%= t('models.billing_customer.kwh') %></th>
+            <th width="150"><%= t('models.billing_customer.gel') %></th>
+            <th width="150"><%= t('models.billing_customer.prev_balance') %></th>
           </tr>
         </thead>
         <% @items.each do |item| %>
