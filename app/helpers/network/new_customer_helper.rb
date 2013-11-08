@@ -101,6 +101,10 @@ module Network::NewCustomerHelper
         t.boolean_field :need_factura, required: true
         t.boolean_field :show_tin_on_print, required: true
         t.col2 do |c|
+          c.complex_field label: 'ბილინგის აბონენტი' do |c|
+            c.text_field 'customer.accnumb', tag: 'code', empty: false
+            c.text_field 'customer.custname'
+          end
           c.number_field :amount, after: 'GEL'
           c.number_field :days, max_digits: 0, after: 'დღე'
           c.number_field :paid, after: 'GEL'
