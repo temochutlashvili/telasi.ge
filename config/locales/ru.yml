@@ -122,25 +122,25 @@ ru:
         search: Поиск абонента
         search_description: Для поиска абонента введите 7-значный абонентский номер.
         info: Сводка Абонента
-        back_to_customers: '&larr; უკან აბონენტებში'
+        back_to_customers: '&larr; назад в задолженость'
         history: История начисления
-        trash_history: დასუფთავების ისტორია
+        trash_history: Начисления по уборке мусора
       errors:
-        cut_warning: "ელ.ენერგიის შეზღუდვის აცილების მიზნით, გთხოვთ დროულად დაფაროთ დავალიანება! გადახდის ბოლო თარიღია:"
+        cut_warning: "Для предотвращения отключения эл.энергии, просьба вовремя расплатиться! Последний день платежа:"
     billing_customer_registration:
       title:
         single: აბონენტის რეგისრაცია
         single_alt: რეგისრაცია
         pluaral: აბონენტთა რეგისტრაციები
-      rs_tin: პირადი ნომერი
+      rs_tin: Персональный номер
       rs_name: დასახელება (rs.ge)
-      passport: პირადობის ნომერი
-      passport_serial: პირადობის სერია
-      added: დაემატა
-      customer: აბონენტი
-      confirmed: დადასტურებული?
-      denied: უარყოფილი?
-      denial_reason: უარყოფის მიზეზი
+      dob: Дата рождения
+      added: добавлен
+      customer: Абонент
+      confirmed: Подтвержден?
+      denied: Отказан?
+      denial_reason: Причина отказа
+      cra: Проверка
       errors:
         tin_required: ჩაწერეთ პირადი ნომერი
         tin_illegal: არასწორი პირადი ნომერი
@@ -148,11 +148,11 @@ ru:
         passport_required: ჩაწერეთ პირადობის საბუთის ნომერი
         empty_serial: ჩაწერეთ პირადობის საბუთის სერიული ნომერი
         illegal_passport: არასწორი პირადობის საბუთის ნომერი
-        not_confirmed: აბონენტი ჯერ არაა დადასტურებული. დადასტურებას 5 სამუშაო დღემდე შეიძლება დასჭირდეს.
+        not_confirmed: Абонент пока не подтвержден. Подтверждение может занять до 5 рабочих дней.
         denial_reason_empty: ჩაწერეთ უარყოფის მიზეზი.
       actions:
-        add: დამახსოვრება
-        add_complete: აბონენტი დამატებულია
+        add: Сохранить
+        add_complete: Абонент сохранен
         registration_confirmed: აბონენტი დადასტურებულია
         registration_denied: აბონენტი უარყოფილია
         confirm: დადასტურება

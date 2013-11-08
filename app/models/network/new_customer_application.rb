@@ -147,13 +147,13 @@ class Network::NewCustomerApplication
 
   # ბილინგში გაგზავნა.
   def send_to_bs!
-    # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
-    items_without_customer = self.items.where(customer_id: nil)
-    raise 'ყველა აბონენტი არაა აბონირებული!' if items_without_customer.any?
-    # --> დავალიანების გადათვლა
-    self.calculate_distribution!
-    # --> გადანაწილება
-    # Billing::Item.transaction do
+    Billing::Item.transaction do
+      # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
+      items_without_customer = self.items.where(customer_id: nil)
+      raise 'ყველა აბონენტი არაა აბონირებული!' if items_without_customer.any?
+      # --> დავალიანების გადათვლა
+      self.calculate_distribution!
+      # --> განაწილება
       if self.items.count == 1
         item = self.items.first
         customer = item.customer
@@ -178,7 +178,7 @@ class Network::NewCustomerApplication
       else
         raise 'ეს სიტუაცია ჯერ არაა მზად!'
       end
-    # end
+    end
     # update application status
     self.status = STATUS_IN_BS
     self.save
