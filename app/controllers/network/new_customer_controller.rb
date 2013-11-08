@@ -35,7 +35,7 @@ class Network::NewCustomerController < Admin::AdminController
     if request.post?
       @application = Network::NewCustomerApplication.new(new_customer_params)
       @application.user = current_user
-      @application.status = Network::NewCustomerApplication::STATUS_SENT
+      # @application.status = Network::NewCustomerApplication::STATUS_SENT
       if @application.save
         redirect_to network_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება დამატებულია'
       end
