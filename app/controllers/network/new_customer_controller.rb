@@ -126,8 +126,11 @@ class Network::NewCustomerController < Admin::AdminController
       if @message.save
         @message.send_sms!
         @application.status = params[:status].to_i
-        @application.save
-        redirect_to network_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
+        if @application.save
+          redirect_to network_new_customer_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
+        else
+          @error = @application.errors.full_messages
+        end
       end
     else
       @message = Sys::SmsMessage.new
