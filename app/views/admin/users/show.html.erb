@@ -1,16 +1,16 @@
 <%= view_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |v|
   v.title_action admin_edit_user_url(id: @user.id), label: t('models.sys_user.actions.edit'), icon: '/icons/user--pencil.png'
-  v.tab do |t|
+  v.tab title: 'ძირითადი', icon: '/icons/user.png'  do |t|
     t.col1 do |c|
       c.email_field 'email', required: true
       c.text_field 'full_name', required: true, url: ->(x) { admin_user_url(id: x.id) }
-      c.text_field 'mobile', required: true
-      c.boolean_field 'admin'
+      c.text_field 'formatted_mobile', required: true, i18n: 'mobile'
       c.boolean_field 'email_confirmed'
+      c.boolean_field 'admin'
     end
-    t.col2 do |c|
-      c.date_field 'created_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
-      c.date_field 'updated_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
-    end
+  end
+  v.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
+    t.date_field 'created_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
+    t.date_field 'updated_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
   end
 end %>

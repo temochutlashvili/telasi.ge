@@ -40,6 +40,8 @@ module Sys
     def self.encrypt_password(password, salt); Digest::SHA1.hexdigest("#{password}dimitri#{salt}") end
     def self.generate_hash(user); Digest::MD5.hexdigest("#{Time.now}#{rand(20111111)/11.0}#{user.email}") end
     def to_s; full_name end
+    def formatted_mobile; KA::format_mobile(self.mobile) end
+
     attr_accessor :password_confirmation
     attr_reader :password
 
