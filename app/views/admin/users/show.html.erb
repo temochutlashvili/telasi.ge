@@ -1,25 +1,16 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <div class="toolbar">
-        <a href="<%= admin_users_url %>">&larr; <%= t('models.sys_user.actions.admin_all_users') %></a>
-      </div>
-      <%= view_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |v|
-        v.title_action admin_edit_user_url(id: @user.id), label: t('models.sys_user.actions.edit'), icon: '/icons/user--pencil.png'
-        v.tab do |t|
-          t.col1 do |c|
-            c.email_field 'email', required: true
-            c.text_field 'full_name', required: true, url: ->(x) { admin_user_url(id: x.id) }
-            c.text_field 'mobile', required: true
-            c.boolean_field 'admin'
-            c.boolean_field 'email_confirmed'
-          end
-          t.col2 do |c|
-            c.date_field 'created_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
-            c.date_field 'updated_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
-          end
-        end
-      end %>
-    </div>
-  </div>
-</div>
+<%= view_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |v|
+  v.title_action admin_edit_user_url(id: @user.id), label: t('models.sys_user.actions.edit'), icon: '/icons/user--pencil.png'
+  v.tab do |t|
+    t.col1 do |c|
+      c.email_field 'email', required: true
+      c.text_field 'full_name', required: true, url: ->(x) { admin_user_url(id: x.id) }
+      c.text_field 'mobile', required: true
+      c.boolean_field 'admin'
+      c.boolean_field 'email_confirmed'
+    end
+    t.col2 do |c|
+      c.date_field 'created_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
+      c.date_field 'updated_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
+    end
+  end
+end %>

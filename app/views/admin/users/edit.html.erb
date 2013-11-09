@@ -1,19 +1,10 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <div class="toolbar">
-        <a href="<%= admin_user_url(id: @user.id) %>">&larr; <%= t('models.sys_user.actions.admin_show') %></a> |
-        <a href="<%= admin_users_url %>"><%= t('models.sys_user.actions.admin_all_users') %></a>
-      </div>
-      <%= forma_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |f|
-        f.email_field 'email', required: true, readonly: true
-        f.text_field 'first_name', required: true, autofocus: true
-        f.text_field 'last_name', required: true
-        f.text_field 'mobile', required: true
-        f.boolean_field 'admin'
-        f.boolean_field 'email_confirmed'
-        f.submit @title
-      end %>
-    </div>
-  </div>
-</div>
+<%= forma_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |f|
+  f.email_field 'email', required: true, readonly: true
+  f.text_field 'first_name', required: true, autofocus: true
+  f.text_field 'last_name', required: true
+  f.text_field 'mobile', required: true
+  f.boolean_field 'admin'
+  f.boolean_field 'email_confirmed'
+  f.submit @title
+  f.cancel_button admin_user_url(id: @user.id)
+end %>  
