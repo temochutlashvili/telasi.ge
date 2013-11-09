@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Network::ChangePowerController < Admin::AdminController
-  layout 'one_column'
+  layout 'internal'
 
   def index
     @title = 'სიმძლავრის შეცვლა'
@@ -41,8 +41,6 @@ class Network::ChangePowerController < Admin::AdminController
     application.destroy
     redirect_to network_change_power_applications_url, notice: 'განცხადება წაშლილია.'
   end
-
-  protected
 
   def nav
     @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
