@@ -210,6 +210,7 @@ ka:
       personal_use: საყოფაცხოვრებო?
       personal_use_hint: არის თუ არა საყოფაცხოვრებო გამოყენებისთვის განკუთვნილი?
       mobile: მობილური
+      formatted_mobile: მობილური
       email: ელ.ფოსტა
       address: იურ. მისამართი
       address_code: საკადასტრო კოდი
@@ -264,6 +265,7 @@ ka:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი
         mobile_required: მობილურის მითითება აუცილებელია
+        mobile_incorrect: "არასწორი მობილური: ჩაწერეთ 9 ნიშნა ნომერი"
         email_required: ელ.ფოსტის მითითება აუცილებელია
         address_required: მისამართის მითითება აუცილებელია
         address_code_required: ჩაწერეთ საკადასტრო კოდი

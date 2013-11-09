@@ -82,7 +82,7 @@ module Network::NewCustomerHelper
         t.boolean_field :rs_vat_payer, required: true
         t.boolean_field :personal_use, required: true
         t.email_field :email
-        t.text_field :mobile, required: true
+        t.text_field :formatted_mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
         t.complex_field i18n: 'work_address', required: true do |c|
           c.text_field 'address_code', tag: 'code'

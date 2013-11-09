@@ -69,8 +69,8 @@ class Network::NewCustomerApplication
   validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
-  validate :validate_rs_name, :validate_number
-  before_save :status_manager, :calculate_total_cost, :upcase_number
+  validate :validate_rs_name, :validate_number, :validate_mobile
+  before_save :status_manager, :calculate_total_cost, :upcase_number, :prepare_mobile
   before_create :init_payment_id
 
   # Checking correctess of 
@@ -110,6 +110,7 @@ class Network::NewCustomerApplication
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
   def can_send_to_item?; self.status == STATUS_COMPLETE and self.items.any? end
+  def formatted_mobile; KA::format_mobile(self.mobile) if self.mobile.present? end
 
   # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
   def transitions
@@ -220,6 +221,12 @@ class Network::NewCustomerApplication
     end
   end
 
+  def validate_mobile
+    if self.mobile.present? and not KA::correct_mobile?(self.mobile)
+      self.errors.add(:mobile, I18n.t('models.network_new_customer_application.errors.mobile_incorrect'))
+    end
+  end
+
   def status_manager
     if self.status_changed?
       case self.status
@@ -238,6 +245,11 @@ class Network::NewCustomerApplication
 
   def upcase_number
     self.number = self.number.upcase if self.number.present?
+    true
+  end
+
+  def prepare_mobile
+    self.mobile = KA::compact_mobile(self.mobile) if self.mobile.present?
     true
   end
 end

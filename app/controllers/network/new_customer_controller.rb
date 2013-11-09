@@ -48,8 +48,9 @@ class Network::NewCustomerController < Admin::AdminController
     @title = 'ქსელზე მიერთების განცხადების შეცვლა'
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
-      @application.update_attributes(new_customer_params)
-      redirect_to network_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება შეცვლილია'
+      if @application.update_attributes(new_customer_params)
+        redirect_to network_new_customer_url(id: @application._id, tab: 'general'), notice: 'განცხადება შეცვლილია'
+      end
     end
   end
 
