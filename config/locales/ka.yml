@@ -261,6 +261,7 @@ ka:
       show_tin_on_print: ვაჩვენო საიდ. კოდი
       show_tin_on_print_hint: გამოიტანოს თუ არა აბონენტის საიდენტიფიკაციო კოდი საბეჭდ ფორმაში?
       technical_parameters: ტექნიკური პარამეტრები
+      notes: შენიშვნები
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი

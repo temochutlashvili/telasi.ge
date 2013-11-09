@@ -29,6 +29,7 @@ class Network::NewCustomerApplication
   field :bank_account, type: String
   field :status,     type: Integer, default: STATUS_DEFAULT
   field :personal_use, type: Mongoid::Boolean, default: true
+  field :notes, type: String
   # გამოთვლის დეტალები და ბილინგთან კავშირი
   field :need_resolution,  type: Mongoid::Boolean, default: true
   field :voltage,     type: String

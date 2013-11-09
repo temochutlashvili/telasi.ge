@@ -37,6 +37,7 @@ module Network::NewCustomerHelper
         t.boolean_field :need_resolution, required: true
         t.boolean_field :need_factura, required: true
         t.boolean_field :show_tin_on_print, required: true
+        t.text_field :notes, width: 500
       end
       f.submit (opts[:submit] || opts[:title])
       f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
@@ -100,6 +101,7 @@ module Network::NewCustomerHelper
         t.boolean_field :need_resolution, required: true
         t.boolean_field :need_factura, required: true
         t.boolean_field :show_tin_on_print, required: true
+        t.text_field :notes
         t.col2 do |c|
           c.complex_field label: 'ბილინგის აბონენტი' do |c|
             c.text_field 'customer.accnumb', tag: 'code', empty: false
