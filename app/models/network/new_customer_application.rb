@@ -13,6 +13,7 @@ class Network::NewCustomerApplication
   include Mongoid::Document
   include Mongoid::Timestamps
   include Network::RsName
+
   belongs_to :user, class_name: 'Sys::User'
   field :number,    type: String
   field :payment_id, type: Integer
@@ -71,6 +72,9 @@ class Network::NewCustomerApplication
   validate :validate_rs_name, :validate_number
   before_save :status_manager, :calculate_total_cost, :upcase_number
   before_create :init_payment_id
+
+  # Checking correctess of 
+  def self.correct_number?(number); not not (/^(CNS|TCNS|1TCNS|3TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number) end
 
   def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def billing_items
@@ -212,9 +216,7 @@ class Network::NewCustomerApplication
     if self.status != STATUS_DEFAULT and self.number.blank?
       self.errors.add(:number, I18n.t('models.network_new_customer_application.errors.number_required'))
     elsif self.number.present?
-      unless /^(CNS|TCNS|1TCNS|3TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ self.number
-        self.errors.add(:number, 'არასწორი ფორმატი!')
-      end
+      self.errors.add(:number, 'არასწორი ფორმატი!') unless Network::NewCustomerApplication.correct_number?(self.number)
     end
   end
 
