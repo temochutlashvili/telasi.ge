@@ -7,10 +7,11 @@
   end
 end %>
 <%= table_for @users, title: @title, icon: '/icons/users.png', collapsible: true do |t|
+  t.title_action admin_new_user_url, label: 'ახალი მომხმარებელი', icon: '/icons/user--plus.png'
+  t.item_action ->(x) { admin_edit_user_url(x.id) }, icon: '/icons/user--pencil.png'
   t.email_field 'email'
   t.text_field 'full_name', url: ->(x) { admin_user_url(id: x.id) }
   t.text_field 'formatted_mobile', i18n: 'mobile'
   t.boolean_field 'email_confirmed'
-  
   t.paginate records: t('models.general.records')
 end %>

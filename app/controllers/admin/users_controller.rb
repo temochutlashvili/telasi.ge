@@ -20,11 +20,23 @@ class Admin::UsersController < Admin::AdminController
     @user = Sys::User.find(params[:id])
   end
 
+  def new
+    @title = 'ახალი მომხმარებელი'
+    if request.post?
+      @user = Sys::User.new(user_params)
+      if @user.save
+        redirect_to admin_user_url(id: @user.id), notice: 'მომხმარებელი შექმნილია'
+      end
+    else
+      @user = Sys::User.new
+    end
+  end
+
   def edit
     @title = I18n.t('models.sys_user.actions.edit')
     @user = Sys::User.find(params[:id])
     if request.post?
-      if @user.update_attributes(params.require(:sys_user).permit(:first_name, :last_name, :mobile, :admin, :email_confirmed))
+      if @user.update_attributes(user_params)
         redirect_to admin_user_url(id: @user.id), notice: I18n.t('models.sys_user.actions.edit_complete')
       end
     end
@@ -33,8 +45,12 @@ class Admin::UsersController < Admin::AdminController
   def nav
     @nav = { 'მომხმარებლები' => admin_users_url }
     if @user
-      @nav[@user.full_name] = admin_user_url(id: @user.id)
+      @nav[@user.full_name] = admin_user_url(id: @user.id) unless @user.new_record?
       @nav[@title] = nil unless action_name == 'show'
     end
   end
+
+  private
+
+  def user_params; params.require(:sys_user).permit(:email, :password, :first_name, :last_name, :mobile, :admin, :email_confirmed) end
 end
