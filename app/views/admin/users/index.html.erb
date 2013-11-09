@@ -1,13 +1,15 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <%= table_for @users, title: @title, icon: '/icons/users.png', collapsible: true do |t|
-        t.email_field 'email'
-        t.text_field 'full_name', url: ->(x) { admin_user_url(id: x.id) }
-        t.boolean_field 'email_confirmed'
-        # t.row_class ->(x) { x.confi }
-        t.paginate records: t('models.general.records')
-      end %>
-    </div>
-  </div>
-</div>
+<%= search_form @search do |f|
+  f.tab do |f|
+    f.text_field 'email', label: 'ელ.ფოსტა'
+    f.text_field 'first_name', label: 'სახელი'
+    f.text_field 'last_name', label: 'გვარი'
+    f.combo_field 'confirmed', label: 'დადასტურებული?', collection: { 'კი' => 'yes', 'არა' => 'no' }, empty: '--'
+  end
+end %>
+<%= table_for @users, title: @title, icon: '/icons/users.png', collapsible: true do |t|
+  t.email_field 'email'
+  t.text_field 'full_name', url: ->(x) { admin_user_url(id: x.id) }
+  t.boolean_field 'email_confirmed'
+  # t.row_class ->(x) { x.confi }
+  t.paginate records: t('models.general.records')
+end %>

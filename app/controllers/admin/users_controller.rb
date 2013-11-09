@@ -4,7 +4,15 @@ class Admin::UsersController < Admin::AdminController
 
   def index
     @title = I18n.t('applications.admin.users_title')
-    @users = Sys::User.desc(:_id).paginate(page: params[:page], per_page: 10)
+    @search = params[:search] == 'clear' ? {} : params[:search]
+    rel = Sys::User
+    if @search
+      rel = rel.where(email: @search[:email].mongonize) if @search[:email].present?
+      rel = rel.where(first_name: @search[:first_name].mongonize) if @search[:first_name].present?
+      rel = rel.where(last_name: @search[:last_name].mongonize) if @search[:last_name].present?
+      rel = rel.where(email_confirmed: @search[:confirmed] == 'yes') if @search[:confirmed].present?
+    end
+    @users = rel.desc(:_id).paginate(page: params[:page], per_page: 10)
   end
 
   def show

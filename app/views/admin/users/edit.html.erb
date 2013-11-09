@@ -3,8 +3,8 @@
   f.text_field 'first_name', required: true, autofocus: true
   f.text_field 'last_name', required: true
   f.text_field 'mobile', required: true
-  f.boolean_field 'admin'
   f.boolean_field 'email_confirmed'
+  f.boolean_field 'admin'
   f.submit @title
   f.cancel_button admin_user_url(id: @user.id)
 end %>  

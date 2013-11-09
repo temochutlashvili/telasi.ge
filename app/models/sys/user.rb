@@ -4,7 +4,6 @@ module Sys
     include KA
     include Mongoid::Document
     include Mongoid::Timestamps
-    # mount_uploader :avatar, AvatarUploader
 
     field :email,                 type: String
     field :email_confirmed,       type: Mongoid::Boolean
@@ -24,7 +23,7 @@ module Sys
     field :mobile_visible, type: Mongoid::Boolean
 
     index({ email: 1 }, { unique: true })
-    # index(first_name: 1, last_name: 1)
+    index(first_name: 1, last_name: 1)
 
     validates :email, uniqueness: { message: I18n.t('models.sys_user.errors.email_is_taken') }
     validates :email, email: { message: I18n.t('models.sys_user.errors.illegal_email') }
@@ -80,35 +79,6 @@ module Sys
       self.password_restore_hash = User.generate_hash(self)
       self.save!
     end
-
-    # # არის თუ არა ეს მომხმარებელი ამ ორგანიზაციის წევრი?
-    # def employee?(org)
-    #   self.employees.map{|e| e.organization}.include?(org)
-    # end
-
-    # # მომხმარებლის პარამეტრის დაყენება.
-    # def set(key, val)
-    #   pref = UserPreference.where(:user_id => self._id, :key => key).first
-    #   pref = UserPreference.new(:user => self, :key => key) unless pref
-    #   pref.value = val
-    #   pref.save
-    # end
-
-    # # მომხმარებლის პარამეტრის მიღება.
-    # def get(key)
-    #   pref = UserPreference.where(:user_id => self._id, :key => key).first
-    #   pref.value if pref
-    # end
-
-    # # ეძებს მომხმარებელს სახელის და გვარის მიხედვით.
-    # def self.by_name(q)
-    #   self.search_by_q(q, :first_name, :last_name)
-    # end
-
-    # # ეძებს მოცემული ტექსტის მიხედვით.
-    # def self.by_query(q)
-    #   self.search_by_q(q, :first_name, :last_name, :email, :mobile)
-    # end
 
     private
 
