@@ -41,6 +41,9 @@ module Sys
     def to_s; full_name end
     def formatted_mobile; KA::format_mobile(self.mobile) end
 
+    def admin?; self.admin end
+    def network_admin?; self.admin? or self.network_admin end
+
     attr_accessor :password_confirmation
     attr_reader :password
 
