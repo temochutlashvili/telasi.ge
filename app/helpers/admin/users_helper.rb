@@ -9,6 +9,7 @@ module Admin::UsersHelper
       f.text_field 'mobile', required: true
       f.boolean_field 'email_confirmed', readonly: (user == current_user)
       f.boolean_field 'admin', readonly: (user == current_user)
+      f.boolean_field 'network_admin'
       f.submit 'შენახვა'
       f.cancel_button user.new_record? ? admin_users_url : admin_user_url(id: user.id)
     end

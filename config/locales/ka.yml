@@ -70,8 +70,11 @@ ka:
       general_info: პირადი ინფორმაცია
       email_confirmed: დადასტურებული?
       admin: ადმინისტრატორი?
+      admin_hint: ყველაფრის უფლება აქვს?
       created_at: რეგისტრირებულია
       updated_at: ბოლო ცვლილება
+      network_admin: ქსელის ადმინი?
+      network_admin_hint: შეუძლია თუ არა ქსელის შიდა პროგრამით სარგებლობა?
       actions:
         login: სისტემაში შესვლა
         login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი

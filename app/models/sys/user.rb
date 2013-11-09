@@ -18,9 +18,8 @@ module Sys
     field :last_name,  type: String
     field :mobile,     type: String
 
-    field :searchable,     type: Mongoid::Boolean
-    field :email_visible,  type: Mongoid::Boolean
-    field :mobile_visible, type: Mongoid::Boolean
+    # roles
+    field :network_admin, type: Mongoid::Boolean, default: false
 
     index({ email: 1 }, { unique: true })
     index(first_name: 1, last_name: 1)
