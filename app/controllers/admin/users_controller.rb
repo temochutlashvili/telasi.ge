@@ -11,6 +11,8 @@ class Admin::UsersController < Admin::AdminController
       rel = rel.where(first_name: @search[:first_name].mongonize) if @search[:first_name].present?
       rel = rel.where(last_name: @search[:last_name].mongonize) if @search[:last_name].present?
       rel = rel.where(email_confirmed: @search[:confirmed] == 'yes') if @search[:confirmed].present?
+      rel = rel.where(admin: @search[:admin] == 'yes') if @search[:admin].present?
+      rel = rel.where(network_admin: @search[:network_admin] == 'yes') if @search[:network_admin].present?
     end
     @users = rel.desc(:_id).paginate(page: params[:page], per_page: 10)
   end
