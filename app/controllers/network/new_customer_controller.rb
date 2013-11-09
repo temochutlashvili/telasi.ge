@@ -2,7 +2,7 @@
 require 'rs'
 
 class Network::NewCustomerController < Admin::AdminController
-  layout 'one_column'
+  layout 'internal'
 
   def index
     @title = 'ქსელზე მიერთება'

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<title><% if @title.present? %><%= @title %> &mdash; <% end %>telasi.ge</title>
+<%= stylesheet_link_tag 'application' %>
+<%= javascript_include_tag 'application' %>
+<%= favicon_link_tag('/favicon.png') %>
+<%= csrf_meta_tags %>
+</head>
+<body class="internal">
+<div class="header">
+  <div class="pull-right">
+    <strong><%= link_to current_user.full_name, profile_url %></strong>
+  </div>
+  <%= link_to '&larr; ყველა პროგრამა'.html_safe, applications_url %>
+</div>
+<%= render partial: 'layouts/notice' %>
+<%= nav_menu %>
+<div class="content"><%= yield %></div>
+</div>
+</body>
+</html>

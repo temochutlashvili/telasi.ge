@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Network::BaseController < Admin::AdminController
-  layout 'one_column'
+  layout 'internal'
 
   def index
     @title = 'ქსელი'
