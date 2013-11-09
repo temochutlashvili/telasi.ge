@@ -205,13 +205,23 @@ class Network::NewCustomerController < Network::NetworkController
   end
 
   def paybill
-    app = Network::NewCustomerApplication.find(params[:id])
-    @data = { date: Date.today,
-      payer: app.rs_name, payer_account: app.bank_account, payer_bank: app.bank_name, payer_bank_code: app.bank_code,
-      receiver: 'სს თელასი', receiver_account: 'GE53TB1147136030100001  ', receiver_bank: 'სს თიბისი ბანკი', receiver_bank_code: 'TBCBGE22',
-      reason: "სს თელასის განამაწილებელ ქსელში ჩართვის ღირებულების 50%-ის დაფარვა. განცხადება №#{app.effective_number}; TAXID: #{app.rs_tin}.",
-      amount: (app.amount / 2.0).to_i
-    }
+    @application = @app = Network::NewCustomerApplication.find(params[:id])
+    respond_to do |format|
+      format.html do
+        @title = 'საგადახდო დავალება'
+        @data = { amount: @app.amount / 2.0 }
+      end
+      format.pdf do
+        amount = params[:amount].to_f rescue @app.amount / 2.0
+        @data = { date: Date.today,
+          payer: @app.rs_name, payer_account: @app.bank_account, payer_bank: @app.bank_name, payer_bank_code: @app.bank_code,
+          receiver: 'სს თელასი', receiver_account: 'GE53TB1147136030100001  ', receiver_bank: 'სს თიბისი ბანკი',
+          receiver_bank_code: 'TBCBGE22',
+          reason: "სს თელასის განამაწილებელ ქსელში ჩართვის ღირებულების 50%-ის დაფარვა. განცხადება №#{@app.effective_number}; TAXID: #{@app.rs_tin}.",
+          amount: amount
+        }
+      end
+    end
   end
 
   def print; @application = Network::NewCustomerApplication.find(params[:id]) end
