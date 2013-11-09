@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Network::ChangePowerController < Admin::AdminController
+class Network::ChangePowerController < Network::NetworkController
   layout 'internal'
 
   def index

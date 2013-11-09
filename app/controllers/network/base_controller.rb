@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Network::BaseController < Admin::AdminController
+class Network::BaseController < Network::NetworkController
   layout 'internal'
 
   def index

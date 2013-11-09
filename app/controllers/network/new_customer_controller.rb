@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'rs'
 
-class Network::NewCustomerController < Admin::AdminController
+class Network::NewCustomerController < Network::NetworkController
   layout 'internal'
 
   def index

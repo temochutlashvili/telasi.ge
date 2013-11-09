@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Network::TariffsController < Admin::AdminController
+class Network::TariffsController < Network::NetworkController
   layout 'internal'
 
   def index
