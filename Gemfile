@@ -42,6 +42,11 @@ gem 'magti'
 gem 'prawn'
 gem 'prawn_rails'
 
+group :test do
+  gem 'ruby-prof'
+  gem 'test-unit'
+end
+
 # social media
 # gem 'omniauth-facebook'
 
