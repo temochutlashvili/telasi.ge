@@ -47,7 +47,7 @@ ru:
       records: записей
       history: История
       system: Система
-      created_at: создано
+      created_at: Дата создания
       updated_at: Последнее изменение
       search: Поиск
       search_clear: Очистить форму
@@ -85,9 +85,11 @@ ru:
         restore: Востановить пароль
         restore_sent: Инструкция по востановлению пароля высланна на вашу электронную почту.
         restore_description: Забыли пароль?
-        confirm_email: ელ.ფოსტსის მისამართის დადასტურება
-        confirm_success: ელ.ფოსტა დადასტურებულია.
-        confirm_failure: დადასტურება ვერ მოხერხდა.
+        restore_complete: Пароль изменен.
+        restore_incorrect_hash: Ссылка по востановлению пароля недействительна. Повторите востановление.
+        confirm_email: Подтверждение эл.почты
+        confirm_success: Почта подтвержденна.
+        confirm_failure: Подтверждение недействительно.
         profile: Мой профиль
         change_password: Смена пароля
         change_password_description: "Для смены пароля сначала укажите свой старый пароль, а потом &mdash; новый и его подтверждение."

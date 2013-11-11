@@ -49,4 +49,21 @@ class DashboardController < ApplicationController
       end
     end
   end
+
+  def restore_password
+    @title = I18n.t('models.sys_user.actions.restore')
+    @user = Sys::User.find(params[:id]) rescue nil
+    @user = nil if @user.password_restore_hash != params[:h]
+    if request.post?
+      if params[:password].blank?
+        @error = I18n.t('models.sys_user.errors.empty_password')
+      elsif params[:password] != params[:password_confirmation]
+        @error = I18n.t('models.sys_user.errors.password_not_match')
+      else
+        @user.password = params[:password]
+        @user.save
+        redirect_to login_url, notice: I18n.t('models.sys_user.actions.restore_complete')
+      end
+    end
+  end
 end
