@@ -32,9 +32,20 @@ class DashboardController < ApplicationController
   end
 
   def confirm
+    @title = I18n.t('models.sys_user.actions.confirm_email')
     @user = Sys::User.find(params[:id]) rescue nil
     if @user and @user.confirm_email!(params[:c]) then @success = I18n.t('models.sys_user.actions.confirm_success')
     else @error = I18n.t('models.sys_user.actions.confirm_failure') end
-    @title = I18n.t('models.sys_user.actions.confirm_email')
+  end
+
+  def restore
+    @title = I18n.t('models.sys_user.actions.restore')
+    if request.post?
+      user = Sys::User.where(email: params[:email]).first
+      if user
+        user.generate_restore_hash!
+        UserMailer.restore_password(user).deliver
+      end
+    end
   end
 end

@@ -7,6 +7,7 @@ TelasiGe::Application.routes.draw do
     get '/register_complete', action: 'register_complete', as: 'register_complete'
     get '/confirm', action: 'confirm', as: 'confirm'
     match '/restore', action: 'restore', as: 'restore', via: ['get', 'post']
+    match '/restore_password', action: 'restore_password', as: 'restore_password', via: ['get', 'post']
   end
 
   scope '/profile', controller: 'profile' do

@@ -1,1 +1,21 @@
-restore
+<div class="row">
+  <div class="span8">
+    <div class="module">
+      <h1>
+        <%= t('models.sys_user.actions.restore') %>
+        <p><%= t('models.sys_user.actions.restore_description2') %></p>
+      </h1>
+      <% if @error.present? %><div class="block-error"><%= @error %></div><% end %>
+      <%= rich_form({ email: params[:email], password: params[:password] }) do |f|
+        f.text_field :email, autofocus: true, label: t('models.sys_user.email')
+        f.submit @title
+      end %>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="module">
+      <p><%= t('models.sys_user.actions.not_registered_yet') %></p>
+      <p><a href="<%= register_url %>"><%= t('models.sys_user.actions.register') %> &rarr;</a></p>
+    </div>
+  </div>
+</div>
