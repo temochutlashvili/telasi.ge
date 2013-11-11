@@ -98,6 +98,7 @@ ka:
         change_password: პაროლის შეცვლა
         change_password_description: "პაროლის შესაცვლელად ჯერ ჩაწერეთ თქვენი ძველი პაროლი, შემდეგ კი &mdash; ახალი პაროლი და მისი დადასტურება."
         change_password_complete: პაროლი შეცვლილია
+        change_password_description2: შეიყვანეთ ახალი პაროლი და მისი დადასტურება.
         edit_profile: პირადი ინფორმაციის შეცვლა
         edit_profile_complete: პირადი ინფორმაცია შეცვლილია
         admin_show: მომხმარებლის თვისებები
@@ -105,6 +106,7 @@ ka:
         edit: მომხმარებლის შეცვლა
         edit_complete: მომხმარებელი განახლებულია
       errors:
+        illegal_email: არასწორი ელ.ფოსტა
         email_is_taken: ელ.ფოსტა უკვე გამოყენებულია
         empty_password: ჩაწერეთ პაროლი
         empty_first_name: ჩაწერეთ სახელი

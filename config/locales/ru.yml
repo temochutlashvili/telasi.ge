@@ -85,6 +85,7 @@ ru:
         restore: Востановить пароль
         restore_sent: Инструкция по востановлению пароля высланна на вашу электронную почту.
         restore_description: Забыли пароль?
+        restore_description2: Для востановления пароля введите адресс вашей эл.почты.
         restore_complete: Пароль изменен.
         restore_incorrect_hash: Ссылка по востановлению пароля недействительна. Повторите востановление.
         confirm_email: Подтверждение эл.почты
@@ -94,6 +95,7 @@ ru:
         change_password: Смена пароля
         change_password_description: "Для смены пароля сначала укажите свой старый пароль, а потом &mdash; новый и его подтверждение."
         change_password_complete: Пароль изменен
+        change_password_description2: ВВедите новый пароль и подтверждение.
         edit_profile: Изменение личной информаци
         edit_profile_complete: Личные данные изменены.
         admin_show: მომხმარებლის თვისებები

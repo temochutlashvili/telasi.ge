@@ -46,6 +46,8 @@ class DashboardController < ApplicationController
         user.generate_restore_hash!
         UserMailer.restore_password(user).deliver
         redirect_to restore_url(ok: 'ok')
+      else
+        @error = I18n.t('models.sys_user.errors.illegal_email')
       end
     end
   end
