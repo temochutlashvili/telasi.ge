@@ -93,8 +93,7 @@ module Sys
     end
 
     def user_before_create
-      first = User.count == 0
-      if first
+      if User.count == 0
         self.admin = true
         self.email_confirmed = true
         self.email_confirm_hash = nil
@@ -104,9 +103,6 @@ module Sys
         self.email_confirmed = confirmed
         self.email_confirm_hash = confirmed ? nil : User.generate_hash(self)
       end
-      self.searchable = true
-      self.email_visible = true
-      self.mobile_visible = false
       self.active = true
     end
 
