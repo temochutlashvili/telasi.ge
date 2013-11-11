@@ -1,3 +1,4 @@
+<% unless params[:ok].present? %>
 <div class="row">
   <div class="span8">
     <div class="module">
@@ -19,3 +20,8 @@
     </div>
   </div>
 </div>
+<% else %>
+<div class="block-success" style="padding: 44px 32px 44px 32px;">
+  <p><%= t('models.sys_user.actions.restore_sent').html_safe %></p>
+</div>
+<% end %>

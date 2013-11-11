@@ -45,6 +45,7 @@ class DashboardController < ApplicationController
       if user
         user.generate_restore_hash!
         UserMailer.restore_password(user).deliver
+        redirect_to restore_url(ok: 'ok')
       end
     end
   end
