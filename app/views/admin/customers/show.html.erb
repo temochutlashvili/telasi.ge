@@ -1,39 +1,30 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <div class="toolbar">
-        <%= link_to '&larr; ყველა რეგისტრაცია'.html_safe, admin_customers_url %>
-      </div>
-      <%= view_for @registration, title: @title, icon: '/icons/user.png', collapsible: true do |f|
-        f.title_action(admin_confirm_customer_url(id: @registration.id), label: I18n.t('models.billing_customer_registration.actions.confirm'), confirm: I18n.t('models.billing_customer_registration.actions.confirm_confirm'), icon: '/icons/tick.png') unless @registration.confirmed
-        f.title_action(admin_deny_customer_url(id: @registration.id), label: I18n.t('models.billing_customer_registration.actions.deny'), icon: '/icons/cross.png') unless @registration.denied
-        f.title_action(admin_delete_customer_url(id: @registration.id), label: 'წაშლა', icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ რეგისტრაციის წაშლა?', method: 'delete')
-        f.tab title: t('models.billing_customer_registration.title.single_alt'), icon: '/icons/user.png' do |t|
-          t.col1 do |c|
-            c.complex_field i18n: 'customer', required: true do |c|
-              c.text_field 'customer.accnumb', tag: 'code'
-              c.text_field 'customer'
-            end
-            c.text_field :rs_tin, required: true, tag: 'code'
-            c.date_field :dob, required: true
-            c.text_field :rs_name, required: true
-            c.text_field :cra, required: true, value: 'შემოწმება რეესტრში', url: ->(x) { x.cra_url }
-          end
-          t.col2 do |c|
-            c.boolean_field :confirmed, required: true
-            c.boolean_field :denied, required: true
-            c.text_field :denial_reason
-          end
-        end
-        f.tab title: t('models.sys_user.title.single'), icon: '/icons/lock.png' do |t|
-          t.email_field 'user.email', label: t('models.sys_user.email'), required: true
-          t.text_field 'user.full_name', label: t('models.sys_user.full_name'), required: true
-          t.text_field 'user.mobile', label: t('models.sys_user.mobile'), required: true
-        end
-        f.tab title: t('models.general.system'), icon: '/icons/traffic-cone.png' do |t|
-          t.timestamps
-        end
-      end %>
-    </div>
-  </div>
-</div>
+<%= view_for @registration, title: @title, icon: '/icons/user.png', collapsible: true do |f|
+  f.title_action(admin_confirm_customer_url(id: @registration.id), label: I18n.t('models.billing_customer_registration.actions.confirm'), confirm: I18n.t('models.billing_customer_registration.actions.confirm_confirm'), icon: '/icons/tick.png') unless @registration.confirmed
+  f.title_action(admin_deny_customer_url(id: @registration.id), label: I18n.t('models.billing_customer_registration.actions.deny'), icon: '/icons/cross.png') unless @registration.denied
+  f.title_action(admin_delete_customer_url(id: @registration.id), label: 'წაშლა', icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ რეგისტრაციის წაშლა?', method: 'delete')
+  f.tab title: t('models.billing_customer_registration.title.single_alt'), icon: '/icons/user.png' do |t|
+    t.col1 do |c|
+      c.complex_field i18n: 'customer', required: true do |c|
+        c.text_field 'customer.accnumb', tag: 'code'
+        c.text_field 'customer'
+      end
+      c.text_field :rs_tin, required: true, tag: 'code'
+      c.date_field :dob, required: true
+      c.text_field :rs_name, required: true
+      c.text_field :cra, required: true, value: 'შემოწმება რეესტრში', url: ->(x) { x.cra_url }
+    end
+    t.col2 do |c|
+      c.boolean_field :confirmed, required: true
+      c.boolean_field :denied, required: true
+      c.text_field :denial_reason
+    end
+  end
+  f.tab title: t('models.sys_user.title.single'), icon: '/icons/lock.png' do |t|
+    t.email_field 'user.email', label: t('models.sys_user.email'), required: true
+    t.text_field 'user.full_name', label: t('models.sys_user.full_name'), required: true
+    t.text_field 'user.mobile', label: t('models.sys_user.mobile'), required: true
+  end
+  f.tab title: t('models.general.system'), icon: '/icons/traffic-cone.png' do |t|
+    t.timestamps
+  end
+end %>

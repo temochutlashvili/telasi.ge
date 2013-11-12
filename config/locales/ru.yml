@@ -13,7 +13,7 @@ ru:
     customers_description: Задолженность и история абонента.
     admin:
       title: Администрирование
-      users_title: Пользователь
+      users_title: Пользователи
       users_description: Пользователи и их права.
       customers_title: Абоненты
       customers_description: Подтверждение абонентов.
@@ -144,7 +144,7 @@ ru:
       rs_tin: Персональный номер
       rs_name: დასახელება (rs.ge)
       dob: Дата рождения
-      added: добавлен
+      added: Добавлен
       customer: Абонент
       confirmed: Подтвержден?
       denied: Отказан?

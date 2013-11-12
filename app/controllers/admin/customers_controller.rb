@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::CustomersController < Admin::AdminController
+  layout 'internal'
+
   def index
     @title = I18n.t('applications.admin.customers_title')
     @registrations = Billing::CustomerRegistration.desc(:_id).paginate(page: params[:page], per_page: 10)
@@ -37,6 +39,14 @@ class Admin::CustomersController < Admin::AdminController
     registration = Billing::CustomerRegistration.find(params[:id])
     registration.destroy
     redirect_to admin_customers_url, notice: 'რეგისტრაცია წაშლილია'
+  end
+
+  def nav
+    @nav = { 'რეგისტრაციები' => admin_customers_url }
+    if @registration
+      @nav[@registration.customer.custname.to_ka] = admin_show_customer_url(id: @registration.id)
+      @nav[@title] = nil unless action_name == 'show'
+    end
   end
 
   private
