@@ -7,13 +7,6 @@ GIT
       railties (>= 3.1)
 
 GIT
-  remote: git://github.com/dimakura/oracle-enhanced.git
-  revision: 12168a0f9eea0e6238eb5a1cc4376f2777cd2e06
-  branch: rails4
-  specs:
-    activerecord-oracle_enhanced-adapter (1.4.2)
-
-GIT
   remote: git://github.com/mongoid/mongoid.git
   revision: 3d1b8aa48340b79b8481ab96b56e0681433b0bcb
   ref: 3d1b8aa48340b79b8481ab96b56e0681433b0bcb
@@ -54,6 +47,7 @@ GEM
       activesupport (= 4.0.0)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
+    activerecord-oracle_enhanced-adapter (1.5.0)
     activesupport (4.0.0)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -207,7 +201,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-oracle_enhanced-adapter!
+  activerecord-oracle_enhanced-adapter (~> 1.5.0)
   bootstrap-will_paginate
   carrierwave
   carrierwave-mongoid
