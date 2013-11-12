@@ -25,6 +25,7 @@ ru:
     telasi: АО Теласи
     department: Департамент информационных технологий
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'
+    support_text: По техническим вопросам пишите на
   dashboard:
     title: Начальная
     login: Вход

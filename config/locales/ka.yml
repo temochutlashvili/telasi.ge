@@ -25,6 +25,7 @@ ka:
     telasi: "სს თელასი"
     department: ინფორმაციული ტექნოლოგიების დეპარტამენტი
     footer_text: 'ტექნიკურ საკითხებთან დაკავშირებით, გთხოვთ დაგვიკავშირდეთ ტელ. ნომერზე <strong>2779-868</strong> ან ელ. ფოსტის მისამართზე <a href="mailto:sys@telasi.ge">sys@telasi.ge</a>.'
+    support_text: ტექნიკურ საკითხებზე მოგვწერეთ
   dashboard:
     title: საწყისი
     login: შესვლა
