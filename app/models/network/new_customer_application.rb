@@ -191,16 +191,16 @@ class Network::NewCustomerApplication
           enterdate: Time.now, itemcatkey: 0)
         bs_item.save!
         # bs.item - first stage
-        first_stage = self.penalty_first_stage
-        if first_stage > 0
+        first_stage = -self.penalty_first_stage
+        if first_stage < 0
           bs_item1 = Billing::Item.new(billoperkey: 1006, acckey: account.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: first_stage,
             enterdate: Time.now, itemcatkey: 0)
           bs_item1.save!
         end
         # bs.item - second stage
-        second_stage = self.penalty_second_stage
-        if second_stage > 0
+        second_stage = -self.penalty_second_stage
+        if second_stage < 0
           bs_item2 = Billing::Item.new(billoperkey: 1007, acckey: account.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: second_stage,
             enterdate: Time.now, itemcatkey: 0)
@@ -217,12 +217,12 @@ class Network::NewCustomerApplication
         network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
           operkey: 1000, enterdate: Time.now, operdate: Date.today, perskey: 1)
         network_item.save!
-        if first_stage > 0
+        if first_stage < 0
           network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: first_stage,
             operkey: 1006, enterdate: Time.now, operdate: Date.today, perskey: 1)
           network_item1.save!
         end
-        if second_stage > 0
+        if second_stage < 0
           network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: second_stage,
             operkey: 1007, enterdate: Time.now, operdate: Date.today, perskey: 1)
           network_item2.save!
