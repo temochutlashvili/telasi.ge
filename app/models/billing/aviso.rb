@@ -14,10 +14,10 @@ class Billing::Aviso < ActiveRecord::Base
   end
 
   def guessed_application
-    if self.invoice and self.invoice[0] == 'C'
-      related = Network::NewCustomerApplication.where(number: self.invoice, aviso_id: nil)
+    if self.cns and self.cns[0].upcase == 'C'
+      related = Network::NewCustomerApplication.where(number: self.cns, aviso_id: nil)
     else
-     related = Network::NewCustomerApplication.where(payment_id: self.invoice, aviso_id: nil)
+     related = Network::NewCustomerApplication.where(payment_id: self.cns, aviso_id: nil)
     end
     if related.count > 1
       filtered = related.where(rs_tin: self.taxid)

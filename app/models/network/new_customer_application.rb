@@ -7,6 +7,7 @@ class Network::NewCustomerApplication
   STATUS_COMPLETE   = 4
   STATUS_IN_BS      = 5
   STATUSES = [ STATUS_DEFAULT, STATUS_SENT, STATUS_CANCELED, STATUS_CONFIRMED, STATUS_COMPLETE, STATUS_IN_BS ]
+  NETWORK_OPERATIONS = [116, 1000, 1006, 1007]
   VOLTAGE_220 = '220'
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
@@ -82,7 +83,7 @@ class Network::NewCustomerApplication
     if @__billing_items
       @__billing_items
     elsif self.customer_id.present?
-      @__billing_items = Billing::Item.where(custkey: self.customer_id).order('itemkey DESC')
+      @__billing_items = Billing::Item.where(custkey: self.customer_id, billoperkey: NETWORK_OPERATIONS).order('itemkey DESC')
     else
       @__billing_items = []
     end
