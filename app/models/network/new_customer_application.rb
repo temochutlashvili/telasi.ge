@@ -135,6 +135,26 @@ class Network::NewCustomerApplication
     end
   end
 
+  def real_days; (self.end_date || Date.today) - self.send_date end
+
+  # პირველი ეტაპის ჯარიმები.
+  def penalty_first_stage
+    if self.send_date and self.start_date
+      if real_days > days then self.amount / 2
+      else 0 end
+    else 0 end
+  end
+
+  # მეორე ეტაპის ჯარიმები.
+  def penalty_second_stage
+    if self.send_date and self.start_date
+      r_days = self.real_days
+      if r_days > days then
+        ((r_days-days-1).to_i/days)*self.amount/2
+      else 0 end
+    else 0 end
+  end
+
   # ვალის გადანაწილების დათვლა.
   def calculate_distribution!
     items = self.items
@@ -165,22 +185,48 @@ class Network::NewCustomerApplication
         customer = item.customer
         account  = customer.accounts.first
         amount = self.amount
-        # bs.item
+        # bs.item - main operation
         bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
           perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: amount,
           enterdate: Time.now, itemcatkey: 0)
         bs_item.save!
+        # bs.item - first stage
+        first_stage = self.penalty_first_stage
+        if first_stage > 0
+          bs_item1 = Billing::Item.new(billoperkey: 1006, acckey: account.acckey, custkey: customer.custkey,
+            perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: first_stage,
+            enterdate: Time.now, itemcatkey: 0)
+          bs_item1.save!
+        end
+        # bs.item - second stage
+        second_stage = self.penalty_second_stage
+        if second_stage > 0
+          bs_item2 = Billing::Item.new(billoperkey: 1007, acckey: account.acckey, custkey: customer.custkey,
+            perskey: 1, signkey: 1, itemdate: Date.today, reading: 0, kwt: 0, amount: second_stage,
+            enterdate: Time.now, itemcatkey: 0)
+          bs_item2.save!
+        end
         # bs.customer update
         customer.except = 1
         customer.save!
         # bs.zdeposit_cust_qs
         network_customer = Billing::NetworkCustomer.where(customer: customer).first
-        network_customer.exception_end_date = Date.today + 10
+        network_customer.exception_end_date = Date.today + (app.personal_use ? 10 : 20)
         network_customer.save!
         # bs.zdepozit_item_qs
         network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
           operkey: 1000, enterdate: Time.now, operdate: Date.today, perskey: 1)
         network_item.save!
+        if first_stage > 0
+          network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: first_stage,
+            operkey: 1006, enterdate: Time.now, operdate: Date.today, perskey: 1)
+          network_item1.save!
+        end
+        if second_stage > 0
+          network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: second_stage,
+            operkey: 1007, enterdate: Time.now, operdate: Date.today, perskey: 1)
+          network_item2.save!
+        end
       else
         raise 'ეს სიტუაცია ჯერ არაა მზად!'
       end

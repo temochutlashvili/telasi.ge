@@ -111,6 +111,8 @@ module Network::NewCustomerHelper
           c.number_field :days, max_digits: 0, after: 'დღე'
           c.number_field :paid, after: 'GEL'
           c.number_field :remaining, after: 'GEL'
+          c.number_field :penalty_first_stage, after: 'GEL'
+          c.number_field :penalty_second_stage, after: 'GEL'
           c.date_field :send_date
           c.date_field :start_date
           c.date_field :end_date do |real|

@@ -247,6 +247,8 @@ ka:
       payments: გადახდები
       paid: გადახდილია
       remaining: დარჩენილია
+      penalty_first_stage: ჯარიმა (I ეტაპი)
+      penalty_second_stage: ჯარიმა (II ეტაპი)
       need_resolution: სპეც.ნებართვა?
       need_resolution_hint: საჭიროებს თუ არა ეს განცხადება სპეციალურ ნებართვას?
       send_date: გამოგზავნის თარიღი
