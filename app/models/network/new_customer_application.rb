@@ -212,7 +212,7 @@ class Network::NewCustomerApplication
         customer.save!
         # bs.zdeposit_cust_qs
         network_customer = Billing::NetworkCustomer.where(customer: customer).first
-        network_customer.exception_end_date = Date.today + (app.personal_use ? 10 : 20)
+        network_customer.exception_end_date = Date.today + (self.personal_use ? 10 : 20)
         network_customer.save!
         # bs.zdepozit_item_qs
         network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
