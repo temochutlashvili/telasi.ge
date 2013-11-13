@@ -207,9 +207,6 @@ class Network::NewCustomerApplication
             enterdate: Time.now, itemcatkey: 0)
           bs_item2.save!
         end
-        # bs.customer update
-        customer.except = 1
-        customer.save!
         # bs.zdeposit_cust_qs
         network_customer = Billing::NetworkCustomer.where(customer: customer).first
         network_customer.exception_end_date = Date.today + (self.personal_use ? 10 : 20)
@@ -228,6 +225,9 @@ class Network::NewCustomerApplication
             operkey: 1007, enterdate: Time.now, operdate: Date.today, perskey: 1)
           network_item2.save!
         end
+        # bs.customer update
+        #customer.except = 1
+        #customer.save!
       else
         raise 'ეს სიტუაცია ჯერ არაა მზად!'
       end
