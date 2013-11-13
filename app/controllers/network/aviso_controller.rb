@@ -38,9 +38,10 @@ class Network::AvisoController < Network::NetworkController
     aviso.status = false
     if aviso.save
       application.aviso_id = nil
+      application.customer_id = nil
       application.save
     end
-    redirect_to network_aviso_url(id: aviso.avdetkey), notice: 'განცხადება წაშლილია.'
+    redirect_to network_aviso_url(id: aviso.avdetkey), notice: 'განცხადება და ავიზო გამიჯნულია.'
   end
 
   def add_customer

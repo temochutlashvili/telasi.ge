@@ -9,7 +9,7 @@
     f.text_field 'accnumb', label: 'აბ.#', tag: 'code' do |f|
       f.action network_add_aviso_customer_url(id: @aviso.avdetkey), label: 'აბონენტის განსაზღვრა', icon: '/icons/user--plus.png' if (not @aviso.status)
     end
-    f.text_field 'invoice', label: 'ინვოისის #'
+    f.text_field 'cns', label: 'CNS #'
     f.text_field 'note', label: 'შენიშვნა'
     f.col2 do |f|
       f.boolean_field 'status', label: 'დამუშავებულია?', hint: 'დამუშავებულია თუ არა ეს ავიზო?', required: true
