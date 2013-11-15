@@ -224,10 +224,10 @@ class Network::NewCustomerApplication
         # III. bs.item - third stage
         third_stage = -self.penalty_third_stage
         if third_stage < 0
-          bs_item2 = Billing::Item.new(billoperkey: 1008, acckey: account.acckey, custkey: customer.custkey,
+          bs_item3 = Billing::Item.new(billoperkey: 1008, acckey: account.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: third_stage,
             enterdate: Time.now, itemcatkey: 0)
-          bs_item2.save!
+          bs_item3.save!
         end
         # bs.zdeposit_cust_qs
         network_customer = Billing::NetworkCustomer.where(customer: customer).first
@@ -247,7 +247,12 @@ class Network::NewCustomerApplication
             operkey: 1007, enterdate: Time.now, operdate: item_date, perskey: 1)
           network_item2.save!
         end
-        # bs.customer update
+        if third_stage < 0
+          network_item3 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: third_stage,
+            operkey: 1008, enterdate: Time.now, operdate: item_date, perskey: 1)
+          network_item3.save!
+        end
+        # XXX: bs.customer update
         # customer.except = 1
         # customer.save!
       else
