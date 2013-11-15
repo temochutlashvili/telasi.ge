@@ -64,16 +64,35 @@ module Network::NewCustomerHelper
     else 0 end
   end
 
+  def app_editable?(app)
+    [
+      Network::NewCustomerApplication::STATUS_DEFAULT,
+      Network::NewCustomerApplication::STATUS_SENT,
+      Network::NewCustomerApplication::STATUS_CANCELED,
+      Network::NewCustomerApplication::STATUS_CONFIRMED,
+    ].include?(app.status)
+  end
+
+  def app_change_customer?(app)
+    [
+      Network::NewCustomerApplication::STATUS_DEFAULT,
+      Network::NewCustomerApplication::STATUS_SENT,
+      Network::NewCustomerApplication::STATUS_CANCELED,
+      Network::NewCustomerApplication::STATUS_CONFIRMED,
+      Network::NewCustomerApplication::STATUS_COMPLETE,
+    ].include?(app.status)
+  end
+
   public
   def new_customer_view(application, opts = {})
     show_actions = (not opts[:without_actions])
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_new_customer_tab do |f|
-      f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?' if show_actions
+      f.title_action network_delete_new_customer_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?' if (show_actions and app_editable?(application))
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
         t.action network_new_customer_print_url(id: application.id, format: 'pdf'), label: 'განაცხადი', icon: '/icons/printer.png' if show_actions
         t.action network_new_customer_paybill_url(id: application.id), label: 'საგ. დავალება', icon: '/icons/clipboard-task.png' if show_actions
-        t.action network_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png' if show_actions
+        t.action network_edit_new_customer_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png' if (show_actions and app_editable?(application))
         application.transitions.each do |status|
           t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status) if show_actions
         end
@@ -125,10 +144,10 @@ module Network::NewCustomerHelper
           c.date_field :send_date
           c.date_field :start_date
           c.date_field :end_date do |real|
-            real.action network_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if (application.end_date.present? and show_actions)
+            real.action network_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if (application.end_date.present? and show_actions and app_editable?(application))
           end
           c.date_field :plan_end_date do |plan|
-            plan.action network_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if (application.plan_end_date.present? and show_actions)
+            plan.action network_change_plan_date_url(id: application.id), icon: '/icons/pencil.png' if (application.plan_end_date.present? and show_actions and app_editable?(application))
           end
         end
       end
@@ -140,9 +159,9 @@ module Network::NewCustomerHelper
         t.complex_field label: 'ბილინგის აბონენტი' do |c|
           c.text_field 'customer.accnumb', tag: 'code', empty: false
           c.text_field 'customer.custname' do |cust|
-            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png' if show_actions
+            cust.action network_link_bs_customer_url(id: application.id), icon: '/icons/user--pencil.png' if (show_actions and app_change_customer?(application))
             if application.customer_id.present?
-              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?' if show_actions
+              cust.action network_remove_bs_customer_url(id: application.id), icon: '/icons/user--minus.png', method: 'delete', confirm: 'ნამდვილად გინდათ აბონენტის წაშლა?' if (show_actions and app_change_customer?(application))
             end
           end
         end
