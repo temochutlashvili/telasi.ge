@@ -212,6 +212,7 @@ ka:
       unit_days: დღე
     network_new_customer_application:
       number: ნომერი
+      vat_name: დღგ-ს გადამხდელი?
       rs_name: განმცხადებელი
       rs_tin: პირადი ნომერი ან საიდენტიფიკაციო კოდი
       rs_tin_hint: "ფიზიკური პირებისთვის ჩაწერეთ 11 ნიშნა პირადი ნომერი, ხოლო ორგანიზაციებისთვის &mdash; 9-ნიშნა საიდენტიფიკაციო ნომერი"
@@ -249,6 +250,10 @@ ka:
       remaining: დარჩენილია
       penalty_first_stage: ჯარიმა (I ეტაპი)
       penalty_second_stage: ჯარიმა (II ეტაპი)
+      penalty_third_stage: კომპენსაცია (III ეტაპი)
+      effective_amount: ფაქტურის თანხა
+      effective_amount_hint: ფაქტურაზე გამოსაწერი სრული თანხა
+      factura_sent?: გაგზავნილია?
       need_resolution: სპეც.ნებართვა?
       need_resolution_hint: საჭიროებს თუ არა ეს განცხადება სპეციალურ ნებართვას?
       send_date: გამოგზავნის თარიღი

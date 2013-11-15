@@ -18,12 +18,22 @@ module Network::NewCustomerHelper
     end
   end
 
+  def vat_collection
+    h = {}
+    [Sys::VatPayer::NOT_PAYER, Sys::VatPayer::PAYER, Sys::VatPayer::PAYER_ZERO].each do |x|
+      h[Sys::VatPayer.vat_name(x)] = x
+    end
+    h
+  end
+
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
         t.text_field  :number, autofocus: true
         t.text_field  :rs_tin, required: true
-        t.boolean_field :rs_vat_payer, required: true
+        t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
+        t.boolean_field :need_factura, required: true
+        t.boolean_field :show_tin_on_print, required: true
         t.boolean_field :personal_use, required: true
         t.text_field  :mobile, required: true
         t.email_field :email
@@ -35,8 +45,6 @@ module Network::NewCustomerHelper
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
         t.number_field :power, after: 'kWh', width: 100, required: true
         t.boolean_field :need_resolution, required: true
-        t.boolean_field :need_factura, required: true
-        t.boolean_field :show_tin_on_print, required: true
         t.text_field :notes, width: 500
       end
       f.submit (opts[:submit] || opts[:title])
@@ -80,7 +88,7 @@ module Network::NewCustomerHelper
           c.text_field :rs_tin, tag: 'code'
           c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
         end
-        t.boolean_field :rs_vat_payer, required: true
+        t.text_field :vat_name, required: true
         t.boolean_field :personal_use, required: true
         t.email_field :email
         t.text_field :formatted_mobile, required: true
@@ -113,6 +121,7 @@ module Network::NewCustomerHelper
           c.number_field :remaining, after: 'GEL'
           c.number_field :penalty_first_stage, after: 'GEL'
           c.number_field :penalty_second_stage, after: 'GEL'
+          c.number_field :penalty_third_stage, after: 'GEL'
           c.date_field :send_date
           c.date_field :start_date
           c.date_field :end_date do |real|
@@ -201,6 +210,8 @@ module Network::NewCustomerHelper
         if application.can_send_factura?
           t.action network_new_customer_send_factura_url(id: application.id), icon: '/icons/money--arrow.png', label: 'ფაქტურის გაგზავნა', method: 'post', confirm: 'ნამდვილად გინდათ ფაქტურის გაგზავნა?' if show_actions
         end
+        t.number_field 'effective_amount', after: 'GEL'
+        t.boolean_field 'factura_sent?'
         t.text_field 'factura_id', tag: 'code'
         t.complex_field i18n: 'factura_number' do |c|
           c.text_field 'factura_seria', tag: 'code', after: '&mdash;'.html_safe

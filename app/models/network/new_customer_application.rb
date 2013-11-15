@@ -14,13 +14,13 @@ class Network::NewCustomerApplication
   include Mongoid::Document
   include Mongoid::Timestamps
   include Network::RsName
+  include Sys::VatPayer
 
   belongs_to :user, class_name: 'Sys::User'
   field :number,    type: String
   field :payment_id, type: Integer
   field :rs_tin,    type: String
   field :rs_name,   type: String
-  field :rs_vat_payer, type: Mongoid::Boolean, default: true
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
@@ -138,7 +138,7 @@ class Network::NewCustomerApplication
 
   def real_days; (self.end_date || Date.today) - self.send_date end
 
-  # პირველი ეტაპის ჯარიმები.
+  # პირველი ეტაპის ჯარიმა.
   def penalty_first_stage
     if self.send_date and self.start_date
       if real_days > days then self.amount / 2
@@ -146,15 +146,28 @@ class Network::NewCustomerApplication
     else 0 end
   end
 
-  # მეორე ეტაპის ჯარიმები.
+  # მეორე ეტაპის ჯარიმა.
   def penalty_second_stage
     if self.send_date and self.start_date
-      r_days = self.real_days
-      if r_days > days then
-        ((r_days-days-1).to_i/days)*self.amount/2
+      if real_days > 2 * days then self.amount / 2
       else 0 end
     else 0 end
   end
+
+  # მესამე ეტაპის ჯარიმა (კომპენსაცია).
+  def penalty_third_stage
+    if self.send_date and self.start_date
+      r_days = self.real_days
+      if r_days > 2*days then
+        ((r_days-2*days-1).to_i/days)*self.amount/2
+      else 0 end
+    else 0 end
+  end
+
+  # ჯარიმის სრული ოდენობა.
+  def total_penalty; self.penalty_first_stage + self.penalty_second_stage + self.penalty_third_stage end
+  # რეალურად გადასახდელი თანხა.
+  def effective_amount; self.amount - self.total_penalty end
 
   # ვალის გადანაწილების დათვლა.
   def calculate_distribution!
@@ -237,7 +250,8 @@ class Network::NewCustomerApplication
     self.save
   end
 
-  def can_send_factura?; self.need_factura and self.status == STATUS_IN_BS and self.factura_seria.blank? end
+  def factura_sent?; not self.factura_seria.blank? end
+  def can_send_factura?; self.need_factura and [STATUS_COMPLETE, STATUS_IN_BS].include?(self.status) and not self.factura_sent? and self.effective_amount > 0 end
 
   private
 
@@ -251,7 +265,7 @@ class Network::NewCustomerApplication
         if self.send_date and not self.plan_end_date_changed_manually
           self.plan_end_date = self.send_date + self.days
         end
-        self.amount = (self.amount / 1.18 * 100).round / 100.0 unless self.rs_vat_payer
+        self.amount = (self.amount / 1.18 * 100).round / 100.0 unless self.pays_non_zero_vat?
       end
     else
       if power > 0

@@ -228,23 +228,22 @@ class Network::NewCustomerController < Network::NetworkController
 
   def send_factura
     application = Network::NewCustomerApplication.find(params[:id])
+    raise 'ფაქტურის გაგზავნა დაუშვებელია' unless application.can_send_factura?
     factura = RS::Factura.new(date: Time.now, seller_id: RS::TELASI_PAYER_ID)
-    if RS.save_factura(factura, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, buyer_tin: application.rs_tin))
-      amount = application.amount
-      vat = application.rs_vat_payer ? amount * (1-1/1.18) : 0
-      factura_item = RS::FacturaItem.new(factura: factura, good: 'ქსელზე მიერთების პაკეტის ღირებულება', unit: 'ცალი', amount: amount, vat: vat, quantity: 1)
-      RS.save_factura_item(factura_item, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID))
-      if RS.send_factura(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
-        factura = RS.get_factura_by_id(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
-        application.factura_seria = factura.seria
-        application.factura_number = factura.number
-      end
-      application.factura_id = factura.id
-      application.save
-      redirect_to network_new_customer_url(id: application.id, tab: 'factura'), notice: 'ფაქტურა გაგზავნილია :)'
-    else
-      raise 'ფაქტურის გაგზავნა ვერ ხერხდება!'
+    # TODO: check application amount it should be > 0!!!
+    raise 'ფაქტურის გაგზავნა ვერ ხერხდება!' unless RS.save_factura(factura, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, buyer_tin: application.rs_tin))
+    amount = application.amount
+    vat = application.pays_non_zero_vat? ? amount * (1 - 1.0 / 1.18) : 0
+    factura_item = RS::FacturaItem.new(factura: factura, good: 'ქსელზე მიერთების პაკეტის ღირებულება', unit: 'ცალი', amount: amount, vat: vat, quantity: 1)
+    RS.save_factura_item(factura_item, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID))
+    if RS.send_factura(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
+      factura = RS.get_factura_by_id(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
+      application.factura_seria = factura.seria
+      application.factura_number = factura.number
     end
+    application.factura_id = factura.id
+    application.save
+    redirect_to network_new_customer_url(id: application.id, tab: 'factura'), notice: 'ფაქტურა გაგზავნილია :)'
   end
 
   def nav
@@ -263,7 +262,7 @@ class Network::NewCustomerController < Network::NetworkController
   private
 
   def new_customer_params
-    params.require(:network_new_customer_application).permit(:number, :rs_tin, :rs_vat_payer, :personal_use, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power, :need_factura, :show_tin_on_print, :notes)
+    params.require(:network_new_customer_application).permit(:number, :rs_tin, :personal_use, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :need_resolution, :voltage, :power, :vat_options, :need_factura, :show_tin_on_print, :notes)
   end
   
   def account_params; params.require(:network_new_customer_item).permit(:address, :address_code, :rs_tin, :customer_id) end
