@@ -6,8 +6,18 @@ class Network::NewCustomerApplication
   STATUS_CONFIRMED  = 3
   STATUS_COMPLETE   = 4
   STATUS_IN_BS      = 5
-  STATUSES = [ STATUS_DEFAULT, STATUS_SENT, STATUS_CANCELED, STATUS_CONFIRMED, STATUS_COMPLETE, STATUS_IN_BS ]
-  NETWORK_OPERATIONS = [116, 1000, 1006, 1007]
+  STATUS_STORNO     = 6
+  STATUSES = [ STATUS_DEFAULT, STATUS_SENT, STATUS_CANCELED, STATUS_CONFIRMED, STATUS_COMPLETE, STATUS_IN_BS, STATUS_STORNO ]
+  NETWORK_OPERATIONS = [
+    116,   # prepayment
+    1000,  # charge: new_customer_application
+    1006,  # penalty I
+    1007,  # penalty II
+    120,   # penalty III
+    1008,  # charge correction
+    1009,  # penalty I correction
+    1010,  # penalty II correction
+  ]
   VOLTAGE_220 = '220'
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
@@ -48,6 +58,8 @@ class Network::NewCustomerApplication
   field :plan_end_date, type: Date
   field :plan_end_date_changed_manually, type: Boolean
   field :end_date, type: Date
+  # cancelation_date არის გაუქმების თარიღი
+  field :cancelation_date, type: Date
   # factura fields
   field :factura_id, type: Integer
   field :factura_seria, type: String
@@ -120,6 +132,9 @@ class Network::NewCustomerApplication
     when STATUS_DEFAULT then [ STATUS_SENT, STATUS_CANCELED ]
     when STATUS_SENT then [ STATUS_DEFAULT, STATUS_CONFIRMED, STATUS_CANCELED ]
     when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
+    when STATUS_COMPLETE then [ STATUS_CANCELED ]
+    when STATUS_IN_BS then [ STATUS_CANCELED ]
+    when STATUS_CANCELED then [] # NB: ძალიან მნიშვნელოვანია, რომ გაუქმებული განცხადება ვერ აღდგეს!!!
     else [ ]
     end
   end
@@ -200,61 +215,55 @@ class Network::NewCustomerApplication
         account  = customer.accounts.first
         amount = self.amount
         item_date = self.end_date
-        # bs.item - main operation
+        # set customer exception status
+        customer.except = true
+        customer.save!
+        # find zdeposit customer
+        network_customer = Billing::NetworkCustomer.where(customer: customer).first
+        raise "სადეპოზიტო აბონენტი ვერ მოიძებნა!" if network_customer.blank?
+        network_customer.exception_end_date = item_date + (self.personal_use ? 20 : 10)
+        network_customer.save!
+        # bs.item - charge operation
         bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
           perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: amount,
           enterdate: Time.now, itemcatkey: 0)
         bs_item.save!
-        # I. bs.item - first stage
+        network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
+          operkey: 1000, enterdate: Time.now, operdate: item_date, perskey: 1)
+        network_item.save!
+        # I. bs.item - first stage penalty
         first_stage = -self.penalty_first_stage
         if first_stage < 0
           bs_item1 = Billing::Item.new(billoperkey: 1006, acckey: account.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: first_stage,
             enterdate: Time.now, itemcatkey: 0)
           bs_item1.save!
+          network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: first_stage,
+            operkey: 1006, enterdate: Time.now, operdate: item_date, perskey: 1)
+          network_item1.save!
         end
-        # II. bs.item - second stage
+        # II. bs.item - second stage penalty
         second_stage = -self.penalty_second_stage
         if second_stage < 0
           bs_item2 = Billing::Item.new(billoperkey: 1007, acckey: account.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: second_stage,
             enterdate: Time.now, itemcatkey: 0)
           bs_item2.save!
+          network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: second_stage,
+            operkey: 1007, enterdate: Time.now, operdate: item_date, perskey: 1)
+          network_item2.save!
         end
-        # III. bs.item - third stage
+        # III. bs.item - third stage penalty
         third_stage = -self.penalty_third_stage
         if third_stage < 0
           bs_item3 = Billing::Item.new(billoperkey: 120, acckey: account.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: third_stage,
             enterdate: Time.now, itemcatkey: 0)
           bs_item3.save!
-        end
-        # bs.zdeposit_cust_qs
-        network_customer = Billing::NetworkCustomer.where(customer: customer).first
-        network_customer.exception_end_date = item_date + (self.personal_use ? 20 : 10)
-        network_customer.save!
-        # bs.zdepozit_item_qs
-        network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
-          operkey: 1000, enterdate: Time.now, operdate: item_date, perskey: 1)
-        network_item.save!
-        if first_stage < 0
-          network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: first_stage,
-            operkey: 1006, enterdate: Time.now, operdate: item_date, perskey: 1)
-          network_item1.save!
-        end
-        if second_stage < 0
-          network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: second_stage,
-            operkey: 1007, enterdate: Time.now, operdate: item_date, perskey: 1)
-          network_item2.save!
-        end
-        if third_stage < 0
           network_item3 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: third_stage,
             operkey: 120, enterdate: Time.now, operdate: item_date, perskey: 1)
           network_item3.save!
         end
-        # XXX: bs.customer update
-        # customer.except = 1
-        # customer.save!
       else
         raise 'ეს სიტუაცია ჯერ არაა მზად!'
       end
@@ -310,6 +319,77 @@ class Network::NewCustomerApplication
       when STATUS_SENT      then self.send_date  = Date.today
       when STATUS_CONFIRMED then self.start_date = Date.today and self.plan_end_date = self.send_date + self.days
       when STATUS_COMPLETE  then self.end_date   = Date.today
+      when STATUS_CANCELED  then
+        self.cancelation_date = Date.today
+        revert_bs_operations_on_cancel
+      end
+    end
+  end
+
+  def revert_bs_operations_on_cancel
+    if self.status_was == STATUS_IN_BS
+      amnt3 = penalty_third_stage
+      raise "კომპენსაციის კორექტირება არ ვიცი როგორ გავაკეთო!" if amnt3 > 0
+      Billing::Item.transaction do
+        item_date = Date.today
+        amnt1 = penalty_first_stage
+        amnt2 = penalty_second_stage
+        if self.items.count == 1
+          item = self.items.first
+          customer = item.customer
+          account  = customer.accounts.first
+          amount = self.amount
+          item_date = Date.today
+          # set customer exception status
+          customer.except = false
+          customer.save!
+          # find zdeposit customer
+          network_customer = Billing::NetworkCustomer.where(customer: customer).first
+          raise "სადეპოზიტო აბონენტი ვერ მოიძებნა!" if network_customer.blank?
+          network_customer.exception_end_date = nil
+          network_customer.save!
+          # bs.item - rollback charge operation
+          bs_item = Billing::Item.new(billoperkey: 1008, acckey: account.acckey, custkey: customer.custkey,
+            perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: (-amount),
+            enterdate: Time.now, itemcatkey: 0)
+          bs_item.save!
+          network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: (-amount),
+            operkey: 1008, enterdate: Time.now, operdate: item_date, perskey: 1)
+          network_item.save!
+          # I. bs.item - first stage penalty
+          if amnt1 > 0
+            bs_item1 = Billing::Item.new(billoperkey: 1009, acckey: account.acckey, custkey: customer.custkey,
+              perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: amnt1,
+              enterdate: Time.now, itemcatkey: 0)
+            bs_item1.save!
+            network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amnt1,
+              operkey: 1009, enterdate: Time.now, operdate: item_date, perskey: 1)
+            network_item1.save!
+          end
+          # II. bs.item - second stage penalty
+          if amnt2 > 0
+            bs_item2 = Billing::Item.new(billoperkey: 1010, acckey: account.acckey, custkey: customer.custkey,
+              perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: amnt2,
+              enterdate: Time.now, itemcatkey: 0)
+            bs_item2.save!
+            network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amnt2,
+              operkey: 1010, enterdate: Time.now, operdate: item_date, perskey: 1)
+            network_item2.save!
+          end
+          # # III. bs.item - third stage penalty
+          # third_stage = -self.penalty_third_stage
+          # if third_stage < 0
+          #   bs_item3 = Billing::Item.new(billoperkey: 120, acckey: account.acckey, custkey: customer.custkey,
+          #     perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: third_stage,
+          #     enterdate: Time.now, itemcatkey: 0)
+          #   bs_item3.save!
+          #   network_item3 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: third_stage,
+          #     operkey: 120, enterdate: Time.now, operdate: item_date, perskey: 1)
+          #   network_item3.save!
+          # end
+        else
+          raise "ვერ ვაკეთებ მრავალაბონენტიანი განშლის გაუქმებას."
+        end
       end
     end
   end

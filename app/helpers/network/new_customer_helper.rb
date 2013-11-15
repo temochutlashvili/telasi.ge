@@ -68,7 +68,7 @@ module Network::NewCustomerHelper
     [
       Network::NewCustomerApplication::STATUS_DEFAULT,
       Network::NewCustomerApplication::STATUS_SENT,
-      Network::NewCustomerApplication::STATUS_CANCELED,
+      #Network::NewCustomerApplication::STATUS_CANCELED,
       Network::NewCustomerApplication::STATUS_CONFIRMED,
     ].include?(app.status)
   end
@@ -77,7 +77,7 @@ module Network::NewCustomerHelper
     [
       Network::NewCustomerApplication::STATUS_DEFAULT,
       Network::NewCustomerApplication::STATUS_SENT,
-      Network::NewCustomerApplication::STATUS_CANCELED,
+      #Network::NewCustomerApplication::STATUS_CANCELED,
       Network::NewCustomerApplication::STATUS_CONFIRMED,
       Network::NewCustomerApplication::STATUS_COMPLETE,
     ].include?(app.status)
@@ -108,6 +108,8 @@ module Network::NewCustomerHelper
           c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
         end
         t.text_field :vat_name, required: true
+        t.boolean_field :need_factura, required: true
+        t.boolean_field :show_tin_on_print, required: true
         t.boolean_field :personal_use, required: true
         t.email_field :email
         t.text_field :formatted_mobile, required: true
@@ -126,8 +128,6 @@ module Network::NewCustomerHelper
           c.number_field :power, after: 'კვტ'
         end
         t.boolean_field :need_resolution, required: true
-        t.boolean_field :need_factura, required: true
-        t.boolean_field :show_tin_on_print, required: true
         t.text_field :notes
         t.col2 do |c|
           c.complex_field label: 'ბილინგის აბონენტი' do |c|
