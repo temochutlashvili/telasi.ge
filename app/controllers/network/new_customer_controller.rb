@@ -230,9 +230,9 @@ class Network::NewCustomerController < Network::NetworkController
     application = Network::NewCustomerApplication.find(params[:id])
     raise 'ფაქტურის გაგზავნა დაუშვებელია' unless application.can_send_factura?
     factura = RS::Factura.new(date: Time.now, seller_id: RS::TELASI_PAYER_ID)
-    # TODO: check application amount it should be > 0!!!
+    amount = application.effective_amount
+    raise 'თანხა უნდა იყოს > 0' unless amount > 0
     raise 'ფაქტურის გაგზავნა ვერ ხერხდება!' unless RS.save_factura(factura, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, buyer_tin: application.rs_tin))
-    amount = application.amount
     vat = application.pays_non_zero_vat? ? amount * (1 - 1.0 / 1.18) : 0
     factura_item = RS::FacturaItem.new(factura: factura, good: 'ქსელზე მიერთების პაკეტის ღირებულება', unit: 'ცალი', amount: amount, vat: vat, quantity: 1)
     RS.save_factura_item(factura_item, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID))
