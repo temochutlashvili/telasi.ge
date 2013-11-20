@@ -44,6 +44,16 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
+  def delete
+    user = Sys::User.find(params[:id])
+    if user != current_user
+      user.destroy
+      redirect_to admin_users_url, notice: 'მომხმარებელი წაშლილია'
+    else
+      redirect_to admin_user_url(id: user.id), alert: 'მომხმარებელი ვერ წაიშალა'
+    end
+  end
+
   def nav
     @nav = { 'მომხმარებლები' => admin_users_url }
     if @user

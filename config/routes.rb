@@ -50,6 +50,7 @@ TelasiGe::Application.routes.draw do
       get '/show/:id', action: 'show', as: 'user'
       match '/new', action: 'new', as: 'new_user', via: ['get', 'post']
       match '/edit/:id', action: 'edit', as: 'edit_user', via: ['get', 'post']
+      delete '/delete/:id', action: 'delete', as: 'delete_user'
     end
     scope '/customers', controller: 'customers' do
       get '/', action: 'index', as: 'customers'

@@ -1,5 +1,6 @@
 <%= view_for @user, title: @title, icon: '/icons/user.png', collapsible: true do |v|
   v.title_action admin_edit_user_url(id: @user.id), label: t('models.sys_user.actions.edit'), icon: '/icons/user--pencil.png'
+  v.title_action admin_delete_user_url(id: @user.id), label: 'წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ მომხმარებლის წაშლა?'
   v.tab title: 'ძირითადი', icon: '/icons/user.png'  do |t|
     t.col1 do |c|
       c.email_field 'email', required: true
