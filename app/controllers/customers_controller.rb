@@ -22,7 +22,6 @@ class CustomersController < ApplicationController
       @registration = Billing::CustomerRegistration.new(params.require(:billing_customer_registration).permit(:rs_tin, :dob))
       @registration.custkey = @customer.custkey
       @registration.user = current_user
-      @registration.requested = true
       @registration.confirmed = false
       @registration.denied = false
       if @registration.save

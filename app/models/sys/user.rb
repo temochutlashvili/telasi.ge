@@ -118,7 +118,7 @@ module Sys
     def user_after_create
       if self.accnumb.present?
         customer = Billing::Customer.where(accnumb: self.accnumb).first
-        Billing::CustomerRegistration.new(requested: false, user: self, custkey: customer.custkey).save if customer
+        Billing::CustomerRegistration.new(user: self, custkey: customer.custkey, rs_tin: self.rs_tin, dob: self.dob).save if customer
       end
     end
 

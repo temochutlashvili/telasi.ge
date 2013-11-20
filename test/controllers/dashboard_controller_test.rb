@@ -40,7 +40,11 @@ class DashboardControllerTest < ActionController::TestCase
     get :register
 
     # register first user
-    post :register, sys_user: { email: 'dimakura@gmail.com', password: 'secret', password_confirmation: 'secret', first_name: 'Dimitri', last_name: 'Kurashvili', mobile: '599422451', accnumb: '5292293' }
+    post :register, sys_user: {
+        email: 'dimakura@gmail.com', password: 'secret', password_confirmation: 'secret',
+        first_name: 'Dimitri', last_name: 'Kurashvili', mobile: '599422451',
+        accnumb: '5292293', dob: '04-Apr-1979', rs_tin: '02001000490'
+    }
     user = assigns(:user)
     refute_nil user
     assert user.errors.empty?
@@ -54,7 +58,6 @@ class DashboardControllerTest < ActionController::TestCase
     refute_nil reg
     assert_equal 11360, reg.custkey
     assert_equal user, reg.user
-    refute reg.requested
     refute reg.confirmed
     refute reg.denied
   end
