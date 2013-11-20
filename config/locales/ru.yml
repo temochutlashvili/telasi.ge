@@ -76,6 +76,8 @@ ru:
       account: Данные Абонента
       account_description: "Если вы уже абонент Теласи, укажите тут свой номер"
       accnumb: Номер Абонента
+      rs_tin: Персональный номер
+      dob: Дата рождения
       actions:
         login: Вход
         login_description: Для входа в систему вы должны быть зарегистрированны.
@@ -118,6 +120,9 @@ ru:
         login_required: вы должны быть авторизованы
         admin_required: вам нужны администраторские права
         illegal_accnumb: неправильный абонентский номер
+        illegal_tin: неправильный персональный номер
+        empty_tin: введите персональный номер
+        empty_dob: введите дату рождения
     billing_customer:
       accnumb: Номер абонента
       custname: Название

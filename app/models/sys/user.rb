@@ -92,6 +92,14 @@ module Sys
     def customer_validation
       if self.new_record? and self.accnumb.present?
         errors.add(:accnumb, I18n.t('models.sys_user.errors.illegal_accnumb')) if Billing::Customer.where(accnumb: self.accnumb).first.blank?
+        if self.rs_tin.blank?
+          self.errors.add(:rs_tin, I18n.t('models.sys_user.errors.empty_tin'))
+        elsif RS.get_name_from_tin(RS::TELASI_SU.merge(tin: self.rs_tin)).blank?
+          self.errors.add(:rs_tin, I18n.t('models.sys_user.errors.illegal_tin'))
+        end
+        if self.dob.blank?
+          self.errors.add(:dob, I18n.t('models.sys_user.errors.empty_dob'))
+        end
       end
     end
 

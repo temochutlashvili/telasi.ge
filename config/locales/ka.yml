@@ -123,6 +123,9 @@ ka:
         login_required: საჭიროა სისტემაში ავტორიზაცია.
         admin_required: საჭიროა ადმინისტრატორის უფლებები.
         illegal_accnumb: არასწორი აბონენტის ნომერი
+        illegal_tin: არასწორი პირადი ნომერი
+        empty_tin: ჩაწერეთ პირადი ნომერი
+        empty_dob: ჩაწერეთ დაბ. თარიღი
     billing_customer:
       accnumb: აბონენტის ნომერი
       custname: დასახელება
