@@ -123,7 +123,10 @@ module FormHelper
     include Forma::Html
 
     def to_e
-      el('div', text: @label, attrs: { class: 'separator' })
+      el('div', children: [
+        el('div', text: @label, attrs: { class: 'separator' }),
+        el('div', text: @hint, attrs: { class: 'separator-hint' })
+      ])
     end
   end
 

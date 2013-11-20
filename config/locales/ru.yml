@@ -73,6 +73,9 @@ ru:
       admin: Администратор?
       created_at: Регистрация
       updated_at: Последнее изменение
+      account: Данные Абонента
+      account_description: "Если вы уже абонент Теласи, укажите тут свой номер"
+      accnumb: Номер Абонента
       actions:
         login: Вход
         login_description: Для входа в систему вы должны быть зарегистрированны.
@@ -97,7 +100,7 @@ ru:
         change_password_description: "Для смены пароля сначала укажите свой старый пароль, а потом &mdash; новый и его подтверждение."
         change_password_complete: Пароль изменен
         change_password_description2: ВВедите новый пароль и подтверждение.
-        edit_profile: Изменение личной информаци
+        edit_profile: Изменение личной информации
         edit_profile_complete: Личные данные изменены.
         admin_show: მომხმარებლის თვისებები
         admin_all_users: ყველა მომხმარებელი
@@ -114,6 +117,7 @@ ru:
         illegal_login: неправильныe данные
         login_required: вы должны быть авторизованы
         admin_required: вам нужны администраторские права
+        illegal_accnumb: неправильный абонентский номер
     billing_customer:
       accnumb: Номер абонента
       custname: Название

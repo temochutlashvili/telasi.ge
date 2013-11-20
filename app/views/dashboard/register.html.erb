@@ -12,6 +12,8 @@
         f.text_field :first_name
         f.text_field :last_name
         f.text_field :mobile
+        f.separator_field label: t('models.sys_user.account'), hint: t('models.sys_user.account_description')
+        f.text_field :accnumb
         f.submit t('models.sys_user.actions.register_short')
       end %>
     </div>

@@ -76,6 +76,11 @@ ka:
       updated_at: ბოლო ცვლილება
       network_admin: ქსელის ადმინი?
       network_admin_hint: შეუძლია თუ არა ქსელის შიდა პროგრამით სარგებლობა?
+      account: აბონენტის რეგისტრაცია
+      account_description: თუ უკვე ხართ თელასის აბონენტი შეგიძლიათ მიუთითოთ აქ მისი ნომერი
+      accnumb: აბონენტის ნომერი
+      rs_tin: პირადი ნომერი
+      dob: დაბადების თარიღი
       actions:
         login: სისტემაში შესვლა
         login_description: თქვენ უნდა იყოთ რეგისტრირებული მომხმარებელი
@@ -117,6 +122,7 @@ ka:
         illegal_login: არასწორი მომხმარებელი ან პაროლი
         login_required: საჭიროა სისტემაში ავტორიზაცია.
         admin_required: საჭიროა ადმინისტრატორის უფლებები.
+        illegal_accnumb: არასწორი აბონენტის ნომერი
     billing_customer:
       accnumb: აბონენტის ნომერი
       custname: დასახელება

@@ -13,6 +13,10 @@ module Sys
     field :password_restore_hash, type: String
     field :admin,                 type: Mongoid::Boolean
     field :active,                type: Mongoid::Boolean
+    # account registration data
+    field :accnumb,               type: String
+    field :rs_tin,                type: String
+    field :dob,                   type: Date
 
     field :first_name, type: String
     field :last_name,  type: String
@@ -30,10 +34,11 @@ module Sys
     validates :first_name, presence: { message: I18n.t('models.sys_user.errors.empty_first_name') }
     validates :last_name, presence: { message: I18n.t('models.sys_user.errors.empty_last_name') }
     validates :mobile, mobile: { message: I18n.t('models.sys_user.errors.illegal_mobile') }
-    validate :password_definition
+    validate :password_definition, :customer_validation
 
     before_create :user_before_create
     before_save :user_before_save
+    after_save :user_after_create
 
     def full_name; "#{first_name} #{last_name}" end
     def self.encrypt_password(password, salt); Digest::SHA1.hexdigest("#{password}dimitri#{salt}") end
@@ -86,6 +91,12 @@ module Sys
 
     private
 
+    def customer_validation
+      if self.new_record? and self.accnumb.present?
+        errors.add(:accnumb, I18n.t('models.sys_user.errors.illegal_accnumb')) if Billing::Customer.where(accnumb: self.accnumb).first.blank?
+      end
+    end
+
     def password_definition
       if hashed_password.blank?
         errors.add(:password, I18n.t('models.sys_user.errors.empty_password'))
@@ -104,6 +115,13 @@ module Sys
         self.email_confirm_hash = confirmed ? nil : User.generate_hash(self)
       end
       self.active = true
+    end
+
+    def user_after_create
+      if self.accnumb.present?
+        customer = Billing::Customer.where(accnumb: self.accnumb).first
+        Billing::CustomerRegistration.new(requested: false, user: self, custkey: customer.custkey).save if customer
+      end
     end
 
     def user_before_save; self.mobile = compact_mobile(self.mobile) end

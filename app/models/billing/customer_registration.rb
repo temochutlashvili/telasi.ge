@@ -10,12 +10,11 @@ class Billing::CustomerRegistration
   field :rs_tin, type: String
   field :rs_name, type: String
   field :dob, type: Date
+  field :requested, type: Mongoid::Boolean, default: false
   field :confirmed, type: Mongoid::Boolean, default: false
   field :denied, type: Mongoid::Boolean, default: false
   field :denial_reason, type: String
-  validates :rs_tin, presence: { message: I18n.t('models.billing_customer_registration.errors.tin_required') }
   validates :custkey, uniqueness: { message: I18n.t('models.billing_customer_registration.errors.customer_duplicate'), scope: :user_id }
-  validates :dob, presence: { message: I18n.t('models.billing_customer_registration.errors.dob_required') }
   validate :validate_rs_name, :validate_denial_reason
 
   def customer; @customer ||= Billing::Customer.find(self.custkey) end
@@ -24,6 +23,13 @@ class Billing::CustomerRegistration
   def last_name; self.rs_name.split(' ')[1] end
 
   private
+
+  def validate_requested
+    if self.requested
+      errors.add(:rs_tin, I18n.t('models.billing_customer_registration.errors.tin_required')) if self.rs_tin.blank?
+      errors.add(:dob, I18n.t('models.billing_customer_registration.errors.dob_required'))
+    end
+  end
 
   def validate_rs_name
     if self.rs_tin.present?

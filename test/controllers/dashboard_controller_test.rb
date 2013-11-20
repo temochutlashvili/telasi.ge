@@ -34,4 +34,28 @@ class DashboardControllerTest < ActionController::TestCase
     assert user.email_confirmed
     refute user.email_confirm_hash
   end
+
+  test "register user with accnumb" do
+    # visit register page
+    get :register
+
+    # register first user
+    post :register, sys_user: { email: 'dimakura@gmail.com', password: 'secret', password_confirmation: 'secret', first_name: 'Dimitri', last_name: 'Kurashvili', mobile: '599422451', accnumb: '5292293' }
+    user = assigns(:user)
+    refute_nil user
+    assert user.errors.empty?
+    assert user.email_confirmed
+
+    # customer_registration
+    regs = Billing::CustomerRegistration.where(user_id: user.id)
+    refute regs.empty?, 'there should be an initial registration'
+    assert_equal 1, regs.count
+    reg = regs.first
+    refute_nil reg
+    assert_equal 11360, reg.custkey
+    assert_equal user, reg.user
+    refute reg.requested
+    refute reg.confirmed
+    refute reg.denied
+  end
 end
