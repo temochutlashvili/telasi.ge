@@ -5,5 +5,5 @@
 //= require bootstrap.min
 //= require forma
 $(function() {
-  $('.datepicker').datepicker({ dateFormat: 'dd-M-yy' });
+  $('.datepicker').datepicker({ dateFormat: 'dd-M-yy', changeMonth: true, changeYear: true, yearRange: "-100:+0" });
 });

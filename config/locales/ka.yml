@@ -163,7 +163,7 @@ ka:
       errors:
         tin_required: ჩაწერეთ პირადი ნომერი
         tin_illegal: არასწორი პირადი ნომერი
-        dob_required: ჩაწერეთ დაბადების თარიღი 
+        dob_required: ჩაწერეთ დაბადების თარიღი
         customer_duplicate: ეს აბონენტი უკვე დამახსოვრებულია
         passport_required: ჩაწერეთ პირადობის საბუთის ნომერი
         empty_serial: ჩაწერეთ პირადობის საბუთის სერიული ნომერი

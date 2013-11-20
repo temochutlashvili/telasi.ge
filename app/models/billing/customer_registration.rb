@@ -15,7 +15,7 @@ class Billing::CustomerRegistration
   field :denied, type: Mongoid::Boolean, default: false
   field :denial_reason, type: String
   validates :custkey, uniqueness: { message: I18n.t('models.billing_customer_registration.errors.customer_duplicate'), scope: :user_id }
-  validate :validate_rs_name, :validate_denial_reason
+  validate :validate_rs_name, :validate_denial_reason, :validate_requested
 
   def customer; @customer ||= Billing::Customer.find(self.custkey) end
   def cra_url; "http://service.telasi.ge/cra/by_name_and_dob?first_name=#{first_name}&last_name=#{last_name}&date=#{dob.strftime('%d-%b-%Y')}" end
@@ -27,7 +27,7 @@ class Billing::CustomerRegistration
   def validate_requested
     if self.requested
       errors.add(:rs_tin, I18n.t('models.billing_customer_registration.errors.tin_required')) if self.rs_tin.blank?
-      errors.add(:dob, I18n.t('models.billing_customer_registration.errors.dob_required'))
+      errors.add(:dob, I18n.t('models.billing_customer_registration.errors.dob_required')) if self.dob.blank?
     end
   end
 

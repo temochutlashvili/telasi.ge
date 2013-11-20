@@ -13,15 +13,13 @@ module Sys
     field :password_restore_hash, type: String
     field :admin,                 type: Mongoid::Boolean
     field :active,                type: Mongoid::Boolean
+    field :first_name, type: String
+    field :last_name,  type: String
+    field :mobile,     type: String
     # account registration data
     field :accnumb,               type: String
     field :rs_tin,                type: String
     field :dob,                   type: Date
-
-    field :first_name, type: String
-    field :last_name,  type: String
-    field :mobile,     type: String
-
     # roles
     field :network_admin, type: Mongoid::Boolean, default: false
 
