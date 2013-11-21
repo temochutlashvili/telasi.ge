@@ -1,10 +1,13 @@
 <div style="padding: 0 0 20px 0;">
   <div class="pull-right">
-    <a class="btn btn-info" href="<%= network_tariffs_url %>"><img src="/icons/network.png"></img> ტარიფები</a>
-    <a class="btn btn-warning" href="<%= network_avisos_url %>"><img src="/icons/money-coin.png"></img> ავიზოების მართვა</a>
+    <% if current_user.admin %>
+      <a class="btn" href="<%= network_tariffs_url %>"><img src="/icons/wrench.png"></img> ტარიფები</a>
+      <a class="btn" href="<%= network_stages_url %>"><img src="/icons/wrench.png"></img> ეტაპები</a>
+    <% end %>
   </div>
   <a class="btn" href="<%= network_new_customers_url %>"><img src="/icons/user--plus.png"></img> ქსელზე მიერთება</a>
   <a class="btn" href="<%= network_change_power_applications_url %>"><img src="/icons/user--pencil.png"></img> სიმძლავრის შეცვლა</a>
+  <a class="btn btn-warning" href="<%= network_avisos_url %>"><img src="/icons/money-coin.png"></img> ავიზოების მართვა</a>
 </div>
 <%= new_customer_table @new_customers %>
 <%= change_power_table @change_powers %>

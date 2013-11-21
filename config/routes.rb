@@ -61,6 +61,7 @@ TelasiGe::Application.routes.draw do
     end
     get '/network' => redirect('/network')
   end
+
   namespace 'network' do
     scope '/', controller: 'base' do
       get '/', action: 'index', as: 'home'
@@ -106,6 +107,12 @@ TelasiGe::Application.routes.draw do
       match '/edit/:id', action: 'edit', as: 'edit_change_power', via: ['get', 'post']
       get   '/:id', action: 'show', as: 'change_power'
       delete '/delete/:id', action: 'delete', as: 'delete_change_power'
+    end
+    scope '/stages', controller: 'stages' do
+      get '/', action: 'index', as: 'stages'
+      match '/new', action: 'new', as: 'new_stage', via: ['get', 'post']
+      match '/edit/:id', action: 'edit', as: 'edit_stage', via: ['get', 'post']
+      delete '/delete/:id', action: 'delete', as: 'delete_stage'
     end
   end
 
