@@ -42,6 +42,7 @@ module Network::ChangePowerHelper
   end
 
   private
+
   def selected_change_power_tab
     case params[:tab]
     when 'accounts' then 1
@@ -52,6 +53,7 @@ module Network::ChangePowerHelper
   end
 
   public
+
   def change_power_view(application, opts = {})
     view_for application, title: 'განცხადების თვისებები', collapsible: true, icon: '/icons/user--pencil.png', selected_tab: selected_change_power_tab do |f|
       f.title_action network_delete_change_power_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'

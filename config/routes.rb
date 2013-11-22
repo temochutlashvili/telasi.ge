@@ -100,6 +100,8 @@ TelasiGe::Application.routes.draw do
       get '/paybill/:id', action: 'paybill', as: 'new_customer_paybill'
       get '/print/:id', action: 'print', as: 'new_customer_print'
       post '/send_factura/:id', action: 'send_factura', as: 'new_customer_send_factura'
+      match '/new_stage/:id', action: 'new_control_item', as: 'new_customer_new_control_item', via: ['get','post']
+      match '/edit_stage/:id', action: 'edit_control_item', as: 'new_customer_edit_control_item', via: ['get','post']
     end
     scope '/change_power', controller: 'change_power' do
       get '/', action: 'index', as: 'change_power_applications'

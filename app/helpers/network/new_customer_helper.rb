@@ -53,6 +53,7 @@ module Network::NewCustomerHelper
   end
 
   private
+
   def selected_new_customer_tab
     case params[:tab]
     when 'accounts' then 1
@@ -60,7 +61,8 @@ module Network::NewCustomerHelper
     when 'operations' then 3
     when 'files' then 4
     when 'factura' then 5
-    when 'sys' then 6
+    when 'watch' then 6
+    when 'sys' then 7
     else 0 end
   end
 
@@ -84,6 +86,7 @@ module Network::NewCustomerHelper
   end
 
   public
+
   def new_customer_view(application, opts = {})
     show_actions = (not opts[:without_actions])
     view_for application, title: "#{opts[:title]} &mdash; №#{application.number}".html_safe, collapsible: true, icon: '/icons/user.png', selected_tab: selected_new_customer_tab do |f|
@@ -237,12 +240,23 @@ module Network::NewCustomerHelper
           c.text_field 'factura_number', empty: false
         end
       end
-      # 7. sys
+      # 7. stages
+      f.tab title: "კონტროლი &mdash; <strong>#{application.requests.count}</strong>".html_safe, icon: '/icons/eye.png' do |t|
+        t.table_field :requests, table: { title: 'კონტროლი', icon: '/icons/eye.png' } do |requests|
+          requests.table do |t|
+            t.title_action network_new_customer_new_control_item_url(id: application.id), label: 'ახალი საკონტროლო ჩანაწერი', icon: '/icons/eye--plus.png'
+            t.text_field :type_name
+            t.date_field :date
+            t.text_field :description
+          end
+        end
+      end
+      # 8. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
         t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
           c.email_field 'user.email', after: '&mdash;'.html_safe
           c.text_field 'user.full_name'
-          c.text_field 'user.mobile'
+          c.text_field 'user.formatted_mobile', tag: 'code'
         end
         t.timestamps
         t.number_field 'payment_id', required: true, max_digits: 0
@@ -251,7 +265,7 @@ module Network::NewCustomerHelper
   end
 
   def new_customer_account_form(account, opts = {})
-    forma_for @account, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
+    forma_for account, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.text_field :rs_tin, required: true, autofocus: true
       f.text_field :address_code, required: true
       f.text_field :address, required: true, width: 300 #, :voltage, :power, :use, :rs_tin, :count
@@ -266,6 +280,24 @@ module Network::NewCustomerHelper
       f.text_field 'message', required: true, autofocus: true, width: 400
       f.submit opts[:submit]
       f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
+    end
+  end
+
+  def network_request_types_collection
+    coll = {}
+    [Network::RequestItem::OUT, Network::RequestItem::IN].each do |st|
+      coll[Network::RequestItem.type_name(st)] = st
+    end
+    coll
+  end
+
+  def new_customer_control_item(item, opts = {})
+    forma_for item, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
+      f.combo_field 'type', collection: network_request_types_collection, empty: false, required: true
+      f.date_field 'date', required: true
+      f.text_field 'description', width: 500, required: true, autofocus: true
+      f.submit 'შენახვა'
+      f.cancel_button network_new_customer_url(id: item.source.id, tab: 'watch')
     end
   end
 end

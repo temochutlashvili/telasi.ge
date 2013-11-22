@@ -246,6 +246,20 @@ class Network::NewCustomerController < Network::NetworkController
     redirect_to network_new_customer_url(id: application.id, tab: 'factura'), notice: 'ფაქტურა გაგზავნილია :)'
   end
 
+  def new_control_item
+    @title = 'ახალი საკონტროლო ჩანაწერი'
+    @application = Network::NewCustomerApplication.find(params[:id])
+    if request.post?
+      @item = Network::RequestItem.new(params.require(:network_request_item).permit(:type, :date, :description))
+      @item.source = @application
+      if @item.save
+        redirect_to network_new_customer_url(id: @application.id, tab: 'watch')
+      end
+    else
+      @item = Network::RequestItem.new(source: @application, date: Date.today)
+    end
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'ქსელზე მიერთება' => network_new_customers_url }
     if @application
