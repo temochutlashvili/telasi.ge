@@ -11,6 +11,7 @@ class Network::RequestItem
   field :date, type: Date
   field :type, type: Integer
   field :description, type: String
+  validates :stage, presence: { message: 'აარჩიეთ ეტაპი' }
   validates :date, presence: { message: 'ჩაწერეთ თარიღი' }
   validates :type, presence: { message: 'აარჩიეთ სახეობა' }
   validates :description, presence: { message: 'ჩაწერეთ აღწერილობა' }

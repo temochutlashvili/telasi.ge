@@ -246,7 +246,8 @@ module Network::NewCustomerHelper
           requests.table do |t|
             t.title_action network_new_customer_new_control_item_url(id: application.id), label: 'ახალი საკონტროლო ჩანაწერი', icon: '/icons/eye--plus.png'
             t.item_action ->(x) { network_new_customer_delete_control_item_url(id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
-            t.text_field :type_name
+            t.text_field :stage
+            t.text_field :type_name, i18n: 'type', tag: 'code'
             t.date_field :date
             t.text_field :description
           end
@@ -294,6 +295,7 @@ module Network::NewCustomerHelper
 
   def new_customer_control_item(item, opts = {})
     forma_for item, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
+      f.combo_field 'stage_id', collection: Network::Stage.asc(:numb), empty: false, required: true, i18n: 'stage'
       f.combo_field 'type', collection: network_request_types_collection, empty: false, required: true
       f.date_field 'date', required: true
       f.text_field 'description', width: 500, required: true, autofocus: true

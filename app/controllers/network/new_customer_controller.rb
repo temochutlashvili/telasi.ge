@@ -250,7 +250,7 @@ class Network::NewCustomerController < Network::NetworkController
     @title = 'ახალი საკონტროლო ჩანაწერი'
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
-      @item = Network::RequestItem.new(params.require(:network_request_item).permit(:type, :date, :description))
+      @item = Network::RequestItem.new(params.require(:network_request_item).permit(:type, :date, :description, :stage_id))
       @item.source = @application
       if @item.save
         redirect_to network_new_customer_url(id: @application.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი დამატებულია'

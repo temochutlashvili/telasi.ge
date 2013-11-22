@@ -389,8 +389,8 @@ ka:
     network_request_item:
       date: თარიღი
       type: სახეობა
-      type_name: სახეობა
       description: მოკლე აღწერილობა
+      stage: ეტაპი
     network_stage:
       name: დასახელება
       numb: "#"

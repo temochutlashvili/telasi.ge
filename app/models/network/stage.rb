@@ -16,4 +16,6 @@ class Network::Stage
       st.save
     end
   end
+
+  def to_s; self.name end
 end
