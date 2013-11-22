@@ -260,6 +260,16 @@ class Network::NewCustomerController < Network::NetworkController
     end
   end
 
+  def edit_control_item
+    @title = 'საკონტროლო ჩანაწერის შეცვლა'
+    @item = Network::RequestItem.find(params[:id])
+    if request.post?
+      if @item.update_attributes(params.require(:network_request_item).permit(:type, :date, :description, :stage_id))
+        redirect_to network_new_customer_url(id: @item.source.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი შეცვლილია'
+      end
+    end
+  end
+
   def delete_control_item
     item = Network::RequestItem.find(params[:id])
     app = item.source
