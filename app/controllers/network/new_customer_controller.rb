@@ -253,11 +253,18 @@ class Network::NewCustomerController < Network::NetworkController
       @item = Network::RequestItem.new(params.require(:network_request_item).permit(:type, :date, :description))
       @item.source = @application
       if @item.save
-        redirect_to network_new_customer_url(id: @application.id, tab: 'watch')
+        redirect_to network_new_customer_url(id: @application.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი დამატებულია'
       end
     else
       @item = Network::RequestItem.new(source: @application, date: Date.today)
     end
+  end
+
+  def delete_control_item
+    item = Network::RequestItem.find(params[:id])
+    app = item.source
+    item.destroy
+    redirect_to network_new_customer_url(id: app.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი წაშლილია'
   end
 
   def nav

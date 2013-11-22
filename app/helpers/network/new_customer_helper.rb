@@ -245,6 +245,7 @@ module Network::NewCustomerHelper
         t.table_field :requests, table: { title: 'კონტროლი', icon: '/icons/eye.png' } do |requests|
           requests.table do |t|
             t.title_action network_new_customer_new_control_item_url(id: application.id), label: 'ახალი საკონტროლო ჩანაწერი', icon: '/icons/eye--plus.png'
+            t.item_action ->(x) { network_new_customer_delete_control_item_url(id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
             t.text_field :type_name
             t.date_field :date
             t.text_field :description
