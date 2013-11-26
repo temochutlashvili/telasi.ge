@@ -1,14 +1,16 @@
-<div class="container">
-  <div id="footer">
-    <div class="pull-right" style="font-size: 14px;">
-      <%= link_to 'ქართული', root_url(locale: 'ka') %> |
-      <%= link_to 'English', root_url(locale: 'en') %> |
-      <%= link_to 'Русский', root_url(locale: 'ru') %>
-    </div>
-    &copy; 2013 <a href="http://telasi.ge"><%= t('info.telasi') %></a>
-    <div class="muted" style="font-size: 0.8em;"><%= t('info.department') %></div>
-    <div class="muted" style="font-size: 0.7em; padding-top: 0px;">
-      <%= t('info.support_text') %> <%= mail_to 'support@telasi.ge' %>.
+<div class="footer">
+  <div class="container">
+    <div id="footer">
+      <div class="pull-right" style="font-size: 14px;">
+        <%= link_to 'ქართული', root_url(locale: 'ka') %> |
+        <%= link_to 'English', root_url(locale: 'en') %> |
+        <%= link_to 'Русский', root_url(locale: 'ru') %>
+      </div>
+      &copy; 2013 <a href="http://telasi.ge"><%= t('info.telasi') %></a>
+      <div class="muted" style="font-size: 0.8em;"><%= t('info.department') %></div>
+      <div class="muted" style="font-size: 0.7em; padding-top: 0px;">
+        <%= t('info.support_text') %> <%= mail_to 'support@telasi.ge' %>.
+      </div>
     </div>
   </div>
 </div>
