@@ -8,6 +8,7 @@ ka:
     customers: დავალიანება
     applications: სხვა პროგრამები
     applications_alt: პროგრამები
+    new_customer: ახალი აბონენტი
   applications:
     customers_title: აბონენტები
     customers_description: აბონენტის ისტორია და ვალები.
@@ -310,6 +311,7 @@ ka:
           files: ფაილები
         index_page:
           title: ქსელზე მიერთება
+          under_construction: "პროგრამა ჯერ არაა გაშვებული &mdash; ჩვენ აქტიურად ვმუშაობთ მის დასახვეწად. გვეწვიეთ ცოტა ხანში."
         show_page:
           title: განცხადების დეტალები
           general: ძირითადი ინფორმაცია

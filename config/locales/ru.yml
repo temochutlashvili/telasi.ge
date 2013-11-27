@@ -8,6 +8,7 @@ ru:
     customers: Задолженность
     applications: Все Программы
     applications_alt: Программы
+    new_customer: Новый Абонент
   applications:
     customers_title: Задолженность
     customers_description: Задолженность и история абонента.
@@ -296,7 +297,8 @@ ru:
           payments: გადახდები
           files: ფაილები
         index_page:
-          title: ქსელზე მიერთება
+          title: Новый Абонент
+          under_construction: "Програма еще не запущена &mdash; мы активно работаем над ней. Навестите нас через некоторое время."
         show_page:
           title: განცხადების დეტალები
           general: ძირითადი ინფორმაცია

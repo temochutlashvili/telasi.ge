@@ -5,7 +5,8 @@ class NewCustomerController < ApplicationController
 
   def index
     @title = I18n.t('models.network_new_customer_application.actions.index_page.title')
-    @applications = Network::NewCustomerApplication.where(user: current_user).desc(:_id)
+    # @applications = Network::NewCustomerApplication.where(user: current_user).desc(:_id)
+    render 'under_construction'
   end
 
   def new
