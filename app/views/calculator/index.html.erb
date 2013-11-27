@@ -1,0 +1,32 @@
+<script src="/assets/calculator.js"></script>
+<style type="text/css">
+table.form-table td { padding: 8px 16px; vertical-align: middle; }
+table.form-table input[type=text] { width: 100px; text-align: right; }
+span.result {display:inline-block;margin:0 0 0 16px;padding:8px 16px;background: red;color: white;font-weight:bold;font-size:20px;}
+</style>
+<div class="row">
+  <div class="span12">
+    <div class="module">
+      <h1><%= @title %></h1>
+      <div id="calculator"></div>
+      <script type="text/x-handlebars" data-template-name="calculator">
+        <table class="form-table">
+          <tr>
+            <td width="150">ხარჯი</td>
+            <td>{{input type="text" value=charge}} კვტ.სთ.</td>
+          </tr>
+          <tr>
+            <td>პერიოდი</td>
+            <td>{{input type="text" value=period}} დღე</td>
+          </tr>
+          <tr>
+            <td>დღგს ჩათვლით?</td>
+            <td>{{input type="checkbox" checked=withVat}}</td>
+          </tr>
+        </table>
+        <hr>
+        <p>გადასახდელი თანხა: <span class="result">{{result}}</span> ლარი</p>
+      </script>
+    </div>
+  </div>
+</div>

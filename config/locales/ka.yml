@@ -6,9 +6,10 @@ ka:
     logout: "გასვლა"
     logout_confirm: ნამდვილად გინდათ გასვლა?
     customers: დავალიანება
-    applications: სხვა პროგრამები
+    applications: ყველა
     applications_alt: პროგრამები
     new_customer: ახალი აბონენტი
+    calculator: კალკულატორი
   applications:
     customers_title: აბონენტები
     customers_description: აბონენტის ისტორია და ვალები.
@@ -22,6 +23,8 @@ ka:
       network_description: ქსელის ტარიფების მართვა.
     new_customer_title: ქსელზე მიერთება
     new_customer_description: ახალ აბონენტად დარეგისტრირება.
+    calculator_title: კალკულატორი
+    calculator_description: გაიგეთ რამდენს ხარჯავთ
   info:
     telasi: "სს თელასი"
     department: ინფორმაციული ტექნოლოგიების დეპარტამენტი

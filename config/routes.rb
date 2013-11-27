@@ -25,6 +25,10 @@ TelasiGe::Application.routes.draw do
     get '/trash_history/:custkey', action: 'trash_history', as: 'customer_trash_history'
   end
 
+  scope '/calculator', controller: 'calculator' do
+    get '/', action: 'index', as: 'calculator_url'
+  end
+
   scope '/new_customer', controller: 'new_customer' do
     get '/', action: 'index', as: 'new_customer'
     match '/new', action: 'new', as: 'new_new_customer', via: ['get', 'post']

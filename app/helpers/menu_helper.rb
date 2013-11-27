@@ -6,7 +6,8 @@ module MenuHelper
     menu([
       mi(name: 'home', url: '/', select: 'dashboard#index'),
       mi(name: 'customers', url: '/customers', select: 'customers#*'),
-      mi(name: 'new_customer', url: '/new_customer', select: 'new_customer#*'),
+      mi(name: 'calculator', url: '/calculator', select: 'calculator#*'),
+      # mi(name: 'new_customer', url: '/new_customer', select: 'new_customer#*'),
       mi(name: 'applications', url: '/applications', select: 'applications#*'),
     ])
   end

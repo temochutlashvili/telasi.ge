@@ -6,9 +6,10 @@ ru:
     logout: Выход
     logout_confirm: Вы действительно ходите выйти?
     customers: Задолженность
-    applications: Все Программы
+    applications: Еще
     applications_alt: Программы
     new_customer: Новый Абонент
+    calculator: Калькулятор
   applications:
     customers_title: Задолженность
     customers_description: Задолженность и история абонента.
