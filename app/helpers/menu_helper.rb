@@ -3,10 +3,17 @@ module MenuHelper
   def active?(selector)
     cnt, act = selector.split('#')
     if cnt == controller_name
-      if act == '*' then true
-      else act == action_name
+      if act == '*' 
+        return true
+      else
+        act.split(',').each do |single|
+          return true if single == action_name
+        end
+        return false
+        # return act == action_name
       end
-    else false
+    else
+      return false
     end
   end
 
