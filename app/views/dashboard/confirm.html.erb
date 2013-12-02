@@ -1,5 +1,13 @@
 <% if @error %>
-<div class="block-error"><%= @error %></div>
+  <div class="panel panel-danger">
+    <div class="panel-body">
+      <%= @error %>
+    </div>
+  </div>
 <% elsif @success %>
-<div class="block-success"><%= @success %></div>
+  <div class="panel panel-success">
+    <div class="panel-body">
+      <%= @success %>
+    </div>
+  </div>
 <% end %>
