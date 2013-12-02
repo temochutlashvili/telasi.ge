@@ -10,7 +10,7 @@ class ProfileController < ApplicationController
   def edit
     @title = I18n.t('models.sys_user.actions.edit_profile')
     @user = current_user
-    if request.put?
+    if request.patch?
       if @user.update_attributes(params.require(:sys_user).permit(:first_name, :last_name, :mobile))
         redirect_to profile_url, notice: I18n.t('models.sys_user.actions.edit_profile_complete')
       end

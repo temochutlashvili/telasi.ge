@@ -1,17 +1,16 @@
-<div class="row">
-  <div class="span3">
-    <div class="module"><%= side_menu(@nav) %></div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 style="margin: 0;"><%= @title %></h4>
   </div>
-  <div class="span9">
-    <div class="module">
-      <h1><%= @title %></h1>
-      <%= rich_form @user do |f|
-        f.text_field :first_name, autofocus: true
-        f.text_field :last_name
-        f.text_field :mobile
-        f.submit t('models.general.actions.save')
-        f.cancel_url profile_url
-      end %>
-    </div>
+  <div class="panel-body">
+    <%= form_for @user, url: edit_profile_url do |f| %>
+      <%= fast_text_field f, 'first_name', label: t('models.sys_user.first_name'), autofocus: true %>
+      <%= fast_text_field f, 'last_name', label: t('models.sys_user.last_name') %>
+      <%= fast_text_field f, 'mobile', label: t('models.sys_user.mobile') %>
+      <div>
+        <%= f.submit @title, class: ['btn', 'btn-primary'] %>
+        <%= link_to t('models.general.actions.cancel'), profile_url, class: ['btn', 'btn-default'] %>
+      </div>
+    <% end %>
   </div>
 </div>

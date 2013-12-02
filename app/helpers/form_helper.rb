@@ -1,5 +1,28 @@
 # -*- encoding : utf-8 -*-
 module FormHelper
+  def fast_password_field(builder, name, opts = {}); fast_field('password', builder, name, opts) end
+  def fast_text_field(builder, name, opts = {}); fast_field('text', builder, name, opts) end
+
+private
+
+  def fast_field(type, builder, name, opts = {})
+    field = case type
+      when 'text' then builder.text_field name, class: 'form-control', autofocus: opts[:autofocus]
+      when 'password' then builder.password_field name, class: 'form-control', autofocus: opts[:autofocus]
+      end
+    errors = "<span class=\"text-danger\">#{builder.object.errors[name.to_sym].join('; ')}</span>" if builder.object.errors[name.to_sym].present?
+    %Q{
+      <div class="form-group">
+      #{builder.label name, opts[:label]}
+      #{field}
+      #{errors}
+      </div>
+    }.html_safe
+  end
+
+# @deprecated
+public
+
   def rich_form(model, h = {})
     h.symbolize_keys!
     h[:auth_token] = form_authenticity_token
