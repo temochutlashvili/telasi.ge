@@ -21,7 +21,7 @@
             <a href="<%= login_url %>"><i class="fa fa-user"></i> <%= t('menu.login') %></a>
           </li>
         <% else %>
-          <li class="dropdown">
+          <li class="dropdown <%= active?('profile#*') ? 'active' : 'common' %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-user"></i>
               <%= current_user.full_name%>
