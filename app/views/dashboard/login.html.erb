@@ -2,7 +2,7 @@
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 style="margin: 0;"><i class="fa fa-user"></i> <%= t('models.sys_user.actions.login') %></h3>
+        <h4 style="margin: 0;"><i class="fa fa-user"></i> <%= t('models.sys_user.actions.login') %></h4>
       </div>
       <div class="panel-body">
         <%= form_tag login_url, role: 'form' do %>
@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6" style="margin-top: 32px;">
+  <div class="col-sm-6">
     <p><%= t('models.sys_user.actions.not_registered_yet') %></p>
       <p><a href="<%= register_url %>"><%= t('models.sys_user.actions.register') %> &rarr;</a></p>
       <hr />
