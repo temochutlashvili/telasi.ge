@@ -1,22 +1,19 @@
-<div class="homepage">
-  <div class="row">
-    <div class="span6">
-      <div class="topad">
-        <div class="picture picture-left"></div>
-        <h3><%= t('dashboard.your_debt') %></h3>
-        <p><%= t('dashboard.your_debt_descr') %></p>
-        <p class="link"><%= link_to t('dashboard.details').html_safe, customers_url %></p>
-      </div>
-    </div>
-    <div class="span6">
-      <div class="topad">
-        <div class="picture picture-right"></div>
-        <h3><%= t('dashboard.new_customer') %></h3>
-        <p><%= t('dashboard.new_customer_description') %></p>
-        <p><%= link_to t('dashboard.details').html_safe, new_customer_url %></p>
-      </div>
-    </div>
+<div class="jumbotron">
+  <h1>welcome</h1>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <h3><%= t('dashboard.your_debt') %></h3>
+    <p><%= t('dashboard.your_debt_descr') %></p>
+    <p class="link"><%= link_to t('dashboard.details').html_safe, customers_url %></p>
   </div>
+  <div class="col-sm-6">
+    <h3><%= t('dashboard.new_customer') %></h3>
+    <p><%= t('dashboard.new_customer_description') %></p>
+    <p><%= link_to t('dashboard.details').html_safe, new_customer_url %></p>
+  </div>
+</div>
+<!--div class="homepage">
   <% if current_user.blank? %>
   <div class="register-login">
       <div>
@@ -41,4 +38,4 @@
     </div>
   </div>
   <% end %>
-</div>
+</div -->
