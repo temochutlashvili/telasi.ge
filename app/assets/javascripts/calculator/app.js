@@ -24,8 +24,8 @@ App.CalculatorController = Ember.Controller.extend({
     if (charge > 0 && days > 0) {
       var perDay = charge/days;
       var step;
-      if (perDay < 100/30) { step = 1; }
-      else if (perDay < 200/30) { step = 2; }
+      if (perDay < 101/30) { step = 1; }
+      else if (perDay < 201/30) { step = 2; }
       else { step = 3; }
       var result = App.step_tariff[step - 1] * charge;
       var vat = this.get('withVat');
