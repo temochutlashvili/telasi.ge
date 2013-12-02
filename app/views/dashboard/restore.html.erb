@@ -1,19 +1,26 @@
 <% unless params[:ok].present? %>
 <div class="row">
-  <div class="span8">
-    <div class="module">
-      <h1>
-        <%= t('models.sys_user.actions.restore') %>
-        <p><%= t('models.sys_user.actions.restore_description2') %></p>
-      </h1>
-      <% if @error.present? %><div class="block-error"><%= @error %></div><% end %>
-      <%= rich_form({ email: params[:email], password: params[:password] }) do |f|
-        f.text_field :email, autofocus: true, label: t('models.sys_user.email')
-        f.submit @title
-      end %>
+  <div class="col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 style="margin: 0;"><%= t('models.sys_user.actions.restore') %></h4>
+      </div>
+      <div class="panel-body">
+        <p class="text-muted"><%= t('models.sys_user.actions.restore_description2') %></p>
+        <% if @error.present? %><div class="alert alert-danger"><%= @error %></div><% end %>
+        <%= form_tag restore_url do %>
+          <div class="form-group">
+            <%= label_tag 'email', t('models.sys_user.email') %>
+            <%= email_field_tag 'email', params[:email], class: 'form-control', autofocus: true %>
+          </div>
+          <div>
+            <%= submit_tag @title, class: ['btn', 'btn-primary'] %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="span4">
+  <div class="sol-sm-4">
     <div class="module">
       <p><%= t('models.sys_user.actions.not_registered_yet') %></p>
       <p><a href="<%= register_url %>"><%= t('models.sys_user.actions.register') %> &rarr;</a></p>
@@ -21,7 +28,9 @@
   </div>
 </div>
 <% else %>
-<div class="block-success" style="padding: 44px 32px 44px 32px;">
-  <p><%= t('models.sys_user.actions.restore_sent').html_safe %></p>
+<div class="panel panel-success">
+  <div class="panel-body">
+    <%= t('models.sys_user.actions.restore_sent').html_safe %>
+  </div>
 </div>
 <% end %>
