@@ -26,7 +26,7 @@ TelasiGe::Application.routes.draw do
   end
 
   scope '/calculator', controller: 'calculator' do
-    get '/', action: 'index', as: 'calculator_url'
+    get '/', action: 'index', as: 'calculator'
   end
 
   scope '/new_customer', controller: 'new_customer' do

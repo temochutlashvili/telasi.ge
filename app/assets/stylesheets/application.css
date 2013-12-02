@@ -1,6 +1,7 @@
 /*
  *= require jquery.ui.datepicker
+ *= require lib/bootstrap.min
+ *= require lib/font-awesome.min
  *= require telasi
- *= require bootstrap.min
  *= require forma
  */
