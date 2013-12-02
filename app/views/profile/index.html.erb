@@ -1,19 +1,30 @@
-<div class="row">
-  <div class="span3">
-    <div class="module"><%= side_menu(@nav) %></div>
+<div class="page-header">
+  <div class="pull-right">
+    <a href="<%= edit_profile_url %>" class="btn btn-default">
+      <i class="fa fa-pencil"></i>
+      <%= t('models.sys_user.actions.edit_profile') %>
+    </a>
   </div>
-  <div class="span9">
-    <div class="module">
-      <h1><%= @title %></h1>
-      <h2><%= t('models.sys_user.general_info') %></h2>
-      <table class="properties-table">
-        <tr><td class="table-label"><%= t('models.sys_user.email') %></td><td><%= mail_to @user.email %></td></tr>
-        <tr><td class="table-label"><%= t('models.sys_user.password') %></td><td>******<br><%= link_to t('models.sys_user.actions.change_password'), change_password_url %></td></tr>
-        <tr><td class="table-label"><%= t('models.sys_user.full_name') %></td><td><%= @user.full_name %></td></tr>
-        <tr><td class="table-label"><%= t('models.sys_user.mobile') %></td><td><%= KA.format_mobile @user.mobile %></td></tr>
-      </table>
-      <p><%= link_to t('models.sys_user.actions.edit_profile'), edit_profile_url %></p>
-      <hr/>
-    </div>
-  </div>
+  <h1><%= @title %></h1>
 </div>
+<table class="table table-bordered table-striped">
+  <tr>
+    <th width="30%"><%= t('models.sys_user.email') %></th>
+    <td><%= mail_to @user.email %></td>
+  </tr>
+  <tr>
+    <th><%= t('models.sys_user.password') %></th>
+    <td>
+      ******
+      <%= link_to t('models.sys_user.actions.change_password'), change_password_url, class: ['btn', 'btn-default', 'btn-xs'] %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= t('models.sys_user.full_name') %></th>
+    <td><%= @user.full_name %></td>
+  </tr>
+  <tr>
+    <th><%= t('models.sys_user.mobile') %></th>
+    <td><%= KA.format_mobile @user.mobile %></td>
+  </tr>
+</table>
