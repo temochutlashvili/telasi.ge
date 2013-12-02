@@ -9,4 +9,10 @@ module MenuHelper
     else false
     end
   end
+
+  def locale_url(lang)
+    url = request.path
+    params[:locale] = lang
+    url_for({controller: controller_name, action: action_name}.merge(params))
+  end
 end
