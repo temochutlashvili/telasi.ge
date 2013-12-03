@@ -8,6 +8,7 @@
     <%= render partial: 'customers/registration_info', locals: { registration: reg } %>
   <% end %>
 <% end %>
+<hr />
 <div class="btn-toolbar" style="text-align: center;">
    <%= link_to "#{t('models.billing_customer.actions.add')} &rarr;".html_safe,
     search_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
