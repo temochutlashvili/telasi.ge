@@ -3,6 +3,7 @@
   <code>#<%= @customer.accnumb.to_ka %></code>
   <%= @customer.custname.to_ka %>
 </h2>
+
 <ul class="list-group">
   <% @items.each do |item| %>
     <li class="list-group-item">
@@ -28,4 +29,6 @@
     </li>
   <% end %>
 </ul>
-<%= will_paginate @items, renderer: WillPaginate::ActionView::LinkRenderer, page_gap: '...' %>
+<div style="margin-top:-20px;">
+<%= will_paginate @items %>
+</div>
