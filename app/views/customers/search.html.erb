@@ -1,16 +1,20 @@
-<div class="row">
-  <div class="span3">
-    <div class="module">
-      <a href="<%= customers_url %>">&larr; <%= t('menu.customers') %></a>
-    </div>
-  </div>
-  <div class="span9">
-    <div class="module">
-      <h1><%= @title %> <p><%= t('models.billing_customer.actions.search_description') %></p></h1>
-      <%= rich_form({ accnumb: params[:accnumb] }, method: 'get') do |f|
-        f.text_field :accnumb, autofocus: true, label: I18n.t('models.billing_customer.accnumb')
-        f.submit t('models.general.actions.search')
-      end %>
-    </div>
-  </div>
+<div class="page-header">
+  <h1><%= @title %></h1>
 </div>
+<p class="text-muted">
+  <%= t('models.billing_customer.actions.search_description') %>
+</p>
+<%= form_tag search_customer_url, method: :get do %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= label_tag 'accnumb', t('models.billing_customer.accnumb') %>
+        <%= text_field_tag 'accnumb', params[:accnumb], class: ['form-control'], autofocus: true %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <%= submit_tag t('models.general.actions.search'), class: ['btn', 'btn-primary'] %>
+    <%= link_to t('models.general.actions.cancel'), customers_url, class: ['btn', 'btn-default'] %>
+  </div>
+<% end %>

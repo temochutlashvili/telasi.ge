@@ -48,6 +48,12 @@ ka:
       title: უკვე რეგისტრირებული ხართ?
       action: შესვლა &rarr;
   models:
+    calculator:
+      charge: ხარჯი
+      charge_unit: კვტ. სთ.
+      period: პერიოდი
+      period_unit: დღე
+      with_vat: დღგ-ს ჩათვლით?
     general:
       records: ჩანაწერი
       history: ისტორია
@@ -140,6 +146,9 @@ ka:
       kwh: დარიცხვა
       gel: თანხა
       prev_balance: წინა ბალანსი
+      reading: ჩვენება
+      charge: დარიცხვა
+      charge_gel: დარიცხვა (ლარი)
       actions:
         empty_customer_list: თქვენ არ გაქვთ დამახსოვრებული არც ერთი აბონენტი.
         resolve_empty_customer_list: აბონენტის დავალიანების სანახავად დააჭირეთ ღილაკს <strong>აბონენტის ძებნა</strong>.

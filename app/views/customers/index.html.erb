@@ -1,20 +1,15 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <% if @registrations.empty? %>
-        <%= render partial: 'customers/empty' %> <hr />
-      <% else %>
-        <% @registrations.each do |reg| %>
-          <%= render partial: 'customers/registration_info', locals: { registration: reg } %>
-          <hr />
-        <% end %>
-      <% end %>
-      <div style="text-align: center;">
-        <div class="btn-toolbar">
-         <%= link_to "#{t('models.billing_customer.actions.add')} &rarr;".html_safe, search_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
-       </div>
-       <p class="muted"><%= t('models.billing_customer.actions.add_description') %></p>
-      </div>
-    </div>
-  </div>
+<div class="page-header">
+  <h1><%= @title %></h1>
+</div>
+<% if @registrations.empty? %>
+  <%= render partial: 'customers/empty' %>
+<% else %>
+  <% @registrations.each do |reg| %>
+    <%= render partial: 'customers/registration_info', locals: { registration: reg } %>
+  <% end %>
+<% end %>
+<hr />
+<div class="btn-toolbar" style="text-align: center;">
+   <%= link_to "#{t('models.billing_customer.actions.add')} &rarr;".html_safe,
+    search_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
 </div>

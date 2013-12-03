@@ -1,26 +1,70 @@
 <div class="row">
-  <div class="span8">
-    <div class="module">
-      <h1>
-        <%= t('models.sys_user.actions.register') %>
-        <p><%= t('models.sys_user.actions.register_description').html_safe %></p>
-      </h1>
-      <%= rich_form @user do |f|
-        f.text_field :email, autofocus: true
-        f.password_field :password
-        f.password_field :password_confirmation
-        f.text_field :first_name
-        f.text_field :last_name
-        f.text_field :mobile
-        f.separator_field label: t('models.sys_user.account'), hint: t('models.sys_user.account_description')
-        f.text_field :accnumb
-        f.text_field :rs_tin
-        f.date_field :dob
-        f.submit t('models.sys_user.actions.register_short')
-      end %>
+  <div class="col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 style="margin: 0;"><%= t('models.sys_user.actions.register') %></h4>
+      </div>
+      <div class="panel-body">
+        <%= form_for @user, url: register_url, role: 'form' do |f| %>
+          <div class="form-group">
+            <%= f.label 'email', t('models.sys_user.email') %>
+            <%= f.email_field 'email', class: 'form-control', autofocus: true %>
+            <% if @user.errors[:email].present? %>
+              <span class="text-danger"><%= @user.errors[:email].join('; ') %></span>
+            <% end %>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <%= f.label 'password', t('models.sys_user.password') %>
+                <%= f.password_field 'password', class: 'form-control' %>
+                <% if @user.errors[:password].present? %>
+                  <span class="text-danger"><%= @user.errors[:password].join('; ') %></span>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <%= f.label 'password_confirmation', t('models.sys_user.password_confirmation') %>
+                <%= f.password_field 'password_confirmation', class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <%= f.label 'first_name', t('models.sys_user.first_name') %>
+                <%= f.text_field 'first_name', class: 'form-control' %>
+                <% if @user.errors[:first_name].present? %>
+                  <span class="text-danger"><%= @user.errors[:first_name].join('; ') %></span>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <%= f.label 'last_name', t('models.sys_user.last_name') %>
+                <%= f.text_field 'last_name', class: 'form-control' %>
+                <% if @user.errors[:last_name].present? %>
+                  <span class="text-danger"><%= @user.errors[:last_name].join('; ') %></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label 'mobile', t('models.sys_user.mobile') %>
+            <%= f.text_field 'mobile', class: 'form-control' %>
+            <% if @user.errors[:mobile].present? %>
+              <span class="text-danger"><%= @user.errors[:mobile].join('; ') %></span>
+            <% end %>
+          </div>
+          <div>
+            <%= f.submit @title, class: ['btn', 'btn-primary'] %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="span4">
+  <div class="col-sm-4">
     <div class="module">
       <p><%= t('models.sys_user.actions.already_registered') %></p>
       <p><a href="<%= login_url %>"><%= t('models.sys_user.actions.login') %> &rarr;</a></p>

@@ -1,31 +1,38 @@
-<table class="properties-table" style="width: 100%;">
-  <tr>
-    <td class="table-label"><%= t('models.billing_customer.accnumb') %></td>
-    <td><img src="/icons/tag.png"></img> <code><%= customer.accnumb %></code></td>
-    <td style="width:150px;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="table-label"><%= t('models.billing_customer.custname') %></td>
-    <td><img src="/icons/user.png"></img> <%= customer.custname.to_ka %></td></tr>
-  <tr>
-    <td class="table-label"><%= t('models.billing_customer.balance') %></td>
-    <td><img src="/icons/light-bulb.png"></img> <code><%= number_with_precision customer.balance, precision: 2 %></code> GEL</td>
-    <td>
-      <% if with_actions %><%= link_to t('models.general.history'), customer_history_url(custkey: customer.custkey), class: ['btn', 'btn-success'] %><% end %>
-    </td>
-  </tr>
-  <tr>
-    <td class="table-label"><%= t('models.billing_customer.trash_balance') %></td>
-    <td><img src="/icons/bin.png"></img> <code><%= number_with_precision customer.trash_balance, precision: 2 %></code> GEL</td>
-    <td>
-      <% if with_actions %><%= link_to t('models.general.history'), customer_trash_history_url(custkey: customer.custkey), class: ['btn', 'btn-warning'] %><% end %>
-    </td>
-  </tr>
-  <tr>
-    <td class="table-label"><%= t('models.billing_customer.current_water_balance') %></td>
-    <td><img src="/icons/water.png"></img> <code><%= number_with_precision (customer.current_water_balance || 0), precision: 2 %></code> GEL</td>
-    <td>
-      <% if with_actions %><%= link_to t('models.general.history'), nil, class: ['btn', 'btn-info', 'disabled'] %><% end %>
-    </td>
-  </tr>
-</table>
+<%
+  with_actions = false unless defined?(with_actions)
+%>
+<ul class="list-group">
+  <li class="list-group-item">
+    <div class="pull-right">
+      <i class="fa fa-bolt"></i>
+      <code><%= number_with_precision customer.balance, precision: 2 %></code> GEL
+      <% if with_actions %>
+        &nbsp;
+        <%= link_to t('models.general.history'), customer_history_url(custkey: customer.custkey), class: ['btn', 'btn-xs', 'btn-info'] %>
+      <% end %>
+    </div>
+    <%= t('models.billing_customer.balance') %>
+  </li>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <i class="fa fa-trash-o"></i>
+      <code><%= number_with_precision customer.trash_balance, precision: 2 %></code> GEL
+      <% if with_actions %>
+        &nbsp;
+        <%= link_to t('models.general.history'), customer_trash_history_url(custkey: customer.custkey), class: ['btn', 'btn-xs', 'btn-primary'] %>
+      <% end %>
+    </div>
+    <%= t('models.billing_customer.trash_balance') %>
+  </li>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <i class="fa fa-tint"></i>
+      <code><%= number_with_precision (customer.current_water_balance || 0), precision: 2 %></code> GEL
+      <% if with_actions %>
+        &nbsp;
+        <%= link_to t('models.general.history'), nil, class: ['btn', 'btn-xs', 'btn-default'], disabled: true %>
+      <% end %>
+    </div>
+    <%= t('models.billing_customer.current_water_balance') %>
+  </li>
+</ul>

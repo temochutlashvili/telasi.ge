@@ -12,7 +12,7 @@ TelasiGe::Application.routes.draw do
 
   scope '/profile', controller: 'profile' do
     get '/', action: 'index', as: 'profile'
-    match '/edit', action: 'edit', as: 'edit_profile', via: ['get', 'put']
+    match '/edit', action: 'edit', as: 'edit_profile', via: ['get', 'patch']
     match '/change_password', action: 'change_password', as: 'change_password', via: ['get', 'post']
   end
 
@@ -26,7 +26,7 @@ TelasiGe::Application.routes.draw do
   end
 
   scope '/calculator', controller: 'calculator' do
-    get '/', action: 'index', as: 'calculator_url'
+    get '/', action: 'index', as: 'calculator'
   end
 
   scope '/new_customer', controller: 'new_customer' do

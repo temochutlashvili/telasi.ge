@@ -46,6 +46,12 @@ ru:
       title: Уже прошли регистрацию?
       action: Вход &rarr;
   models:
+    calculator:
+      charge: Начисление
+      charge_unit: квт.часы
+      period: Период
+      period_unit: дни
+      with_vat: Включая НДС?
     general:
       records: записей
       history: История
@@ -103,7 +109,7 @@ ru:
         change_password: Смена пароля
         change_password_description: "Для смены пароля сначала укажите свой старый пароль, а потом &mdash; новый и его подтверждение."
         change_password_complete: Пароль изменен
-        change_password_description2: ВВедите новый пароль и подтверждение.
+        change_password_description2: Ведите новый пароль и подтверждение.
         edit_profile: Изменение личной информации
         edit_profile_complete: Личные данные изменены.
         admin_show: მომხმარებლის თვისებები
