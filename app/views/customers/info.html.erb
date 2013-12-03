@@ -1,20 +1,14 @@
+<div class="page-header">
+  <h2><code>#<%= @customer.accnumb.to_ka %></code> <%= @customer.custname.to_ka %></h2>
+</div>
 <div class="row">
-  <div class="span3">
-    <div class="module">
-      <a href="<%= customers_url %>">&larr; <%= t('menu.customers') %></a>
+  <div class="col-sm-6">
+    <%= render partial: 'customers/customer_info', locals: { customer: @customer } %>
+    <div style="margin-bottom: 16px;">
+      <a href="<%= customers_url %>" class="btn btn-default">&larr; <%= t('menu.customers') %></a>
     </div>
   </div>
-  <div class="span9">
-    <div class="module">
-      <h1><%= @title %></h1>
-      <%= render partial: 'customers/customer_info', locals: { customer: @customer, with_actions: false } %>
-      <hr />
-      <%= render partial: 'customers/add_customer_description' %>
-      <%= rich_form @registration do |f| 
-        f.text_field :rs_tin, autofocus: true
-        f.date_field :dob
-        f.submit t('models.billing_customer_registration.actions.add')
-      end %>
-    </div>
+  <div class="col-sm-6">
+    <%= render partial: 'customers/add_customer_full' %>
   </div>
 </div>
