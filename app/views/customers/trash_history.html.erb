@@ -1,33 +1,28 @@
-<div class="row">
-  <div class="span12">
-    <div class="module">
-      <%= render partial: 'customers/customer_info_for_history', locals: { customer: @customer } %>
-      <hr />
-      <div style="padding: 0 0 16px 0;">
-        <img src="/icons/bin.png"></img>
-        <code>№<%= @customer.accnumb.to_ka %></code>
-        <span style="font-weight: bold;"><%= @title %></span>
+<h2 class="page-header">
+  <a href="<%= customers_url %>" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
+  <code>#<%= @customer.accnumb.to_ka %></code>
+  <%= @customer.custname.to_ka %>
+</h2>
+<div class="page-header">
+  <h4><i class="fa fa-trash-o"></i> <%= @title %></h4>
+</div>
+<ul class="list-group">
+  <% @items.each do |item| %>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-sm-6">
+          <code><%= item.operdate.strftime('%d-%b-%Y') %></code><br>
+          <%= item.operation %>
+        </div>
+        <div class="col-sm-6">
+          <i class="fa fa-dollar"></i>
+          <code><%= number_with_precision item.amount, precision: 2 %></code> GEL
+          <span class="text-muted">&mdash; <%= t('models.billing_customer.charge_gel') %></span>
+        </div>
       </div>
-      <table class="table table-striped table-hover table-bordered">
-        <thead>
-          <tr>
-            <th><%= t('models.billing_customer.operation') %></th>
-            <th width="150"><%= t('models.billing_customer.gel') %></th>
-            <th width="150"><%= t('models.billing_customer.prev_balance') %></th>
-          </tr>
-        </thead>
-        <% @items.each do |item| %>
-        <tr>
-          <td>
-            <code><%= item.operdate.strftime('%d-%b-%Y') %></code>
-            <%= item.operation %>
-          </td>
-          <td style="text-align: right;"><code><%= number_with_precision item.amount, precision: 2 %></code> GEL</td>
-          <td style="text-align: right;"><code><%= number_with_precision item.balance, precision: 2 %></code> GEL</td>
-        </tr>
-        <% end %>
-      </table>
-      <%= will_paginate @items %>
-    </div>
-  </div>
+    </li>
+  <% end %>
+</ul>
+<div style="margin-top:-20px;">
+<%= will_paginate @items %>
 </div>
