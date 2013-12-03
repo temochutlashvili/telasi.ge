@@ -46,6 +46,12 @@ ru:
       title: Уже прошли регистрацию?
       action: Вход &rarr;
   models:
+    calculator:
+      charge: Начисление
+      charge_unit: квт.часы
+      period: Период
+      period_unit: дни
+      with_vat: Включая НДС?
     general:
       records: записей
       history: История

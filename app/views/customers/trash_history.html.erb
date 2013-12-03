@@ -1,4 +1,9 @@
 <h2 class="page-header">
+  <div class="pull-right">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#customer-debt">
+      <i class="fa fa-question-circle"></i>
+    </button>
+  </div>
   <a href="<%= customers_url %>" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
   <code>#<%= @customer.accnumb.to_ka %></code>
   <%= @customer.custname.to_ka %>
@@ -25,4 +30,17 @@
 </ul>
 <div style="margin-top:-20px;">
 <%= will_paginate @items %>
+</div>
+<div class="modal fade" id="customer-debt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= @customer.custname.to_ka %></h4>
+      </div>
+      <div class="modal-body">
+        <%= render partial: 'customers/customer_info', locals: { customer: @customer } %>
+      </div>
+    </div>
+  </div>
 </div>

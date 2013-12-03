@@ -48,6 +48,12 @@ ka:
       title: უკვე რეგისტრირებული ხართ?
       action: შესვლა &rarr;
   models:
+    calculator:
+      charge: ხარჯი
+      charge_unit: კვტ. სთ.
+      period: პერიოდი
+      period_unit: დღე
+      with_vat: დღგ-ს ჩათვლით?
     general:
       records: ჩანაწერი
       history: ისტორია
