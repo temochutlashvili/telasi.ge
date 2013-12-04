@@ -6,56 +6,36 @@
       </div>
       <div class="panel-body">
         <%= form_for @user, url: register_url, role: 'form' do |f| %>
-          <div class="form-group">
-            <%= f.label 'email', t('models.sys_user.email') %>
-            <%= f.email_field 'email', class: 'form-control', autofocus: true %>
-            <% if @user.errors[:email].present? %>
-              <span class="text-danger"><%= @user.errors[:email].join('; ') %></span>
-            <% end %>
-          </div>
+          <!-- user registration -->
+          <%= f.b_text_field 'email', label: t('models.sys_user.email'), autofocus: true %>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group">
-                <%= f.label 'password', t('models.sys_user.password') %>
-                <%= f.password_field 'password', class: 'form-control' %>
-                <% if @user.errors[:password].present? %>
-                  <span class="text-danger"><%= @user.errors[:password].join('; ') %></span>
-                <% end %>
-              </div>
+              <%= f.b_password_field 'password', label: t('models.sys_user.password') %>
             </div>
             <div class="col-sm-6">
-              <div class="form-group">
-                <%= f.label 'password_confirmation', t('models.sys_user.password_confirmation') %>
-                <%= f.password_field 'password_confirmation', class: 'form-control' %>
-              </div>
+              <%= f.b_password_field 'password_confirmation', label: t('models.sys_user.password_confirmation') %>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group">
-                <%= f.label 'first_name', t('models.sys_user.first_name') %>
-                <%= f.text_field 'first_name', class: 'form-control' %>
-                <% if @user.errors[:first_name].present? %>
-                  <span class="text-danger"><%= @user.errors[:first_name].join('; ') %></span>
-                <% end %>
-              </div>
+              <%= f.b_text_field 'first_name', label: t('models.sys_user.first_name') %>
             </div>
             <div class="col-sm-6">
-              <div class="form-group">
-                <%= f.label 'last_name', t('models.sys_user.last_name') %>
-                <%= f.text_field 'last_name', class: 'form-control' %>
-                <% if @user.errors[:last_name].present? %>
-                  <span class="text-danger"><%= @user.errors[:last_name].join('; ') %></span>
-                <% end %>
-              </div>
+              <%= f.b_text_field 'last_name', label: t('models.sys_user.last_name') %>
             </div>
           </div>
-          <div class="form-group">
-            <%= f.label 'mobile', t('models.sys_user.mobile') %>
-            <%= f.text_field 'mobile', class: 'form-control' %>
-            <% if @user.errors[:mobile].present? %>
-              <span class="text-danger"><%= @user.errors[:mobile].join('; ') %></span>
-            <% end %>
+          <%= f.b_text_field 'mobile', label: t('models.sys_user.mobile') %>
+          <!-- customer registration -->
+          <legend><%= t('models.sys_user.account') %></legend>
+          <p class="text-muted" ><%= t('models.sys_user.account_description') %></p>
+          <%= f.b_text_field 'accnumb', label: t('models.sys_user.accnumb') %>
+          <div class="row">
+            <div class="col-sm-6">
+              <%= f.b_text_field 'rs_tin', label: t('models.sys_user.rs_tin') %>
+            </div>
+            <div class="col-sm-6">
+              <%= f.b_date_field 'dob', label: t('models.sys_user.dob') %>
+            </div>
           </div>
           <div>
             <%= f.submit @title, class: ['btn', 'btn-primary'] %>
