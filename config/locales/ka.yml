@@ -46,10 +46,11 @@ ka:
   models:
     calculator:
       charge: ხარჯი
-      charge_unit: კვტ. სთ.
+      charge_unit: კვტ.სთ.
       period: პერიოდი
       period_unit: დღე
       with_vat: დღგ-ს ჩათვლით?
+      tariff: ტარიფი
     general:
       records: ჩანაწერი
       history: ისტორია

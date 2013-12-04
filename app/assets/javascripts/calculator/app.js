@@ -17,17 +17,16 @@ App.CalculatorController = Ember.Controller.extend({
   charge: 100,
   period: 30,
   withVat: true,
-  result: function() {
+  tariff: function() {
     var charge = this.get('charge');
     var days = this.get('period');
-    var result;
     if (charge > 0 && days > 0) {
       var perDay = charge/days;
       var step;
       if (perDay < 101/30) { step = 1; }
-      else if (perDay < 201/30) { step = 2; }
+      else if (perDay < 301/30) { step = 2; }
       else { step = 3; }
-      var result = App.step_tariff[step - 1] * charge;
+      var result = App.step_tariff[step - 1];
       var vat = this.get('withVat');
       if (vat) {
         result = result * 1.18;
@@ -35,6 +34,9 @@ App.CalculatorController = Ember.Controller.extend({
     } else {
       result = 0;
     }
-    return result.toFixed(2);
+    return result.toFixed(6);
+  }.property('charge', 'period', 'withVat'),
+  result: function() {
+    return (this.get('tariff') * this.get('charge')).toFixed(2);
   }.property('charge', 'period', 'withVat'),
 });

@@ -44,10 +44,11 @@ ru:
   models:
     calculator:
       charge: Начисление
-      charge_unit: квт.часы
+      charge_unit: квт.час
       period: Период
       period_unit: дни
       with_vat: Включая НДС?
+      tariff: Тариф
     general:
       records: записей
       history: История
