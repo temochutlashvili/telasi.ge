@@ -1,9 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::UsersController < Admin::AdminController
-  layout 'internal'
-
   def index
-    @title = I18n.t('applications.admin.users_title')
+    @title = I18n.t('applications.admin.users')
     @search = params[:search] == 'clear' ? {} : params[:search]
     rel = Sys::User
     if @search
