@@ -60,6 +60,7 @@ ru:
       updated_at: Последнее изменение
       search: Поиск
       search_clear: Очистить форму
+      more: Еще
       actions:
         save: Сохранить
         cancel: Отменить

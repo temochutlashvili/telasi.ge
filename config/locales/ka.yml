@@ -62,6 +62,7 @@ ka:
       updated_at: ბოლო ცვლილება
       search: ძებნა
       search_clear: ფორმის გასუფთავება
+      more: მეტი
       actions:
         save: შენახვა
         cancel: გაუქმება
