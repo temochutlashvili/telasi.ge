@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Network::BaseController < Network::NetworkController
-  layout 'internal'
-
   def index
     @title = 'ქსელი'
     @new_customers = Network::NewCustomerApplication.desc(:_id).paginate(page: params[:page_new], per_page: 10)

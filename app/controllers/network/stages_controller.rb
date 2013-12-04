@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Network::StagesController < Network::NetworkController
-  layout 'internal'
-
   def index
     @title = 'ეტაპები'
     @stages = Network::Stage.asc(:numb)

@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Network::TariffsController < Network::NetworkController
-  layout 'internal'
-
   def index
     @title = 'ტარიფები'
     @tariffs = Network::NewCustomerTariff.asc(:_id)

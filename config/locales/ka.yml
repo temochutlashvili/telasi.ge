@@ -15,12 +15,9 @@ ka:
     customers_description: აბონენტის ისტორია და ვალები.
     admin:
       title: ადმინისტრირება
-      users_title: მომხმარებლები
-      users_description: მომხმარებლების და მათი უფლებების მართვა.
-      customers_title: აბონენტები
-      customers_description: აბონენტების რეგისტრაციები და მათი დადასტურება.
-      network_title: ქსელი
-      network_description: ქსელის ტარიფების მართვა.
+      users: მომხმარებლები
+      network: ქსელის მართვა
+      customers: აბონენეტები
     new_customer_title: ქსელზე მიერთება
     new_customer_description: ახალ აბონენტად დარეგისტრირება.
     calculator_title: კალკულატორი

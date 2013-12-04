@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Network::ChangePowerController < Network::NetworkController
-  layout 'internal'
-
   def index
     @title = 'სიმძლავრის შეცვლა'
     @applications = Network::ChangePowerApplication.desc(:_id).paginate(page: params[:page_change], per_page: 10)

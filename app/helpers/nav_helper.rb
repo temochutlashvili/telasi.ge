@@ -7,8 +7,7 @@ module NavHelper
           el('li', attrs: { class: 'active' }, text: lbl)
         else
           el('li', children: [
-            el('a', attrs: { href: url}, text: lbl),
-            el('span', attrs: { class: 'divider' }, text: '&raquo;'.html_safe)
+            el('a', attrs: { href: url}, text: lbl)
           ])
         end
       }).to_s

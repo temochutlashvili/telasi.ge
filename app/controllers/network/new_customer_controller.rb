@@ -2,8 +2,6 @@
 require 'rs'
 
 class Network::NewCustomerController < Network::NetworkController
-  layout 'internal'
-
   def index
     @title = 'ქსელზე მიერთება'
     @search = params[:search] == 'clear' ? nil : params[:search]

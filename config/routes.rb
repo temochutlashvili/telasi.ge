@@ -44,10 +44,6 @@ TelasiGe::Application.routes.draw do
     delete '/files/:id/delete/:file_id', action: 'delete_file', as: 'new_customer_delete_file'
   end
 
-  scope '/applications', controller: 'applications' do
-    get '/', action: 'index', as: 'applications'
-  end
-
   namespace 'admin' do
     scope '/users', controller: 'users' do
       get '/', action: 'index', as: 'users'
