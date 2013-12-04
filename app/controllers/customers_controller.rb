@@ -32,8 +32,12 @@ class CustomersController < ApplicationController
     end
   end
 
-  def complete
-    @title = I18n.t('models.billing_customer_registration.actions.add_complete')
+  def complete; @title = I18n.t('models.billing_customer_registration.actions.add_complete') end
+
+  def remove
+    registration = Billing::CustomerRegistration.find(params[:id])
+    registration.destroy
+    redirect_to customers_url, notice: I18n.t('models.billing_customer_registration.actions.remove_complete')
   end
 
   def history

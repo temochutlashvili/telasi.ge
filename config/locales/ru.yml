@@ -185,6 +185,8 @@ ru:
         confirm_confirm: ნამდვილად გინდათ ამ აბონენტის დადასტურება?
         deny: უარყოფა
         deny_alt: რეგისტრაციის უარყოფა
+        remove_confirm: Вы действительно хотите убрать абонента?
+        remove_complete: Абонент стерт
     network_change_power_application:
       number: ნომერი
       rs_name: განმცხადებელი
