@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/dimakura/forma.git
-  revision: dda7841ef1daf86db9b0e23db28d7ffad6ea0c7b
+  revision: 50ea53774fc129943ce543a8792ce2dad12d4bcd
   specs:
     forma (0.1.1)
       activesupport
@@ -47,7 +47,7 @@ GEM
       activesupport (= 4.0.0)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
-    activerecord-oracle_enhanced-adapter (1.5.0)
+    activerecord-oracle_enhanced-adapter (1.5.1)
     activesupport (4.0.0)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -78,7 +78,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     commonjs (0.2.7)
-    composite_primary_keys (6.0.0)
+    composite_primary_keys (6.0.1)
       activerecord (>= 4.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -92,7 +92,7 @@ GEM
     httpi (2.1.0)
       rack
       rubyntlm (~> 0.3.2)
-    i18n (0.6.5)
+    i18n (0.6.9)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
     jquery-rails (3.0.4)
@@ -110,7 +110,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.25)
+    mime-types (1.25.1)
     minitest (4.7.5)
     moped (1.5.1)
     multi_json (1.8.2)
@@ -161,7 +161,7 @@ GEM
       nokogiri (>= 1.4.0, < 1.6)
       nori (~> 2.3.0)
       wasabi (~> 3.2.0)
-    sprockets (2.10.0)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -183,10 +183,10 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
-    turbolinks (1.3.0)
+    turbolinks (1.3.1)
       coffee-rails
     tzinfo (0.3.38)
-    uglifier (2.3.1)
+    uglifier (2.3.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     wasabi (3.2.0)
