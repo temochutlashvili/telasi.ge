@@ -13,7 +13,9 @@
       <ul class="nav navbar-nav">
         <li class="<%= active?('dashboard#index') ? 'active' : 'common' %>"><%= link_to t('menu.home'), root_url %></li>
         <li class="<%= active?('customers#*') ? 'active' : 'common' %>"><%= link_to t('menu.customers'), customers_url %></li>
-        <li class="<%= active?('calculator#*') ? 'active' : 'common' %>"><%= link_to t('menu.calculator'), calculator_url %></li>
+        <li class="<%= active?('calculator#*') ? 'active' : 'common' %>" data-no-turbolink>
+          <%= link_to t('menu.calculator'), calculator_url %>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if current_user.blank? %>
@@ -38,9 +40,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i></a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'ქართული', locale_url('ka') %></li>
-            <li><%= link_to 'Русский', locale_url('ru') %></li>
-            <li><%= link_to 'English', locale_url('en') %></li>
+            <li data-no-turbolink><%= link_to 'ქართული', locale_url('ka') %></li>
+            <li data-no-turbolink><%= link_to 'Русский', locale_url('ru') %></li>
+            <li data-no-turbolink><%= link_to 'English', locale_url('en') %></li>
           </ul>
         </li>
       </ul>
