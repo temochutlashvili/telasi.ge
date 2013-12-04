@@ -37,10 +37,12 @@ class ProfileController < ApplicationController
 
   protected
 
-  def nav
-    @nav = [
-      { label: I18n.t('menu.profile'), url: profile_url, active: ( ['index', 'edit'].include?(action_name) ) },
-      { label: I18n.t('models.sys_user.actions.change_password'), url: change_password_url, active: ( action_name == 'change_password' ) },
-    ]
-  end
+  def nav; end
+
+  # def nav
+  #   @nav = [
+  #     { label: I18n.t('menu.profile'), url: profile_url, active: ( ['index', 'edit'].include?(action_name) ) },
+  #     { label: I18n.t('models.sys_user.actions.change_password'), url: change_password_url, active: ( action_name == 'change_password' ) },
+  #   ]
+  # end
 end
