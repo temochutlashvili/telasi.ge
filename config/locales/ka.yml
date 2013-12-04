@@ -1,8 +1,9 @@
 ka:
   menu:
     login: შესვლა
+    register: რეგისტრაცია
     home: საწყისი
-    profile: პროფილი
+    profile: თქვენი პროფილი
     logout: "გასვლა"
     logout_confirm: ნამდვილად გინდათ გასვლა?
     customers: დავალიანება

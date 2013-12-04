@@ -1,8 +1,9 @@
 ru:
   menu:
     login: Вход
+    register: Регистрация
     home: Начальная
-    profile: Профиль
+    profile: Ваш профиль
     logout: Выход
     logout_confirm: Вы действительно ходите выйти?
     customers: Задолженность

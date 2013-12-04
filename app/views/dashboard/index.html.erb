@@ -1,5 +1,13 @@
 <div class="jumbotron home-slide">
   <h2><%= t('info.slide') %></h2>
+  <div>
+    <% unless current_user.present? %>
+      <a href="<%= login_url %>" class="btn btn-success"><%= t('menu.login') %></a>
+      <a href="<%= register_url %>" class="btn btn-primary"><%= t('menu.register') %></a>
+    <% else %>
+      <a href="<%= profile_url %>" class="btn btn-primary"><%= t('menu.profile') %></a>
+    <% end %>
+  </div>
 </div>
 <div class="row">
   <div class="col-sm-6">
