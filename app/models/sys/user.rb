@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'rs'
+
 module Sys
   class User
     include KA
