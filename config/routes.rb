@@ -81,26 +81,33 @@ TelasiGe::Application.routes.draw do
     end
     scope '/new_customer', controller: 'new_customer' do
       get '/', action: 'index', as: 'new_customers'
+      # application actions
       match '/new', action: 'add_new_customer', as: 'add_new_customer', via: ['get', 'post']
-      match '/edit/:id', action: 'edit_new_customer', as: 'edit_new_customer', via: ['get', 'post']
       get   '/:id', action: 'new_customer', as: 'new_customer'
+      match '/edit/:id', action: 'edit_new_customer', as: 'edit_new_customer', via: ['get', 'post']
       delete '/delete/:id', action: 'delete_new_customer', as: 'delete_new_customer'
-      match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
-      match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
-      delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
+      # match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
+      # match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
+      # delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
+      # post '/sync_accounts/:id', action: 'sync_accounts', as: 'new_customer_sync_accounts'
+      # status operations
       match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
       match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
+      # file operations
       match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
       delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
+      post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
+      # link customer
       match '/link_bs_customer/:id', action: 'link_bs_customer', as: 'link_bs_customer', via: ['get','post']
       delete '/remove_bs_customer/:id', action: 'remove_bs_customer', as: 'remove_bs_customer'
+      # 
       match '/change_plan_date/:id', action: 'change_plan_date', as: 'change_plan_date', via: ['get','post']
       match '/change_real_date/:id', action: 'change_real_date', as: 'change_real_date', via: ['get','post']
-      post '/sync_accounts/:id', action: 'sync_accounts', as: 'new_customer_sync_accounts'
-      post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
+      # print
       get '/paybill/:id', action: 'paybill', as: 'new_customer_paybill'
       get '/print/:id', action: 'print', as: 'new_customer_print'
       post '/send_factura/:id', action: 'send_factura', as: 'new_customer_send_factura'
+      # control items
       match '/new_control_item/:id', action: 'new_control_item', as: 'new_customer_new_control_item', via: ['get','post']
       match '/edit_control_item/:id', action: 'edit_control_item', as: 'new_customer_edit_control_item', via: ['get','post']
       delete '/delete_control_item/:id', action: 'delete_control_item', as: 'new_customer_delete_control_item'

@@ -20,10 +20,12 @@ class Network::NewCustomerApplication
   VOLTAGE_220 = '220'
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
+
   include Mongoid::Document
   include Mongoid::Timestamps
   include Network::RsName
   include Sys::VatPayer
+  include Network::CalculationUtils
 
   belongs_to :user, class_name: 'Sys::User'
   field :number,    type: String
@@ -68,7 +70,7 @@ class Network::NewCustomerApplication
   # aviso id
   field :aviso_id, type: Integer
 
-  embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
+  # embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   has_many :requests, class_name: 'Network::RequestItem', as: 'source'
@@ -123,7 +125,7 @@ class Network::NewCustomerApplication
   end
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
-  def can_send_to_item?; self.status == STATUS_COMPLETE and self.items.any? end
+  def can_send_to_item?; self.status == STATUS_COMPLETE end #and self.items.any? end
   def formatted_mobile; KA::format_mobile(self.mobile) if self.mobile.present? end
 
   # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
@@ -139,17 +141,17 @@ class Network::NewCustomerApplication
     end
   end
 
-  # ახდენს სინქრონიზაციას BS.CUSTOMER ცხრილთან.
-  def sync_accounts!
-    customers = Billing::Customer.where(custsert: self.number)
-    customers.each do |customer|
-      related = self.items.where(customer_id: customer.custkey).first || Network::NewCustomerItem.new(application: self, customer_id: customer.custkey)
-      related.rs_tin = customer.taxid
-      related.address = customer.address.to_s.to_ka
-      related.address_code = '180.180.180.test'
-      related.save
-    end
-  end
+  # # ახდენს სინქრონიზაციას BS.CUSTOMER ცხრილთან.
+  # def sync_accounts!
+  #   customers = Billing::Customer.where(custsert: self.number)
+  #   customers.each do |customer|
+  #     related = self.items.where(customer_id: customer.custkey).first || Network::NewCustomerItem.new(application: self, customer_id: customer.custkey)
+  #     related.rs_tin = customer.taxid
+  #     related.address = customer.address.to_s.to_ka
+  #     related.address_code = '180.180.180.test'
+  #     related.save
+  #   end
+  # end
 
   def real_days; (self.end_date || Date.today) - self.send_date end
 

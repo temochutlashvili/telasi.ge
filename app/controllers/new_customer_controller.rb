@@ -43,50 +43,50 @@ class NewCustomerController < ApplicationController
 
 # ==> Accounts
 
-  def accounts
-    with_application do
-      @title = I18n.t('models.network_new_customer_application.actions.accounts_page.title')
-    end
-  end
+  # def accounts
+  #   with_application do
+  #     @title = I18n.t('models.network_new_customer_application.actions.accounts_page.title')
+  #   end
+  # end
 
-  def new_account
-    with_application do
-      @title = I18n.t('models.network_new_customer_item.actions.new_account')
-      if request.post?
-        @account = Network::NewCustomerItem.new(account_params)
-        @account.application = @application
-        @account.summary = params[:type] == 'summary'
-        if @account.save
-          @application.calculate!
-          redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.new_account_complete')
-        end
-      else
-        @account = Network::NewCustomerItem.new(summary: params[:type] == 'summary')
-      end
-    end
-  end
+  # def new_account
+  #   with_application do
+  #     @title = I18n.t('models.network_new_customer_item.actions.new_account')
+  #     if request.post?
+  #       @account = Network::NewCustomerItem.new(account_params)
+  #       @account.application = @application
+  #       @account.summary = params[:type] == 'summary'
+  #       if @account.save
+  #         @application.calculate!
+  #         redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.new_account_complete')
+  #       end
+  #     else
+  #       @account = Network::NewCustomerItem.new(summary: params[:type] == 'summary')
+  #     end
+  #   end
+  # end
 
-  def edit_account
-    with_application do
-      @title = I18n.t('models.network_new_customer_item.actions.edit_account')
-      @account = @application.items.where(_id: params[:item_id]).first
-      if request.put?
-        if @account.update_attributes(account_params)
-          @application.calculate!
-          redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.edit_account_complete')
-        end
-      end
-    end
-  end
+  # def edit_account
+  #   with_application do
+  #     @title = I18n.t('models.network_new_customer_item.actions.edit_account')
+  #     @account = @application.items.where(_id: params[:item_id]).first
+  #     if request.put?
+  #       if @account.update_attributes(account_params)
+  #         @application.calculate!
+  #         redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.edit_account_complete')
+  #       end
+  #     end
+  #   end
+  # end
 
-  def delete_account
-    with_application do
-      account = @application.items.where(_id: params[:item_id]).first
-      account.destroy
-      @application.calculate!
-      redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.delete_complete')
-    end
-  end
+  # def delete_account
+  #   with_application do
+  #     account = @application.items.where(_id: params[:item_id]).first
+  #     account.destroy
+  #     @application.calculate!
+  #     redirect_to new_customer_accounts_url(id: @application.id), notice: I18n.t('models.network_new_customer_item.actions.delete_complete')
+  #   end
+  # end
 
 # ==> Payments
 

@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'rs'
 
+
+#
+# @deprated remove this class!
+# 
+
 class Network::NewCustomerItem
   include Mongoid::Document
   include Mongoid::Timestamps

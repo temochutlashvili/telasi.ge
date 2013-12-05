@@ -155,7 +155,7 @@ module Network::NewCustomerHelper
         end
       end
       # 2. customers
-      f.tab title: "აბონენტები &mdash; <strong>#{application.items.count}</strong>".html_safe, icon: '/icons/users.png' do |t|
+      f.tab title: 'აბონენტები', icon: '/icons/users.png' do |t|
         if application.can_send_to_item?
           t.action network_new_customer_send_to_bs_url(id: application.id), label: 'ბილინგში გაგზავნა', icon: '/icons/wand.png', method: 'post', confirm: 'ნამდვილად გინდათ ბილინგში გაგზავნა?' if show_actions
         end
@@ -168,27 +168,27 @@ module Network::NewCustomerHelper
             end
           end
         end
-        t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
-          items.table do |t|
-            t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png' if (show_actions and app_change_customer?(application))
-            t.title_action network_new_customer_sync_accounts_url(id: application.id), label: 'სინქრონიზაცია ბილინგთან', icon: '/icons/arrow-circle-double-135.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' if (show_actions and app_change_customer?(application))
-            t.item_action ->(x) { network_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა' if (show_actions and app_change_customer?(application))
-            t.item_action ->(x) { network_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა' if (show_actions and app_change_customer?(application))
-            t.complex_field label: 'მისამართი' do |c|
-              c.text_field :address_code, tag: 'code'
-              c.text_field :address
-            end
-            t.complex_field label: 'აბონენტი' do |c|
-              c.text_field :rs_tin, tag: 'code'
-              c.text_field :rs_name, empty: false
-            end
-            t.complex_field label: 'ბილინგის აბონენტი' do |c|
-              c.text_field 'customer.accnumb', tag: 'code'
-              c.text_field 'customer.custname', empty: false
-            end
-            t.number_field :amount, after: 'GEL'
-          end
-        end
+        # t.table_field :items, table: { title: 'აბონენტები', icon: '/icons/users.png' } do |items|
+        #   items.table do |t|
+        #     t.title_action network_add_new_customer_account_url(id: application.id), label: 'აბონენტის დამატება', icon: '/icons/plus.png' if (show_actions and app_change_customer?(application))
+        #     t.title_action network_new_customer_sync_accounts_url(id: application.id), label: 'სინქრონიზაცია ბილინგთან', icon: '/icons/arrow-circle-double-135.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' if (show_actions and app_change_customer?(application))
+        #     t.item_action ->(x) { network_edit_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/pencil.png', tooltip: 'შეცვლა' if (show_actions and app_change_customer?(application))
+        #     t.item_action ->(x) { network_delete_new_customer_account_url(app_id: application.id, id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ ამ ანგარიშის შეცვლა?', tooltip: 'წაშლა' if (show_actions and app_change_customer?(application))
+        #     t.complex_field label: 'მისამართი' do |c|
+        #       c.text_field :address_code, tag: 'code'
+        #       c.text_field :address
+        #     end
+        #     t.complex_field label: 'აბონენტი' do |c|
+        #       c.text_field :rs_tin, tag: 'code'
+        #       c.text_field :rs_name, empty: false
+        #     end
+        #     t.complex_field label: 'ბილინგის აბონენტი' do |c|
+        #       c.text_field 'customer.accnumb', tag: 'code'
+        #       c.text_field 'customer.custname', empty: false
+        #     end
+        #     t.number_field :amount, after: 'GEL'
+        #   end
+        # end
       end
       # 3. sms messages
       f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
