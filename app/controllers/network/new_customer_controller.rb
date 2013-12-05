@@ -58,40 +58,40 @@ class Network::NewCustomerController < Network::NetworkController
     redirect_to network_home_url, notice: 'განცხადება წაშლილია!'
   end
 
-  def add_new_customer_account
-    @title = 'ახალი აბონენტის დამატება'
-    @application = Network::NewCustomerApplication.find(params[:id])
-    if request.post?
-      @account = Network::NewCustomerItem.new(account_params)
-      @account.application = @application
-      if @account.save
-        @application.calculate_distribution!
-        redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
-      end
-    else
-      @account = Network::NewCustomerItem.new
-    end
-  end
+  # def add_new_customer_account
+  #   @title = 'ახალი აბონენტის დამატება'
+  #   @application = Network::NewCustomerApplication.find(params[:id])
+  #   if request.post?
+  #     @account = Network::NewCustomerItem.new(account_params)
+  #     @account.application = @application
+  #     if @account.save
+  #       @application.calculate_distribution!
+  #       redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
+  #     end
+  #   else
+  #     @account = Network::NewCustomerItem.new
+  #   end
+  # end
 
-  def edit_new_customer_account
-    @title = 'აბონენტის რედაქტირება'
-    @application = Network::NewCustomerApplication.find(params[:app_id])
-    @account = @application.items.where(id: params[:id]).first
-    if request.post?
-      if @account.update_attributes(account_params)
-        @application.calculate_distribution!
-        redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
-      end
-    end
-  end
+  # def edit_new_customer_account
+  #   @title = 'აბონენტის რედაქტირება'
+  #   @application = Network::NewCustomerApplication.find(params[:app_id])
+  #   @account = @application.items.where(id: params[:id]).first
+  #   if request.post?
+  #     if @account.update_attributes(account_params)
+  #       @application.calculate_distribution!
+  #       redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
+  #     end
+  #   end
+  # end
 
-  def delete_new_customer_account
-    application = Network::NewCustomerApplication.find(params[:app_id])
-    account = application.items.where(id: params[:id]).first
-    account.destroy
-    application.calculate_distribution!
-    redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
-  end
+  # def delete_new_customer_account
+  #   application = Network::NewCustomerApplication.find(params[:app_id])
+  #   account = application.items.where(id: params[:id]).first
+  #   account.destroy
+  #   application.calculate_distribution!
+  #   redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
+  # end
 
   def link_bs_customer
     @title = 'აბონენტის დაკავშირება'
@@ -195,9 +195,9 @@ class Network::NewCustomerController < Network::NetworkController
     end
   end
 
-  def sync_accounts
+  def sync_customers
     application = Network::NewCustomerApplication.find(params[:id])
-    application.sync_accounts!
+    application.sync_customers!
     application.calculate_distribution!
     redirect_to network_new_customer_url(id: application.id, tab: 'accounts'), notice: 'სინქრონიზაცია დასრულებულია'
   end

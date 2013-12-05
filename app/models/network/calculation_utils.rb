@@ -11,6 +11,10 @@ module Network::CalculationUtils
         addition = 1 and remainder -= 1 if i + remainder  > n - 1
         yield x, (per_item + addition) / 100.0
       end
+    else
+      items.each do |x|
+        yield x, 0
+      end
     end
   end
 end

@@ -70,7 +70,7 @@ class Network::NewCustomerApplication
   # aviso id
   field :aviso_id, type: Integer
 
-  # embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
+  embeds_many :items, class_name: 'Network::NewCustomerItem', inverse_of: :application
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   has_many :requests, class_name: 'Network::RequestItem', as: 'source'
@@ -136,22 +136,32 @@ class Network::NewCustomerApplication
     when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
     when STATUS_COMPLETE then [ STATUS_CANCELED ]
     when STATUS_IN_BS then [ STATUS_CANCELED ]
-    when STATUS_CANCELED then [] # NB: ძალიან მნიშვნელოვანია, რომ გაუქმებული განცხადება ვერ აღდგეს!!!
+    when STATUS_CANCELED then [ ] # NB: ძალიან მნიშვნელოვანია, რომ გაუქმებული განცხადება ვერ აღდგეს!!!
     else [ ]
     end
   end
 
-  # # ახდენს სინქრონიზაციას BS.CUSTOMER ცხრილთან.
-  # def sync_accounts!
-  #   customers = Billing::Customer.where(custsert: self.number)
-  #   customers.each do |customer|
-  #     related = self.items.where(customer_id: customer.custkey).first || Network::NewCustomerItem.new(application: self, customer_id: customer.custkey)
-  #     related.rs_tin = customer.taxid
-  #     related.address = customer.address.to_s.to_ka
-  #     related.address_code = '180.180.180.test'
-  #     related.save
-  #   end
-  # end
+  def sync_customers!
+    customers = Billing::CustomerRelation.new_customer_application_subcustomers(self.customer)
+    customers.each do |customer|
+      related = self.items.where(customer_id: customer.custkey).first || Network::NewCustomerItem.new(application: self, customer_id: customer.custkey)
+      related.save
+    end
+    ### TODO: destroy detached customers !!!
+  end
+
+  # ვალის/კომპენსაციის გადანაწილების დათვლა.
+  def calculate_distribution!
+    items = self.items
+    distribute(items, self.remaining) do |item, part|
+      item.amount = part
+      item.save
+    end
+    distribute(items, self.penalty_third_stage) do |item, part|
+      item.amount_compensation = part
+      item.save
+    end
+  end
 
   def real_days; (self.end_date || Date.today) - self.send_date end
 
@@ -185,22 +195,6 @@ class Network::NewCustomerApplication
   def total_penalty; self.penalty_first_stage + self.penalty_second_stage + self.penalty_third_stage end
   # რეალურად გადასახდელი თანხა.
   def effective_amount; self.amount - self.total_penalty end
-
-  # ვალის გადანაწილების დათვლა.
-  def calculate_distribution!
-    items = self.items
-    total_amount = (self.remaining * 100).to_i
-    if items.any? and total_amount > 0
-      per_item = total_amount / items.size
-      remainder = total_amount - per_item * items.size
-      items.each do |x|
-        addition = 0
-        addition = 1 and remainder -= 1 if remainder > 0
-        x.amount = (per_item + addition) / 100.0
-        x.save
-      end
-    end
-  end
 
   # ბილინგში გაგზავნა.
   def send_to_bs!
