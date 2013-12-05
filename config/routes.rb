@@ -126,5 +126,9 @@ TelasiGe::Application.routes.draw do
     end
   end
 
+  namespace 'api' do
+    
+  end
+
   root 'dashboard#index'
 end
