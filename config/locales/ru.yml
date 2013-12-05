@@ -65,6 +65,7 @@ ru:
         cancel: Отменить
         search: Поиск
         show: Просмотр
+        edit: Изменить
     sys_user:
       title:
         single: Пользователь

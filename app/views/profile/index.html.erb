@@ -1,30 +1,38 @@
 <div class="page-header">
-  <div class="pull-right">
-    <a href="<%= edit_profile_url %>" class="btn btn-default">
-      <i class="fa fa-pencil"></i>
-      <%= t('models.sys_user.actions.edit_profile') %>
-    </a>
-  </div>
   <h1><%= @title %></h1>
 </div>
-<table class="table table-bordered table-striped">
-  <tr>
-    <th width="30%"><%= t('models.sys_user.email') %></th>
-    <td><%= mail_to @user.email %></td>
-  </tr>
-  <tr>
-    <th><%= t('models.sys_user.password') %></th>
-    <td>
-      ******
-      <%= link_to t('models.sys_user.actions.change_password'), change_password_url, class: ['btn', 'btn-default', 'btn-xs'] %>
-    </td>
-  </tr>
-  <tr>
-    <th><%= t('models.sys_user.full_name') %></th>
-    <td><%= @user.full_name %></td>
-  </tr>
-  <tr>
-    <th><%= t('models.sys_user.mobile') %></th>
-    <td><%= KA.format_mobile @user.mobile %></td>
-  </tr>
-</table>
+<div class="row">
+  <div class="col-sm-6">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="pull-right"><%= mail_to @user.email %></div>
+        <%= t('models.sys_user.email') %>
+      </li>
+      <li class="list-group-item">
+        <div class="pull-right">
+          <code>******</code>
+          <%= link_to t('models.general.actions.edit'), change_password_url, class: ['btn', 'btn-info', 'btn-xs'] %>
+        </div>
+        <%= t('models.sys_user.password') %>
+      </li>
+      <li class="list-group-item">
+        <div class="pull-right">
+          <%= @user.full_name %>
+        </div>
+        <%= t('models.sys_user.full_name') %>
+      </li>
+      <li class="list-group-item">
+        <div class="pull-right">
+          <%= KA.format_mobile @user.mobile %>
+        </div>
+        <%= t('models.sys_user.mobile') %>
+      </li>
+    </ul>
+    <div class="pull-right">
+      <a href="<%= edit_profile_url %>" class="btn btn-default">
+        <i class="fa fa-pencil"></i>
+        <%= t('models.general.actions.edit') %>
+      </a>
+    </div>
+  </div>
+</div>

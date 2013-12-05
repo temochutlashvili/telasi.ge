@@ -67,6 +67,7 @@ ka:
         cancel: გაუქმება
         search: ძებნა
         show: ნახვა
+        edit: შეცვლა
     sys_user:
       title:
         single: მომხმარებელი
