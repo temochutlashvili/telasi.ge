@@ -81,8 +81,8 @@ class Network::NewCustomerApplication
   # validates :email, presence: { message: I18n.t('models.network_new_customer_application.errors.email_required') }
   validates :address, presence: { message: I18n.t('models.network_new_customer_application.errors.address_required') }
   validates :address_code, presence: { message: I18n.t('models.network_new_customer_application.errors.address_code_required') }
-  validates :bank_code, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_code_required') }
-  validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
+  # validates :bank_code, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_code_required') }
+  # validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
   validate :validate_rs_name, :validate_number, :validate_mobile
@@ -306,14 +306,13 @@ class Network::NewCustomerApplication
             cust = item.customer
             acct = cust.accounts.first
             if item.amount > 0
-
-              ###### XXXXXXX 1000 / 120 operation codes should be revised!
-
+              # XXX: operation?
               bs_item = Billing::Item.new(billoperkey: 1000, acckey: acct.acckey, custkey: cust.custkey,
                 perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: item.amount,
                 enterdate: Time.now, itemcatkey: 0)
               bs_item.save
             elsif item.amount_compensation > 0
+              # XXX: operation?
               bs_item = Billing::Item.new(billoperkey: 120, acckey: acct.acckey, custkey: cust.custkey,
                 perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: -item.amount_compensation,
                 enterdate: Time.now, itemcatkey: 0)

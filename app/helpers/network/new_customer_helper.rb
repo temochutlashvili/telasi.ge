@@ -40,8 +40,8 @@ module Network::NewCustomerHelper
         t.text_field  :address, required: true, width: 500
         t.text_field  :work_address, width: 500
         t.text_field  :address_code, required: true
-        t.combo_field :bank_code, collection: banks, empty: false, required: true
-        t.text_field  :bank_account, required: true, width: 300
+        t.combo_field :bank_code, collection: banks, empty: '-- აარჩიეთ ბანკი --' #empty: true, required: true
+        t.text_field  :bank_account, width: 300 #, required: true
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
         t.number_field :power, after: 'kWh', width: 100, required: true
         t.boolean_field :need_resolution, required: true
@@ -254,17 +254,6 @@ module Network::NewCustomerHelper
         t.timestamps
         t.number_field 'payment_id', required: true, max_digits: 0
       end
-    end
-  end
-
-  def new_customer_account_form(account, opts = {})
-    forma_for account, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
-      f.text_field :rs_tin, required: true, autofocus: true
-      f.text_field :address_code, required: true
-      f.text_field :address, required: true, width: 300 #, :voltage, :power, :use, :rs_tin, :count
-      f.select_field :customer, select_customer_url, label: 'ბილინგის აბონენტი', search_width: 900
-      f.submit opts[:submit]
-      f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
     end
   end
 
