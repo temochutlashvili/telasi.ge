@@ -134,7 +134,9 @@ TelasiGe::Application.routes.draw do
   end
 
   namespace 'api' do
-    
+    scope '/customers', controller: 'customers' do
+      get '/tariffs', action: 'tariffs'
+    end
   end
 
   root 'dashboard#index'

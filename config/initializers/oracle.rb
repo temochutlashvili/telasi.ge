@@ -2,6 +2,7 @@
 
 # BS server
 Billing::Account.establish_connection          :bs
+Billing::AccountTariff.establish_connection    :bs
 Billing::Address.establish_connection          :bs
 Billing::Custcateg.establish_connection        :bs
 Billing::Customer.establish_connection         :bs
@@ -23,5 +24,7 @@ Billing::NetworkCustomer.establish_connection  :bs
 Billing::NetworkItem.establish_connection      :bs
 Billing::Paypoint.establish_connection         :bs
 Billing::Aviso.establish_connection            :bs
+Billing::Tariff.establish_connection           :bs
+Billing::TariffStep.establish_connection       :bs
 # REPORT server
 Billing::WaterPayment.establish_connection  :report_bs
