@@ -14,7 +14,7 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label for="accnumb"><%= t('models.calculator.accnumb') %></label>
-        {{input id="accnumb" class="form-control text-right input-lg" value=accnumb autocomplete="off"}}
+        {{input id="accnumb" class="form-control text-right input-lg" value=accnumb autocomplete="off" autofocus=true}}
         {{#if customer}}
           <div class="highlight">
             <code>{{customer.number}}</code> {{customer.name}}
