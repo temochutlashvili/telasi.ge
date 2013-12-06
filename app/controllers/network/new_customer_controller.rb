@@ -198,7 +198,6 @@ class Network::NewCustomerController < Network::NetworkController
   def sync_customers
     application = Network::NewCustomerApplication.find(params[:id])
     application.sync_customers!
-    application.calculate_distribution!
     redirect_to network_new_customer_url(id: application.id, tab: 'accounts'), notice: 'სინქრონიზაცია დასრულებულია'
   end
 

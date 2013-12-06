@@ -142,12 +142,14 @@ class Network::NewCustomerApplication
   end
 
   def sync_customers!
-    customers = Billing::CustomerRelation.new_customer_application_subcustomers(self.customer)
-    customers.each do |customer|
-      related = self.items.where(customer_id: customer.custkey).first || Network::NewCustomerItem.new(application: self, customer_id: customer.custkey)
-      related.save
+    self.items.destroy_all
+    if self.customer
+      customers = Billing::CustomerRelation.new_customer_application_subcustomers(self.customer)
+      customers.each do |customer|
+        Network::NewCustomerItem.new(application: self, customer_id: customer.custkey).save
+      end
     end
-    ### TODO: destroy detached customers !!!
+    calculate_distribution!
   end
 
   # ვალის/კომპენსაციის გადანაწილების დათვლა.
@@ -196,72 +198,126 @@ class Network::NewCustomerApplication
   # რეალურად გადასახდელი თანხა.
   def effective_amount; self.amount - self.total_penalty end
 
+  private
+
+  def send_main_operations!(customer, deposit_customer, amount, item_date)
+    # set customer exception status
+    customer.except = true
+    customer.save!
+    account = customer.accounts.first
+    # adding exception to 
+    deposit_customer.exception_end_date = item_date + (self.personal_use ? 20 : 10)
+    deposit_customer.save!
+    # bs.item - charge operation
+    bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
+      perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: amount,
+      enterdate: Time.now, itemcatkey: 0)
+    bs_item.save!
+    network_item = Billing::NetworkItem.new(zdepozit_cust_id: deposit_customer.zdepozit_cust_id, amount: amount,
+      operkey: 1000, enterdate: Time.now, operdate: item_date, perskey: 1)
+    network_item.save!
+    # I. bs.item - first stage penalty
+    first_stage = -self.penalty_first_stage
+    if first_stage < 0
+      bs_item1 = Billing::Item.new(billoperkey: 1006, acckey: account.acckey, custkey: customer.custkey,
+        perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: first_stage,
+        enterdate: Time.now, itemcatkey: 0)
+      bs_item1.save!
+      network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: deposit_customer.zdepozit_cust_id, amount: first_stage,
+        operkey: 1006, enterdate: Time.now, operdate: item_date, perskey: 1)
+      network_item1.save!
+    end
+    # II. bs.item - second stage penalty
+    second_stage = -self.penalty_second_stage
+    if second_stage < 0
+      bs_item2 = Billing::Item.new(billoperkey: 1007, acckey: account.acckey, custkey: customer.custkey,
+        perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: second_stage,
+        enterdate: Time.now, itemcatkey: 0)
+      bs_item2.save!
+      network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: deposit_customer.zdepozit_cust_id, amount: second_stage,
+        operkey: 1007, enterdate: Time.now, operdate: item_date, perskey: 1)
+      network_item2.save!
+    end
+    # III. bs.item - third stage penalty
+    third_stage = -self.penalty_third_stage
+    if third_stage < 0
+      bs_item3 = Billing::Item.new(billoperkey: 120, acckey: account.acckey, custkey: customer.custkey,
+        perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: third_stage,
+        enterdate: Time.now, itemcatkey: 0)
+      bs_item3.save!
+      network_item3 = Billing::NetworkItem.new(zdepozit_cust_id: deposit_customer.zdepozit_cust_id, amount: third_stage,
+        operkey: 120, enterdate: Time.now, operdate: item_date, perskey: 1)
+      network_item3.save!
+    end
+  end
+
+  public
+
   # ბილინგში გაგზავნა.
   def send_to_bs!
+    # sync customers
+    self.sync_customers!
+
+    # customer
+    customer = self.customer
+
+    # general parameters
+    item_date = self.end_date
+    main_amount = self.amount 
+
+    # find zdeposit customer
+    deposit_customer = Billing::NetworkCustomer.where(customer: customer).first
+    raise "სადეპოზიტო აბონენტი ვერ მოიძებნა: #{customer.accnumb}!" if deposit_customer.blank?
+
+    # sending to billing
     Billing::Item.transaction do
-      # --> შემოწმება, რომ ყველა აბონენტი დაკავშირებულია
-      items_without_customer = self.items.where(customer_id: nil)
-      raise 'ყველა აბონენტი არაა აბონირებული!' if items_without_customer.any?
-      # --> დავალიანების გადათვლა
-      self.calculate_distribution!
-      # --> განაწილება
-      if self.items.count == 1
-        item = self.items.first
-        customer = item.customer
-        account  = customer.accounts.first
-        amount = self.amount
-        item_date = self.end_date
-        # set customer exception status
-        customer.except = true
-        customer.save!
-        # find zdeposit customer
-        network_customer = Billing::NetworkCustomer.where(customer: customer).first
-        raise "სადეპოზიტო აბონენტი ვერ მოიძებნა!" if network_customer.blank?
-        network_customer.exception_end_date = item_date + (self.personal_use ? 20 : 10)
-        network_customer.save!
-        # bs.item - charge operation
-        bs_item = Billing::Item.new(billoperkey: 1000, acckey: account.acckey, custkey: customer.custkey,
-          perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: amount,
-          enterdate: Time.now, itemcatkey: 0)
-        bs_item.save!
-        network_item = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: amount,
-          operkey: 1000, enterdate: Time.now, operdate: item_date, perskey: 1)
-        network_item.save!
-        # I. bs.item - first stage penalty
-        first_stage = -self.penalty_first_stage
-        if first_stage < 0
-          bs_item1 = Billing::Item.new(billoperkey: 1006, acckey: account.acckey, custkey: customer.custkey,
-            perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: first_stage,
-            enterdate: Time.now, itemcatkey: 0)
-          bs_item1.save!
-          network_item1 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: first_stage,
-            operkey: 1006, enterdate: Time.now, operdate: item_date, perskey: 1)
-          network_item1.save!
-        end
-        # II. bs.item - second stage penalty
-        second_stage = -self.penalty_second_stage
-        if second_stage < 0
-          bs_item2 = Billing::Item.new(billoperkey: 1007, acckey: account.acckey, custkey: customer.custkey,
-            perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: second_stage,
-            enterdate: Time.now, itemcatkey: 0)
-          bs_item2.save!
-          network_item2 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: second_stage,
-            operkey: 1007, enterdate: Time.now, operdate: item_date, perskey: 1)
-          network_item2.save!
-        end
-        # III. bs.item - third stage penalty
-        third_stage = -self.penalty_third_stage
-        if third_stage < 0
-          bs_item3 = Billing::Item.new(billoperkey: 120, acckey: account.acckey, custkey: customer.custkey,
-            perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: third_stage,
-            enterdate: Time.now, itemcatkey: 0)
-          bs_item3.save!
-          network_item3 = Billing::NetworkItem.new(zdepozit_cust_id: network_customer.zdepozit_cust_id, amount: third_stage,
-            operkey: 120, enterdate: Time.now, operdate: item_date, perskey: 1)
-          network_item3.save!
-        end
+      # make transactions on main account
+      send_main_operations!(customer, deposit_customer, main_amount, item_date)
+
+      if self.items.empty?
+        # nothing todo here!
       else
-        raise 'ეს სიტუაცია ჯერ არაა მზად!'
+        remaining = self.remaining
+        compensation = self.penalty_third_stage
+        # remove remaining amount from main account (if any) => 1008
+        if remaining > 0
+          bs_item = Billing::Item.new(billoperkey: 1008, acckey: account.acckey, custkey: customer.custkey,
+            perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: -remaining,
+            enterdate: Time.now, itemcatkey: 0)
+          bs_item.save!
+          network_item = Billing::NetworkItem.new(zdepozit_cust_id: deposit_customer.zdepozit_cust_id, amount: -remaining,
+            operkey: 1008, enterdate: Time.now, operdate: item_date, perskey: 1)
+          network_item.save!
+        end
+        # remove compensation from main account (if any) => XXX: which operation???
+        if compensation > 0
+          bs_item = Billing::Item.new(billoperkey: 120, acckey: account.acckey, custkey: customer.custkey,
+            perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: compensation,
+            enterdate: Time.now, itemcatkey: 0)
+          bs_item.save!
+          network_item = Billing::NetworkItem.new(zdepozit_cust_id: deposit_customer.zdepozit_cust_id, amount: compensation,
+            operkey: 120, enterdate: Time.now, operdate: item_date, perskey: 1)
+          network_item.save!
+        end
+        # distribute remaining amount on subcustomers => 1000
+        # distribute compensation on subcustomers (if any) => 120
+        if self.remaining > 0 || self.compensation > 0
+          self.items.each do |item|
+            cust = item.customer
+            acct = cust.accounts.first
+            if item.amount > 0
+              bs_item = Billing::Item.new(billoperkey: 1000, acckey: acct.acckey, custkey: cust.custkey,
+                perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: item.amount,
+                enterdate: Time.now, itemcatkey: 0)
+              bs_item.save
+            elsif item.amount_compensation > 0
+              bs_item = Billing::Item.new(billoperkey: 120, acckey: acct.acckey, custkey: cust.custkey,
+                perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: item.amount_compensation,
+                enterdate: Time.now, itemcatkey: 0)
+              bs_item.save
+            end
+          end
+        end
       end
     end
     # update application status
