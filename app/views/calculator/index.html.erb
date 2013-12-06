@@ -1,42 +1,87 @@
 <%= javascript_include_tag 'calculator' %>
+<style type="text/css">
+.highlight { background-color: #fef8c4; }
+</style>
 <div class="page-header">
   <h1><%= @title %></h1>
 </div>
 <div id="calculator">
 </div>
+
 <script type="text/x-handlebars" data-template-name="calculator">
+  <!-- select customer and account -->
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <label for="charge">
-          <%= t('models.calculator.charge') %>,
-          <%= t('models.calculator.charge_unit') %>
-        </label>
-        {{input type="text" value=charge id="charge" class="form-control text-right input-lg"}}
-      </div>
-      <div class="form-group">
-        <label for="period">
-          <%= t('models.calculator.period') %>,
-          <%= t('models.calculator.period_unit') %>
-        </label>
-        {{input type="text" value=period id="period" class="form-control text-right input-lg"}}
-      </div>
-      <div class="form-group">
-        <label for="vat">
-          {{input type="checkbox" checked=withVat id="vat"}}
-          <%= t('models.calculator.with_vat') %>
-        </label>
+        <label for="accnumb">ჩაწერეთ აბონენტის ნომერი</label>
+        {{input id="accnumb" class="form-control text-right input-lg" value=accnumb autocomplete="off"}}
+        {{#if customer}}
+          <div class="highlight">
+            <code>{{customer.number}}</code> {{customer.name}}
+          </div>
+        {{/if}}
       </div>
     </div>
     <div class="col-sm-4">
-      <label><%= t('models.calculator.charge') %>, GEL</label>
-      <h1 class="well text-right" style="margin: 0;">
-        <code>{{result}}</code> GEL
-      </h1>
-      <div class="text-right text-muted">
-        <%= t('models.calculator.tariff') %>:
-        <code>{{tariff}}</code> GEL/<%= t('models.calculator.charge_unit') %>
-      </div>
+      {{#if account}}
+        <div class="form-group">
+          <label for="tariff">აარჩიეთ მრიცხველი</label>
+          {{view Ember.Select
+            id="tariff"
+            class="form-control text-right input-lg"
+            content=customer.accounts
+            selection=account
+            optionLabelPath="content.number"
+          }}
+          {{#if account}}
+            <div class="highlight">
+              <code>{{account.number}}</code>
+              {{account.address}}
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
     </div>
   </div>
+  <!-- specify charge and period-->
+  {{#if account}}
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="charge">
+            <%= t('models.calculator.charge') %>,
+            <%= t('models.calculator.charge_unit') %>
+          </label>
+          {{input type="text" value=charge id="charge" class="form-control text-right input-lg"}}
+        </div>
+      </div>
+      {{#if isStepTariff}}
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="period">
+            <%= t('models.calculator.period') %>,
+            <%= t('models.calculator.period_unit') %>
+          </label>
+          {{input type="text" value=period id="period" class="form-control text-right input-lg"}}
+        </div>
+      </div>
+      {{/if}}
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-4">
+        <label><%= t('models.calculator.charge') %>, GEL</label>
+        <h1 class="well text-right" style="margin: 0;">
+          <code>{{result}}</code> GEL
+        </h1>
+      </div>
+      <div class="col-sm-4">
+        <label><%= t('models.calculator.tariff') %></label>
+        <div>
+          <code>{{tariff}}</code> GEL/<%= t('models.calculator.charge_unit') %>
+        </div>
+      </div>
+      </div>
+    </div>
+  {{/if}}
 </script>
