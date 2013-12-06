@@ -49,7 +49,8 @@ ru:
       charge_unit: квт.час
       period: Период
       period_unit: дни
-      with_vat: Включая НДС?
+      accnumb: Введите абонентский номер
+      account: Выберите счетчик
       tariff: Тариф
     general:
       records: записей

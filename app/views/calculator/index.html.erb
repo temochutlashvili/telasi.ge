@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <label for="accnumb">ჩაწერეთ აბონენტის ნომერი</label>
+        <label for="accnumb"><%= t('models.calculator.accnumb') %></label>
         {{input id="accnumb" class="form-control text-right input-lg" value=accnumb autocomplete="off"}}
         {{#if customer}}
           <div class="highlight">
@@ -25,7 +25,7 @@
     <div class="col-sm-4">
       {{#if account}}
         <div class="form-group">
-          <label for="tariff">აარჩიეთ მრიცხველი</label>
+          <label for="tariff"><%= t('models.calculator.account') %></label>
           {{view Ember.Select
             id="tariff"
             class="form-control text-right input-lg"

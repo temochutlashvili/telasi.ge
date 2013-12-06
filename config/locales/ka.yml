@@ -51,7 +51,8 @@ ka:
       charge_unit: კვტ.სთ.
       period: პერიოდი
       period_unit: დღე
-      with_vat: დღგ-ს ჩათვლით?
+      accnumb: ჩაწერეთ აბონენტის ნომერი
+      account: აარჩიეთ მრიცხველი
       tariff: ტარიფი
     general:
       records: ჩანაწერი
