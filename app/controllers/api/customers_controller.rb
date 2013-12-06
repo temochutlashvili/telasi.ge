@@ -5,7 +5,7 @@ class Api::CustomersController < Api::ApiController
     render json: {
       id: customer.custkey, name: customer.custname.to_ka,
       number: customer.accnumb.to_ka, address: customer.address.to_s,
-      accounts: customer.accounts.map {|x|
+      accounts: customer.accounts.select { |x| x.statuskey == 0 }.map {|x|
         tar = x.tariffs.last.tariff
         { id: x.acckey, number: x.accid.to_ka, meter: x.mtnumb, address: x.address.to_s,
           status: x.statuskey == 0,
