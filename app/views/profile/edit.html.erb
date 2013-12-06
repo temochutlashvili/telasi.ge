@@ -10,7 +10,7 @@
           <%= fast_text_field f, 'last_name', label: t('models.sys_user.last_name') %>
           <%= fast_text_field f, 'mobile', label: t('models.sys_user.mobile') %>
           <div>
-            <%= f.submit @title, class: ['btn', 'btn-primary'] %>
+            <%= f.submit t('models.general.actions.edit'), class: ['btn', 'btn-primary'] %>
             <%= link_to t('models.general.actions.cancel'), profile_url, class: ['btn', 'btn-default'] %>
           </div>
         <% end %>
