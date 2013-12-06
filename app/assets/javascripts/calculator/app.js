@@ -10,7 +10,7 @@ Ember.TextField.reopen({
 
 window.App = Ember.Application.create({
   rootElement: '#calculator',
-  api_root: 'http://localhost:3000/api'
+  api_root: '/api'
 });
 
 App.step_tariffs = {
