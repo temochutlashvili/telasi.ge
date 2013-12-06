@@ -155,7 +155,7 @@ class Network::NewCustomerApplication
   # ვალის/კომპენსაციის გადანაწილების დათვლა.
   def calculate_distribution!
     items = self.items
-    distribute(items, self.remaining) do |item, part|
+    distribute(items, self.effective_amount) do |item, part|
       item.amount = part
       item.save
     end
@@ -277,11 +277,11 @@ class Network::NewCustomerApplication
       if self.items.empty?
         # nothing todo here!
       else
-        remaining = self.remaining
+        remaining = self.effective_amount
         compensation = self.penalty_third_stage
         # remove remaining amount from main account (if any) => 1008
         if remaining > 0
-          bs_item = Billing::Item.new(billoperkey: 1008, acckey: account.acckey, custkey: customer.custkey,
+          bs_item = Billing::Item.new(billoperkey: 1008, acckey: customer.accounts.first.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: -remaining,
             enterdate: Time.now, itemcatkey: 0)
           bs_item.save!
@@ -291,7 +291,7 @@ class Network::NewCustomerApplication
         end
         # remove compensation from main account (if any) => XXX: which operation???
         if compensation > 0
-          bs_item = Billing::Item.new(billoperkey: 120, acckey: account.acckey, custkey: customer.custkey,
+          bs_item = Billing::Item.new(billoperkey: 120, acckey: customer.accounts.first.acckey, custkey: customer.custkey,
             perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: compensation,
             enterdate: Time.now, itemcatkey: 0)
           bs_item.save!
@@ -306,13 +306,16 @@ class Network::NewCustomerApplication
             cust = item.customer
             acct = cust.accounts.first
             if item.amount > 0
+
+              ###### XXXXXXX 1000 / 120 operation codes should be revised!
+
               bs_item = Billing::Item.new(billoperkey: 1000, acckey: acct.acckey, custkey: cust.custkey,
                 perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: item.amount,
                 enterdate: Time.now, itemcatkey: 0)
               bs_item.save
             elsif item.amount_compensation > 0
               bs_item = Billing::Item.new(billoperkey: 120, acckey: acct.acckey, custkey: cust.custkey,
-                perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: item.amount_compensation,
+                perskey: 1, signkey: 1, itemdate: item_date, reading: 0, kwt: 0, amount: -item.amount_compensation,
                 enterdate: Time.now, itemcatkey: 0)
               bs_item.save
             end
