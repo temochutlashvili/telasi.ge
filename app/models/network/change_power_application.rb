@@ -30,13 +30,10 @@ class Network::ChangePowerApplication
   field :voltage,     type: String
   field :power,       type: Float
   field :amount,      type: Float, default: 0
-  field :days,        type: Integer, default: 0
   field :customer_id, type: Integer
   # dates
   field :send_date, type: Date
   field :start_date, type: Date
-  field :plan_end_date, type: Date
-  field :plan_end_date_changed_manually, type: Boolean
   field :end_date, type: Date
 
   validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
@@ -92,22 +89,19 @@ class Network::ChangePowerApplication
   end
 
   def calculate_total_cost
-    # tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power)
-    # if tariff
-    #   if power > 0
-    #     tariff_days = self.need_resolution ? tariff.days_to_complete : tariff.days_to_complete_without_resolution
-    #     self.amount = tariff.price_gel
-    #     self.days = tariff_days
-    #     if self.send_date and not self.plan_end_date_changed_manually
-    #       self.plan_end_date = self.send_date + self.days
-    #     end
-    #     self.amount = (self.amount / 1.18 * 100).round / 100.0 unless self.rs_vat_payer
-    #   end
-    # else
-    #   if power > 0
-    #     self.amount = nil
-    #     self.days = nil
-    #   end
-    # end
+    tariff_old = Network::NewCustomerTariff.tariff_for(self.old_voltage, self.old_power).price_gel
+    tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power).price_gel
+    if tariff_old > tariff
+      self.amount = 0
+    elsif tariff_old == tariff
+      if self.old_power == self.power
+        self.amount = 0
+      else
+        per_kwh = tariff * 1.0 / self.power
+        self.amount = (per_kwh * (self.power - self.old_power)).round(2)
+      end
+    else
+      self.amount = tariff - tariff_old
+    end
   end
 end

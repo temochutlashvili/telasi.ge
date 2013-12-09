@@ -99,7 +99,6 @@ module Network::ChangePowerHelper
         
         t.col2 do |c|
           c.number_field :amount, after: 'GEL'
-          c.number_field :days, max_digits: 0, after: 'დღე'
           # c.number_field :paid, after: 'GEL'
           # c.number_field :remaining, after: 'GEL'
           # c.date_field :send_date
