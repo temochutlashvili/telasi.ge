@@ -6,6 +6,7 @@ Billing::AccountTariff.establish_connection    :bs
 Billing::Address.establish_connection          :bs
 Billing::Custcateg.establish_connection        :bs
 Billing::Customer.establish_connection         :bs
+Billing::WaterCustomer.establish_connection    :bs
 Billing::CustomerRelation.establish_connection :bs
 Billing::ItemBill.establish_connection         :bs
 Billing::Note.establish_connection             :bs

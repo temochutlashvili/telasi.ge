@@ -10,6 +10,7 @@ class Billing::Customer < ActiveRecord::Base
   belongs_to :address,      class_name: 'Billing::Address',       foreign_key: :premisekey
   belongs_to :send_address, class_name: 'Billing::Address',       foreign_key: :sendkey
   has_one  :trash_customer, class_name: 'Billing::TrashCustomer', foreign_key: :custkey
+  has_one  :water_customer, class_name: 'Billing::WaterCustomer', foreign_key: :custkey
   has_many :water_items,    -> { order 'year, month' }, class_name: 'Billing::WaterItem', foreign_key: :custkey
   has_many :item_bills,     -> { order 'itemkey' },     class_name: 'Billing::ItemBill',  foreign_key: :custkey
   has_many :accounts,       class_name: 'Billing::Account',       foreign_key: :custkey
@@ -18,9 +19,11 @@ class Billing::Customer < ActiveRecord::Base
   belongs_to :activity,     class_name: 'Billing::Custcateg',     foreign_key: :activity
 
   def region; self.address.region end
-  def last_water_item; self.water_items.last end
-  def water_balance; self.last_water_item.new_balance rescue 0 end
-  def current_water_balance; self.last_water_item.curr_charge rescue 0 end
+  # def last_water_item; self.water_items.last end
+  # def water_balance; self.last_water_item.new_balance rescue 0 end
+  # def current_water_balance; self.last_water_item.curr_charge rescue 0 end
+  def water_balance; self.water_customer.new_balance rescue 0 end
+  def current_water_balance; self.water_customer.curr_charge rescue 0 end
   def trash_balance; self.trash_customer.balance rescue 0 end
   def last_bill_date; self.item_bills.last.billdate end
   def last_bill_number; self.item_bills.last.billnumber end
