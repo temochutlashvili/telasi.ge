@@ -11,6 +11,7 @@ class Network::NewCustomerController < Network::NetworkController
       rel = rel.where(rs_name: @search[:rs_name].mongonize) if @search[:rs_name].present?
       rel = rel.where(rs_tin: @search[:rs_tin].mongonize) if @search[:rs_tin].present?
       rel = rel.where(status: @search[:status].to_i) if @search[:status].present?
+      rel = rel.where(stage: Network::Stage.find(@search[:stage])) if @search[:stage].present?
       rel = rel.where(:send_date.gte => @search[:send_d1]) if @search[:send_d1].present?
       rel = rel.where(:send_date.lte => @search[:send_d2]) if @search[:send_d2].present?
       rel = rel.where(:start_date.gte => @search[:start_d1]) if @search[:start_d1].present?
@@ -57,41 +58,6 @@ class Network::NewCustomerController < Network::NetworkController
     application.destroy
     redirect_to network_home_url, notice: 'განცხადება წაშლილია!'
   end
-
-  # def add_new_customer_account
-  #   @title = 'ახალი აბონენტის დამატება'
-  #   @application = Network::NewCustomerApplication.find(params[:id])
-  #   if request.post?
-  #     @account = Network::NewCustomerItem.new(account_params)
-  #     @account.application = @application
-  #     if @account.save
-  #       @application.calculate_distribution!
-  #       redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი დამატებულია'
-  #     end
-  #   else
-  #     @account = Network::NewCustomerItem.new
-  #   end
-  # end
-
-  # def edit_new_customer_account
-  #   @title = 'აბონენტის რედაქტირება'
-  #   @application = Network::NewCustomerApplication.find(params[:app_id])
-  #   @account = @application.items.where(id: params[:id]).first
-  #   if request.post?
-  #     if @account.update_attributes(account_params)
-  #       @application.calculate_distribution!
-  #       redirect_to network_new_customer_url(id: @application.id, tab: 'accounts'), notice: 'აბონენტი შეცვლილია'
-  #     end
-  #   end
-  # end
-
-  # def delete_new_customer_account
-  #   application = Network::NewCustomerApplication.find(params[:app_id])
-  #   account = application.items.where(id: params[:id]).first
-  #   account.destroy
-  #   application.calculate_distribution!
-  #   redirect_to network_new_customer_url(id: application.id, tab: 'accounts')
-  # end
 
   def link_bs_customer
     @title = 'აბონენტის დაკავშირება'
@@ -250,6 +216,7 @@ class Network::NewCustomerController < Network::NetworkController
       @item = Network::RequestItem.new(params.require(:network_request_item).permit(:type, :date, :description, :stage_id))
       @item.source = @application
       if @item.save
+        @application.update_last_request
         redirect_to network_new_customer_url(id: @application.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი დამატებულია'
       end
     else
@@ -262,6 +229,7 @@ class Network::NewCustomerController < Network::NetworkController
     @item = Network::RequestItem.find(params[:id])
     if request.post?
       if @item.update_attributes(params.require(:network_request_item).permit(:type, :date, :description, :stage_id))
+        @item.source.update_last_request
         redirect_to network_new_customer_url(id: @item.source.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი შეცვლილია'
       end
     end
@@ -271,6 +239,7 @@ class Network::NewCustomerController < Network::NetworkController
     item = Network::RequestItem.find(params[:id])
     app = item.source
     item.destroy
+    app.update_last_request
     redirect_to network_new_customer_url(id: app.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი წაშლილია'
   end
 

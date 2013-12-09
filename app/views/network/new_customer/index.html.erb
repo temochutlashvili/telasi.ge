@@ -4,6 +4,7 @@
     f.combo_field 'status', label: 'სტატუსი', collection: Hash[ * (Network::NewCustomerApplication::STATUSES.map { |x| [Network::NewCustomerApplication.status_name(x), x] }).flatten ], empty: '-- აარჩიეთ --'
     f.text_field 'rs_name', label: 'განმცხადებელი'
     f.text_field 'rs_tin', label: 'განმცხადებელის საიდ. კოდი'
+    f.combo_field 'stage', label: 'ეტაპი', collection: Hash[*(Network::Stage.asc(:numb).map{|x| [x.name, x.id]}.flatten)], empty: '-- აარჩიეთ --'
     f.col2 do |f|
       f.complex_field label: 'გამოგზავნის თარიღი' do |c|
         c.date_field 'send_d1'

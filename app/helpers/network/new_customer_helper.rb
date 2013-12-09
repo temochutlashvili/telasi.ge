@@ -133,6 +133,7 @@ module Network::NewCustomerHelper
         t.boolean_field :need_resolution, required: true
         t.text_field :notes
         t.col2 do |c|
+          c.text_field 'stage', label: 'მიმდინარე ეტაპი'
           c.complex_field label: 'ბილინგის აბონენტი' do |c|
             c.text_field 'customer.accnumb', tag: 'code', empty: false
             c.text_field 'customer.custname'

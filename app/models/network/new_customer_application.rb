@@ -74,8 +74,9 @@ class Network::NewCustomerApplication
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   has_many :requests, class_name: 'Network::RequestItem', as: 'source'
+  belongs_to :stage, class_name: 'Network::Stage'
 
-  validates :user, presence: { message: 'user required' }
+  validates :user, presence: { message: 'მომხმარებელი არაა მითითებული' }
   validates :rs_tin, presence: { message: I18n.t('models.network_new_customer_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_new_customer_application.errors.mobile_required') }
   # validates :email, presence: { message: I18n.t('models.network_new_customer_application.errors.email_required') }
@@ -83,7 +84,7 @@ class Network::NewCustomerApplication
   validates :address_code, presence: { message: I18n.t('models.network_new_customer_application.errors.address_code_required') }
   # validates :bank_code, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_code_required') }
   # validates :bank_account, presence: { message: I18n.t('models.network_new_customer_application.errors.bank_account_required') }
-  validates :voltage, presence: { message: 'required!' }
+  validates :voltage, presence: { message: 'აარჩიეთ ძაბვის საფეხური' }
   validates :power, numericality: { message: I18n.t('models.network_new_customer_item.errors.illegal_power') }
   validate :validate_rs_name, :validate_number, :validate_mobile
   before_save :status_manager, :calculate_total_cost, :upcase_number, :prepare_mobile
@@ -329,6 +330,14 @@ class Network::NewCustomerApplication
 
   def factura_sent?; not self.factura_seria.blank? end
   def can_send_factura?; self.need_factura and [STATUS_COMPLETE, STATUS_IN_BS].include?(self.status) and not self.factura_sent? and self.effective_amount > 0 end
+
+  def update_last_request
+    req = self.requests.last
+    if req.present?
+      self.stage = req.stage
+      self.save
+    end
+  end
 
   private
 
