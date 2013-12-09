@@ -45,7 +45,7 @@ tariff_08:
   power_kwt: 126-200
   days_to_complete: 45
   days_to_complete_without_resolution: 20
-  price_gel: 2150
+  price_gel: 21500
 tariff_09:
   voltage: '380'
   power_kwt: 201-320
