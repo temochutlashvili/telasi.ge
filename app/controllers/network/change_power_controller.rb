@@ -82,6 +82,22 @@ class Network::ChangePowerController < Network::NetworkController
     redirect_to network_change_power_url(id: application.id, tab: 'files'), notice: 'ფაილი წაშლილია'
   end
 
+  def send_sms
+    @title = 'შეტყობინების გაგზავნა'
+    @application = Network::ChangePowerApplication.find(params[:id])
+    if request.post?
+      @message = Sys::SmsMessage.new(params.require(:sys_sms_message).permit(:message))
+      @message.messageable = @application
+      @message.mobile = @application.mobile
+      if @message.save
+        @message.send_sms!
+        redirect_to network_change_power_url(id: @application.id, tab: 'sms'), notice: 'შეტყობინება გაგზავნილია'
+      end
+    else
+      @message = Sys::SmsMessage.new
+    end
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
     if @application

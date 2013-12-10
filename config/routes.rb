@@ -89,7 +89,7 @@ TelasiGe::Application.routes.draw do
       post '/sync_customers/:id', action: 'sync_customers', as: 'new_customer_sync_customers'
       # status operations
       match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
-      match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
+      match '/send_sms/:id', action: 'send_sms', as: 'send_new_customer_sms', via: ['get', 'post']
       # file operations
       match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
       delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'

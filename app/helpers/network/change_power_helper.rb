@@ -119,7 +119,7 @@ module Network::ChangePowerHelper
       f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
         t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
           sms.table do |t|
-            t.title_action network_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
+            t.title_action network_send_change_power_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
             t.date_field :created_at, formatter: '%d-%b-%Y %H:%M:%S'
             t.text_field :mobile, tag: 'code'
             t.text_field :message

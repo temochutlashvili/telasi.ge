@@ -102,7 +102,7 @@ class Network::NewCustomerController < Network::NetworkController
     end
   end
 
-  def send_new_customer_sms
+  def send_sms
     @title = 'შეტყობინების გაგზავნა'
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
