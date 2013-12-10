@@ -93,6 +93,7 @@ TelasiGe::Application.routes.draw do
       # file operations
       match '/upload_file/:id', action: 'upload_file', as: 'upload_new_customer_file', via: ['get', 'post']
       delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_new_customer_file'
+      # --> billing system
       post '/send_to_bs/:id', action: 'send_to_bs', as: 'new_customer_send_to_bs'
       # link customer
       match '/link_bs_customer/:id', action: 'link_bs_customer', as: 'link_bs_customer', via: ['get','post']
@@ -118,6 +119,9 @@ TelasiGe::Application.routes.draw do
       # status operations
       match '/change_status/:id', action: 'change_status', as: 'change_change_power_status', via: ['get', 'post']
       match '/send_sms/:id', action: 'send_sms', as: 'send_change_power_sms', via: ['get', 'post']
+      # file operations
+      match '/upload_file/:id', action: 'upload_file', as: 'upload_change_power_file', via: ['get', 'post']
+      delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_change_power_file'
     end
     scope '/stages', controller: 'stages' do
       get '/', action: 'index', as: 'stages'

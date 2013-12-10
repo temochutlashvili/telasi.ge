@@ -61,6 +61,27 @@ class Network::ChangePowerController < Network::NetworkController
     end
   end
 
+  def upload_file
+    @title = 'ფაილის ატვირთვა'
+    @application = Network::ChangePowerApplication.find(params[:id])
+    if request.post? and params[:sys_file]
+      @file = Sys::File.new(params.require(:sys_file).permit(:file))
+      if @file.save
+        @application.files << @file
+        redirect_to network_change_power_url(id: @application.id, tab: 'files'), notice: 'ფაილი დამატებულია'
+      end
+    else
+      @file = Sys::File.new
+    end
+  end
+
+  def delete_file
+    application = Network::ChangePowerApplication.find(params[:id])
+    file = application.files.where(_id: params[:file_id]).first
+    file.destroy
+    redirect_to network_change_power_url(id: application.id, tab: 'files'), notice: 'ფაილი წაშლილია'
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
     if @application

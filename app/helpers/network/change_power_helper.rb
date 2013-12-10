@@ -128,13 +128,13 @@ module Network::ChangePowerHelper
       end
       # 3. files
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count rescue 0}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|
-        # t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
-        #   files.table do |t|
-        #     t.title_action network_upload_new_customer_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png'
-        #     t.item_action ->(x) { network_delete_new_customer_file_url(id: application.id, file_id: x.id) }, icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ ფაილის წაშლა?', method: 'delete'
-        #     t.text_field 'file.filename', url: ->(x) { x.file.url }, label: 'ფაილი'
-        #   end
-        # end
+        t.table_field :files, table: { title: 'ფაილები', icon: '/icons/book-open-text-image.png' } do |files|
+          files.table do |t|
+            t.title_action network_upload_change_power_file_url(id: application.id), label: 'ახალი ფაილის ატვირთვა', icon: '/icons/upload-cloud.png'
+            t.item_action ->(x) { network_delete_change_power_file_url(id: application.id, file_id: x.id) }, icon: '/icons/bin.png', confirm: 'ნამდვილად გინდათ ფაილის წაშლა?', method: 'delete'
+            t.text_field 'file.filename', url: ->(x) { x.file.url }, label: 'ფაილი'
+          end
+        end
       end
       # 4. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|

@@ -39,6 +39,7 @@ class Network::ChangePowerApplication
   field :start_date, type: Date
   field :end_date, type: Date
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
+  has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
 
   validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
   validates :user, presence: { message: 'user required' }
