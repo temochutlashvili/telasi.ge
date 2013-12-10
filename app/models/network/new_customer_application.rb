@@ -132,12 +132,12 @@ class Network::NewCustomerApplication
   # შესაძლო სტატუსების ჩამონათვალი მიმდინარე სტატუსიდან.
   def transitions
     case self.status
-    when STATUS_DEFAULT then [ STATUS_SENT, STATUS_CANCELED ]
-    when STATUS_SENT then [ STATUS_DEFAULT, STATUS_CONFIRMED, STATUS_CANCELED ]
+    when STATUS_DEFAULT   then [ STATUS_SENT, STATUS_CANCELED ]
+    when STATUS_SENT      then [ STATUS_DEFAULT, STATUS_CONFIRMED, STATUS_CANCELED ]
     when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
-    when STATUS_COMPLETE then [ STATUS_CANCELED ]
-    when STATUS_IN_BS then [ STATUS_CANCELED ]
-    when STATUS_CANCELED then [ ] # NB: ძალიან მნიშვნელოვანია, რომ გაუქმებული განცხადება ვერ აღდგეს!!!
+    when STATUS_COMPLETE  then [ STATUS_CANCELED ]
+    when STATUS_IN_BS     then [ STATUS_CANCELED ]
+    when STATUS_CANCELED  then [ ]
     else [ ]
     end
   end

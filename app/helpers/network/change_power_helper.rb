@@ -23,7 +23,8 @@ module Network::ChangePowerHelper
       f.tab do |t|
         t.text_field  :number, required: true, autofocus: true
         t.text_field  :rs_tin, required: true
-        t.boolean_field :rs_vat_payer, required: true
+        # t.boolean_field :rs_vat_payer, required: true
+        t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
         t.text_field  :mobile, required: true
         t.email_field :email
         t.text_field  :address, required: true, width: 500
@@ -31,6 +32,7 @@ module Network::ChangePowerHelper
         t.text_field  :address_code, required: true
         t.combo_field :bank_code, collection: banks, empty: false, required: true
         t.text_field  :bank_account, required: true, width: 300
+        f.select_field :customer, select_customer_url, label: 'ბილინგის აბონენტი', required: true, search_width: 900
         t.combo_field :old_voltage, collection: voltage_collection, empty: false, required: true
         t.number_field :old_power, after: 'kWh', width: 100, required: true
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
@@ -45,10 +47,9 @@ module Network::ChangePowerHelper
 
   def selected_change_power_tab
     case params[:tab]
-    when 'accounts' then 1
-    when 'sms' then 2
-    when 'files' then 3
-    when 'sys' then 4
+    when 'sms' then 1
+    when 'files' then 2
+    when 'sys' then 3
     else 0 end
   end
 
@@ -62,9 +63,9 @@ module Network::ChangePowerHelper
         # t.action network_new_customer_print_url(id: application.id, format: 'pdf'), label: 'განცხადების ბეჭდვა', icon: '/icons/printer.png'
         # t.action network_new_customer_paybill_url(id: application.id, format: 'pdf'), label: 'საგ/დავ ბეჭდვა', icon: '/icons/printer.png'
         t.action network_edit_change_power_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
-        # application.transitions.each do |status|
-        #   t.action network_change_new_customer_status_url(id: application.id, status: status), label: Network::NewCustomerApplication.status_name(status), icon: Network::NewCustomerApplication.status_icon(status)
-        # end
+        application.transitions.each do |status|
+          t.action network_change_change_power_status_url(id: application.id, status: status), label: Network::ChangePowerApplication.status_name(status), icon: Network::ChangePowerApplication.status_icon(status)
+        end
         t.text_field 'number', required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
           c.image_field :status_icon
@@ -74,7 +75,7 @@ module Network::ChangePowerHelper
           c.text_field :rs_tin, tag: 'code'
           c.text_field :rs_name, url: ->(x) { network_change_power_url(id: x.id) }
         end
-        t.boolean_field :rs_vat_payer, required: true
+        t.text_field :vat_name, required: true
         t.email_field :email
         t.text_field :mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'
@@ -98,12 +99,16 @@ module Network::ChangePowerHelper
         end
         
         t.col2 do |c|
+          c.complex_field label: 'ბილინგის აბონენტი', required: true do |c|
+            c.text_field 'customer.accnumb', tag: 'code'
+            c.text_field 'customer.custname'
+          end
           c.number_field :amount, after: 'GEL'
           # c.number_field :paid, after: 'GEL'
           # c.number_field :remaining, after: 'GEL'
-          # c.date_field :send_date
-          # c.date_field :start_date
-          # c.date_field :end_date do |real|
+          c.date_field :send_date
+          c.date_field :start_date
+          c.date_field :end_date # do |real|
           #   real.action network_change_real_date_url(id: application.id), icon: '/icons/pencil.png' if application.end_date.present?
           # end
           # c.date_field :plan_end_date do |plan|
@@ -112,15 +117,15 @@ module Network::ChangePowerHelper
         end
       end
       # 2. sms messages
-      f.tab title: "SMS &mdash; <strong>#{application.messages.count rescue 0}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
-        # t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
-        #   sms.table do |t|
-        #     t.title_action network_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
-        #     t.date_field :created_at, formatter: '%d-%b-%Y %H:%M:%S'
-        #     t.text_field :mobile, tag: 'code'
-        #     t.text_field :message
-        #   end
-        # end
+      f.tab title: "SMS &mdash; <strong>#{application.messages.count}</strong>".html_safe, icon: '/icons/mobile-phone.png' do |t|
+        t.table_field :messages, table: { title: 'SMS შეტყობინებები', icon: '/icons/mobile-phone.png' } do |sms|
+          sms.table do |t|
+            t.title_action network_send_new_customer_sms_url(id: application.id), label: 'SMS გაგზავნა', icon: '/icons/balloon--plus.png'
+            t.date_field :created_at, formatter: '%d-%b-%Y %H:%M:%S'
+            t.text_field :mobile, tag: 'code'
+            t.text_field :message
+          end
+        end
       end
       # 3. files
       f.tab title: "ფაილები &mdash; <strong>#{application.files.count rescue 0}</strong>".html_safe, icon: '/icons/book-open-text-image.png' do |t|

@@ -40,6 +40,27 @@ class Network::ChangePowerController < Network::NetworkController
     redirect_to network_change_power_applications_url, notice: 'განცხადება წაშლილია.'
   end
 
+  def change_status
+    @title = 'სტატუსის ცვლილება'
+    @application = Network::ChangePowerApplication.find(params[:id])
+    if request.post?
+      @message = Sys::SmsMessage.new(params.require(:sys_sms_message).permit(:message))
+      @message.messageable = @application
+      @message.mobile = @application.mobile
+      if @message.save
+        @message.send_sms!
+        @application.status = params[:status].to_i
+        if @application.save
+          redirect_to network_change_power_url(id: @application.id), notice: 'სტატუსი შეცვლილია'
+        else
+          @error = @application.errors.full_messages
+        end
+      end
+    else
+      @message = Sys::SmsMessage.new
+    end
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
     if @application
@@ -56,6 +77,6 @@ class Network::ChangePowerController < Network::NetworkController
   private
 
   def change_power_params
-    params.require(:network_change_power_application).permit(:number, :rs_tin, :rs_vat_payer, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power)
+    params.require(:network_change_power_application).permit(:number, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id)
   end
 end

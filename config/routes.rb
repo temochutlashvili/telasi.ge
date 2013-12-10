@@ -87,9 +87,6 @@ TelasiGe::Application.routes.draw do
       match '/edit/:id', action: 'edit_new_customer', as: 'edit_new_customer', via: ['get', 'post']
       delete '/delete/:id', action: 'delete_new_customer', as: 'delete_new_customer'
       post '/sync_customers/:id', action: 'sync_customers', as: 'new_customer_sync_customers'
-      # match '/add_account/:id', action: 'add_new_customer_account', as: 'add_new_customer_account', via: ['get', 'post']
-      # match '/edit_account/:app_id/:id', action: 'edit_new_customer_account', as: 'edit_new_customer_account', via: ['get', 'post']
-      # delete '/delete_account/:app_id/:id', action: 'delete_new_customer_account', as: 'delete_new_customer_account'
       # status operations
       match '/change_status/:id', action: 'change_status', as: 'change_new_customer_status', via: ['get', 'post']
       match '/send_sms/:id', action: 'send_new_customer_sms', as: 'send_new_customer_sms', via: ['get', 'post']
@@ -118,6 +115,9 @@ TelasiGe::Application.routes.draw do
       match '/edit/:id', action: 'edit', as: 'edit_change_power', via: ['get', 'post']
       get   '/:id', action: 'show', as: 'change_power'
       delete '/delete/:id', action: 'delete', as: 'delete_change_power'
+      # status operations
+      match '/change_status/:id', action: 'change_status', as: 'change_change_power_status', via: ['get', 'post']
+      match '/send_sms/:id', action: 'send_sms', as: 'send_change_power_sms', via: ['get', 'post']
     end
     scope '/stages', controller: 'stages' do
       get '/', action: 'index', as: 'stages'

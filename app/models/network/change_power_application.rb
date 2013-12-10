@@ -1,21 +1,24 @@
 # -*- encoding : utf-8 -*-
 class Network::ChangePowerApplication
-  VOLTAGE_220 = '220'
-  VOLTAGE_380 = '380'
-  VOLTAGE_610 = '6/10'
   STATUS_DEFAULT    = 0
   STATUS_SENT       = 1
   STATUS_CANCELED   = 2
   STATUS_CONFIRMED  = 3
   STATUS_COMPLETE   = 4
+  STATUSES = [ STATUS_DEFAULT, STATUS_SENT, STATUS_CANCELED, STATUS_CONFIRMED, STATUS_COMPLETE ]
+  VOLTAGE_220 = '220'
+  VOLTAGE_380 = '380'
+  VOLTAGE_610 = '6/10'
+
   include Mongoid::Document
   include Mongoid::Timestamps
   include Network::RsName
+  include Sys::VatPayer
+
   belongs_to :user, class_name: 'Sys::User'
   field :number,    type: String
   field :rs_tin,    type: String
   field :rs_name,   type: String
-  field :rs_vat_payer, type: Mongoid::Boolean
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
@@ -35,6 +38,7 @@ class Network::ChangePowerApplication
   field :send_date, type: Date
   field :start_date, type: Date
   field :end_date, type: Date
+  has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
 
   validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
   validates :user, presence: { message: 'user required' }
@@ -48,6 +52,7 @@ class Network::ChangePowerApplication
   validates :old_power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
+  validates :customer, presence: { message: 'აარჩიეთ აბონენტი' }
 
   validate :validate_rs_name
   before_save :status_manager, :calculate_total_cost
@@ -61,6 +66,7 @@ class Network::ChangePowerApplication
     else I18n.t('models.network_change_power_application.unit_volt') end
   end
   def bank_name; Bank.bank_name(self.bank_code) end
+  def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def self.status_name(status); I18n.t("models.network_change_power_application.status_#{status}") end
   def self.status_icon(status)
     case status
@@ -75,6 +81,17 @@ class Network::ChangePowerApplication
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
 
+  def transitions
+    case self.status
+    when STATUS_DEFAULT   then [ STATUS_SENT, STATUS_CANCELED ]
+    when STATUS_SENT      then [ STATUS_CONFIRMED, STATUS_CANCELED ]
+    when STATUS_CONFIRMED then [ STATUS_COMPLETE, STATUS_CANCELED ]
+    when STATUS_COMPLETE  then [ STATUS_CANCELED ]
+    when STATUS_CANCELED  then [ ]
+    else [ ]
+    end
+  end
+
   private
 
   def status_manager
@@ -82,7 +99,7 @@ class Network::ChangePowerApplication
       case self.status
       when STATUS_DEFAULT   then self.send_date = nil
       when STATUS_SENT      then self.send_date  = Date.today
-      when STATUS_CONFIRMED then self.start_date = Date.today and self.plan_end_date = self.send_date + self.days
+      when STATUS_CONFIRMED then self.start_date = Date.today
       when STATUS_COMPLETE  then self.end_date   = Date.today
       end
     end

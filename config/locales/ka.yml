@@ -208,6 +208,7 @@ ka:
       rs_vat_payer_hint: არის თუ არა ეს ორგანიზაცია დღგ-ს გადამხდელი?
       mobile: მობილური
       email: ელ.ფოსტა
+      vat_name: დღგ-ს გადამხდელი
       address: იურ. მისამართი
       address_code: საკადასტრო კოდი
       address_hint: იურიდიული ან რეგისტრაციის მისამართი
@@ -227,6 +228,9 @@ ka:
       status_5: ბილინგში ასახული
       amount: ღირებულება
       days: ვადა
+      send_date: გამოგზავნის თარიღი
+      start_date: დაწყების თარიღი
+      end_date: დასრულების თარიღი
       status_name: სტატუსი
       old_voltage: არსებული ძაბვა
       old_power: არსებული სიმძლავრე
