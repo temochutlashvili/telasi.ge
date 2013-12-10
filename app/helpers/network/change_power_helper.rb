@@ -13,7 +13,6 @@ module Network::ChangePowerHelper
         c.text_field :rs_name, url: ->(x) { network_change_power_url(id: x.id) }
       end
       t.number_field :amount, after: 'GEL'
-      t.number_field :days, max_digits: 0, after: 'დღე'
       t.paginate param_name: 'page_change', records: 'ჩანაწერი'
     end
   end
