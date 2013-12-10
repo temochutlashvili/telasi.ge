@@ -76,7 +76,7 @@ def page1(pdf)
   pdf.move_down 20
   pdf.text 'ადგილი (მისამართი) სადაც უნდა მოხდეს ელექტრომომარაგება:'
   pdf.move_down 10
-  pdf.table [["#{@application.address_code}, #{@application.address}"]], column_widths: [470] do |t|
+  pdf.table [["#{@application.address_code}, #{@application.work_address || @application.address}"]], column_widths: [470] do |t|
     t.column(0).style borders: [:bottom]
   end
   pdf.move_down 20
