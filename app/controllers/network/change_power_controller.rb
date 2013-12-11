@@ -132,6 +132,16 @@ class Network::ChangePowerController < Network::NetworkController
     redirect_to network_change_power_url(id: app.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი წაშლილია'
   end
 
+  def edit_amount
+    @title = 'თანხის შეცვლა'
+    @application = Network::ChangePowerApplication.find(params[:id])
+    if request.post?
+      if @application.update_attributes(params.require(:network_change_power_application).permit(:amount))
+        redirect_to network_change_power_url(id: @application.id), notice: 'თანხა შეცვლილია'
+      end
+    end
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
     if @application
@@ -147,5 +157,5 @@ class Network::ChangePowerController < Network::NetworkController
 
   private
 
-  def change_power_params; params.require(:network_change_power_application).permit(:type, :number, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id) end
+  def change_power_params; params.require(:network_change_power_application).permit(:type, :number, :note, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id) end
 end

@@ -227,9 +227,10 @@ ka:
       status_3: მიღებული
       status_4: შესრულებული
       status_5: ბილინგში ასახული
-      type_0: სიმძლავრის შეცვლა
-      type_1: ტიპი 2
-      type_2: ტიპი 3
+      type_0: სიმძლავრის გაზრდა
+      type_1: წყაროს შეცვლა
+      type_2: გამიჯვნა
+      type_3: სარეზერვო კვება
       amount: ღირებულება
       days: ვადა
       send_date: გამოგზავნის თარიღი
@@ -244,6 +245,7 @@ ka:
       unit_kvolt: კვ
       unit_kwt: კვტ
       unit_days: დღე
+      note: შენიშვნა
     network_new_customer_application:
       number: ნომერი
       vat_name: დღგ-ს გადამხდელი?

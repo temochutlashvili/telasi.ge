@@ -10,9 +10,10 @@ class Network::ChangePowerApplication
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
   TYPE_CHANGE_POWER = 0
-  TYPE_2 = 1
-  TYPE_3 = 2
-  TYPES = [ TYPE_CHANGE_POWER, TYPE_2, TYPE_3 ]
+  TYPE_CHANGE_SOURCE = 1
+  TYPE_SPLIT = 2
+  TYPE_RESERVATION = 3
+  TYPES = [ TYPE_CHANGE_POWER, TYPE_CHANGE_SOURCE, TYPE_SPLIT, TYPE_RESERVATION ]
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -43,6 +44,7 @@ class Network::ChangePowerApplication
   field :send_date, type: Date
   field :start_date, type: Date
   field :end_date, type: Date
+  field :note, type: String
   # relations
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
@@ -109,6 +111,8 @@ class Network::ChangePowerApplication
     self.save
   end
 
+  def can_change_amount?; self.type != TYPE_CHANGE_POWER end
+
   private
 
   def status_manager
@@ -123,7 +127,7 @@ class Network::ChangePowerApplication
   end
 
   def calculate_total_cost
-    if self.type == TYPE_CHANGE_POWER
+    unless self.can_change_amount?
       tariff_old = Network::NewCustomerTariff.tariff_for(self.old_voltage, self.old_power).price_gel
       tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power).price_gel
       if tariff_old > tariff

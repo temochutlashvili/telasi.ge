@@ -126,6 +126,8 @@ TelasiGe::Application.routes.draw do
       match '/new_control_item/:id', action: 'new_control_item', as: 'change_power_new_control_item', via: ['get','post']
       match '/edit_control_item/:id', action: 'edit_control_item', as: 'change_power_edit_control_item', via: ['get','post']
       delete '/delete_control_item/:id', action: 'delete_control_item', as: 'change_power_delete_control_item'
+      # change amount manually
+      match '/edit_amount/:id', action: 'edit_amount', as: 'change_power_edit_amount', via: ['get', 'post']
     end
     scope '/stages', controller: 'stages' do
       get '/', action: 'index', as: 'stages'

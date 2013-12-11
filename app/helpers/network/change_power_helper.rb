@@ -45,6 +45,7 @@ module Network::ChangePowerHelper
         t.number_field :old_power, after: 'kWh', width: 100, required: true
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
         t.number_field :power, after: 'kWh', width: 100, required: true
+        t.text_field :note, width: 400
       end
       f.submit (opts[:submit] || opts[:title])
       f.bottom_action opts[:cancel_url], label: 'გაუქმება', icon: '/icons/cross.png'
@@ -107,13 +108,16 @@ module Network::ChangePowerHelper
           c.text_field :unit, after: '/'
           c.number_field :power, after: 'კვტ'
         end
+        t.text_field :note
         t.col2 do |c|
           c.text_field 'stage', label: 'მიმდინარე ეტაპი'
           c.complex_field label: 'ბილინგის აბონენტი', required: true do |c|
             c.text_field 'customer.accnumb', tag: 'code'
             c.text_field 'customer.custname'
           end
-          c.number_field :amount, after: 'GEL'
+          c.number_field :amount, after: 'GEL' do |amnt|
+            amnt.action(network_change_power_edit_amount_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png') if application.can_change_amount?
+          end
           # c.number_field :paid, after: 'GEL'
           # c.number_field :remaining, after: 'GEL'
           c.date_field :send_date
