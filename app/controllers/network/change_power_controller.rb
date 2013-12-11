@@ -2,7 +2,23 @@
 class Network::ChangePowerController < Network::NetworkController
   def index
     @title = 'სიმძლავრის შეცვლა'
-    @applications = Network::ChangePowerApplication.desc(:_id).paginate(page: params[:page_change], per_page: 10)
+    @title = 'ქსელზე მიერთება'
+    @search = params[:search] == 'clear' ? nil : params[:search]
+    rel = Network::ChangePowerApplication
+    if @search
+      rel = rel.where(number: @search[:number].mongonize) if @search[:number].present?
+      rel = rel.where(rs_name: @search[:rs_name].mongonize) if @search[:rs_name].present?
+      rel = rel.where(rs_tin: @search[:rs_tin].mongonize) if @search[:rs_tin].present?
+      rel = rel.where(status: @search[:status].to_i) if @search[:status].present?
+      rel = rel.where(stage: Network::Stage.find(@search[:stage])) if @search[:stage].present?
+      rel = rel.where(:send_date.gte => @search[:send_d1]) if @search[:send_d1].present?
+      rel = rel.where(:send_date.lte => @search[:send_d2]) if @search[:send_d2].present?
+      rel = rel.where(:start_date.gte => @search[:start_d1]) if @search[:start_d1].present?
+      rel = rel.where(:start_date.lte => @search[:start_d2]) if @search[:start_d2].present?
+      rel = rel.where(:end_date.gte => @search[:end_d1]) if @search[:end_d1].present?
+      rel = rel.where(:end_date.lte => @search[:end_d2]) if @search[:end_d2].present?
+    end
+    @applications = rel.desc(:_id).paginate(page: params[:page_change], per_page: 10)
   end
 
   def new
