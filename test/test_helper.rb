@@ -10,6 +10,6 @@ class ActiveSupport::TestCase
   def make_clear_state
     Mongoid.purge!
     ActionMailer::Base.deliveries.clear
-    RS.update_user(username: 'tbilisi', password: '123456', ip: RS.what_is_my_ip, su: 'DIMITRI1979:206322102', sp: '123456', name: 'invoice.ge')
+    RS.update_user(username: 'tbilisi', password: '123456', ip: RS.what_is_my_ip, su: 'DIMITRI1979:206322102', sp: '123456', name: 'telasi.ge')
   end
 end
