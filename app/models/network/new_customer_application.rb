@@ -156,7 +156,7 @@ class Network::NewCustomerApplication
   # ვალის/კომპენსაციის გადანაწილების დათვლა.
   def calculate_distribution!
     items = self.items
-    distribute(items, self.effective_amount) do |item, part|
+    distribute(items, self.remaining) do |item, part|
       item.amount = part
       item.save
     end
@@ -264,7 +264,7 @@ class Network::NewCustomerApplication
 
     # general parameters
     item_date = self.end_date
-    main_amount = self.amount 
+    main_amount = self.amount
 
     # find zdeposit customer
     deposit_customer = Billing::NetworkCustomer.where(customer: customer).first
@@ -278,7 +278,7 @@ class Network::NewCustomerApplication
       if self.items.empty?
         # nothing todo here!
       else
-        remaining = self.effective_amount
+        remaining = self.remaining
         compensation = self.penalty_third_stage
         # remove remaining amount from main account (if any) => 1008
         if remaining > 0
