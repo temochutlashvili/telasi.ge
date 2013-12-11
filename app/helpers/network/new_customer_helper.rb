@@ -274,14 +274,21 @@ module Network::NewCustomerHelper
     coll
   end
 
-  def new_customer_control_item_form(item, opts = {})
+  def control_item_form(item, opts = {})
+    if item.source.class == Network::NewCustomerApplication
+      cancel_url = network_new_customer_url(id: item.source.id, tab: 'watch')
+    elsif item.source.class == Network::ChangePowerApplication
+      cancel_url = network_change_power_url(id: item.source.id, tab: 'watch')
+    else
+      raise 'unknown class'
+    end
     forma_for item, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.combo_field 'stage_id', collection: Network::Stage.asc(:numb), empty: false, required: true, i18n: 'stage'
       f.combo_field 'type', collection: network_request_types_collection, empty: false, required: true
       f.date_field 'date', required: true
       f.text_field 'description', width: 500, required: true, autofocus: true
       f.submit 'შენახვა'
-      f.cancel_button network_new_customer_url(id: item.source.id, tab: 'watch')
+      f.cancel_button cancel_url
     end
   end
 end

@@ -38,8 +38,11 @@ class Network::ChangePowerApplication
   field :send_date, type: Date
   field :start_date, type: Date
   field :end_date, type: Date
+  # relations
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
+  has_many :requests, class_name: 'Network::RequestItem', as: 'source'
+  belongs_to :stage, class_name: 'Network::Stage'
 
   validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
   validates :user, presence: { message: 'user required' }
@@ -91,6 +94,12 @@ class Network::ChangePowerApplication
     when STATUS_CANCELED  then [ ]
     else [ ]
     end
+  end
+
+  def update_last_request
+    req = self.requests.last
+    self.stage = req.present? ? req.stage : nil
+    self.save
   end
 
   private

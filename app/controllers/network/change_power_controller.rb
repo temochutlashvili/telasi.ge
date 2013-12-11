@@ -98,6 +98,40 @@ class Network::ChangePowerController < Network::NetworkController
     end
   end
 
+  def new_control_item
+    @title = 'ახალი საკონტროლო ჩანაწერი'
+    @application = Network::ChangePowerApplication.find(params[:id])
+    if request.post?
+      @item = Network::RequestItem.new(params.require(:network_request_item).permit(:type, :date, :description, :stage_id))
+      @item.source = @application
+      if @item.save
+        @application.update_last_request
+        redirect_to network_change_power_url(id: @application.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი დამატებულია'
+      end
+    else
+      @item = Network::RequestItem.new(source: @application, date: Date.today)
+    end
+  end
+
+  def edit_control_item
+    @title = 'საკონტროლო ჩანაწერის შეცვლა'
+    @item = Network::RequestItem.find(params[:id])
+    if request.post?
+      if @item.update_attributes(params.require(:network_request_item).permit(:type, :date, :description, :stage_id))
+        @item.source.update_last_request
+        redirect_to network_change_power_url(id: @item.source.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი შეცვლილია'
+      end
+    end
+  end
+
+  def delete_control_item
+    item = Network::RequestItem.find(params[:id])
+    app = item.source
+    item.destroy
+    app.update_last_request
+    redirect_to network_change_power_url(id: app.id, tab: 'watch'), notice: 'საკონტროლო ჩანაწერი წაშლილია'
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
     if @application
@@ -113,7 +147,5 @@ class Network::ChangePowerController < Network::NetworkController
 
   private
 
-  def change_power_params
-    params.require(:network_change_power_application).permit(:number, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id)
-  end
+  def change_power_params; params.require(:network_change_power_application).permit(:number, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id) end
 end

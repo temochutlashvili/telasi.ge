@@ -46,9 +46,10 @@ module Network::ChangePowerHelper
 
   def selected_change_power_tab
     case params[:tab]
-    when 'sms' then 1
-    when 'files' then 2
-    when 'sys' then 3
+    when 'sms'    then 1
+    when 'files'  then 2
+    when 'watch'  then 3
+    when 'sys'    then 4
     else 0 end
   end
 
@@ -96,8 +97,8 @@ module Network::ChangePowerHelper
           c.text_field :unit, after: '/'
           c.number_field :power, after: 'კვტ'
         end
-        
         t.col2 do |c|
+          c.text_field 'stage', label: 'მიმდინარე ეტაპი'
           c.complex_field label: 'ბილინგის აბონენტი', required: true do |c|
             c.text_field 'customer.accnumb', tag: 'code'
             c.text_field 'customer.custname'
@@ -136,7 +137,21 @@ module Network::ChangePowerHelper
           end
         end
       end
-      # 4. sys
+      # 4. stages
+      f.tab title: "კონტროლი &mdash; <strong>#{application.requests.count}</strong>".html_safe, icon: '/icons/eye.png' do |t|
+        t.table_field :requests, table: { title: 'კონტროლი', icon: '/icons/eye.png' } do |requests|
+          requests.table do |t|
+            t.title_action network_change_power_new_control_item_url(id: application.id), label: 'ახალი საკონტროლო ჩანაწერი', icon: '/icons/eye--plus.png'
+            t.item_action ->(x) { network_change_power_edit_control_item_url(id: x.id) }, icon: '/icons/pencil.png'
+            t.item_action ->(x) { network_change_power_delete_control_item_url(id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
+            t.text_field :stage
+            t.text_field :type_name, i18n: 'type', tag: 'code'
+            t.date_field :date
+            t.text_field :description
+          end
+        end
+      end
+      # 5. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
         t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
           c.email_field 'user.email', after: '&mdash;'.html_safe

@@ -122,6 +122,10 @@ TelasiGe::Application.routes.draw do
       # file operations
       match '/upload_file/:id', action: 'upload_file', as: 'upload_change_power_file', via: ['get', 'post']
       delete '/delete_file/:id/:file_id', action: 'delete_file', as: 'delete_change_power_file'
+      # control items
+      match '/new_control_item/:id', action: 'new_control_item', as: 'change_power_new_control_item', via: ['get','post']
+      match '/edit_control_item/:id', action: 'edit_control_item', as: 'change_power_edit_control_item', via: ['get','post']
+      delete '/delete_control_item/:id', action: 'delete_control_item', as: 'change_power_delete_control_item'
     end
     scope '/stages', controller: 'stages' do
       get '/', action: 'index', as: 'stages'

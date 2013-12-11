@@ -333,10 +333,8 @@ class Network::NewCustomerApplication
 
   def update_last_request
     req = self.requests.last
-    if req.present?
-      self.stage = req.stage
-      self.save
-    end
+    self.stage = req.present? ? req.stage : nil
+    self.save
   end
 
   private
