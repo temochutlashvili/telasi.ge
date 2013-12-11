@@ -147,5 +147,5 @@ class Network::ChangePowerController < Network::NetworkController
 
   private
 
-  def change_power_params; params.require(:network_change_power_application).permit(:number, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id) end
+  def change_power_params; params.require(:network_change_power_application).permit(:type, :number, :rs_tin, :vat_options, :mobile, :email, :address, :work_address, :address_code, :bank_code, :bank_account, :voltage, :power, :old_voltage, :old_power, :customer_id) end
 end

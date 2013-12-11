@@ -9,6 +9,10 @@ class Network::ChangePowerApplication
   VOLTAGE_220 = '220'
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
+  TYPE_CHANGE_POWER = 0
+  TYPE_2 = 1
+  TYPE_3 = 2
+  TYPES = [ TYPE_CHANGE_POWER, TYPE_2, TYPE_3 ]
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -26,7 +30,8 @@ class Network::ChangePowerApplication
   field :address_code, type: String
   field :bank_code,    type: String
   field :bank_account, type: String
-  field :status,     type: Integer, default: STATUS_DEFAULT
+  field :status, type: Integer, default: STATUS_DEFAULT
+  field :type,   type: Integer, default: TYPE_CHANGE_POWER
   # old voltage
   field :old_voltage, type: String
   field :old_power,   type: Float
@@ -82,8 +87,10 @@ class Network::ChangePowerApplication
     when STATUS_IN_BS      then '/icons/lock.png'
     else '/icons/mail-open.png' end
   end
+  def self.type_name(type); I18n.t("models.network_change_power_application.type_#{type}") end
   def status_name; Network::NewCustomerApplication.status_name(self.status) end
   def status_icon; Network::NewCustomerApplication.status_icon(self.status) end
+  def type_name; Network::ChangePowerApplication.type_name(self.type) end
 
   def transitions
     case self.status
@@ -116,19 +123,21 @@ class Network::ChangePowerApplication
   end
 
   def calculate_total_cost
-    tariff_old = Network::NewCustomerTariff.tariff_for(self.old_voltage, self.old_power).price_gel
-    tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power).price_gel
-    if tariff_old > tariff
-      self.amount = 0
-    elsif tariff_old == tariff
-      if self.old_power == self.power
+    if self.type == TYPE_CHANGE_POWER
+      tariff_old = Network::NewCustomerTariff.tariff_for(self.old_voltage, self.old_power).price_gel
+      tariff = Network::NewCustomerTariff.tariff_for(self.voltage, self.power).price_gel
+      if tariff_old > tariff
         self.amount = 0
+      elsif tariff_old == tariff
+        if self.old_power == self.power
+          self.amount = 0
+        else
+          per_kwh = tariff * 1.0 / self.power
+          self.amount = (per_kwh * (self.power - self.old_power)).round(2)
+        end
       else
-        per_kwh = tariff * 1.0 / self.power
-        self.amount = (per_kwh * (self.power - self.old_power)).round(2)
+        self.amount = tariff - tariff_old
       end
-    else
-      self.amount = tariff - tariff_old
     end
   end
 end

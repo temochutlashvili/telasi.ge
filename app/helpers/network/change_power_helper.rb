@@ -17,10 +17,19 @@ module Network::ChangePowerHelper
     end
   end
 
+  def change_power_type_collection
+    h = {}
+    Network::ChangePowerApplication::TYPES.each do |x|
+      h[Network::ChangePowerApplication.type_name(x)] = x
+    end
+    h
+  end
+
   def change_power_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
-        t.text_field  :number, required: true, autofocus: true
+        t.combo_field :type, required: true, autofocus: true, collection: change_power_type_collection, empty: false
+        t.text_field  :number, required: true
         t.text_field  :rs_tin, required: true
         # t.boolean_field :rs_vat_payer, required: true
         t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
@@ -66,6 +75,7 @@ module Network::ChangePowerHelper
         application.transitions.each do |status|
           t.action network_change_change_power_status_url(id: application.id, status: status), label: Network::ChangePowerApplication.status_name(status), icon: Network::ChangePowerApplication.status_icon(status)
         end
+        t.text_field 'type_name', required: true, i18n: 'type'
         t.text_field 'number', required: true, tag: 'code'
         t.complex_field i18n: 'status_name', required: true do |c|
           c.image_field :status_icon
