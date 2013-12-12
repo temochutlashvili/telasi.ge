@@ -91,7 +91,7 @@ class Network::NewCustomerApplication
   before_create :init_payment_id
 
   # Checking correctess of 
-  def self.correct_number?(number); not not (/^(CNS|TCNS|1TCNS|3TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number) end
+  def self.correct_number?(number); not not (/^(CNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number) end
 
   def customer; Billing::Customer.find(self.customer_id) if self.customer_id.present? end
   def billing_items

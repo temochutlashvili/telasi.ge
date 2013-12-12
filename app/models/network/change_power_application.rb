@@ -9,10 +9,10 @@ class Network::ChangePowerApplication
   VOLTAGE_220 = '220'
   VOLTAGE_380 = '380'
   VOLTAGE_610 = '6/10'
-  TYPE_CHANGE_POWER = 0
+  TYPE_CHANGE_POWER  = 0
   TYPE_CHANGE_SOURCE = 1
-  TYPE_SPLIT = 2
-  TYPE_RESERVATION = 3
+  TYPE_SPLIT         = 2
+  TYPE_RESERVATION   = 3
   TYPES = [ TYPE_CHANGE_POWER, TYPE_CHANGE_SOURCE, TYPE_SPLIT, TYPE_RESERVATION ]
 
   include Mongoid::Document
@@ -51,7 +51,7 @@ class Network::ChangePowerApplication
   has_many :requests, class_name: 'Network::RequestItem', as: 'source'
   belongs_to :stage, class_name: 'Network::Stage'
 
-  validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
+  # validates :number, presence: { message: I18n.t('models.network_change_power_application.errors.number_required') }
   validates :user, presence: { message: 'user required' }
   validates :rs_tin, presence: { message: I18n.t('models.network_change_power_application.errors.tin_required') }
   validates :mobile, presence: { message: I18n.t('models.network_change_power_application.errors.mobile_required') }
@@ -65,8 +65,22 @@ class Network::ChangePowerApplication
   validates :power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
   validates :customer, presence: { message: 'აარჩიეთ აბონენტი' }
 
-  validate :validate_rs_name
+  validate :validate_rs_name, :validate_number
   before_save :status_manager, :calculate_total_cost
+
+  def self.correct_number?(type, number)
+    if type == TYPE_CHANGE_POWER
+      not not (/^(1CNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number)
+    elsif type == TYPE_CHANGE_SOURCE
+      not not (/^(TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number)
+    elsif type == TYPE_SPLIT
+      not not (/^(1TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number)
+    elsif type == TYPE_RESERVATION
+      not not (/^(TCNS)-[0-9]{2}\/[0-9]{4}\/[0-9]{2}$/i =~ number)
+    else
+      false
+    end
+  end
 
   def unit
     if self.voltage == '6/10' then I18n.t('models.network_change_power_application.unit_kvolt')
@@ -142,6 +156,14 @@ class Network::ChangePowerApplication
       else
         self.amount = tariff - tariff_old
       end
+    end
+  end
+
+  def validate_number
+    if self.status != STATUS_DEFAULT and self.number.blank?
+      self.errors.add(:number, 'ჩაწერეთ ნომერი')
+    elsif self.number.present?
+      self.errors.add(:number, 'არასწორი ფორმატი!') unless Network::ChangePowerApplication.correct_number?(self.type, self.number)
     end
   end
 end
