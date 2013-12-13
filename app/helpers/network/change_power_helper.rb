@@ -33,6 +33,8 @@ module Network::ChangePowerHelper
         t.text_field  :rs_tin, required: true
         # t.boolean_field :rs_vat_payer, required: true
         t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
+        t.boolean_field :need_factura, required: true
+        t.boolean_field :work_by_telasi, required: true
         t.text_field  :mobile, required: true
         t.email_field :email
         t.text_field  :address, required: true, width: 500
@@ -70,7 +72,7 @@ module Network::ChangePowerHelper
       f.title_action network_delete_change_power_url(id: application.id), label: 'განცხადების წაშლა', icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვვილად გინდათ ამ განცხადების წაშლა?'
       # 1. general
       f.tab title: 'ძირითადი', icon: '/icons/user.png' do |t|
-        # t.action network_new_customer_print_url(id: application.id, format: 'pdf'), label: 'განცხადების ბეჭდვა', icon: '/icons/printer.png'
+        t.action network_change_power_url(id: application.id, format: 'pdf'), label: 'განცხადების ბეჭდვა', icon: '/icons/printer.png'
         # t.action network_new_customer_paybill_url(id: application.id, format: 'pdf'), label: 'საგ/დავ ბეჭდვა', icon: '/icons/printer.png'
         t.action network_edit_change_power_url(id: application.id), label: 'შეცვლა', icon: '/icons/pencil.png'
         application.transitions.each do |status|
@@ -87,6 +89,8 @@ module Network::ChangePowerHelper
           c.text_field :rs_name, url: ->(x) { network_change_power_url(id: x.id) }
         end
         t.text_field :vat_name, required: true
+        t.boolean_field 'need_factura', required: true
+        t.boolean_field 'work_by_telasi', required: true
         t.email_field :email
         t.text_field :mobile, required: true
         t.text_field :address, required: true, hint: 'განმცხადებლის მისამართი'

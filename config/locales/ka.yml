@@ -246,6 +246,9 @@ ka:
       unit_kwt: კვტ
       unit_days: დღე
       note: შენიშვნა
+      need_factura: სჭირდება ფაქტურა?
+      work_by_telasi: თელასი აკეთებს?
+      work_by_telasi_hint: "მონიშნეთ, თუ სამუშაოებს ასრულებს თელასი"
     network_new_customer_application:
       number: ნომერი
       vat_name: დღგ-ს გადამხდელი?

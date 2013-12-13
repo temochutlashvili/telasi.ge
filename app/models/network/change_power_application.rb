@@ -33,6 +33,8 @@ class Network::ChangePowerApplication
   field :bank_account, type: String
   field :status, type: Integer, default: STATUS_DEFAULT
   field :type,   type: Integer, default: TYPE_CHANGE_POWER
+  field :need_factura, type: Mongoid::Boolean, default: true
+  field :work_by_telasi, type: Mongoid::Boolean, default: true
   # old voltage
   field :old_voltage, type: String
   field :old_power,   type: Float
