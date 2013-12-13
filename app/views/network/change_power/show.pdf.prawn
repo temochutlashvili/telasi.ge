@@ -5,10 +5,14 @@ prawn_document(page_size: 'A4', margin: [40, 40]) do |pdf|
   pdf.text %Q{სს "თელასის" ტექნიკურ დირექტორს\nბატონ ვ. ქინქლაძეს}, align: :right
   pdf.text %Q{Техническому директору АО "Теласи"\nг-ну В. Кинкладзе}, align: :right
   pdf.move_down 20
-  pdf.text %Q{გ ა ნ ც ხ ა დ ე ბ ა\nЗ А Я В Л Е Н И Е}, align: :center, size: 14
+  pdf.table [['', "გ ა ნ ც ხ ა დ ე ბ ა\nЗ А Я В Л Е Н И Е", "№#{@application.number}"]], column_widths: [200, 150, 150] do
+    row(0).style borders: [], align: :center, size: 14
+    column(2).style valign: :center, size: 10
+  end
+  # pdf.text %Q{გ ა ნ ც ხ ა დ ე ბ ა\nЗ А Я В Л Е Н И Е}, align: :center, size: 14
   pdf.move_down 5
-  pdf.text %Q{ახალი მომხმარებლის ს/ს "თელასის" გამანაწილებელ ქსელზე მიერთება}, align: :center
-  pdf.text %Q{Присоединение нового эл. потребителя к распределительной сети АО "Теласи"}, align: :center
+  pdf.text %Q{მომხმარებლის ს/ს "თელასის" გამანაწილებელ ქსელზე მიერთება}, align: :center
+  pdf.text %Q{Присоединение эл. потребителя к распределительной сети АО "Теласи"}, align: :center
   pdf.move_down 5
   full_w = pdf.bounds.width
   pdf.table [['თარიღი / Дата', @application.send_date.strftime('%d/%m/%Y')]], column_widths: [full_w - 100, 100] do
@@ -18,7 +22,7 @@ prawn_document(page_size: 'A4', margin: [40, 40]) do |pdf|
   pdf.move_down 5
   pdf.table [
       ["1. ორგანიზაციის ან ფიზიკური პირის დასახელება:\nНазвание организации или физического лица:", @application.rs_name],
-      ["2. ობიექტის მისამართი:\nАдресс объекта:", "#{@application.address_code} -- #{@application.work_address || @application.address}"],
+      ["2. გამრიცხველიანების მისამართი:\nАдресс проведения работ:", "#{@application.address_code} -- #{@application.work_address || @application.address}"],
       ["ტელეფონი / телефон", KA.format_mobile(@application.mobile)],
       ["3. აბონენტი № / Абоненет №", "#{@application.customer.accnumb.to_ka} -- #{@application.customer.custname.to_ka}"],
       ["3.1. არსებული სიმძლავრე:\nТекущее мощность:", "#{@application.old_power} კვტ.სთ"],
@@ -30,7 +34,7 @@ prawn_document(page_size: 'A4', margin: [40, 40]) do |pdf|
     column(1).style borders: [:bottom], valign: :center
   end
   pdf.move_down 5
-  pdf.text %Q{6. ორგანიზაციის ან ფიზიკური პირის დასტური პროექტის შესრულებაზე ს/ს "თელასის" მიერ:\nСогласие организации или физического лица на выполнение проекта силами АО "Теласи":}
+  pdf.text %Q{6. ორგანიზაციის ან ფიზიკური პირის დასტური პროექტის შესრულებაზე ს/ს "თელასის" მიერ:\nСогласие организации или физического лица на выполнение проекта сотрудникам АО "Теласи":}
   pdf.table [
       ['', (@application.work_by_telasi ? '☒' : '☐'), '', (@application.work_by_telasi ? '☐' : '☒')],
       ['', 'დიახ/да', '', 'არა/нет']
