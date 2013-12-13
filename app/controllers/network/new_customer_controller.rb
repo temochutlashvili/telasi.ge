@@ -25,12 +25,12 @@ class Network::NewCustomerController < Network::NetworkController
   end
 
   def new_customer
-    @title = 'ახალი აბონენტის განცხადება'
+    @title = 'განცხადების თვისებები'
     @application = Network::NewCustomerApplication.find(params[:id])
   end
 
   def add_new_customer
-    @title = 'ქსელზე მიერთების ახალი განცხადება'
+    @title = 'ახალი განცხადება'
     if request.post?
       @application = Network::NewCustomerApplication.new(new_customer_params)
       @application.user = current_user

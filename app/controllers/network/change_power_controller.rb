@@ -159,7 +159,7 @@ class Network::ChangePowerController < Network::NetworkController
   end
 
   def nav
-    @nav = { 'ქსელი' => network_home_url, 'სიმძლავრის შეცვლა' => network_change_power_applications_url }
+    @nav = { 'ქსელი' => network_home_url, 'ქსელში ცვლილება' => network_change_power_applications_url }
     if @application
       if not @application.new_record?
         @nav[ "№#{@application.number}" ] = network_change_power_url(id: @application.id)

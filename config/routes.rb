@@ -128,6 +128,7 @@ TelasiGe::Application.routes.draw do
       delete '/delete_control_item/:id', action: 'delete_control_item', as: 'change_power_delete_control_item'
       # change amount manually
       match '/edit_amount/:id', action: 'edit_amount', as: 'change_power_edit_amount', via: ['get', 'post']
+      # send factura
     end
     scope '/stages', controller: 'stages' do
       get '/', action: 'index', as: 'stages'
