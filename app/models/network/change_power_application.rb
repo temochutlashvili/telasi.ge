@@ -33,7 +33,6 @@ class Network::ChangePowerApplication
   field :bank_account, type: String
   field :status, type: Integer, default: STATUS_DEFAULT
   field :type,   type: Integer, default: TYPE_CHANGE_POWER
-  field :need_factura, type: Mongoid::Boolean, default: true
   field :work_by_telasi, type: Mongoid::Boolean, default: true
   # old voltage
   field :old_voltage, type: String
@@ -47,6 +46,12 @@ class Network::ChangePowerApplication
   field :start_date, type: Date
   field :end_date, type: Date
   field :note, type: String
+  # factura fields
+  field :factura_id, type: Integer
+  field :factura_seria, type: String
+  field :factura_number, type: Integer
+  field :need_factura, type: Mongoid::Boolean, default: true
+  # field :show_tin_on_print, type: Mongoid::Boolean, default: true
   # relations
   has_many :messages, class_name: 'Sys::SmsMessage', as: 'messageable'
   has_many :files, class_name: 'Sys::File', inverse_of: 'mountable'
@@ -128,6 +133,9 @@ class Network::ChangePowerApplication
   end
 
   def can_change_amount?; self.type != TYPE_CHANGE_POWER end
+
+  def factura_sent?; not self.factura_seria.blank? end
+  def can_send_factura?; self.need_factura and [STATUS_COMPLETE].include?(self.status) and not self.factura_sent? and self.amount > 0 end
 
   private
 

@@ -58,10 +58,11 @@ module Network::ChangePowerHelper
 
   def selected_change_power_tab
     case params[:tab]
-    when 'sms'    then 1
-    when 'files'  then 2
-    when 'watch'  then 3
-    when 'sys'    then 4
+    when 'sms'     then 1
+    when 'files'   then 2
+    when 'watch'   then 3
+    when 'factura' then 4
+    when 'sys'     then 5
     else 0 end
   end
 
@@ -169,7 +170,20 @@ module Network::ChangePowerHelper
           end
         end
       end
-      # 5. sys
+      # 5. factura
+      f.tab title: 'ფაქტურა', icon: '/icons/money.png' do |t|
+        if application.can_send_factura?
+          t.action network_change_power_send_factura_url(id: application.id), icon: '/icons/money--arrow.png', label: 'ფაქტურის გაგზავნა', method: 'post', confirm: 'ნამდვილად გინდათ ფაქტურის გაგზავნა?'
+        end
+        t.number_field 'amount', after: 'GEL'
+        t.boolean_field 'factura_sent?'
+        t.text_field 'factura_id', tag: 'code'
+        t.complex_field i18n: 'factura_number' do |c|
+          c.text_field 'factura_seria', tag: 'code', after: '&mdash;'.html_safe
+          c.text_field 'factura_number', empty: false
+        end
+      end
+      # 6. sys
       f.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
         t.complex_field label: 'მომხმარებელი', hint: 'მომხმარებელი, რომელმაც შექმნა ეს განცხადება', required: true do |c|
           c.email_field 'user.email', after: '&mdash;'.html_safe

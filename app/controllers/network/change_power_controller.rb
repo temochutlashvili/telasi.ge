@@ -158,6 +158,26 @@ class Network::ChangePowerController < Network::NetworkController
     end
   end
 
+  def send_factura
+    application = Network::ChangePowerApplication.find(params[:id])
+    raise 'ფაქტურის გაგზავნა დაუშვებელია' unless application.can_send_factura?
+    factura = RS::Factura.new(date: Time.now, seller_id: RS::TELASI_PAYER_ID)
+    amount = application.amount
+    raise 'თანხა უნდა იყოს > 0' unless amount > 0
+    raise 'ფაქტურის გაგზავნა ვერ ხერხდება!' unless RS.save_factura(factura, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, buyer_tin: application.rs_tin))
+    vat = application.pays_non_zero_vat? ? amount * (1 - 1.0 / 1.18) : 0
+    factura_item = RS::FacturaItem.new(factura: factura, good: 'ქსელში ცვლილებების საფასური', unit: 'მომსახურეობა', amount: amount, vat: vat, quantity: 1)
+    RS.save_factura_item(factura_item, RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID))
+    if RS.send_factura(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
+      factura = RS.get_factura_by_id(RS::TELASI_SU.merge(user_id: RS::TELASI_USER_ID, id: factura.id))
+      application.factura_seria = factura.seria
+      application.factura_number = factura.number
+    end
+    application.factura_id = factura.id
+    application.save
+    redirect_to network_change_power_url(id: application.id, tab: 'factura'), notice: 'ფაქტურა გაგზავნილია :)'
+  end
+
   def nav
     @nav = { 'ქსელი' => network_home_url, 'ქსელში ცვლილება' => network_change_power_applications_url }
     if @application

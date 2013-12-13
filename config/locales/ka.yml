@@ -249,6 +249,9 @@ ka:
       need_factura: სჭირდება ფაქტურა?
       work_by_telasi: თელასი აკეთებს?
       work_by_telasi_hint: "მონიშნეთ, თუ სამუშაოებს ასრულებს თელასი"
+      "factura_sent?": "გაგზავნილია?"
+      factura_id: საიდ. კოდი
+      factura_number: ნომერი
     network_new_customer_application:
       number: ნომერი
       vat_name: დღგ-ს გადამხდელი?
