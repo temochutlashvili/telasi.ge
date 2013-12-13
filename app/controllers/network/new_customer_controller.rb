@@ -3,7 +3,7 @@ require 'rs'
 
 class Network::NewCustomerController < Network::NetworkController
   def index
-    @title = 'ქსელზე მიერთება'
+    @title = 'ახალი აბონენტი'
     @search = params[:search] == 'clear' ? nil : params[:search]
     rel = Network::NewCustomerApplication
     if @search
@@ -25,7 +25,7 @@ class Network::NewCustomerController < Network::NetworkController
   end
 
   def new_customer
-    @title = 'ქსელზე მიერთების განცხადება'
+    @title = 'ახალი აბონენტის განცხადება'
     @application = Network::NewCustomerApplication.find(params[:id])
   end
 
@@ -44,7 +44,7 @@ class Network::NewCustomerController < Network::NetworkController
   end
 
   def edit_new_customer
-    @title = 'ქსელზე მიერთების განცხადების შეცვლა'
+    @title = 'ახალი აბონენტის განცხადების შეცვლა'
     @application = Network::NewCustomerApplication.find(params[:id])
     if request.post?
       if @application.update_attributes(new_customer_params)
@@ -78,7 +78,7 @@ class Network::NewCustomerController < Network::NetworkController
   def send_to_bs
     application = Network::NewCustomerApplication.find(params[:id])
     application.send_to_bs!
-    redirect_to network_new_customer_url(id: application.id, tab: 'general'), notice: 'აბონენტი გაგზავნილია ბილინგში'
+    redirect_to network_new_customer_url(id: application.id, tab: 'general'), notice: 'დარიცხვა გაგზავნილია ბილინგში'
   end
 
   def change_status
@@ -244,7 +244,7 @@ class Network::NewCustomerController < Network::NetworkController
   end
 
   def nav
-    @nav = { 'ქსელი' => network_home_url, 'ქსელზე მიერთება' => network_new_customers_url }
+    @nav = { 'ქსელი' => network_home_url, 'ახალი აბონენტი' => network_new_customers_url }
     if @application
       if not @application.new_record?
         @nav[ "№#{@application.effective_number}" ] = network_new_customer_url(id: @application.id)

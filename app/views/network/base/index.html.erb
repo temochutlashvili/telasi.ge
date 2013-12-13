@@ -5,8 +5,12 @@
       <a class="btn btn-default" href="<%= network_stages_url %>"><img src="/icons/wrench.png"></img> ეტაპები</a>
     <% end %>
   </div>
-  <a class="btn btn-default" href="<%= network_new_customers_url %>"><img src="/icons/user--plus.png"></img> ქსელზე მიერთება</a>
-  <a class="btn btn-default" href="<%= network_change_power_applications_url %>"><img src="/icons/user--pencil.png"></img> სიმძლავრის შეცვლა</a>
+  <a class="btn btn-default" href="<%= network_new_customers_url %>">
+    <img src="/icons/user--plus.png"></img> ახალი აბონენტი
+  </a>
+  <a class="btn btn-default" href="<%= network_change_power_applications_url %>">
+    <img src="/icons/user--pencil.png"></img> ქსელში ცვლილება
+  </a>
   <a class="btn btn-warning" href="<%= network_avisos_url %>"><img src="/icons/money-coin.png"></img> ავიზოების მართვა</a>
 </div>
 <%= new_customer_table @new_customers %>
