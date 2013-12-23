@@ -8,6 +8,7 @@
         c.text_field 'customer.accnumb', tag: 'code'
         c.text_field 'customer'
       end
+      c.text_field 'customer.address', label: 'მისამართი', required: true
       c.text_field :rs_tin, required: true, tag: 'code'
       c.date_field :dob, required: true
       c.text_field :rs_name, required: true
@@ -21,7 +22,7 @@
   end
   f.tab title: t('models.sys_user.title.single'), icon: '/icons/lock.png' do |t|
     t.email_field 'user.email', label: t('models.sys_user.email'), required: true
-    t.text_field 'user.full_name', label: t('models.sys_user.full_name'), required: true
+    t.text_field 'user.full_name', label: t('models.sys_user.full_name'), required: true, url: admin_user_url(id: @registration.user.id)
     t.text_field 'user.mobile', label: t('models.sys_user.mobile'), required: true
   end
   f.tab title: t('models.general.system'), icon: '/icons/traffic-cone.png' do |t|
