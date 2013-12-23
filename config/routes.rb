@@ -30,6 +30,13 @@ TelasiGe::Application.routes.draw do
     get '/', action: 'index', as: 'calculator'
   end
 
+  scope 'subscription', controller: 'subscription' do
+    match '/subscribe', action: 'subscribe', via: ['get', 'post']
+    get '/subscribe_complete', action: 'subscribe_complete'
+    match '/unsubscribe', action: 'subscribe', via: ['get', 'post']
+    get '/unsubscribe_complete', action: 'unsubscribe_complete'
+  end
+
   scope '/new_customer', controller: 'new_customer' do
     get '/', action: 'index', as: 'new_customer'
     match '/new', action: 'new', as: 'new_new_customer', via: ['get', 'post']
