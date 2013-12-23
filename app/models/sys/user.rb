@@ -89,6 +89,8 @@ module Sys
       self.save!
     end
 
+    def subscription; Sys::Subscription.where(email: self.email).first end
+
     private
 
     def customer_validation
