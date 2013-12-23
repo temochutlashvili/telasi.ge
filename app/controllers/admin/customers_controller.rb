@@ -2,7 +2,19 @@
 class Admin::CustomersController < Admin::AdminController
   def index
     @title = t('models.billing_customer_registration.title.pluaral')
-    @registrations = Billing::CustomerRegistration.desc(:_id).paginate(page: params[:page], per_page: 10)
+    @search = params[:search] == 'clear' ? {} : params[:search]
+    rel = Billing::CustomerRegistration
+    if @search
+      if @search[:customer_id].present?
+        @search[:customer] = Billing::Customer.find(@search[:customer_id])
+        rel = rel.where(custkey: @search[:customer].custkey)
+      end
+      rel = rel.where(rs_tin: @search[:rs_tin].mongonize) if @search[:rs_tin].present?
+      rel = rel.where(rs_name: @search[:rs_name].mongonize) if @search[:rs_name].present?
+      rel = rel.where(confirmed: @search[:confirmed] == 'yes') if @search[:confirmed].present?
+      rel = rel.where(denied: @search[:denied] == 'yes') if @search[:denied].present?
+    end
+    @registrations = rel.desc(:_id).paginate(page: params[:page], per_page: 20)
   end
 
   def show
