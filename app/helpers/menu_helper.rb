@@ -2,7 +2,7 @@
 module MenuHelper
   def active?(selector)
     cnt, act = selector.split('#')
-    if cnt == controller_name
+    if cnt == controller_path
       if act == '*' 
         return true
       else
