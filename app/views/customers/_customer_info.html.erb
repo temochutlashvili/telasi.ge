@@ -35,4 +35,27 @@
     </div>
     <%= t('models.billing_customer.current_water_balance') %>
   </li>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <i class="fa fa-time"></i>
+        <% if customer.last_bill_date %>
+          <code>№<%= customer.last_bill_number %></code>
+          <%= customer.last_bill_date.strftime('%d/%m/%Y') %>
+        <% else %>
+          <span class="text-muted"><%= t('models.general.undefined') %></span>
+        <% end %>
+    </div>
+    <%= t('models.billing_customer.last_bill') %>
+  </li>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <i class="fa fa-time"></i>
+      <% if customer.cut_deadline %>
+        <%= customer.cut_deadline.strftime('%d/%m/%Y') %>
+      <% else %>
+        <span class="text-muted"><%= t('models.general.undefined') %></span>
+      <% end %>
+    </div>
+    <%= t('models.billing_customer.cut_deadline') %>
+  </li>
 </ul>

@@ -61,6 +61,7 @@ ru:
       search: Поиск
       search_clear: Очистить форму
       more: Еще
+      undefined: Неопределенно
       actions:
         save: Сохранить
         cancel: Отменить
@@ -143,6 +144,8 @@ ru:
       kwh: Начисление
       gel: Сумма
       prev_balance: Прев.Баланс
+      cut_deadline: Предполагаемая дата отключения
+      last_bill: Последняя квитанция
       actions:
         empty_customer_list: Вы не сохранили ни одного абонента.
         resolve_empty_customer_list: Для просмотра задолжености нажмите на кнопку <strong>Поиск абонента</strong>.
