@@ -2,15 +2,25 @@
 class SubscriptionController < ApplicationController
   def subscribe
     @title = I18n.t('models.sys_subscription.actions.subscribe')
-    if current_user
-      @subscription = current_user.subscription || Sys::Subscription.new(email: current_user.email)
+    if request.get?
+      if current_user
+        @subscription = current_user.subscription || Sys::Subscription.new(email: current_user.email)
+      else
+        @subscription = Sys::Subscription.new
+      end
     else
-      @subscription = Sys::Subscription.new unless @subscription.present?
+      subs_params = params[:sys_subscription]
+      @subscription = Sys::Subscription.where(email: subs_params[:email]).first || Sys::Subscription.new(email: subs_params[:email])
+      @subscription.company_news = subs_params[:company_news]
+      @subscription.procurement_news = subs_params[:procurement_news]
+      @subscription.outage_news = subs_params[:outage_news]
+      if @subscription.save
+        redirect_to subscribe_complete_url
+      end
     end
-    unless request.get?
-      @subscription.save
-      @subscription.update_attributes(params.require(:sys_subscription).permit(:email, :company_news, :procurement_news, :outage_news))
+  end
 
-    end
+  def subscribe_complete
+    @title = I18n.t('models.sys_subscription.actions.subscribe_complete')
   end
 end

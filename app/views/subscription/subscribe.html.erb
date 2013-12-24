@@ -7,7 +7,14 @@
     <%= form_for @subscription, url: subscribe_url do |f| %>
       <div class="control-group <%= @subscription.errors[:email].present? ? 'has-error' : 'common' %>">
         <%= f.label :email, t('models.sys_subscription.email') %>
-        <%= f.email_field :email, autofocus: true, class: ['form-control'], disabled: @subscription.email.present? %>
+        <% if @subscription.email.present? %>
+          <%= f.hidden_field :email %>
+          <div class="form-control">
+            <%= @subscription.email %>
+          </div>
+        <% else %>
+          <%= f.email_field :email, autofocus: true, class: ['form-control'] %>
+        <% end %>
         <div class="text-danger"><%= @subscription.errors[:email].join('; ') %></div>
       </div>
       <div style="margin: 16px;">

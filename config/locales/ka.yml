@@ -443,6 +443,8 @@ ka:
       actions:
         subscribe: სიახლეების გამოწერა
         subscribe_short: გამოწერა
+        subscribe_complete: გამოწერა დასრულებულია!
+        subscribe_complete_full: თქვენ წარმატებით გამოიწერეთ თელასის სიახლეები!
       errors:
         empty_email: ჩაწერეთ ელ.ფოსტა
         duplicated_email: ელ. ფოსტა უკვე გამოყენებულია
