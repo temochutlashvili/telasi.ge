@@ -15,5 +15,5 @@ class Sys::Subscription
     presence: { message: I18n.t('models.sys_subscription.errors.empty_email') }
   index({ email: 1 }, { unique: true })
 
-  def user; User.where(email: self.email).first end
+  def user; Sys::User.where(email: self.email).first end
 end

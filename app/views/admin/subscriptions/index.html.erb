@@ -1,4 +1,8 @@
 <%= table_for @subscriptions, title: @title, collapsible: true do |t|
-  t.email_field 'email'
+  t.email_field 'email', label: 'ელ.ფოსტა'
+  t.text_field 'user', label: 'მომხმარებელი'
+  t.boolean_field 'company_news', label: 'კომპანია'
+  t.boolean_field 'procurement_news', label: 'ტენდერები'
+  t.boolean_field 'outage_news', label: 'გათიშვები'
   t.paginate
 end %>
