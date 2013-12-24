@@ -1,1 +1,14 @@
 <h2 class="page-header"><%= @title %></h2>
+<%= form_tag do %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="control-group">
+        <label><%= t('models.sys_subscription.email') %></label>
+        <%= text_field_tag 'email', params[:email], autofocus: true, class: 'form-control' %>
+      </div>
+      <div style="margin-top: 16px;">
+        <%= submit_tag @title, class: ['btn', 'btn-primary'] %>
+      </div>
+    </div>
+  </div>
+<% end %>

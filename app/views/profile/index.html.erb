@@ -55,13 +55,21 @@
           <i class="fa fa-pencil"></i>
           <%= t('models.general.actions.edit') %>
         </a>
-        <a href="<%= unsubscribe_url email: @subscription.email %>" class="btn btn-danger">
+        <a href="<%= unsubscribe_url email: @subscription.email %>" class="btn btn-danger" data-confirm="<%= t('models.sys_subscription.actions.unsubscribe_confirm') %>">
           <i class="fa fa-trash-o"></i>
           <%= t('models.general.actions.cancel') %>
         </a>
       </div>
     <% else %>
-      BBB
+      <p class="alert alert-danger">
+        <%= t('models.sys_subscription.errors.not_subscribed') %>
+      </p>
+      <div>
+        <a href="<%= subscribe_url %>" class="btn btn-success">
+          <i class="fa fa-plus-circle"></i>
+          <%= t('models.sys_subscription.actions.subscribe_short') %>
+        </a>
+      </div>
     <% end %>
   </div>
 </div>

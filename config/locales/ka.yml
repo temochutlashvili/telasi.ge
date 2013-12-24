@@ -447,6 +447,8 @@ ka:
         subscribe_complete: გამოწერა დასრულებულია!
         subscribe_complete_full: თქვენ წარმატებით გამოიწერეთ თელასის სიახლეები!
         unsubscribe_complete: სიახლეების გამოწერა გაუქმებულია.
+        unsubscribe_confirm: ნამდვილად გინდათ სიახლეების გამოწერაზე უარის თქმა?
       errors:
         empty_email: ჩაწერეთ ელ.ფოსტა
         duplicated_email: ელ. ფოსტა უკვე გამოყენებულია
+        not_subscribed: თქვენ არ გაქვთ გამოწერილი სიახლეები!
