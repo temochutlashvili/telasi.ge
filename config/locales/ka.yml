@@ -19,7 +19,7 @@ ka:
       users: მომხმარებლები
       network: ქსელის მართვა
       customers: აბონენეტები
-      subscriptions: სიახლეების გამოწერა
+      subscriptions: "სიახლეების გამოწერა"
     new_customer_title: ქსელზე მიერთება
     new_customer_description: ახალ აბონენტად დარეგისტრირება.
     calculator_title: კალკულატორი
@@ -32,7 +32,7 @@ ka:
   dashboard:
     title: საწყისი
     login: შესვლა
-    details: გადასვლა &rarr;
+    details: "გადასვლა &rarr;"
     your_debt: თქვენი დავალიანება
     your_debt_descr: "გაიგეთ თქვენი დავალიანება, ნახეთ დარიცხვის ისტორია, მიიღეთ SMS შეტყობინენბები დაგვიანებულ გადახდებზე."
     new_customer: გახდით აბონენტი
@@ -40,12 +40,12 @@ ka:
   register:
     invite:
       title: პირველად ხართ აქ?
-      action: გაიარეთ რეგისტრაცია &rarr;
+      action: "გაიარეთ რეგისტრაცია &rarr;"
       description: როგორც რეგისტრირებულ მომხმარებელს შეგეძლებათ მრავალი სასრგებლო ფუნქციით სარგებლობა!
   login:
     invite:
       title: უკვე რეგისტრირებული ხართ?
-      action: შესვლა &rarr;
+      action: "შესვლა &rarr;"
   models:
     calculator:
       charge: ხარჯი

@@ -1,1 +1,4 @@
-INDEX
+<%= table_for @subscriptions, title: @title, collapsible: true do |t|
+  t.email_field 'email'
+  t.paginate
+end %>
