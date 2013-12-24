@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 module NavHelper
+  include Forma::Html
+
   def nav_menu
     if @nav and @nav.size > 1
       el('ul', attrs: { class: 'breadcrumb' }, children: @nav.each_with_index.map { |(lbl,url), i|
