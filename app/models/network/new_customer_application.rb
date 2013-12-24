@@ -105,7 +105,17 @@ class Network::NewCustomerApplication
   end
   def payments; self.billing_items.select { |x| x.billoperkey == 116 } end
   def paid; self.payments.map{ |x| x.amount }.inject{ |sum, x| sum + x } || 0  end
-  def remaining; if self.amount.present? then self.amount - self.paid else 0 end end
+  def remaining
+    if self.amount.present?
+      if self.effective_amount < 0
+        0
+      else
+        self.amount - self.paid
+      end
+    else
+      0
+    end
+  end
   def unit
     if self.voltage == '6/10' then I18n.t('models.network_new_customer_item.unit_kvolt')
     else I18n.t('models.network_new_customer_item.unit_volt') end
@@ -197,7 +207,7 @@ class Network::NewCustomerApplication
   # ჯარიმის სრული ოდენობა.
   def total_penalty; self.penalty_first_stage + self.penalty_second_stage + self.penalty_third_stage end
   # რეალურად გადასახდელი თანხა.
-  def effective_amount; self.amount - self.total_penalty end
+  def effective_amount; self.amount - self.total_penalty rescue 0 end
 
   private
 
@@ -302,7 +312,7 @@ class Network::NewCustomerApplication
         end
         # distribute remaining amount on subcustomers => 1000
         # distribute compensation on subcustomers (if any) => 120
-        if self.remaining > 0 || self.compensation > 0
+        if remaining > 0 || compensation > 0
           self.items.each do |item|
             cust = item.customer
             acct = cust.accounts.first
