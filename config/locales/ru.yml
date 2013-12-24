@@ -393,3 +393,20 @@ ru:
       message: შეტყობინება
       mobile: მობილური
       created_at: გაგზავნის თარიღი
+    sys_subscription:
+      email: Адресс электронной почты
+      company_news: Новости компании
+      procurement_news: Новости о закупках
+      outage_news: Ограничения электроэнергии
+      actions:
+        subscribe: Подписка на новости
+        unsubscribe: Отказ от подписки
+        subscribe_short: Подписаться
+        subscribe_complete: Подписка завершена!
+        subscribe_complete_full: Вы побписались на новости Теласи!
+        unsubscribe_complete: Подписка удалена
+        unsubscribe_confirm: Вы действительно хотите отказаться от подписки на новости?
+      errors:
+        empty_email: Укажите почту
+        duplicated_email: Почта уже использованна
+        not_subscribed: У вас нет подписки на новости!
