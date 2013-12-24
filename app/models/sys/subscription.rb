@@ -8,6 +8,7 @@ class Sys::Subscription
   field :company_news, type: Mongoid::Boolean, default: true
   field :procurement_news, type: Mongoid::Boolean, default: true
   field :outage_news, type: Mongoid::Boolean, default: true
+  field :locale, type: String
 
   validates :email,
     uniqueness: { message: I18n.t('models.sys_subscription.errors.duplicated_email') },

@@ -29,7 +29,7 @@ module Network::NewCustomerHelper
   def new_customer_form(application, opts = {})
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
-        t.text_field  :number, autofocus: true
+        t.text_field  :number, autofocus: true, label: 'ნომერი'
         t.text_field  :rs_tin, required: true
         t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
         t.boolean_field :need_factura, required: true
@@ -240,7 +240,7 @@ module Network::NewCustomerHelper
             t.item_action ->(x) { network_new_customer_delete_control_item_url(id: x.id) }, icon: '/icons/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
             t.text_field :stage
             t.text_field :type_name, i18n: 'type', tag: 'code'
-            t.date_field :date
+            t.date_field :date, label: 'თარიღი'
             t.text_field :description
           end
         end

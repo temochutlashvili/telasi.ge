@@ -19,6 +19,7 @@ ka:
       users: მომხმარებლები
       network: ქსელის მართვა
       customers: აბონენეტები
+      subscriptions: სიახლეების გამოწერა
     new_customer_title: ქსელზე მიერთება
     new_customer_description: ახალ აბონენტად დარეგისტრირება.
     calculator_title: კალკულატორი

@@ -14,6 +14,7 @@ class SubscriptionController < ApplicationController
       @subscription.company_news = subs_params[:company_news]
       @subscription.procurement_news = subs_params[:procurement_news]
       @subscription.outage_news = subs_params[:outage_news]
+      @subscription.locale
       if @subscription.save
         if current_user
           redirect_to profile_url, notice: I18n.t('models.sys_subscription.actions.subscribe_complete')

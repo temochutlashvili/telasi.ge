@@ -67,6 +67,9 @@ TelasiGe::Application.routes.draw do
       match '/deny/:id', action: 'deny', as: 'deny_customer', via: ['get', 'post']
       delete '/delete/:id', action: 'delete', as: 'delete_customer'
     end
+    scope '/subscriptions', controller: 'subscriptions' do
+      get '/', action: 'index', as: 'subscriptions'
+    end
     get '/network' => redirect('/network')
   end
 
