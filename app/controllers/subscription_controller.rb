@@ -15,7 +15,11 @@ class SubscriptionController < ApplicationController
       @subscription.procurement_news = subs_params[:procurement_news]
       @subscription.outage_news = subs_params[:outage_news]
       if @subscription.save
-        redirect_to subscribe_complete_url
+        if current_user
+          redirect_to profile_url, notice: I18n.t('models.sys_subscription.actions.subscribe_complete')
+        else
+          redirect_to subscribe_complete_url
+        end
       end
     end
   end

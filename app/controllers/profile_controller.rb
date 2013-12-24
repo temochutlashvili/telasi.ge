@@ -5,6 +5,7 @@ class ProfileController < ApplicationController
   def index
     @title = I18n.t('models.sys_user.actions.profile')
     @user = current_user
+    @subscription = @user.subscription
   end
 
   def edit

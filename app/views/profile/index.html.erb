@@ -1,8 +1,6 @@
-<div class="page-header">
-  <h1><%= @title %></h1>
-</div>
 <div class="row">
   <div class="col-sm-6">
+    <h2 class="page-header"><%= @title %></h2>
     <ul class="list-group">
       <li class="list-group-item">
         <div class="pull-right"><%= mail_to @user.email %></div>
@@ -34,5 +32,32 @@
         <%= t('models.general.actions.edit') %>
       </a>
     </div>
+  </div>
+  <div class="col-sm-6">
+    <h2 class="page-header"><%= t('models.sys_subscription.actions.subscribe') %></h2>
+    <% if @subscription.present? %>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= yes_no @subscription.company_news %>
+          <%= t('models.sys_subscription.company_news') %>
+        </li>
+        <li class="list-group-item">
+          <%= yes_no @subscription.procurement_news %>
+          <%= t('models.sys_subscription.procurement_news') %>
+        </li>
+        <li class="list-group-item">
+          <%= yes_no @subscription.outage_news %>
+          <%= t('models.sys_subscription.outage_news') %>
+        </li>
+      </ul>
+      <div>
+        <a href="<%= subscribe_url %>" class="btn btn-default">
+          <i class="fa fa-pencil"></i>
+          <%= t('models.general.actions.edit') %>
+        </a>
+      </div>
+    <% else %>
+      BBB
+    <% end %>
   </div>
 </div>
