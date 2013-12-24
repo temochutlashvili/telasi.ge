@@ -66,11 +66,11 @@ class Network::ChangePowerApplication
   validates :address_code, presence: { message: I18n.t('models.network_change_power_application.errors.address_code_required') }
   # validates :bank_code, presence: { message: I18n.t('models.network_change_power_application.errors.bank_code_required') }
   # validates :bank_account, presence: { message: I18n.t('models.network_change_power_application.errors.bank_account_required') }
-  validates :old_voltage, presence: { message: 'required!' }
-  validates :old_power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
+  # validates :old_voltage, presence: { message: 'required!' }
+  # validates :old_power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
   validates :voltage, presence: { message: 'required!' }
   validates :power, numericality: { message: I18n.t('models.network_change_power_application.errors.illegal_power') }
-  validates :customer, presence: { message: 'აარჩიეთ აბონენტი' }
+  #validates :customer, presence: { message: 'აარჩიეთ აბონენტი' }
 
   validate :validate_rs_name, :validate_number
   before_save :status_manager, :calculate_total_cost

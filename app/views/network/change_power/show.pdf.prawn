@@ -24,7 +24,9 @@ prawn_document(page_size: 'A4', margin: [40, 40]) do |pdf|
       ["1. ორგანიზაციის ან ფიზიკური პირის დასახელება:\nНазвание организации или физического лица:", @application.rs_name],
       ["2. გამრიცხველიანების მისამართი:\nАдресс проведения работ:", "#{@application.address_code} -- #{@application.work_address || @application.address}"],
       ["ტელეფონი / телефон", KA.format_mobile(@application.mobile)],
-      ["3. აბონენტი № / Абоненет №", "#{@application.customer.accnumb.to_ka} -- #{@application.customer.custname.to_ka}"],
+      [
+        "3. აბონენტი № / Абоненет №", ("#{@application.customer.accnumb.to_ka} -- #{@application.customer.custname.to_ka}" if @application.customer)
+      ],
       ["3.1. არსებული სიმძლავრე:\nТекущее мощность:", "#{@application.old_power} კვტ.სთ"],
       ["3.2. არსებული ძაბვა:\nТекущее напряжение:", "#{@application.old_voltage} #{@application.old_unit}"],
       ["4. მოთხოვნილი სიმძლავრე:\nТребуемая мощность:", "#{@application.power} კვტ.სთ."],

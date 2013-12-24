@@ -42,13 +42,13 @@ module Network::ChangePowerHelper
         t.text_field  :mobile, required: true
         t.email_field :email
         t.text_field  :address, required: true, width: 500
-        t.text_field  :work_address, required: true, width: 500
+        t.text_field  :work_address, width: 500
         t.text_field  :address_code, required: true
         t.combo_field :bank_code, collection: banks, empty: '-- აარჩიეთ ანგარიში --'
         t.text_field  :bank_account, width: 300
-        f.select_field :customer, select_customer_url, label: 'ბილინგის აბონენტი', required: true, search_width: 900
-        t.combo_field :old_voltage, collection: voltage_collection, empty: false, required: true
-        t.number_field :old_power, after: 'kWh', width: 100, required: true
+        f.select_field :customer, select_customer_url, label: 'ბილინგის აბონენტი', search_width: 900
+        t.combo_field :old_voltage, collection: voltage_collection, empty: false
+        t.number_field :old_power, after: 'kWh', width: 100
         t.combo_field :voltage, collection: voltage_collection, empty: false, required: true
         t.number_field :power, after: 'kWh', width: 100, required: true
         t.text_field :note, width: 400
