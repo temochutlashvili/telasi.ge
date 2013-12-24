@@ -12,6 +12,10 @@ module Network::ChangePowerHelper
         c.text_field :rs_tin, tag: 'code'
         c.text_field :rs_name, url: ->(x) { network_change_power_url(id: x.id) }
       end
+      t.complex_field label: 'სიმძლავრე/ძაბვა' do |c|
+        c.number_field :power, after: 'kWh'
+        c.number_field :voltage, before: '/'
+      end
       t.number_field :amount, after: 'GEL'
       t.paginate param_name: 'page_change', records: 'ჩანაწერი'
     end
@@ -29,7 +33,7 @@ module Network::ChangePowerHelper
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
         t.combo_field :type, required: true, autofocus: true, collection: change_power_type_collection, empty: false
-        t.text_field  :number, required: true
+        t.text_field  :number, required: true, label: 'ნომერი'
         t.text_field  :rs_tin, required: true
         # t.boolean_field :rs_vat_payer, required: true
         t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
@@ -40,7 +44,7 @@ module Network::ChangePowerHelper
         t.text_field  :address, required: true, width: 500
         t.text_field  :work_address, required: true, width: 500
         t.text_field  :address_code, required: true
-        t.combo_field :bank_code, collection: banks, empty: '-- აარჩიეთ ანგარიში --', required: true
+        t.combo_field :bank_code, collection: banks, empty: '-- აარჩიეთ ანგარიში --'
         t.text_field  :bank_account, width: 300
         f.select_field :customer, select_customer_url, label: 'ბილინგის აბონენტი', required: true, search_width: 900
         t.combo_field :old_voltage, collection: voltage_collection, empty: false, required: true

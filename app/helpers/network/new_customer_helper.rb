@@ -12,6 +12,10 @@ module Network::NewCustomerHelper
         c.text_field :rs_tin, tag: 'code'
         c.text_field :rs_name, url: ->(x) { network_new_customer_url(id: x.id) }
       end
+      t.complex_field label: 'სიმძლავრე/ძაბვა' do |c|
+        c.number_field :power, after: 'kWh'
+        c.number_field :voltage, before: '/'
+      end
       t.number_field :amount, after: 'GEL'
       t.number_field :days, max_digits: 0, after: 'დღე'
       t.paginate param_name: 'page_new', records: 'ჩანაწერი'
