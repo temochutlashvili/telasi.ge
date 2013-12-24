@@ -24,7 +24,15 @@ class SubscriptionController < ApplicationController
     end
   end
 
-  def subscribe_complete
-    @title = I18n.t('models.sys_subscription.actions.subscribe_complete')
+  def unsubscribe
+    @title = I18n.t('models.sys_subscription.actions.unsubscribe')
+    if params[:email].present?
+      subscription = Sys::Subscription.where(email: params[:email]).first
+      subscription.destroy if subscription
+      redirect_to unsubscribe_complete_url
+    end
   end
+
+  def subscribe_complete; @title = I18n.t('models.sys_subscription.actions.subscribe_complete') end
+  def unsubscribe_complete; @title = I18n.t('models.sys_subscription.actions.unsubscribe_complete') end
 end

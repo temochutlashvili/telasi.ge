@@ -33,7 +33,7 @@ TelasiGe::Application.routes.draw do
   scope 'subscription', controller: 'subscription' do
     match '/subscribe', action: 'subscribe', as: 'subscribe', via: ['get', 'post', 'patch']
     get '/subscribe_complete', action: 'subscribe_complete', as: 'subscribe_complete'
-    match '/unsubscribe', action: 'subscribe', as: 'unsubscribe', via: ['get', 'post', 'patch']
+    match '/unsubscribe', action: 'unsubscribe', as: 'unsubscribe', via: ['get', 'post', 'patch']
     get '/unsubscribe_complete', action: 'unsubscribe_complete', as: 'unsubscribe_complete'
   end
 
