@@ -10,6 +10,11 @@
       c.boolean_field 'admin'
       c.boolean_field 'network_admin'
     end
+    t.col2 do |c|
+      c.boolean_field 'subscription.company_news', label: 'კომპანიის სიახლეები'
+      c.boolean_field 'subscription.procurement_news', label: 'ტენდერების სიახლეები'
+      c.boolean_field 'subscription.outage_news', label: 'გათიშვების სიახლეები'
+    end
   end
   v.tab title: 'სისტემური', icon: '/icons/traffic-cone.png' do |t|
     t.date_field 'created_at', required: true, formatter: '%d-%b-%Y %H:%M:%S'
