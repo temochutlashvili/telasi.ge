@@ -26,7 +26,7 @@ module Sys
     field :network_admin, type: Mongoid::Boolean, default: false
 
     # customer registrations
-    has_many :registrations, class_name: 'Billing::CustomerRegistration', as: 'user'
+    has_many :registrations, class_name: 'Billing::CustomerRegistration'
 
     index({ email: 1 }, { unique: true })
     index(first_name: 1, last_name: 1)
