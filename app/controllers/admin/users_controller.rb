@@ -12,7 +12,7 @@ class Admin::UsersController < Admin::AdminController
       rel = rel.where(admin: @search[:admin] == 'yes') if @search[:admin].present?
       rel = rel.where(network_admin: @search[:network_admin] == 'yes') if @search[:network_admin].present?
     end
-    @users = rel.desc(:_id).paginate(page: params[:page], per_page: 10)
+    @users = rel.desc(:_id).paginate(page: params[:page], per_page: 20)
   end
 
   def show
