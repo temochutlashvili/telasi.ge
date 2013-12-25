@@ -30,4 +30,24 @@ class Sys::SubscriptionMessage
       end
     end
   end
+
+  def self.send_subscription_messages
+    Sys::SubscriptionMessage.where(sent: false).each do |m|
+      RestClient.post "https://api:#{Telasi::MAILGUN_KEY}"\
+        "@api.mailgun.net/v2/telasi.ge/messages",
+        from: "Telasi <hello@telasi.ge>",
+        to: m.email,
+        subject: m.subject,
+        html: %Q{
+          <html>
+          <body>
+            <h1 class="page-header"><a href="http://telasi.ge/node/#{m.nid}?ref=email">#{m.subject}</a></h1>
+            #{m.body}
+          </body>
+          </html>
+        }
+      m.sent = true
+      m.save
+    end
+  end
 end

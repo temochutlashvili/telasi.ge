@@ -71,6 +71,7 @@ TelasiGe::Application.routes.draw do
       get '/', action: 'index', as: 'subscriptions'
       get '/headline/:id', action: 'headline', as: 'headline'
       post '/generate_messages', action: 'generate_messages'
+      post '/send_messages', action: 'send_messages'
     end
     get '/network' => redirect('/network')
   end

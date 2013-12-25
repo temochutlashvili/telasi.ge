@@ -23,6 +23,9 @@ gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.0'
 gem 'mysql2'
 gem 'safe_attributes'
 
+# mailgun
+gem 'rest-client'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.0.1'
 

@@ -20,6 +20,7 @@ end %>
 end %>
 
 <%= table_for @not_sent, title: 'გასაგზავნი წერილები', icon: '/icons/mail-open.png', collapsible: true do |t|
+  t.title_action admin_send_messages_url, method: 'post', label: 'წერილების დაგზავნა', confirm: 'ნამდვილად გინდათ წერილების დაგზავნა?', icon: '/icons/mail-send.png'
   t.text_field 'nid', label: 'ID', tag: 'code'
   t.text_field 'message_type', label: 'ტიპი', tag: 'code'
   t.text_field 'subject', url: ->(x) { admin_headline_url(id: x.nid) }

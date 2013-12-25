@@ -21,4 +21,9 @@ class Admin::SubscriptionsController < Admin::AdminController
     Sys::SubscriptionMessage.generate_subscription_messages
     redirect_to admin_subscriptions_url, notice: 'გასაგზავნი წერილები დაგენერირებულია.'
   end
+
+  def send_messages
+    Sys::SubscriptionMessage.send_subscription_messages
+    redirect_to admin_subscriptions_url, notice: 'წერილები დაგზავნილია.'
+  end
 end
