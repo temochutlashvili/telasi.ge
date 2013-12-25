@@ -24,3 +24,12 @@ report_bs:
   database: 192.168.1.239:1521/orcl
   username: bs
   password: bsqaz12123498
+
+telasi_site:
+  adapter: mysql2
+  encoding: utf8
+  database: telasi
+  username: root
+  password: sami4xuti
+  host: 192.168.1.12
+  port: 3306

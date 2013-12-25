@@ -19,9 +19,9 @@ gem 'jquery-ui-rails'
 gem 'sqlite3'
 gem 'mongoid', github: 'mongoid/mongoid', ref: '3d1b8aa48340b79b8481ab96b56e0681433b0bcb'
 gem 'ruby-oci8', '~> 2.1.5'
-# gem 'activerecord-oracle_enhanced-adapter', git: 'https://github.com/rsim/oracle-enhanced'
-# gem 'activerecord-oracle_enhanced-adapter', github: 'dimakura/oracle-enhanced', branch: 'rails4'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.0'
+gem 'mysql2'
+gem 'safe_attributes'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.0.1'

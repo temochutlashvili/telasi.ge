@@ -1,9 +1,19 @@
-<%= table_for @subscriptions, title: @title, collapsible: true, icon: '/icons/newspaper.png' do |t|
+<%= table_for @subscriptions, title: @title, collapsible: true, icon: '/icons/newspaper--pencil.png' do |t|
   t.email_field 'email', label: 'ელ.ფოსტა'
   t.text_field 'user', label: 'მომხმარებელი', url: ->(x) { admin_user_url(id: x.user.id) }
   t.text_field 'locale', tag: 'code', label: 'ენა'
   t.boolean_field 'company_news', label: 'კომპანია'
   t.boolean_field 'procurement_news', label: 'ტენდერები'
   t.boolean_field 'outage_news', label: 'გათიშვები'
-  t.paginate
+  t.paginate records: t('models.general.records')
+end %>
+
+<%= table_for @news, title: 'სიახლეები', collapsible: true, icon: '/icons/newspaper.png' do |t|
+  t.text_field 'nid', tag: 'code', label: 'ID'
+  t.text_field 'language', tag: 'code', label: 'ენა'
+  t.text_field 'content_type.field_content_type_value', label: 'სახეობა'
+  t.date_field 'created_at', label: 'შექმნა'
+  t.text_field 'title', label: 'სათაური'
+
+  t.paginate records: t('models.general.records'), param_name: 'news_page'
 end %>
