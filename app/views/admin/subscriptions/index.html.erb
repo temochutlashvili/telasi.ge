@@ -1,4 +1,5 @@
 <%= table_for @subscriptions, title: @title, collapsible: true, icon: '/icons/newspaper--pencil.png' do |t|
+  t.title_action admin_generate_messages_url, method: 'post', label: 'გასაგზავნი სიის გენერაცია', confirm: 'ნამდვილად გინდათ გასაგზავნი სიის გენერაცია?', icon: '/icons/mail-share.png'
   t.email_field 'email', label: 'ელ.ფოსტა'
   t.text_field 'user', label: 'მომხმარებელი', url: ->(x) { admin_user_url(id: x.user.id) }
   t.text_field 'locale', tag: 'code', label: 'ენა'
@@ -13,7 +14,15 @@ end %>
   t.text_field 'language', tag: 'code', label: 'ენა'
   t.text_field 'content_type.field_content_type_value', label: 'სახეობა'
   t.date_field 'created_at', label: 'შექმნა'
-  t.text_field 'title', label: 'სათაური'
+  t.text_field 'title', label: 'სათაური', url: ->(x) { admin_headline_url(id: x.nid) }
 
   t.paginate records: t('models.general.records'), param_name: 'news_page'
+end %>
+
+<%= table_for @not_sent, title: 'გასაგზავნი წერილები', icon: '/icons/mail-open.png', collapsible: true do |t|
+  t.text_field 'nid', label: 'ID', tag: 'code'
+  t.text_field 'message_type', label: 'ტიპი', tag: 'code'
+  t.text_field 'subject', url: ->(x) { admin_headline_url(id: x.nid) }
+  t.email_field 'email', label: 'ფოსტა'
+  t.boolean_field 'sent', label: 'გაგზავნილია?'
 end %>

@@ -16,4 +16,12 @@ class Sys::Subscription
   index({ email: 1 }, { unique: true })
 
   def user; Sys::User.where(email: self.email).first end
+
+  def belong_to_type(healine_type)
+    case healine_type
+    when 'power'   then self.outage_news
+    when 'news'    then self.company_news
+    when 'tenders' then self.procurement_news
+    end
+  end
 end

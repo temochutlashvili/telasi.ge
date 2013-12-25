@@ -7,7 +7,6 @@ class Site::Node < ActiveRecord::Base
   def created_at; Time.at(self.created) end
   def updated_at; Time.at(self.updated) end
 
-  def content_type
-    Site::ContentType.where(entity_type: 'node', bundle: self.type, entity_id: self.nid).first
-  end
+  def content_type; Site::ContentType.where(entity_type: 'node', bundle: self.type, entity_id: self.nid).first end
+  def content; Site::Content.where(entity_type: 'node', bundle: self.type, entity_id: self.nid).first end
 end
