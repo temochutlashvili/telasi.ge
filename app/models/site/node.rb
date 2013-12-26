@@ -18,6 +18,6 @@ class Site::Node < ActiveRecord::Base
 
   def thumbnail_small_url
     t = self.thumbnail
-    "http://telasi.ge/sites/default/files/styles/single_page/public/#{t.filename}" if t
+    t.uri.gsub('public://', 'http://telasi.ge/sites/default/files/styles/single_page/public/') if t
   end
 end
