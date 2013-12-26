@@ -1,0 +1,15 @@
+<%= simple_form_for @payment, :url => confirm_form_url, :html => {:id => 'register-form', :class => 'form-horizontal'}, :method => 'post' do |f| %> 
+  <%= f.input :status, disabled: true, :input_html => { :value => params[:status] } %>
+  <%= f.input :transactioncode, disabled: true, :input_html => { :value => params[:transactioncode] } %>
+  <%= f.input :date, disabled: true, :input_html => { :value => params[:date] } %>
+  <%= f.input :amount, disabled: true, :input_html => { :value => params[:amount] } %>
+  <%= f.input :currency, disabled: true, :input_html => { :value => params[:currency] } %>
+  <%= f.input :ordercode, disabled: true, :input_html => { :value => params[:ordercode] } %>
+  <%= f.input :paymethod, disabled: true, :input_html => { :value => params[:paymethod] } %>
+  <%= f.input :customdata, disabled: true, :input_html => { :value => params[:customdata] } %>
+  <%= f.input :testmode, disabled: true, :input_html => { :value => params[:testmode] } %>
+  <%= f.input :check, disabled: true, :input_html => { :value => params[:check] } %>
+  <div class="actions">
+    <%= f.button :submit, 'OK', :class => ['btn', 'btn-primary'] %>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+en:
+    form_titles:
+      show_form:  'Electricity bill'
+      confirm_form: 'Review and confirm electricity bill payment'
+      success_form: 'Electricity bill payment placed successfully'
+      cancel_form:  'Electricity bill payment cancelled'
+      error_form:   'Electricity bill payment completed with errors'
+    payment:
+       merchant:  'Merchant'
+       ordercode: 'Order code'
+       amount:	  'Amount'
+       currency:  'Currency'
+    form:
+      action:
+        amount:   'Enter amount'
+    buttons:
+      pay:        'Proceed to transaction'
+      comfirm:    'Confirm transaction'
+      back:       'Back'
+ka:
+    form_titles:
+      show_form:  'ელ. ენერგიის დავალიანების გადახდა'
+      confirm_form: 'ელ. ენერგიის დავალიანების გადახდა დადასტურება'
+      success_form: 'ელ. ენერგიის დავალიანების გადახდა წარმატებით დასრულდა'
+      cancel_form:  'ელ. ენერგიის დავალიანების გადახდა გაუქმდა'
+      error_form:  'ელ. ენერგიის დავალიანების გადახდა შეცდომით დასრულდა'
+    payment:
+       merchant:  'მერჩანტი'
+       ordercode: 'ტრანზაქციის კოდი'
+       amount:	  'თანხა'
+       currency:  'ვალუტა'
+    form:
+      action:
+        amount:   'შეიტანეთ თანხა'
+    buttons:
+      pay:        'ტრანზაქციის შესრულება'
+      comfirm:    'ტრანზაქციის დასტური'
+      back:       'დაბრუნება'

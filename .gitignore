@@ -22,3 +22,5 @@ config/app_environment_variables.rb
 sqlnet.log
 
 public/uploads/*
+
+config/initializers/payge.rb

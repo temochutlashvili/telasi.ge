@@ -164,5 +164,17 @@ TelasiGe::Application.routes.draw do
     end
   end
 
+  namespace 'pay' do
+    scope '/payment', controller: :payments do
+      match '/show_form',    action: :show_form
+      get '/confirm_form',   action: :confirm_form
+      post '/confirm_form',  action: :confirm_form
+      match '/success',      action: :success
+      match '/cancel',       action: :cancel
+      match '/error',        action: :error
+      get   '/callback',     action: :callback
+    end  
+  end
+
   root 'dashboard#index'
 end
