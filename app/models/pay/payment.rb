@@ -16,7 +16,7 @@ class Pay::Payment
   field :paymethod,        type: String                  # გადახდის არხის სახელი
   field :description,      type: String					         # ოპერაციის აღწერა
   field :clientname,       type: String					         # კლიენტის სახელი
-  field :ispreauth,        type: Integer					       # პრეაცვოიზაცია
+  field :ispreauth,        type: Integer, default: 0     # პრეაცვოიზაცია
   field :customdata,       type: String					         # დამატებითი მონაცემები
   field :lng,              type: String					         # ენა
   field :testmode,         type: Integer 				         # სატესტო რეჟიმი
@@ -39,15 +39,46 @@ class Pay::Payment
   validates :testmode, presence: { message: 'testmode not defined' }
   validates :check, presence: { message: 'check not defined' }
 
-  before_save :calculate_tech_amount
-
   STATUS_COMPLETED = 'COMPLETED'
   STATUS_CANCELED  = 'CANCELED'
   STATUS_ERROR     = 'ERROR'
 
-  private
+# $str = $secretkey
+#            . $merchant
+#            . $ordercode
+#            . $amount
+#            . $currency
+#            . $description
+#            . $clientname
+#            . $customdata
+#            . $lng
+#            . $testmode;
+#     foreach ($items as $itemvalue) {
+#       $str .= $itemvalue;
+#     }
+#     $check = strtoupper(hash('sha256', $str));
 
-  def calculate_tech_amount
-    self.amount_tech = (self.amount * 100).round
+  def amount_tech; (self.amount * 100).round end
+
+  def check_text(step)
+    merchant = 'TEST'
+    password = '1234'
+    [
+      password, # Payge::PASSWORD
+      merchant, # self.metchant
+      '0001',   # self.ordercode,
+      '100',    # self.amount_tech,
+      'GEL',    # self.currency,
+      self.description,
+      self.clientname,
+      self.customdata,
+      self.lng,
+      1 # self.testmode
+    ].join
+  end
+
+  def prepare_for_step(step)
+    text = check_text(step)
+    self.check = Digest::SHA256.hexdigest(text).upcase
   end
 end

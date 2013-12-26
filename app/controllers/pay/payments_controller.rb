@@ -18,17 +18,17 @@ class Pay::PaymentsController < ApplicationController
 	@mode = MODES[TestMode]
 
 	def show_form
-      @payment = Pay::Payment.new(
-        user: current_user, merchant: Payge::MERCHANT, testmode: Payge::TESTMODE, 
-        ordercode: self.gen_order_code, currency: 'GEL', amount: 0,
-        description: 'test payment', lng: 'EN')
-
-      @payment.check = gen_sha_string(STEP_SEND,@payment,nil)
+      @payment = Pay::Payment.new(amount: 100)
 	end
 
 	def confirm_form
-    @payment = Pay::Payment.new(params.require(:pay_payment).permit(:check, :user_id, :merchant, :testmode, :ordercode, :currency, :amount, :description, :lng))
-    if not request.post?
+    @payment = Pay::Payment.new(
+        user: current_user, merchant: Payge::MERCHANT, testmode: Payge::TESTMODE, 
+        ordercode: self.gen_order_code, currency: 'GEL', amount: params[:pay_payment][:amount],
+        description: 'test payment', lng: 'EN')
+
+    #if not request.post?
+      @payment.prepare_for_step(STEP_SEND)
       @payment.user = current_user
       @payment.successurl = 'http://my.telasi.ge/pay/payment/success'
       @payment.cancelurl = 'http://my.telasi.ge/pay/payment/cancel'
@@ -37,7 +37,7 @@ class Pay::PaymentsController < ApplicationController
       if not @payment.save
         render action: 'show_form'
       end
-    end
+    #end
   end
 
   def gen_order_code
