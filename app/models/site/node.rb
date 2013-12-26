@@ -8,5 +8,16 @@ class Site::Node < ActiveRecord::Base
   def updated_at; Time.at(self.updated) end
 
   def content_type; Site::ContentType.where(entity_type: 'node', bundle: self.type, entity_id: self.nid).first end
+  def content_thumbnail; Site::ContentThumbnail; Site::ContentThumbnail.where(entity_type: 'node', bundle: self.type, entity_id: self.nid).first end
   def content; Site::Content.where(entity_type: 'node', bundle: self.type, entity_id: self.nid).first end
+
+  def thumbnail
+    c_thumbnail = self.content_thumbnail
+    c_thumbnail.file if c_thumbnail
+  end
+
+  def thumbnail_small_url
+    t = self.thumbnail
+    "http://telasi.ge/sites/default/files/styles/single_page/public/#{t.filename}"
+  end
 end
