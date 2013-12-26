@@ -166,12 +166,12 @@ TelasiGe::Application.routes.draw do
 
   namespace 'pay' do
     scope '/payment', controller: :payments do
-      match '/show_form',    action: :show_form
+      match '/show_form',    action: :show_form, via: [:get, :post]
       get '/confirm_form',   action: :confirm_form
       post '/confirm_form',  action: :confirm_form
-      match '/success',      action: :success
-      match '/cancel',       action: :cancel
-      match '/error',        action: :error
+      match '/success',      action: :success, via: [:get, :post]
+      match '/cancel',       action: :cancel, via: [:get, :post]
+      match '/error',        action: :error, via: [:get, :post]
       get   '/callback',     action: :callback
     end  
   end

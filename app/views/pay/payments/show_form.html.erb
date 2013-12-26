@@ -9,7 +9,7 @@
 	        <h4 style="margin: 0;"><i class="fa fa-user"></i> <%= t('form.action.amount') %></h4>
 	      </div>
 	      <div class="panel-body">
-	        <%= form_for @payment, url: confirm_form_url, role: 'form', method: 'get' do |f| %>
+	        <%= form_for @payment, url: pay_confirm_form_url, role: 'form', method: 'get' do |f| %>
 	          <% if @error.present? %><div class="alert alert-danger"><%= @error %></div><% end %>
 	           <%= f.hidden_field :merchant %>
 	           <%= f.hidden_field :ordercode %>
@@ -17,7 +17,8 @@
 	           <%= f.hidden_field :check %>
 	           <%= f.hidden_field :lng %>
 	           <%= f.hidden_field :testmode %>
-               <%= f.b_text_field :amount, autofocus: true, class: 'form-control' %>
+             
+             <%= f.b_text_field :amount, autofocus: true, class: 'form-control' %>
 
 	           <%= f.hidden_field :currency %>
 <!--	           <div class="form-group">

@@ -9,7 +9,9 @@
 	        <h4 style="margin: 0;"><i class="fa fa-user"></i></h4>
 	      </div>
 	      <div class="panel-body">
-	        <%= form_tag('https://www.pay.ge/pay') %>
+	        <%= form_tag 'https://www.pay.ge/pay', method: :post do  %>
+
+
 	          <% if @error.present? %><div class="alert alert-danger"><%= @error %></div><% end %>
 	          <%= hidden_field_tag :merchant, @payment.merchant, class: 'form-control' %>
               <div class="form-group">
@@ -38,6 +40,10 @@
 	        <div>
 	           <%= submit_tag t('buttons.comfirm'), class: ['btn', 'btn-primary'] %>
 	        </div>
+
+	        <% end %>
+
+
 	      </div>
 	    </div>
      </div> 

@@ -1,16 +1,17 @@
 # -*- encoding : utf-8 -*-
-class Payment
+class Pay::Payment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :userid,           type: String                  # მომხმარებელის ID
+  belongs_to :user, class_name: 'Sys::User'              # მომხმარებელი
+
   field :merchant, 	       type: String					         # მერჩანტის უნიკალური კოდი
   field :ordercode,        type: Integer					       # მერჩანტის ტრანზაქციის უნიკალური კოდი
   field :amount, 	         type: Float  					       # თანხა
   field :amount_tech,      type: Integer                 # თანხა თეტრებში
-  field :currency,         type: String                  # ვალუტა GEL
+  field :currency,         type: String, default: 'GEL'  # ვალუტა GEL
   field :date,             type: DateTime                # თარიღი
-  field :status,           type: String                  # თარიღი
+  field :status,           type: String                  # სტატუსი
   field :transactioncode,  type: String                  # ტრანზაქციის კოდი
   field :paymethod,        type: String                  # გადახდის არხის სახელი
   field :description,      type: String					         # ოპერაციის აღწერა
@@ -29,15 +30,24 @@ class Payment
   field :itemN_name,       type: String					         # საქონლის ჩამონათვალი, დასახელება
   field :itemN_price,      type: String					         # საქონლის ჩამონათვალი, ფასი
 
-  validates_presence_of :merchant
-  validates_presence_of :ordercode
-  validates_numericality_of :amount, :greater_than => 0, :message => 'მნიშვნელობა უნდა იყოს 0-ზე მეტი' #'Must be greater then 0'
-#  validates_presence_of :currency
-#  validates_presence_of :lng
-#  validates_presence_of :testmode
-#  validates_presence_of :check
-  
+  validates :merchant, presence: { message: 'ჩაწერეთ მერჩანტი' }
+  validates :ordercode, presence: { message: 'ჩაწერეთ შეკვეთის კოდი' }
+  validates :amount, numericality: { greater_than: 0, message: 'მნიშვნელობა უნდა იყოს 0-ზე მეტი' }
+
+  validates :currency, presence: { message: 'currency not defined' }
+  validates :lng, presence: { message: 'lng not defined' }
+  validates :testmode, presence: { message: 'testmode not defined' }
+  validates :check, presence: { message: 'check not defined' }
+
+  before_save :calculate_tech_amount
+
   STATUS_COMPLETED = 'COMPLETED'
   STATUS_CANCELED  = 'CANCELED'
   STATUS_ERROR     = 'ERROR'
+
+  private
+
+  def calculate_tech_amount
+    self.amount_tech = (self.amount * 100).round
+  end
 end

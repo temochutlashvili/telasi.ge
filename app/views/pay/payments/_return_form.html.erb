@@ -1,4 +1,4 @@
-<%= simple_form_for @payment, :url => confirm_form_url, :html => {:id => 'register-form', :class => 'form-horizontal'}, :method => 'post' do |f| %> 
+<%= simple_form_for @payment, :url => pay_confirm_form_url, :html => {:id => 'register-form', :class => 'form-horizontal'}, :method => 'post' do |f| %> 
   <%= f.input :status, disabled: true, :input_html => { :value => params[:status] } %>
   <%= f.input :transactioncode, disabled: true, :input_html => { :value => params[:transactioncode] } %>
   <%= f.input :date, disabled: true, :input_html => { :value => params[:date] } %>
