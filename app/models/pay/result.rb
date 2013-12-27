@@ -1,5 +1,4 @@
-# -*- encoding : utf-8 -*-
-class Pay::Result
+class Result
   include Mongoid::Document
 
   field :resultcode,       type: Integer
