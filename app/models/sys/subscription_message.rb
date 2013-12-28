@@ -18,7 +18,7 @@ class Sys::SubscriptionMessage
 
   def self.generate_subscription_messages
     last_nid = Sys::SubscriptionMessage.last.nid rescue 0
-    news = Site::Node.where('type = ? AND nid > ? AND created > ?', 'news', last_nid, (Time.now - 1.days).to_i)
+    news = Site::Node.where('type = ? AND nid > ? AND created > ?', 'news', last_nid, (Time.now - 3.days).to_i)
     news.each do |headline|
       headline_type = headline.content_type.field_content_type_value
       Sys::Subscription.each do |subscription|

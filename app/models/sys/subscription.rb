@@ -17,8 +17,8 @@ class Sys::Subscription
 
   def user; Sys::User.where(email: self.email).first end
 
-  def belong_to_type(healine_type)
-    case healine_type
+  def belong_to_type(headline_type)
+    case headline_type
     when 'power'   then self.outage_news
     when 'news'    then self.company_news
     when 'tenders' then self.procurement_news
