@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Payge
   MERCHANT = 'TELASIGE'
-  PASSWORD = 'F2LX9'
+  PASSWORD = ''
   TESTMODE = 1
 end
 
