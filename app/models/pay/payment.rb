@@ -73,8 +73,8 @@ class Pay::Payment
   def check_text(step)
     merchant = 'TEST'
     password = 'hn*8SksyoPPheXJ81VDn'
-    case step:
-     when STEP_SEND # გადახდების გვერდზე გადასვლა
+    case step
+      when STEP_SEND # გადახდების გვერდზე გადასვლა
         [
           PAYGE_PASSWORD,
           TELASI_MERCHANT,
@@ -89,7 +89,7 @@ class Pay::Payment
           self.ispreauth,
           self.postpage
          ].join
-     when STEP_RETURNED # მერჩანტის გვერდზე დაბრუნება
+      when STEP_RETURNED # მერჩანტის გვერდზე დაბრუნება
         [
           self.status,
           self.transactioncode,
@@ -102,7 +102,7 @@ class Pay::Payment
           self.testmode,
           PAYGE_PASSWORD
          ].join
-     when STEP_CALLBACK # PAY სისტემიდან შეტყობინების გამოგზავნა
+      when STEP_CALLBACK # PAY სისტემიდან შეტყობინების გამოგზავნა
         [
           self.status,
           self.transactioncode,
@@ -114,13 +114,14 @@ class Pay::Payment
           self.testmode,
           PAYGE_PASSWORD
          ].join
-     when STEP_RESPONSE # PAY სისტემის შეტყობინებაზე პასუხი
+      when STEP_RESPONSE # PAY სისტემის შეტყობინებაზე პასუხი
         [
           self.resultcode,
           self.resultdesc,
           self.transactioncode,
           PAYGE_PASSWORD
          ].join
+    end
   end
 
   def prepare_for_step(step)
