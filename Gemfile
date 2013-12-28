@@ -17,6 +17,7 @@ gem 'jquery-ui-rails'
 
 # db
 gem 'sqlite3'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem 'mongoid', github: 'mongoid/mongoid', ref: '3d1b8aa48340b79b8481ab96b56e0681433b0bcb'
 gem 'ruby-oci8', '~> 2.1.5'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.0'
