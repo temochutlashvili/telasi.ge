@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/ahoward/mongoid-grid_fs.git
+  revision: 059012a2c2a9e0a5d6e67137752c3e918689c88a
+  specs:
+    mongoid-grid_fs (1.9.0)
+      mime-types (~> 1.19)
+      mongoid (>= 3.0, < 5.0)
+
+GIT
   remote: git://github.com/dimakura/forma.git
   revision: a6de870be9797902d251813044ed3956ef402902
   specs:
@@ -67,9 +75,10 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
-    carrierwave-mongoid (0.1.0)
-      carrierwave
-      mongoid
+    carrierwave-mongoid (0.6.3)
+      carrierwave (>= 0.8.0, < 0.10.0)
+      mongoid (>= 3.0, < 5.0)
+      mongoid-grid_fs (~> 1.3)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -224,6 +233,7 @@ DEPENDENCIES
   less (~> 2)
   magti
   mongoid!
+  mongoid-grid_fs!
   mysql2
   prawn
   prawn_rails
