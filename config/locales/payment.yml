@@ -1,4 +1,9 @@
 en:
+    services:
+      title:      'Choose wage to pay'
+      energy:     'Electricity bill'
+      trash:      'Refuse service'  
+      network:    'Connection to network'
     form_titles:
       show_form:  'Electricity bill'
       confirm_form: 'Review and confirm electricity bill payment'
@@ -18,6 +23,11 @@ en:
       comfirm:    'Confirm transaction'
       back:       'Back'
 ka:
+    services:
+      title:      'აირჩიეთ გადასახადი'
+      energy:     'ელ. ენერგიის გადასახადი'
+      trash:      'გასუფთავების სამსახური'  
+      network:    'ქსელში მიერთება'
     form_titles:
       show_form:  'ელ. ენერგიის დავალიანების გადახდა'
       confirm_form: 'ელ. ენერგიის დავალიანების გადახდა დადასტურება'

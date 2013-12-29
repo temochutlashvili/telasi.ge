@@ -12,22 +12,25 @@ class Pay::PaymentsController < ApplicationController
 
  	@mode = MODES[TestMode]
 
+  def services
+  end
+
 	def show_form
-      @payment = Pay::Payment.new(amount: 100)
+    @payment = Pay::Payment.new(amount: 100, merchant: get_current_merchant(params[:serviceid]) )
 	end
 
 	def confirm_form
     @payment = Pay::Payment.new(
         #user: current_user, 
         user: "current_user", 
-        merchant: TELASI_MERCHANT, 
-        #testmode: Payge::TESTMODE, 
-        testmode: 1,
+        #merchant: Payge::MERCHANT,
+        merchant: params[:pay_payment][:merchant],
+        testmode: Payge::TESTMODE, 
         ordercode: self.gen_order_code, currency: 'GEL', amount: params[:pay_payment][:amount],
         description: 'test payment', lng: 'ka', ispreauth: 0, postpage: 0)
 
     #if not request.post?
-      @payment.prepare_for_step(STEP_SEND)
+      @payment.prepare_for_step(Payge::STEP_SEND)
       @payment.user = 'current_user'
       @payment.successurl = 'http://my.telasi.ge/pay/payment/success'
       @payment.cancelurl = 'http://my.telasi.ge/pay/payment/cancel'
@@ -40,7 +43,7 @@ class Pay::PaymentsController < ApplicationController
   end
 
   def gen_order_code
-    @payment = Pay::Payment.where("merchant" => TELASI_MERCHANT).sort([['ordercode', -1]]).first
+    @payment = Pay::Payment.where("merchant" => params[:pay_payment][:merchant]).sort([['ordercode', -1]]).first
 
     return 234566 + @payment.ordercode + 1 if @payment;
     return 234566 + 1 unless @payment;
@@ -110,6 +113,10 @@ class Pay::PaymentsController < ApplicationController
 
       end
     end
+  end
+
+  def get_current_merchant(serviceid)
+    Payge::PAY_SERVICES.find{ |h| h[:ServiceID] == serviceid }[:Merchant]
   end
 
 end

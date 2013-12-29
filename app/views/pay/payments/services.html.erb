@@ -1,0 +1,26 @@
+<!--<div class="modal fade" id="customer-debt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+-->  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><%= t('services.title') %></h4>
+      </div> 
+      <div class="modal-body"> 
+<ul class="list-group">
+  <% Payge::PAY_SERVICES.each do |service| %>
+    <li class="list-group-item">
+    <i class="fa <%= service[:icon] %>"></i>
+    <div class="pull-right">
+      <%= link_to '<i class="fa fa-arrow-right"></i>'.html_safe, pay_show_form_url(:serviceid => service[:ServiceID]), :class => "btn btn-primary btn-xs" %>
+    </div>
+    <%= service[:ServiceName] %>
+    </li>
+  <% end %>
+</ul>
+<div style="margin-top:-20px;">
+</div>
+
+  </div>
+     </div>
+  </div>
+ <!--</div> -->
+

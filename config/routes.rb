@@ -173,6 +173,7 @@ TelasiGe::Application.routes.draw do
       match '/cancel',       action: :cancel, via: [:get, :post]
       match '/error',        action: :error, via: [:get, :post]
       get   '/callback',     action: :callback
+      get   '/services',     action: :services
     end  
   end
 
