@@ -17,18 +17,18 @@ class NewCustomerController < ApplicationController
       @application = Network::NewCustomerApplication.new(application_params)
       @application.user = user
       if @application.save
-        redirect_to show_new_customer_url(id: @application.id)
+        redirect_to show_new_customer_url(id: @application.id), notice: 'განცხადება შექმნილია'
       end
     else
       @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
     end
   end
 
-  # def show
-  #   with_application do
-  #     @title = I18n.t('models.network_new_customer_application.actions.show_page.title')
-  #   end
-  # end
+  def show
+    with_application do
+      @title = I18n.t('models.network_new_customer_application.actions.show_page.title')
+    end
+  end
 
   # def edit
   #   with_application do
@@ -85,15 +85,15 @@ class NewCustomerController < ApplicationController
 
   private
 
-  # def with_application
-  #   @application = Network::NewCustomerApplication.where(user: current_user, _id: params[:id]).first
-  #   if @application
-  #     @nav = nav
-  #     yield if block_given?
-  #   else
-  #     redirect_to new_customer_url, alert: 'not permitted'
-  #   end
-  # end
+  def with_application
+    @application = Network::NewCustomerApplication.where(user: current_user, _id: params[:id]).first
+    if @application
+      @nav = nav
+      yield if block_given?
+    else
+      redirect_to new_customer_url, alert: 'not permitted'
+    end
+  end
 
   def application_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account, :work_address, :address_code, :bank_code, :bank_account, :power, :voltage) end
 end

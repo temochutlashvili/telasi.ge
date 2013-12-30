@@ -1,11 +1,45 @@
 <style type="text/css">
 legend { margin-top: 32px; }
 </style>
+<script type="text/javascript">
+var resetRsNameField = function() {
+  if ($('#network_new_customer_application_rs_foreigner').is(':checked')) {
+    $('#rs-name-field').show();
+    $('#network_new_customer_application_rs_name').focus();
+  } else {
+    $('#rs-name-field').hide();
+    $('#network_new_customer_application_rs_tin').focus();
+    $('#network_new_customer_application_rs_name').val('');
+  }
+};
+$(function() {
+  $('#network_new_customer_application_rs_foreigner').click(function() {
+    resetRsNameField();
+  });
+  resetRsNameField();
+});
+</script>
 <h1 class="page-header"><%= @title %></h1>
+
 <%= form_for @application, url: create_new_customer_url do |f| %>
   <div class="row">
     <div class="col-sm-4">
-      <%= f.b_text_field 'rs_tin', label: t('models.network_new_customer_application.rs_tin'), autofocus: true %>
+      <%= f.label 'rs_tin', t('models.network_new_customer_application.rs_tin') %>
+      <div class="input-group">
+        <%= f.text_field 'rs_tin', autofocus: true, class: 'form-control' %>
+        <span class="input-group-addon">
+          <%= f.label 'rs_foreigner' do %>
+            <%= f.check_box 'rs_foreigner' %>
+            უცხოელი?
+          <% end %>
+        </span>
+      </div>
+      <% if @application.errors[:rs_tin].present? %>
+        <div class="text-danger"><%= @application.errors[:rs_tin].first %></div>
+      <% end %>
+    </div>
+    <div id="rs-name-field" class="col-sm-4">
+      <%= f.b_text_field 'rs_name', label: t('models.network_new_customer_application.rs_name') %>
     </div>
   </div>
 
