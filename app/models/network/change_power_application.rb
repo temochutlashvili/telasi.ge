@@ -22,8 +22,9 @@ class Network::ChangePowerApplication
 
   belongs_to :user, class_name: 'Sys::User'
   field :number,    type: String
-  field :rs_tin,    type: String
-  field :rs_name,   type: String
+  field :rs_tin,       type: String
+  field :rs_foreigner, type: Mongoid::Boolean, default: false
+  field :rs_name,      type: String
   field :mobile,    type: String
   field :email,     type: String
   field :address,   type: String
