@@ -12,7 +12,7 @@ class ActionView::Helpers::FormBuilder
   def b_field(type, name, opts)
     clz = ['form-group']
     clz << 'has-error' if b_errors(name).present?
-    %Q{<div class="#{clz.join(' ')}">#{label_tag(name,opts)}#{input_tag(type,name,opts)}#{error_span(name)}</div>}.html_safe
+    %Q{<div class="#{clz.join(' ')}">#{label_tag(name,opts)}#{input_tag(type,name,opts)}#{hint_span(opts[:hint])}#{error_span(name)}</div>}.html_safe
   end
 
   def label_tag(name, opts)
@@ -35,5 +35,9 @@ class ActionView::Helpers::FormBuilder
     when 'email' then email_field(name, opts)
     when 'date' then date_field(name, opts)
     end
+  end
+
+  def hint_span(hint)
+    %Q{<span class="text-muted">#{hint}</span>} if hint.present?
   end
 end

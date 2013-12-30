@@ -1,0 +1,68 @@
+<style type="text/css">
+legend { margin-top: 32px; }
+</style>
+<h1 class="page-header"><%= @title %></h1>
+<%= form_for @application, url: create_new_customer_url do |f| %>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= f.b_text_field 'rs_tin', label: t('models.network_new_customer_application.rs_tin'), autofocus: true %>
+    </div>
+  </div>
+
+  <!-- contact information -->
+  <legend>საკონტაქტო ინფორმაცია</legend>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= f.b_text_field 'mobile', label: t('models.network_new_customer_application.mobile') %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.b_text_field 'email', label: t('models.network_new_customer_application.email') %>
+    </div>
+  </div>
+  <%= f.b_text_field 'address', label: t('models.network_new_customer_application.address') %>
+
+  <!-- tech properties -->
+  <legend>ტექნიკური დეტალები</legend>
+  <div class="row">
+    <div class="col-sm-8">
+      <%= f.b_text_field 'work_address', label: t('models.network_new_customer_application.work_address'), hint: t('models.network_new_customer_application.work_address_hint') %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.b_text_field 'address_code', label: t('models.network_new_customer_application.address_code') %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label><%= t('models.network_new_customer_application.voltage') %></label>
+        <%= f.select 'voltage', voltage_collection, {}, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <%= f.b_text_field 'power', label: "#{t('models.network_new_customer_application.power')}, kWh" %>
+    </div>
+  </div>
+
+  <!-- bank details -->
+  <legend>განმცხადებლის საბანკო რეკვიზიტები</legend>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label><%= t('models.network_new_customer_application.bank_code') %></label>
+        <%= f.select 'bank_code', banks, { include_blank: '-- აარჩიეთ ბანკი --' }, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <%= f.b_text_field 'bank_account', label: t('models.network_new_customer_application.bank_account') %>
+    </div>
+  </div>
+
+  <div>
+    <hr />
+    <%= f.submit t('models.general.actions.save'), class: ['btn', 'btn-primary'] %>
+    <a href="<%= new_customer_url %>" class="btn btn-default">
+      <i class="fa fa-times-circle"></i>
+      <%= t('models.general.actions.cancel') %>
+    </a>
+  </div>
+<% end %>

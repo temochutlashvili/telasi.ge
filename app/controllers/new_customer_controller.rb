@@ -10,20 +10,19 @@ class NewCustomerController < ApplicationController
     end
   end
 
-  # def new
-  #   @title = I18n.t('models.network_new_customer_application.actions.new')
-  #   user = current_user
-  #   if request.post?
-  #     @application = Network::NewCustomerApplication.new(application_params)
-  #     @application.user = user
-  #     if @application.save
-  #       redirect_to show_new_customer_url(id: @application.id)
-  #     end
-  #   else
-  #     @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
-  #   end
-  #   # render layout: 'two_columns'
-  # end
+  def new
+    @title = I18n.t('models.network_new_customer_application.actions.new')
+    user = current_user
+    if request.post?
+      @application = Network::NewCustomerApplication.new(application_params)
+      @application.user = user
+      if @application.save
+        redirect_to show_new_customer_url(id: @application.id)
+      end
+    else
+      @application = Network::NewCustomerApplication.new(mobile: user.mobile, email: user.email)
+    end
+  end
 
   # def show
   #   with_application do
@@ -77,7 +76,14 @@ class NewCustomerController < ApplicationController
   #   end
   # end
 
-  # private
+  def nav
+    @nav = { I18n.t('models.network_new_customer_application.actions.index_page.title') => new_customer_url }
+    case action_name
+    when 'new' then @nav[I18n.t('models.network_new_customer_application.actions.new')] = create_new_customer_url
+    end
+  end
+
+  private
 
   # def with_application
   #   @application = Network::NewCustomerApplication.where(user: current_user, _id: params[:id]).first
@@ -89,7 +95,5 @@ class NewCustomerController < ApplicationController
   #   end
   # end
 
-  def application_params; params.require(:network_new_customer_application).permit(:rs_tin,
-    :mobile, :email, :address, :bank_code, :bank_account, :work_address, :address_code,
-    :bank_code, :bank_account, :power, :voltage) end
+  def application_params; params.require(:network_new_customer_application).permit(:rs_tin, :mobile, :email, :address, :bank_code, :bank_account, :work_address, :address_code, :bank_code, :bank_account, :power, :voltage) end
 end
