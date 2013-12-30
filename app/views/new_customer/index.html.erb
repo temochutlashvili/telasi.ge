@@ -1,68 +1,72 @@
 <h1 class="page-header"><%= @title %></h1>
-<div class="btn-toolbar">
-  <a class="btn btn-success"><i class="fa fa-plus-circle"></i> ქსელზე მიერთების ახალი განცხადება</a>
-</div>
-<hr>
-<% if @applications.any? %>
-<% @applications.each do |app| %>
-  <div class="page-header">
-    <h3>განცხადება <code>#<%= app.effective_number %></code></h3>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <div class="pull-right">
-            <code><%= app.address_code %></code>
-            <%= app.work_address %>
-          </div>
-          მისამართი
-        </li>
-        <li class="list-group-item">
-          <div class="pull-right">
-            <code><%= app.rs_tin %></code>
-            <%= app.rs_name %>
-          </div>
-          განმცხადებელი
-        </li>
-        <li class="list-group-item">
-          <div class="pull-right">
-            <img src="<%= app.status_icon %>"></img>
-            <%= app.status_name %>
-          </div>
-          სტატუსი
-        </li>
-        <li class="list-group-item">
-          <div class="pull-right">
-            <code><%= app.power.to_i %></code> kWh /
-            <code><%= app.voltage %></code> <%= app.unit %>
-          </div>
-          სიმძლავრე
-        </li>
-        <li class="list-group-item">
-          <div class="pull-right">
-            <code><%= number_with_precision app.amount, delimiter: ',', separator: '.', precision: 2 %></code> GEL
-          </div>
-          ღირებულება
-        </li>
-        <li class="list-group-item">
-          <div class="pull-right">
-            <code><%= number_with_precision app.paid, delimiter: ',', separator: '.', precision: 2 %></code> GEL
-          </div>
-          გადახდილია
-        </li>
-        <% if app.plan_end_date %>
+<div class="row">
+  <div class="col-sm-8">
+    <% if @applications.any? %>
+        <% @applications.each do |app| %>
+        <div class="page-header">
+          <h3>განცხადება <code>#<%= app.effective_number %></code></h3>
+        </div>
+        <ul class="list-group">
           <li class="list-group-item">
             <div class="pull-right">
-              <%= app.plan_end_date.strftime('%d/%m/%Y') %>
+              <code><%= app.address_code %></code>
+              <%= app.work_address %>
             </div>
-            გეგმიური დასრულების თარიღი
+            მისამართი
           </li>
-        <% end %>
-      </ul>
+          <li class="list-group-item">
+            <div class="pull-right">
+              <code><%= app.rs_tin %></code>
+              <%= app.rs_name %>
+            </div>
+            განმცხადებელი
+          </li>
+          <li class="list-group-item">
+            <div class="pull-right">
+              <img src="<%= app.status_icon %>"></img>
+              <%= app.status_name %>
+            </div>
+            სტატუსი
+          </li>
+          <li class="list-group-item">
+            <div class="pull-right">
+              <code><%= app.power.to_i %></code> kWh /
+              <code><%= app.voltage %></code> <%= app.unit %>
+            </div>
+            სიმძლავრე
+          </li>
+          <li class="list-group-item">
+            <div class="pull-right">
+              <code><%= number_with_precision app.amount, delimiter: ',', separator: '.', precision: 2 %></code> GEL
+            </div>
+            ღირებულება
+          </li>
+          <li class="list-group-item">
+            <div class="pull-right">
+              <code><%= number_with_precision app.paid, delimiter: ',', separator: '.', precision: 2 %></code> GEL
+            </div>
+            გადახდილია
+          </li>
+          <% if app.plan_end_date %>
+            <li class="list-group-item">
+              <div class="pull-right">
+                <%= app.plan_end_date.strftime('%d/%m/%Y') %>
+              </div>
+              გეგმიური დასრულების თარიღი
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% else %>
+      <div class="well">
+        თქვენ არც ერთი განცხადება არ გაქვთ რეგისტრირებული.
+        ქსელზე მიერთების რეგისტრაციის დასაწყებად მიაჭირეთ ღილაკს "ახალი განცხადება".
+      </div>
+    <% end %>
+  </div>
+  <div class="col-sm-4">
+    <div class="btn-toolbar">
+      <a class="btn btn-success"><i class="fa fa-plus-circle"></i> ახალი განცხადება</a>
     </div>
   </div>
-<% end %>
-<% else %>
-B
-<% end %>
+</div>
