@@ -66,8 +66,8 @@ class Network::NewCustomerApplication
   field :factura_id, type: Integer
   field :factura_seria, type: String
   field :factura_number, type: Integer
-  field :need_factura, type: Mongoid::Boolean, default: true
-  field :show_tin_on_print, type: Mongoid::Boolean, default: true
+  field :need_factura, type: Mongoid::Boolean, default: false
+  field :show_tin_on_print, type: Mongoid::Boolean, default: false
   # aviso id
   field :aviso_id, type: Integer
 
