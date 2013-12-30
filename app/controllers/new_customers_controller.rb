@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class NewCustomerController < ApplicationController
+class NewCustomersController < ApplicationController
   before_action :validate_login
 
   def index
@@ -26,7 +26,10 @@ class NewCustomerController < ApplicationController
 
   def show
     with_application do
-      @title = I18n.t('models.network_new_customer_application.actions.show_page.title')
+      respond_to do |f|
+        f.html { @title = I18n.t('models.network_new_customer_application.actions.show_page.title') }
+        f.pdf { render template: 'network/new_customer/print' }
+      end
     end
   end
 
@@ -77,9 +80,13 @@ class NewCustomerController < ApplicationController
   # end
 
   def nav
-    @nav = { I18n.t('models.network_new_customer_application.actions.index_page.title') => new_customer_url }
-    case action_name
-    when 'new' then @nav[I18n.t('models.network_new_customer_application.actions.new')] = create_new_customer_url
+    @nav = { I18n.t('models.network_new_customer_application.actions.index_page.title') => new_customers_url }
+    if @application
+      if @application.new_record?
+        @nav[I18n.t('models.network_new_customer_application.actions.new')] = create_new_customer_url
+      else
+        @nav["განცხადება ##{@application.effective_number}"] = new_customer_url(id: @application.id)
+      end
     end
   end
 
