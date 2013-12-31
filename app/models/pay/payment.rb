@@ -5,6 +5,7 @@ class Pay::Payment
 
   #belongs_to :user, class_name: 'Sys::User'              # მომხმარებელი
   field :user,             type: String
+  field :serviceid,        type: String                  # მერჩანტის უნიკალური კოდი
   field :merchant, 	       type: String					         # მერჩანტის უნიკალური კოდი
   field :ordercode,        type: Integer					       # მერჩანტის ტრანზაქციის უნიკალური კოდი
   field :amount, 	         type: Float  					       # თანხა
@@ -12,6 +13,7 @@ class Pay::Payment
   field :currency,         type: String, default: 'GEL'  # ვალუტა GEL
   field :date,             type: DateTime                # თარიღი
   field :status,           type: String                  # სტატუსი
+  field :instatus,         type: String                  # სტატუსი
   field :transactioncode,  type: String                  # ტრანზაქციის კოდი
   field :paymethod,        type: String                  # გადახდის არხის სახელი
   field :description,      type: String					         # ოპერაციის აღწერა
@@ -48,6 +50,10 @@ class Pay::Payment
   STATUS_CANCELED  = 'CANCELED'
   STATUS_ERROR     = 'ERROR'
 
+  INSTATUS_OK = 'OK'
+  INSTATUS_RET_CHECK_ERROR = 'RET_CHECK_ERROR'
+  INSTATUS_CAL_CHECK_ERROR = 'RET_CALLB_ERROR'
+
 # $str = $secretkey
 #            . $merchant
 #            . $ordercode
@@ -65,19 +71,20 @@ class Pay::Payment
 
   def amount_tech; (self.amount * 100).round end
 
-  STEP_SEND     = 1
-  STEP_RETURNED = 2
-  STEP_CALLBACK = 3
-  STEP_RESPONSE = 4  
+  def get_current_password(merchant)
+   Payge::PAY_SERVICES.find{ |h| h[:Merchant] == merchant }[:Password]
+  end
 
   def check_text(step)
     merchant = 'TEST'
     password = 'hn*8SksyoPPheXJ81VDn'
-    case step:
-     when STEP_SEND # გადახდების გვერდზე გადასვლა
+    case step
+     when Payge::STEP_SEND # გადახდების გვერდზე გადასვლა
         [
-          PAYGE_PASSWORD,
-          TELASI_MERCHANT,
+          #PAYGE_PASSWORD,
+          #TELASI_MERCHANT,
+          get_current_password(self.merchant),
+          self.merchant,
           self.ordercode,
           self.amount_tech,
           self.currency,
@@ -89,7 +96,7 @@ class Pay::Payment
           self.ispreauth,
           self.postpage
          ].join
-     when STEP_RETURNED # მერჩანტის გვერდზე დაბრუნება
+     when Payge::STEP_RETURNED # მერჩანტის გვერდზე დაბრუნება
         [
           self.status,
           self.transactioncode,
@@ -100,9 +107,9 @@ class Pay::Payment
           self.paymethod,
           self.customdata,
           self.testmode,
-          PAYGE_PASSWORD
+          get_current_password(self.merchant),
          ].join
-     when STEP_CALLBACK # PAY სისტემიდან შეტყობინების გამოგზავნა
+     when Payge::STEP_CALLBACK # PAY სისტემიდან შეტყობინების გამოგზავნა
         [
           self.status,
           self.transactioncode,
@@ -112,15 +119,16 @@ class Pay::Payment
           self.paymethod,
           self.customdata,
           self.testmode,
-          PAYGE_PASSWORD
+          get_current_password(self.merchant),
          ].join
-     when STEP_RESPONSE # PAY სისტემის შეტყობინებაზე პასუხი
+     when Payge::STEP_RESPONSE # PAY სისტემის შეტყობინებაზე პასუხი
         [
           self.resultcode,
           self.resultdesc,
           self.transactioncode,
-          PAYGE_PASSWORD
+          get_current_password(self.merchant),
          ].join
+    end
   end
 
   def prepare_for_step(step)

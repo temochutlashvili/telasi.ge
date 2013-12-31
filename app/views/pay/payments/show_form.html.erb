@@ -1,24 +1,23 @@
-<div class='container'>
-	<div class="page-header">
-	  <h2><%= t('form_titles.show_form') %></h2>
-	</div>
+<div class="row">
+  <div class="col-sm-8">
+  	<div class="panel panel-default">
 
-	  <div class="col-sm-6">
-	    <div class="panel panel-default">
-	      <div class="panel-heading">
-	        <h4 style="margin: 0;"><i class="fa fa-user"></i> <%= t('form.action.amount') %></h4>
-	      </div>
+	  <div class="panel-heading">
+	    <h4 style="margin: 0;"><%= servicetext(params[:serviceid]) %></h4>
+	  </div>
+
 	      <div class="panel-body">
 	        <%= form_for @payment, url: pay_confirm_form_url, role: 'form', method: 'get' do |f| %>
 	          <% if @error.present? %><div class="alert alert-danger"><%= @error %></div><% end %>
 	           <%= f.hidden_field :merchant %>
+	           <%= f.hidden_field :serviceid %>
 	           <%= f.hidden_field :ordercode %>
 	           <%= f.hidden_field :description %>
 	           <%= f.hidden_field :check %>
 	           <%= f.hidden_field :lng %>
 	           <%= f.hidden_field :testmode %>
              
-             <%= f.b_text_field :amount, autofocus: true, class: 'form-control' %>
+               <%= f.b_text_field :amount, label: t('form.action.amount'), autofocus: true %>
 
 	           <%= f.hidden_field :currency %>
 <!--	           <div class="form-group">
@@ -30,7 +29,6 @@
           </div>
         <% end %>
 	      </div>
-	    </div>
-	  </div> 
-
+	</div>
+  </div>
 </div>

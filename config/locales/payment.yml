@@ -1,4 +1,9 @@
 en:
+    services:
+      title:      'Choose wage to pay'
+      energy:     'Electricity bill'
+      trash:      'Refuse service'  
+      network:    'Connection to network'
     form_titles:
       show_form:  'Electricity bill'
       confirm_form: 'Review and confirm electricity bill payment'
@@ -13,17 +18,17 @@ en:
     form:
       action:
         amount:   'Enter amount'
+      confirm:    'Confirmation'
     buttons:
       pay:        'Proceed to transaction'
       comfirm:    'Confirm transaction'
       back:       'Back'
 ka:
-    form_titles:
-      show_form:  'ელ. ენერგიის დავალიანების გადახდა'
-      confirm_form: 'ელ. ენერგიის დავალიანების გადახდა დადასტურება'
-      success_form: 'ელ. ენერგიის დავალიანების გადახდა წარმატებით დასრულდა'
-      cancel_form:  'ელ. ენერგიის დავალიანების გადახდა გაუქმდა'
-      error_form:  'ელ. ენერგიის დავალიანების გადახდა შეცდომით დასრულდა'
+    services:
+      title:      'აირჩიეთ გადასახადი'
+      energy:     'ელ. ენერგიის გადასახადი'
+      trash:      'გასუფთავების სამსახური'
+      network:    'ქსელში მიერთება'
     payment:
        merchant:  'მერჩანტი'
        ordercode: 'ტრანზაქციის კოდი'
@@ -32,6 +37,7 @@ ka:
     form:
       action:
         amount:   'შეიტანეთ თანხა'
+      confirm:    'დასტური'
     buttons:
       pay:        'ტრანზაქციის შესრულება'
       comfirm:    'ტრანზაქციის დასტური'
