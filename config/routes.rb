@@ -174,10 +174,7 @@ TelasiGe::Application.routes.draw do
       match '/error',        action: :error, via: [:get, :post]
       get   '/callback',     action: :callback
       get   '/services',     action: :services
-<<<<<<< HEAD
       get   '',              action: :index
-=======
->>>>>>> b539e08d6b8ac48f1376ec416abe8cf04581bc5b
     end  
   end
 
