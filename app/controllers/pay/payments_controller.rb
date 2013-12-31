@@ -47,10 +47,10 @@ class Pay::PaymentsController < ApplicationController
     #if not request.post?
       @payment.prepare_for_step(Payge::STEP_SEND)
       @payment.user = 'current_user'
-      @payment.successurl = 'http://localhost:3000/pay/payment/success?'
-      @payment.cancelurl = 'http://localhost:3000/pay/payment/cancel?'
-      @payment.errorurl = 'http://localhost:3000/pay/payment/error?'
-      @payment.callbackurl = 'http://localhost:3000/pay/payment/callback?'
+      @payment.successurl = 'http://my.telasi.ge/pay/payment/success?'
+      @payment.cancelurl = 'http://my.telasi.ge/pay/payment/cancel?'
+      @payment.errorurl = 'http://my.telasi.ge/pay/payment/error?'
+      @payment.callbackurl = 'http://my.telasi.ge/pay/payment/callback?'
       if not @payment.save
         render action: 'show_form'
       end
