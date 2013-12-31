@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 module PaymentsHelper
 
-	def servicetext(serviceid)
-		return t("services.#{serviceid.downcase}")
+    def servicetext(serviceid)
+       return t("services.#{serviceid.downcase}")
     end
 
     def merchant_collection
