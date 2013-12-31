@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Pay::PaymentsController < ApplicationController
 
-	MODES = [LiveMode = 0, TestMode = 1]
-	LANGUAGES = [LngENG = 'EN', LngGEO = 'KA']
+  MODES = [LiveMode = 0, TestMode = 1]
+  LANGUAGES = [LngENG = 'EN', LngGEO = 'KA']
 
   RESULTCODE_OK = 0
   RESULTCODE_DOUBLE = 1
@@ -10,7 +10,7 @@ class Pay::PaymentsController < ApplicationController
   RESULTCODE_NOT_FOUND = -2
   RESULTCODE_PARAMETER = -3
 
- 	@mode = MODES[TestMode]
+  @mode = MODES[TestMode]
 
   def services
   end
