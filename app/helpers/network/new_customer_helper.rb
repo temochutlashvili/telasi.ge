@@ -34,7 +34,11 @@ module Network::NewCustomerHelper
     forma_for application, title: opts[:title], collapsible: true, icon: opts[:icon] do |f|
       f.tab do |t|
         t.text_field  :number, autofocus: true, label: 'ნომერი'
-        t.text_field  :rs_tin, required: true
+        t.complex_field label: 'საიდ.კოდი/უცხოელია?/დასახელება', required: true do |c|
+          c.text_field  :rs_tin
+          c.boolean_field :rs_foreigner
+          c.text_field :rs_name, width: 400
+        end
         t.combo_field :vat_options, collection: vat_collection, empty: false, i18n: 'vat_name', required: true
         t.boolean_field :need_factura, required: true
         t.boolean_field :show_tin_on_print, required: true

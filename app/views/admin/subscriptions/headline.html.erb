@@ -1,3 +1,7 @@
 <h2 class="page-header"><%= @title %></h2>
-
+<% if @node.thumbnail_small_url %>
+  <div class="pull-left" style="margin: 0 16px 16px 0;">
+    <img class="thumbnail" src="<%= @node.thumbnail_small_url %>"></img>
+  </div>
+<% end %>
 <%= @node.content.body_value.html_safe %>

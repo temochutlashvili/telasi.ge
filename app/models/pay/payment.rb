@@ -79,7 +79,11 @@ class Pay::Payment
     merchant = 'TEST'
     password = 'hn*8SksyoPPheXJ81VDn'
     case step
+<<<<<<< HEAD
      when Payge::STEP_SEND # გადახდების გვერდზე გადასვლა
+=======
+      when STEP_SEND # გადახდების გვერდზე გადასვლა
+>>>>>>> master
         [
           #PAYGE_PASSWORD,
           #TELASI_MERCHANT,
@@ -96,7 +100,11 @@ class Pay::Payment
           self.ispreauth,
           self.postpage
          ].join
+<<<<<<< HEAD
      when Payge::STEP_RETURNED # მერჩანტის გვერდზე დაბრუნება
+=======
+      when STEP_RETURNED # მერჩანტის გვერდზე დაბრუნება
+>>>>>>> master
         [
           self.status,
           self.transactioncode,
@@ -109,7 +117,11 @@ class Pay::Payment
           self.testmode,
           get_current_password(self.merchant),
          ].join
+<<<<<<< HEAD
      when Payge::STEP_CALLBACK # PAY სისტემიდან შეტყობინების გამოგზავნა
+=======
+      when STEP_CALLBACK # PAY სისტემიდან შეტყობინების გამოგზავნა
+>>>>>>> master
         [
           self.status,
           self.transactioncode,
@@ -121,7 +133,11 @@ class Pay::Payment
           self.testmode,
           get_current_password(self.merchant),
          ].join
+<<<<<<< HEAD
      when Payge::STEP_RESPONSE # PAY სისტემის შეტყობინებაზე პასუხი
+=======
+      when STEP_RESPONSE # PAY სისტემის შეტყობინებაზე პასუხი
+>>>>>>> master
         [
           self.resultcode,
           self.resultdesc,

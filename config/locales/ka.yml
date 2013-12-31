@@ -22,6 +22,12 @@ ka:
       subscriptions: "სიახლეების გამოწერა"
     new_customer_title: ქსელზე მიერთება
     new_customer_description: ახალ აბონენტად დარეგისტრირება.
+    new_customer:
+      general: ძირითადი
+      items: ოპერაციები
+      files: ფაილები
+      messages: შეტყობინებები
+      operations: ოპერაციები
     calculator_title: კალკულატორი
     calculator_description: გაიგეთ რამდენს ხარჯავთ
   info:
@@ -71,6 +77,7 @@ ka:
         search: ძებნა
         show: ნახვა
         edit: შეცვლა
+        print: ბეჭდვა
     sys_user:
       title:
         single: მომხმარებელი
@@ -214,11 +221,11 @@ ka:
       mobile: მობილური
       email: ელ.ფოსტა
       vat_name: დღგ-ს გადამხდელი
-      address: იურ. მისამართი
+      address: იურიდიული მისამართი
       address_code: საკადასტრო კოდი
       address_hint: იურიდიული ან რეგისტრაციის მისამართი
-      work_address: გამრ. მისამართი
-      work_address_hint: "გამრიცხველიანების მისამართი (დატოვეთ ცარიელი, თუ ემთხვევა იურიდიულ მისამართს)"
+      work_address: გამრიცხველიანების მისამართი
+      work_address_hint: "დატოვეთ ცარიელი, თუ ემთხვევა იურიდიულ მისამართს"
       bank_code: ბანკის SWIFT კოდი
       bank_account: საბანკო ანგარიშის ნომერი IBAN ფორმატში
       bank_account_alt: საბანკო ანგარიში
@@ -261,6 +268,7 @@ ka:
       vat_name: დღგ-ს გადამხდელი?
       rs_name: განმცხადებელი
       rs_tin: პირადი ნომერი ან საიდენტიფიკაციო კოდი
+      rs_foreigner: უცხოელია?
       rs_tin_hint: "ფიზიკური პირებისთვის ჩაწერეთ 11 ნიშნა პირადი ნომერი, ხოლო ორგანიზაციებისთვის &mdash; 9-ნიშნა საიდენტიფიკაციო ნომერი"
       rs_vat_payer: დღგ-ს გადამხდელი?
       rs_vat_payer_hint: არის თუ არა ეს ორგანიზაცია დღგ-ს გადამხდელი?
@@ -269,11 +277,11 @@ ka:
       mobile: მობილური
       formatted_mobile: მობილური
       email: ელ.ფოსტა
-      address: იურ. მისამართი
+      address: იურიდიული მისამართი
       address_code: საკადასტრო კოდი
       address_hint: იურიდიული ან რეგისტრაციის მისამართი
-      work_address: გამრ. მისამართი
-      work_address_hint: "გამრიცხველიანების მისამართი (დატოვეთ ცარიელი, თუ ემთხვევა იურიდიულ მისამართს)"
+      work_address: გამრიცხველიანების მისამართი
+      work_address_hint: "დატოვეთ ცარიელი, თუ ემთხვევა იურიდიულ მისამართს"
       work_address_2: გამრიცხველიანების მისამართი
       bank_code: ბანკის SWIFT კოდი
       bank_account: საბანკო ანგარიშის ნომერი IBAN ფორმატში
@@ -325,6 +333,8 @@ ka:
       show_tin_on_print_hint: გამოიტანოს თუ არა აბონენტის საიდენტიფიკაციო კოდი საბეჭდ ფორმაში?
       technical_parameters: ტექნიკური პარამეტრები
       notes: შენიშვნები
+      customer: ბილინგის აბონენტი
+      unit_days: დღე
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი

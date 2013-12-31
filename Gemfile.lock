@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/dimakura/forma.git
-  revision: a6de870be9797902d251813044ed3956ef402902
+  revision: f664bf1f0557611ad3db9a76231bbd1fe8ce607c
   specs:
-    forma (0.1.1)
+    forma (0.1.2)
       activesupport
       railties (>= 3.1)
 

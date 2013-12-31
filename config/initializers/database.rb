@@ -35,3 +35,5 @@ Billing::WaterPayment.establish_connection  :report_bs
 Site::Node.establish_connection :telasi_site
 Site::ContentType.establish_connection :telasi_site
 Site::Content.establish_connection :telasi_site
+Site::ContentThumbnail.establish_connection :telasi_site
+Site::File.establish_connection :telasi_site

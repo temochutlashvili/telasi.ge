@@ -1,0 +1,2 @@
+<h1 class="page-header"><%= @title %></h1>
+<%= render partial: 'new_customers/form', locals: { submit_url: edit_new_customer_url(id: @application.id), cancel_url: new_customer_url(id: @application.id) } %>
