@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 module Payge
-<<<<<<< HEAD
-
   PAY_SERVICES = [ { :ServiceID => 'ENERGY',
                      :ServiceName => 'ელ. ენერგია',
   	                 :Merchant => 'TEST',
@@ -28,19 +26,4 @@ module Payge
   STEP_RETURNED = 2
   STEP_CALLBACK = 3
   STEP_RESPONSE = 4
-
-  def sasd
-
-  end
-
-  module_function :sasd
 end
-=======
-  MERCHANT = 'TELASIGE'
-  PASSWORD = ''
-  TESTMODE = 1
-end
-
-TELASI_MERCHANT = 'TELASIGE'
-PAYGE_PASSWORD  = 'maka'
->>>>>>> master
