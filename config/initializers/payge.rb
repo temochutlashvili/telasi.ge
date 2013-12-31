@@ -21,8 +21,6 @@ module Payge
   merchant = 'TEST'
   password = 'hn*8SksyoPPheXJ81VDn'
 
-  #MERCHANT = 'TELASIGE'
-  #PASSWORD = 'F2LX9'
   TESTMODE = 1
 
   STEP_SEND     = 1
