@@ -15,6 +15,7 @@ class Pay::PaymentsController < ApplicationController
   def services
   end
 
+<<<<<<< HEAD
   def index
     @search = params[:search] == 'clear' ? {} : params[:search]
     rel = Pay::Payment
@@ -32,13 +33,21 @@ class Pay::PaymentsController < ApplicationController
 
 	def show_form
     @payment = Pay::Payment.new(amount: 100, serviceid: params[:serviceid], merchant: get_current_merchant(params[:serviceid]) )
+=======
+	def show_form
+    @payment = Pay::Payment.new(amount: 100, merchant: get_current_merchant(params[:serviceid]) )
+>>>>>>> b539e08d6b8ac48f1376ec416abe8cf04581bc5b
 	end
 
 	def confirm_form
     @payment = Pay::Payment.new(
         #user: current_user, 
         user: "current_user", 
+<<<<<<< HEAD
         serviceid: params[:pay_payment][:serviceid],
+=======
+        #merchant: Payge::MERCHANT,
+>>>>>>> b539e08d6b8ac48f1376ec416abe8cf04581bc5b
         merchant: params[:pay_payment][:merchant],
         testmode: Payge::TESTMODE, 
         ordercode: self.gen_order_code, currency: 'GEL', amount: params[:pay_payment][:amount],
