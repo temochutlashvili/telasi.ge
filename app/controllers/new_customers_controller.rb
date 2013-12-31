@@ -27,9 +27,27 @@ class NewCustomersController < ApplicationController
   def show
     with_application do
       respond_to do |format|
-        format.html { @title, @pill = I18n.t('models.network_new_customer_application.actions.show_page.title'), 'general' }
+        format.html { @title, @pill = I18n.t('applications.new_customer.general'), 'general' }
         format.pdf { render template: 'network/new_customer/print' }
       end
+    end
+  end
+
+  def files
+    with_application do
+      @title, @pill = I18n.t('applications.new_customer.files'), 'files'
+    end
+  end
+
+  def messages
+    with_application do
+      @title, @pill = I18n.t('applications.new_customer.messages'), 'messages'
+    end
+  end
+
+  def items
+    with_application do
+      @title, @pill = I18n.t('applications.new_customer.items'), 'items'
     end
   end
 
