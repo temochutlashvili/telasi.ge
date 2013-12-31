@@ -41,6 +41,11 @@ TelasiGe::Application.routes.draw do
     get '/', action: 'index', as: 'new_customers'
     match '/new', action: 'new', as: 'create_new_customer', via: ['get', 'post']
     get '/show/:id', action: 'show', as: 'new_customer'
+    get '/show/:id/items', action: 'items', as: 'new_customer_items'
+    get '/show/:id/messages', action: 'messages', as: 'new_customer_messages'
+    get '/show/:id/files', action: 'files', as: 'new_customer_files'
+    
+
     # match '/edit/:id', action: 'edit', as: 'edit_new_customer', via: ['get', 'put']
     # get '/payments/:id', action: 'payments', as: 'new_customer_payments'
     # get '/accounts/:id', action: 'accounts', as: 'new_customer_accounts'

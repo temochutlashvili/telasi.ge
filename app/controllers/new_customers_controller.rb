@@ -26,9 +26,9 @@ class NewCustomersController < ApplicationController
 
   def show
     with_application do
-      respond_to do |f|
-        f.html { @title = I18n.t('models.network_new_customer_application.actions.show_page.title') }
-        f.pdf { render template: 'network/new_customer/print' }
+      respond_to do |format|
+        format.html { @title, @pill = I18n.t('models.network_new_customer_application.actions.show_page.title'), 'general' }
+        format.pdf { render template: 'network/new_customer/print' }
       end
     end
   end
