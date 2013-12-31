@@ -35,4 +35,68 @@
       </li>
     </ul>
   </div>
+  <div class="col-sm-6">
+    <h3 class="page-header">მიმდინარეობა</h3>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="pull-right">
+          <%= @application.stage || '--' %>
+        </div>
+        <%= t('models.network_request_item.stage') %>
+      </li>
+      <li class="list-group-item">
+        <div class="pull-right">
+          <% if @application.customer %>
+            <code><%= @application.customer.accnumb.to_ka %></code>
+            <%= @application.customer.custname.to_ka %>
+          <% else %> -- <% end %>
+        </div>
+        <%= t('models.network_new_customer_application.customer') %>
+      </li>
+    </ul>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="pull-right">
+          <code><%= @application.days %></code>
+          <%= t('models.network_new_customer_application.unit_days') %>
+        </div>
+        <%= t('models.network_new_customer_application.days') %>
+      </li>
+      <% ['send_date', 'start_date', 'end_date', 'plan_end_date'].each do |dt| %>
+        <li class="list-group-item">
+          <%= date = @application.send dt %>
+          <div class="pull-right">
+            <% if date %>
+              <%= date.strftime('%d/%M/%Y') %>
+            <% else %>
+            --
+            <% end %>
+          </div>
+          <%= t("models.network_new_customer_application.#{dt}") %>
+        </li>
+      <% end %>
+    </ul>
+    <ul class="list-group">
+      <% ['amount', 'paid', 'remaining'].each do |t| %>
+        <li class="list-group-item">
+          <div class="pull-right">
+            <code><%= number_with_precision @application.send(t), delimiter: ',', separator: '.', precision: 2 %></code>
+            GEL
+          </div>
+          <%= t("models.network_new_customer_application.#{t}") %>
+        </li>
+      <% end %>
+    </ul>
+    <ul class="list-group">
+      <% ['penalty_first_stage', 'penalty_second_stage', 'penalty_third_stage'].each do |t| %>
+        <li class="list-group-item">
+          <div class="pull-right">
+            <code><%= number_with_precision @application.send(t), delimiter: ',', separator: '.', precision: 2 %></code>
+            GEL
+          </div>
+          <%= t("models.network_new_customer_application.#{t}") %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

@@ -333,6 +333,8 @@ ka:
       show_tin_on_print_hint: გამოიტანოს თუ არა აბონენტის საიდენტიფიკაციო კოდი საბეჭდ ფორმაში?
       technical_parameters: ტექნიკური პარამეტრები
       notes: შენიშვნები
+      customer: ბილინგის აბონენტი
+      unit_days: დღე
       errors:
         tin_required: საიდ.კოდის მითითება აუცილებელია
         tin_illegal: არასწორი საიდენტიფიკაციო კოდი
