@@ -1,7 +1,15 @@
 <%= render partial: 'new_customers/top' %>
 <div class="row">
   <div class="col-sm-6">
-    <h3 class="page-header">ძირითადი მონაცემები</h3>
+    <div class="page-header">
+      <div class="pull-right">
+        <a href="<%= edit_new_customer_url(id: @application.id) %>" class="btn btn-default">
+          <i class="fa fa-pencil"></i>
+          <%= t('models.general.actions.edit') %>
+        </a>
+      </div>
+      <h3>ძირითადი მონაცემები</h3>
+    </div>
     <%= render partial: 'new_customers/item', locals: { app: @application } %>
     <!-- mobile /email -->
     <ul class="list-group">
@@ -36,7 +44,9 @@
     </ul>
   </div>
   <div class="col-sm-6">
-    <h3 class="page-header">მიმდინარეობა</h3>
+    <div class="page-header">
+      <h3>მიმდინარეობა</h3>
+    </div>
     <ul class="list-group">
       <li class="list-group-item">
         <div class="pull-right">

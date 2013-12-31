@@ -51,16 +51,16 @@ class NewCustomersController < ApplicationController
     end
   end
 
-  # def edit
-  #   with_application do
-  #     @title = I18n.t('models.network_new_customer_application.actions.edit.title')
-  #     if request.put?
-  #       if @application.update_attributes(application_params)
-  #         redirect_to show_new_customer_url(id: @application.id)
-  #       end
-  #     end
-  #   end
-  # end
+  def edit
+    with_application do
+      @title = I18n.t('models.network_new_customer_application.actions.edit.title')
+      if request.patch?
+        if @application.update_attributes(application_params)
+          redirect_to new_customer_url(id: @application.id)
+        end
+      end
+    end
+  end
 
   # def payments
   #   with_application do
