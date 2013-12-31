@@ -42,6 +42,16 @@
         <%= t('models.network_new_customer_application.work_address') %>
       </li>
     </ul>
+    <!-- bank account -->
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="pull-right">
+          <code><%= @application.bank_code %></code>
+          <%= @application.bank_account %>
+        </div>
+        <%= t('models.network_new_customer_application.bank_account') %>
+      </li>
+    </ul>
   </div>
   <div class="col-sm-6">
     <div class="page-header">
