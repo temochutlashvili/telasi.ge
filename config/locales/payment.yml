@@ -7,7 +7,7 @@ en:
     form_titles:
       show_form:    'Electricity bill'
       confirm_form: 'Review and confirm payment'
-      success_form: 'Payment placed successfully'
+      success_form: 'Payment sent and processing. For updated status, use following site'
       cancel_form:  'Payment cancelled'
       error_form:   'Payment completed with errors'
     payment:
@@ -19,6 +19,7 @@ en:
        currency:    'Currency'
        status:      'Status'
        instatus:    'CRC'
+       gstatus:     'Status'
        clientname:  'Client name'
        date:        'Date/Time'
        testmode:    'Test mode'
@@ -30,12 +31,13 @@ en:
       pay:          'Proceed to transaction'
       comfirm:      'Confirm transaction'
       back:         'Back'
+      history:      'My payments'
     payments:       'Payments'
 ka:
     form_titles:
       cancel_form:  'გადახდა გაუქმებულია'
       confirm_form: 'გადახდა დადასტურება'
-      success_form: 'გადახდა წარმატებით დასრულდა'
+      success_form: 'გადახდა მუშავდება. სტატუსის გადამოწმება შეგიძლიათ გვერდზე'
       error_form:   'გადახდა შეცდომით დასრულდა'
     services:
       title:        'აირჩიეთ გადასახადი'
@@ -51,6 +53,7 @@ ka:
        currency:    'ვალუტა'
        status:      'სტატუსი'
        instatus:    'CRC'
+       gstatus:     'სტატუსი'
        clientname:  'კლიენტის სახელი'
        date:        'თარიღი/დრო'
        testmode:    'სატესტო'
@@ -62,12 +65,13 @@ ka:
       pay:          'ტრანზაქციის შესრულება'
       comfirm:      'ტრანზაქციის დასტური'
       back:         'დაბრუნება'
+      history:      'ჩემი გადახდები'
     payments:       'გადახდები'
 ru:
     form_titles:
       cancel_form:  'Платеж отменен'
       confirm_form: 'Платеж подтвержден'
-      success_form: 'Платеж проведен'
+      success_form: 'Платеж отправлен и обрабатывается. Просмотреть статус можно по следующему сайту'
       error_form:   'Платеж завершен с ошибкой'
     services:
       title:        'Выберите платеж'
@@ -83,6 +87,7 @@ ru:
        currency:    'Валюта'
        status:      'Статус'
        instatus:    'CRC'
+       gstatus:     'Статус'
        clientname:  'Имя клиента'
        date:        'Дата/Время'
        testmode:    'Тест'
@@ -94,4 +99,5 @@ ru:
       pay:          'Провести транзакцию'
       comfirm:      'Подтвердить транзакцию'
       back:         'Назад'
+      history:      'Мои транзакции'
     payments:       'Платежи'
